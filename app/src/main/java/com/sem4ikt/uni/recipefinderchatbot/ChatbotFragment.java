@@ -5,7 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 
 /**
@@ -23,7 +25,7 @@ public class ChatbotFragment extends Fragment {
             return null;
         }
         // Inflate the layout for this fragment
-        View view = (ListView) inflater.inflate(R.layout.chatbot, container, false);
+        View view = (RelativeLayout) inflater.inflate(R.layout.chatbot, container, false);
 
         return view;
     }

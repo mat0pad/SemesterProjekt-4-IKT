@@ -1,12 +1,12 @@
 package com.sem4ikt.uni.recipefinderchatbot;
 
+import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
-
 import com.yalantis.guillotine.animation.GuillotineAnimation;
 
 import butterknife.BindView;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         setupMenu();
 
-
+        startFragment();
 
     }
 
@@ -68,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
         // Create a new Fragment to be placed in the activity layout
         ChatbotFragment firstFragment = new ChatbotFragment();
 
-        // Add the fragment to the 'fragment_container' FrameLayout
-        //getFragmentManager().beginTransaction().add(R.id.frame_container, firstFragment).commit();
-
+        // Add the fragment to the frameLayout
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.frame_container, firstFragment).commit();
 
     }
 
