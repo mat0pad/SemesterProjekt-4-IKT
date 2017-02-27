@@ -27,7 +27,8 @@
 
         <com.sem4ikt.uni.recipefinderchatbot.CanaroTextView
             style="@style/TextView.GuillotineItem"
-            android:text="@string/profile" />
+            android:text="@string/profile"
+            android:onClick="MealPlan_Click"/>
     </LinearLayout>
 
     <LinearLayout

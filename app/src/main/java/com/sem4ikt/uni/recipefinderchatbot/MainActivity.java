@@ -1,5 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     View contentHamburger;
     @BindView(R.id.frame_container)
     FrameLayout frameContainer;
+
+    GuillotineAnimation builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         View guillotineMenu = LayoutInflater.from(this).inflate(R.layout.guillotine, null);
         root.addView(guillotineMenu);
 
-        new GuillotineAnimation.GuillotineBuilder(guillotineMenu, guillotineMenu.findViewById(R.id.guillotine_hamburger), contentHamburger)
+        builder = new GuillotineAnimation.GuillotineBuilder(guillotineMenu, guillotineMenu.findViewById(R.id.guillotine_hamburger), contentHamburger)
                 .setStartDelay(250)
                 .setActionBarViewForAnimation(toolbar)
                 .setClosedOnStart(true)
@@ -74,4 +77,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void MealPlan_Click(View view) {
+
+        //builder.close();
+
+        Intent intent = new Intent(this, DetailRecipeActivity.class);
+        startActivity(intent);
+    }
 }

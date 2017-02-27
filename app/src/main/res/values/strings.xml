@@ -19,7 +19,7 @@
     <string name="profile">MEAL PLAN</string>
     <string name="feed">FAVORITES</string>
     <string name="settings">SETTINGS</string>
-
+    <string name="send">SEND</string>
     <!-- String related to activities-->
     <string name="main_title">RECIPE BOT</string>
 

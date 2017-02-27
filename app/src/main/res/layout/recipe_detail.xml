@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:background="#f6f6f6"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:id="@+id/cutaway">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:src="@drawable/thai"
+                    android:scaleType="centerCrop"
+                    android:id="@+id/imageView"
+                    android:layout_alignParentTop="true" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@drawable/cut_away"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="#FFF"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:text="Spring Egg Rolls"
+                    android:id="@+id/recipe_title"
+                    android:textSize="30sp"
+                    android:gravity="center" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_height="2dp"
+                    android:layout_below="@+id/recipe_title"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/guillotine_background_dark"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="600dp"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
+                    android:padding="10dp"
+                    android:layout_below="@id/recipe_title"
+                    android:text="Licensed under the Apache License,
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to iBASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."/>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>

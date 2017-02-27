@@ -29,6 +29,10 @@
             android:label="@string/app_name">
         </activity>
 
+        <activity
+            android:name=".DetailRecipeActivity"
+            android:label="@string/app_name">
+        </activity>
     </application>
 
 </manifest>
