@@ -7,4 +7,5 @@
     <color name="Primary_Light_Light">#33B76F</color>
     <color name="selected_item_color">#FFFFFF</color>
     <color name="White">#FFFFFF</color>
+    <color name="Gray_Dark">#999999</color>
 </resources>

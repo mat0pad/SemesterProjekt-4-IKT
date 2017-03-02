@@ -13,11 +13,8 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        initTypeface();
-    }
 
-    private void initTypeface() {
         canaroExtraBold = Typeface.createFromAsset(getAssets(), CANARO_EXTRA_BOLD_PATH);
-
     }
+
 }

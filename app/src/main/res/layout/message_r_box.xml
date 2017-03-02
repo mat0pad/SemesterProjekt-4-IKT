@@ -12,6 +12,17 @@
         android:id="@+id/hud_image"
         android:src="@drawable/user_profile"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/from_you"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@id/hud_image"
+        android:layout_toStartOf="@id/hud_image"
+        android:textSize="10sp"
+        android:textColor="@color/Gray_Dark"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

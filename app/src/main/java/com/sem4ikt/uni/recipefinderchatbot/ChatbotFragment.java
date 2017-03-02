@@ -5,9 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
+
+import com.sem4ikt.uni.recipefinderchatbot.Adapter.ChatListAdapter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,8 +20,7 @@ import java.util.List;
 public class ChatbotFragment extends Fragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         if (container == null) {
@@ -38,8 +37,6 @@ public class ChatbotFragment extends Fragment {
         ListView listView = (ListView) view.findViewById(R.id.chat_listview);
 
         listView.setAdapter(adapter);
-
-        adapter.notifyDataSetChanged();
 
         return view;
     }

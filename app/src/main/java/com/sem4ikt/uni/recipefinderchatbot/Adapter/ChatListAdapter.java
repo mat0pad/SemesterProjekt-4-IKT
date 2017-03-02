@@ -1,13 +1,13 @@
-package com.sem4ikt.uni.recipefinderchatbot;
+package com.sem4ikt.uni.recipefinderchatbot.Adapter;
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.TextView;
+
+import com.sem4ikt.uni.recipefinderchatbot.R;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class ChatListAdapter extends BaseAdapter {
     private List<String> dialog;
     private Context mContext;
 
-    ChatListAdapter(List<String> dialog, Context context){
+    public ChatListAdapter(List<String> dialog, Context context){
 
         this.dialog = dialog;
         this.mContext = context;

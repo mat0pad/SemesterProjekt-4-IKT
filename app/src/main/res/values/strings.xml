@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">RecipeFinderChatbot</string>
 
-    <!-- Strings related to login -->
+    <!-- Related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -11,16 +11,18 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+        completions."</string>
 
+    <!-- Messages -->
+    <string name="from_botler">Botler said:</string>
+    <string name="from_you">You said:</string>
 
-    <!-- Strings related to menu-->
-    <string name="profile">MEAL PLAN</string>
-    <string name="feed">FAVORITES</string>
+    <!-- Related to menu-->
+    <string name="meal_plan">MEAL PLAN</string>
+    <string name="favorites">FAVORITES</string>
     <string name="settings">SETTINGS</string>
     <string name="send">SEND</string>
     <!-- String related to activities-->
-    <string name="main_title">RECIPE BOT</string>
+    <string name="recipe_bot">RECIPE BOT</string>
 
 </resources>
