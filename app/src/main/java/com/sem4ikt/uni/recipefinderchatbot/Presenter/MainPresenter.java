@@ -6,22 +6,26 @@ import com.sem4ikt.uni.recipefinderchatbot.View.IMainView;
  * Created by mathiaslykkepedersen on 02/03/2017.
  */
 
-public class MainPresenter implements IMainPresenter {
-
-    private IMainView mainView;
+public class MainPresenter extends BasePresenter<IMainView> implements IMainPresenter {
 
     public MainPresenter(IMainView mainView){
-
-        this.mainView = mainView;
+        super(mainView);
     }
 
     @Override
     public void displayFragment(int fragment) {
-        mainView.showFragment(fragment);
+        view.showFragment(fragment);
     }
 
     @Override
     public void setupMenu() {
-        mainView.setup();
+        view.setup();
     }
+
+    @Override
+    public void onDestroy() {
+        clearView();
+    }
+
+
 }

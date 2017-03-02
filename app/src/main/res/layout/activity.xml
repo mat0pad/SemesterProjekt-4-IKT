@@ -10,8 +10,7 @@
         android:layout_gravity="top"
         android:layout_width="match_parent"
         android:layout_height="@dimen/guillotine_actionbar_background_view_height"
-        android:background="@color/guillotine_background"
-        />
+        android:background="@color/guillotine_background" />
 
     <LinearLayout
         android:layout_width="match_parent"

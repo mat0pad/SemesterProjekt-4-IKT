@@ -8,5 +8,7 @@ public interface IMainPresenter {
 
     void displayFragment(int fragment);
     void setupMenu();
+    void onDestroy();
+
 
 }
