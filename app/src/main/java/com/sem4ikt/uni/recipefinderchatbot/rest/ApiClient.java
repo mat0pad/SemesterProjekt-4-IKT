@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot.Rest;
+package com.sem4ikt.uni.recipefinderchatbot.rest;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

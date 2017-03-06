@@ -1,8 +1,7 @@
-package com.sem4ikt.uni.recipefinderchatbot.Other;
+package com.sem4ikt.uni.recipefinderchatbot.other;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 
 /**

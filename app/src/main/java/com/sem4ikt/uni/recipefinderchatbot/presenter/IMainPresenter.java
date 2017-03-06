@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot.Presenter;
+package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
 /**
  * Created by mathiaslykkepedersen on 02/03/2017.

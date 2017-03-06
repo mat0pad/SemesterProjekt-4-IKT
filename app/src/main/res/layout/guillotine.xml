@@ -25,7 +25,7 @@
             style="@style/ImageView.GuillotineItem"
             android:src="@drawable/ic_activity_active" />
 
-        <com.sem4ikt.uni.recipefinderchatbot.Other.CanaroTextView
+        <com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView
             style="@style/TextView.GuillotineItem.Selected"
             android:text="@string/recipe_bot"
             android:id="@+id/chatbot"/>
@@ -39,7 +39,7 @@
             style="@style/ImageView.GuillotineItem"
             android:src="@drawable/ic_profile" />
 
-        <com.sem4ikt.uni.recipefinderchatbot.Other.CanaroTextView
+        <com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView
             style="@style/TextView.GuillotineItem"
             android:text="@string/meal_plan"
             android:id="@+id/meal_plan"/>
@@ -53,7 +53,7 @@
             style="@style/ImageView.GuillotineItem"
             android:src="@drawable/ic_feed" />
 
-        <com.sem4ikt.uni.recipefinderchatbot.Other.CanaroTextView
+        <com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView
             style="@style/TextView.GuillotineItem"
             android:text="@string/favorites"
             android:id="@+id/favorites"/>
@@ -72,7 +72,7 @@
             style="@style/ImageView.GuillotineItem"
             android:src="@drawable/ic_settings" />
 
-        <com.sem4ikt.uni.recipefinderchatbot.Other.CanaroTextView
+        <com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView
             style="@style/TextView.GuillotineItem"
             android:text="@string/settings"
             android:id="@+id/settings"/>

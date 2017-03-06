@@ -1,8 +1,9 @@
-package com.sem4ikt.uni.recipefinderchatbot.Model;
+package com.sem4ikt.uni.recipefinderchatbot.model;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 /**
  * Created by anton on 06-03-2017.

@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot.Adapter;
+package com.sem4ikt.uni.recipefinderchatbot.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

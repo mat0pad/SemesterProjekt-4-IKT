@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.sem4ikt.uni.recipefinderchatbot.Adapter.ChatListAdapter;
+import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
 
 import java.util.Arrays;
 import java.util.List;
