@@ -1,8 +1,10 @@
 package com.sem4ikt.uni.recipefinderchatbot;
 
+import com.sem4ikt.uni.recipefinderchatbot.Presenter.IMainPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.Presenter.MainPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.View.IMainView;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,6 +50,21 @@ public class MainPresenterUnitTest {
         verify(mainView, times(1)).showFragment(2);
     }
 
+    @Test
+    public void Clear_View_OnDestroy()
+    {
+        presenter.clearView();
 
+        Assert.assertEquals(presenter.getView(), null);
+    }
+
+    @Test
+    public void Set_View()
+    {
+        presenter.clearView();
+        presenter.setView(mainView);
+
+        Assert.assertEquals(presenter.getView(), mainView);
+    }
 
 }

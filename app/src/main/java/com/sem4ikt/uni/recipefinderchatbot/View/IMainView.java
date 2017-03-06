@@ -8,5 +8,5 @@ public interface IMainView {
 
     void setup();
     void showFragment(int frag);
-
+    void onDestroy();
 }

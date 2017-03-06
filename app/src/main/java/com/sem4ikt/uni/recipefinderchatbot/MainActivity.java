@@ -137,5 +137,9 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
                 .build();
     }
 
+    public void onDestroy(){
+        super.onDestroy();
+        mainPresenter.clearView();
+    }
 
 }

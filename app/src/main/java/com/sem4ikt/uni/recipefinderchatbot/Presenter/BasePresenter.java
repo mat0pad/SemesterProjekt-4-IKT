@@ -4,7 +4,7 @@ package com.sem4ikt.uni.recipefinderchatbot.Presenter;
  * Created by mathiaslykkepedersen on 02/03/2017.
  */
 
-abstract class BasePresenter<V> {
+abstract class BasePresenter<V> implements IBasePresenter<V>{
 
     protected V view = null;
 
@@ -12,14 +12,16 @@ abstract class BasePresenter<V> {
         this.view = view;
     }
 
-    protected void setView(V view){
+    public void setView(V view){
         if(this.view == null)
             this.view = view;
     }
 
-    protected void clearView(){
+    public void clearView(){
         this.view = null;
     }
+
+    public V getView() { return view; }
 
 
 }
