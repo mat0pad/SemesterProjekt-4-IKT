@@ -9,11 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.sem4ikt.uni.recipefinderchatbot.Model.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.Other.CanaroTextView;
 import com.sem4ikt.uni.recipefinderchatbot.Presenter.IMainPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.Presenter.MainPresenter;
+import com.sem4ikt.uni.recipefinderchatbot.Rest.ApiClient;
+import com.sem4ikt.uni.recipefinderchatbot.Rest.IApiClient;
+import com.sem4ikt.uni.recipefinderchatbot.Rest.ISpoonacularAPI;
 import com.sem4ikt.uni.recipefinderchatbot.View.IMainView;
 import com.yalantis.guillotine.animation.GuillotineAnimation;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -72,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
                 break;
             case R.id.settings:
                 // do something
+                testAPI();
                 builder.close();
                 break;
             case R.id.favorites:
@@ -143,4 +152,35 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
         mainPresenter.clearView();
     }
 
+
+    public void testAPI()
+    {
+        IApiClient client = new ApiClient();
+
+        ISpoonacularAPI apiService = client.getClient().create(ISpoonacularAPI.class);
+
+        Call<RecipeModel> call = apiService.getRecipe(493006, false);
+
+        call.enqueue(new Callback<RecipeModel>() {
+            @Override
+            public void onResponse(Call<RecipeModel> call, Response<RecipeModel> response) {
+
+                int statusCode = response.code();
+
+                if(statusCode == 200){
+
+                    RecipeModel model = response.body();
+
+                    System.out.println(model.toString());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RecipeModel> call, Throwable t) {
+
+            }
+        });
+
+    }
 }

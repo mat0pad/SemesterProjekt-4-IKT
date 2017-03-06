@@ -7,5 +7,6 @@ import retrofit2.Retrofit;
  */
 
 public interface IApiClient {
-    public Retrofit getClient();
+
+    Retrofit getClient();
 }
