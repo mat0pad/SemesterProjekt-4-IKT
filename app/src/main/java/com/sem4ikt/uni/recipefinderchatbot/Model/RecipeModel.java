@@ -70,7 +70,7 @@ public class RecipeModel {
     private String sourceName;
     @SerializedName("extendedIngredients")
     @Expose
-    private List<ExtendedIngredient> extendedIngredients = null;
+    private List<ExtendedIngredientModel> extendedIngredients = null;
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -242,11 +242,11 @@ public class RecipeModel {
         this.sourceName = sourceName;
     }
 
-    public List<ExtendedIngredient> getExtendedIngredients() {
+    public List<ExtendedIngredientModel> getExtendedIngredients() {
         return extendedIngredients;
     }
 
-    public void setExtendedIngredients(List<ExtendedIngredient> extendedIngredients) {
+    public void setExtendedIngredients(List<ExtendedIngredientModel> extendedIngredients) {
         this.extendedIngredients = extendedIngredients;
     }
 

@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
 
 
 
-public class ExtendedIngredient {
+public class ExtendedIngredientModel {
 
     @SerializedName("id")
     @Expose
