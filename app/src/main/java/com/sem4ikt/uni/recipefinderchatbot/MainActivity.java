@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.sem4ikt.uni.recipefinderchatbot.Other.CanaroTextView;
 import com.sem4ikt.uni.recipefinderchatbot.Presenter.IMainPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.Presenter.MainPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.View.IMainView;
