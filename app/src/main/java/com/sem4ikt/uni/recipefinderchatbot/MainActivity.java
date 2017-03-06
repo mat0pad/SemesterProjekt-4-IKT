@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
                 // do something
                 builder.close();
                 break;
-            case R.id.favorites: 
+            case R.id.favorites:  
                 // do something
                 Intent intent = new Intent(this, DetailRecipeActivity.class);
                 startActivity(intent);
