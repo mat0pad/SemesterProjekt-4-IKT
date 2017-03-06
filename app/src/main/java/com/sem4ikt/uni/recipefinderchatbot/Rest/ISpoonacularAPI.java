@@ -1,6 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.Rest;
 
 import com.sem4ikt.uni.recipefinderchatbot.Model.RecipeModel;
+import com.sem4ikt.uni.recipefinderchatbot.Model.Spoonacular.IngredientsModel;
 import com.sem4ikt.uni.recipefinderchatbot.Model.Spoonacular.NutrientsModel;
 
 import retrofit2.Call;
@@ -40,7 +41,7 @@ public interface ISpoonacularAPI {
 
     @Headers({ "X-Mashape-Key: sZ5SigKs5xmshAE2m0byUGB3Q8AZp1VCiP8jsnU7s14kbiwWRP", "Accept: application/json" })
     @GET("recipes/findByIngredients")
-    Call<NutrientsModel> findByIngredients(
+    Call<IngredientsModel> findByIngredients(
             @Query("ingredients") String ingredients,
             @Query("number") int maxNumberOfResults,               // default 5
             @Query("fillIngredients") Boolean fillIngredients,
