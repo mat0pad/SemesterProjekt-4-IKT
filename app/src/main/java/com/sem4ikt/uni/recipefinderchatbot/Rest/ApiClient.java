@@ -13,7 +13,7 @@ public class ApiClient implements IApiClient {
 
     private static final String BASE_URL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/";
 
-    public static Retrofit getClient(){
+    public Retrofit getClient(){
         if(retrofit == null)
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
