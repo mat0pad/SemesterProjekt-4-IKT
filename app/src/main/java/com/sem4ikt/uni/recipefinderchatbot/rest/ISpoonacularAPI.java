@@ -1,8 +1,8 @@
-package com.sem4ikt.uni.recipefinderchatbot.Rest;
+package com.sem4ikt.uni.recipefinderchatbot.rest;
 
-import com.sem4ikt.uni.recipefinderchatbot.Model.RecipeModel;
-import com.sem4ikt.uni.recipefinderchatbot.Model.Spoonacular.IngredientsModel;
-import com.sem4ikt.uni.recipefinderchatbot.Model.Spoonacular.NutrientsModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.RecipeModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientsModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsModel;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot.Other;
+package com.sem4ikt.uni.recipefinderchatbot.other;
 
 import android.app.Application;
 import android.graphics.Typeface;

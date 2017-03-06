@@ -1,8 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot;
 
-import com.sem4ikt.uni.recipefinderchatbot.Presenter.IMainPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.Presenter.MainPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.View.IMainView;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.MainPresenter;
+import com.sem4ikt.uni.recipefinderchatbot.view.IMainView;
 
 import org.junit.Assert;
 import org.junit.Before;

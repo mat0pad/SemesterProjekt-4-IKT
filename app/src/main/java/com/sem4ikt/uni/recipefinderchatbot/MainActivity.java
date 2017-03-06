@@ -9,14 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.sem4ikt.uni.recipefinderchatbot.Model.RecipeModel;
-import com.sem4ikt.uni.recipefinderchatbot.Other.CanaroTextView;
-import com.sem4ikt.uni.recipefinderchatbot.Presenter.IMainPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.Presenter.MainPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.Rest.ApiClient;
-import com.sem4ikt.uni.recipefinderchatbot.Rest.IApiClient;
-import com.sem4ikt.uni.recipefinderchatbot.Rest.ISpoonacularAPI;
-import com.sem4ikt.uni.recipefinderchatbot.View.IMainView;
+import com.sem4ikt.uni.recipefinderchatbot.model.RecipeModel;
+import com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.IMainPresenter;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.MainPresenter;
+import com.sem4ikt.uni.recipefinderchatbot.rest.ApiClient;
+import com.sem4ikt.uni.recipefinderchatbot.rest.IApiClient;
+import com.sem4ikt.uni.recipefinderchatbot.rest.ISpoonacularAPI;
+import com.sem4ikt.uni.recipefinderchatbot.view.IMainView;
 import com.yalantis.guillotine.animation.GuillotineAnimation;
 
 import retrofit2.Call;
@@ -29,14 +29,14 @@ import retrofit2.Response;
  */
 public class MainActivity extends AppCompatActivity implements IMainView , View.OnClickListener {
 
-    Toolbar toolbar;
-    FrameLayout root;
-    View contentHamburger;
-    FrameLayout frameContainer;
-    GuillotineAnimation builder;
-    CanaroTextView mealPlan, chatbot, settings, favorites;
+    private Toolbar toolbar;
+    private FrameLayout root;
+    private View contentHamburger;
+    private FrameLayout frameContainer;
+    private GuillotineAnimation builder;
+    private CanaroTextView mealPlan, chatbot, settings, favorites;
 
-    IMainPresenter mainPresenter;
+    private IMainPresenter mainPresenter;
 
     public enum FragmentMenu{
 
