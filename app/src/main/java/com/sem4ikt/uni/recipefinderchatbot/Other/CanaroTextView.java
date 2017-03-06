@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot;
+package com.sem4ikt.uni.recipefinderchatbot.Other;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 /**
  * Created by mathiaslykkepedersen on 9/02/17.
  */
-public class CanaroTextView extends TextView {
+public class CanaroTextView extends android.support.v7.widget.AppCompatTextView {
     public CanaroTextView(Context context) {
         this(context, null);
     }
