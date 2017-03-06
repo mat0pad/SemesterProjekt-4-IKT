@@ -173,7 +173,6 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
 
                     System.out.println(model.toString());
                 }
-
             }
 
             @Override
