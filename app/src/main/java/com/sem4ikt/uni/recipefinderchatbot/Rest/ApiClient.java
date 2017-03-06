@@ -1,6 +1,5 @@
-package com.sem4ikt.uni.recipefinderchatbot.Model;
+package com.sem4ikt.uni.recipefinderchatbot.Rest;
 
-import IApiClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

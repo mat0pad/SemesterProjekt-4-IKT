@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot.Model;
+package com.sem4ikt.uni.recipefinderchatbot.Rest;
 
 import retrofit2.Retrofit;
 
