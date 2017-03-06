@@ -46,6 +46,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.android.support:design:25.1.1'
 
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+
     // For UI tests
     // add this for intent mocking support
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
