@@ -4,6 +4,11 @@
         import com.google.gson.annotations.Expose;
         import com.google.gson.annotations.SerializedName;
 
+        /**
+         * Created by anton on 09-03-2017.
+         */
+
+
 public class SummaryModel {
 
     @SerializedName("id")

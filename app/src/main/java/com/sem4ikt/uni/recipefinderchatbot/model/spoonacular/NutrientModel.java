@@ -2,7 +2,9 @@ package com.sem4ikt.uni.recipefinderchatbot.model.spoonacular;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
+/**
+ * Created by anton on 09-03-2017.
+ */
 public class NutrientModel {
 
     @SerializedName("calories")

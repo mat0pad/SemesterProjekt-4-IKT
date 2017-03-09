@@ -4,7 +4,9 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.sem4ikt.uni.recipefinderchatbot.model.RecipeModel;
-
+/**
+ * Created by anton on 09-03-2017.
+ */
 public class MealPlanModel {
 
     @SerializedName("meals")
