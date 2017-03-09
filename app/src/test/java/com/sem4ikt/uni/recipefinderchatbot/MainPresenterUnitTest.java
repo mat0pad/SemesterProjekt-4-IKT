@@ -36,21 +36,21 @@ public class MainPresenterUnitTest {
 
 
     @Test
-    public void Setup_Menu()
+    public void setupMenu()
     {
         presenter.setupMenu();
         verify(mainView, times(1)).setup();
     }
 
     @Test
-    public void Show_Fragment()
+    public void showFragment()
     {
         presenter.displayFragment(2);
         verify(mainView, times(1)).showFragment(2);
     }
 
     @Test
-    public void Clear_View_OnDestroy()
+    public void clearViewOnDestroy()
     {
         presenter.clearView();
 
@@ -58,7 +58,7 @@ public class MainPresenterUnitTest {
     }
 
     @Test
-    public void Set_View()
+    public void setView()
     {
         presenter.clearView();
         presenter.setView(mainView);

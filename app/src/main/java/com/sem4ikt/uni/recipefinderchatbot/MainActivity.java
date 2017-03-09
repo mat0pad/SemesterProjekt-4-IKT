@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
 
     public void onDestroy(){
         super.onDestroy();
+
         mainPresenter.clearView();
     }
 
@@ -173,7 +174,6 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
 
                     System.out.println(model.toString());
                 }
-
             }
 
             @Override
