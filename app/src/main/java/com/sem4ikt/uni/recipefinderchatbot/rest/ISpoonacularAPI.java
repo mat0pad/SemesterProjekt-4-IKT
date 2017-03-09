@@ -78,7 +78,7 @@ public interface ISpoonacularAPI {
          */
         @GET("recipes/{id}/information")
         Call<RecipeModel> getRecipe(@Path("id") int id, @Query("includeNutrition") boolean includeNutrition);
-        
+
         @GET("food/jokes/random")
         Call<TextModel> getRandomFoodJoke();
 
@@ -92,7 +92,7 @@ public interface ISpoonacularAPI {
          */
         @GET("recipes/{id}/analyzedInstructions")
         Call<InstructionsModel> getRecipeInstructions(
-                @Query("id")  String id,
+                @Query("id")  int id,
                 @Query("stepBreakdown") boolean stepBreakdown
         );
 
