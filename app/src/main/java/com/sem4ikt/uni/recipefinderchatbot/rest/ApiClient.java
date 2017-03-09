@@ -26,7 +26,6 @@ public class ApiClient implements IApiClient {
                 @Override
                 public Response intercept(Interceptor.Chain chain) throws IOException {
                     Request original = chain.request();
-//X-Mashape-Key: sZ5SigKs5xmshAE2m0byUGB3Q8AZp1VCiP8jsnU7s14kbiwWRP", "Accept: application/json
                     Request request = original.newBuilder()
                             .header("X-Mashape-Key", "sZ5SigKs5xmshAE2m0byUGB3Q8AZp1VCiP8jsnU7s14kbiwWRP")
                             .header("Accept", "application/json")
