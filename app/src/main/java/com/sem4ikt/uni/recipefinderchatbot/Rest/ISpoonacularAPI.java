@@ -17,12 +17,11 @@ import retrofit2.http.Query;
 public interface ISpoonacularAPI {
 
 
-    @Headers({ "X-Mashape-Key: sZ5SigKs5xmshAE2m0byUGB3Q8AZp1VCiP8jsnU7s14kbiwWRP", "Accept: application/json" })
     @GET("recipes/{id}/information")
     Call<RecipeModel> getRecipe(@Path("id") int id, @Query("includeNutrition") Boolean includeNutrition);
 
 
-    @Headers({ "X-Mashape-Key: sZ5SigKs5xmshAE2m0byUGB3Q8AZp1VCiP8jsnU7s14kbiwWRP", "Accept: application/json" })
+
     @GET("recipes/findByNutrients")
     Call<NutrientsModel> findByNutrients(
             @Query("maxCalories") int maxCal,
@@ -39,7 +38,6 @@ public interface ISpoonacularAPI {
     );
 
 
-    @Headers({ "X-Mashape-Key: sZ5SigKs5xmshAE2m0byUGB3Q8AZp1VCiP8jsnU7s14kbiwWRP", "Accept: application/json" })
     @GET("recipes/findByIngredients")
     Call<IngredientsModel> findByIngredients(
             @Query("ingredients") String ingredients,
