@@ -20,35 +20,35 @@ public class RecipesModelUnitTest {
     }
 
     @Test
-    public void Set_Id() {
+    public void setId() {
         recipesModel.setId(1);
 
         Assert.assertEquals((int) recipesModel.getId(), 1);
     }
 
     @Test
-    public void Set_Title() {
+    public void setTitle() {
         recipesModel.setTitle("test");
 
         Assert.assertEquals(recipesModel.getTitle(), "test");
     }
 
     @Test
-    public void Set_Image() {
+    public void setImage() {
         recipesModel.setImage("test");
 
         Assert.assertEquals(recipesModel.getImage(), "test");
     }
 
     @Test
-    public void Set_ReadyInMintes() {
+    public void setReadyInMintes() {
         recipesModel.setReadyInMinutes(30);
 
         Assert.assertEquals( (int) recipesModel.getReadyInMinutes(), 30);
     }
 
     @Test
-    public void Set_ImageUrls() {
+    public void setImageUrls() {
 
         List<String> list = new ArrayList<String>();
 

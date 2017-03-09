@@ -22,7 +22,7 @@ public class ExtendedIngredientModelUnitTest {
     }
 
     @Test
-    public void Set_Id(){
+    public void setId(){
 
         extendedIngredientModel.setId(1);
 
@@ -30,7 +30,7 @@ public class ExtendedIngredientModelUnitTest {
     }
 
     @Test
-    public void Set_Aisle(){
+    public void setAisle(){
 
         extendedIngredientModel.setAisle("test");
 
@@ -38,7 +38,7 @@ public class ExtendedIngredientModelUnitTest {
     }
 
     @Test
-    public void Set_Name(){
+    public void setName(){
 
         extendedIngredientModel.setName("test");
 
@@ -46,7 +46,7 @@ public class ExtendedIngredientModelUnitTest {
     }
 
     @Test
-    public void Set_Amount(){
+    public void setAmount(){
 
         extendedIngredientModel.setAmount(12.0);
 
@@ -54,7 +54,7 @@ public class ExtendedIngredientModelUnitTest {
     }
 
     @Test
-    public void Set_Image(){
+    public void setImage(){
 
         extendedIngredientModel.setImage("test");
 
@@ -62,7 +62,7 @@ public class ExtendedIngredientModelUnitTest {
     }
 
     @Test
-    public void Set_Unit(){
+    public void setUnit(){
 
         extendedIngredientModel.setUnit("test");
 
@@ -70,7 +70,7 @@ public class ExtendedIngredientModelUnitTest {
     }
 
     @Test
-    public void Set_Original(){
+    public void setOriginal(){
 
         extendedIngredientModel.setOriginalString("test");
 
@@ -78,7 +78,7 @@ public class ExtendedIngredientModelUnitTest {
     }
 
     @Test
-    public void Set_UnitLong(){
+    public void setUnitLong(){
 
         extendedIngredientModel.setUnitLong("test");
 
@@ -86,7 +86,7 @@ public class ExtendedIngredientModelUnitTest {
     }
 
     @Test
-    public void Set_UnitShort(){
+    public void setUnitShort(){
 
         extendedIngredientModel.setUnitShort("test");
 
@@ -94,7 +94,7 @@ public class ExtendedIngredientModelUnitTest {
     }
 
     @Test
-    public void Set_MetaInformation(){
+    public void setMetaInformation(){
 
         List<String> list = new ArrayList<String>();
 
