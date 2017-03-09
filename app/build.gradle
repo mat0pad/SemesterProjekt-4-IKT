@@ -11,7 +11,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.sem4ikt.uni.recipefinderchatbot"
         minSdkVersion 21
@@ -38,7 +38,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-
     // For unit tests
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.10.19'
@@ -47,31 +46,29 @@ dependencies {
     androidTestCompile 'com.android.support:support-annotations:25.2.0'
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
-
+    
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
     // For UI tests - for intent mocking support
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
-
+    
     // Menu
     compile 'com.github.Yalantis:GuillotineMenu-Android:1.2'
 
     // Android specifik
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:design:25.2.0'
-
+    
     // retrofit, gson
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
 
     // Google firebase auth & db realtime
-    compile "com.google.firebase:firebase-auth:10.2.0"
+    compile 'com.google.firebase:firebase-auth:10.2.0'
     compile 'com.google.firebase:firebase-database:10.2.0'
-
 }
-
 // Google services required for firebase
 apply plugin: 'com.google.gms.google-services'

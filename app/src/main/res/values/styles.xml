@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.Guillotine"/>
+    <style name="AppTheme" parent="Theme.Guillotine" />
 
     <style name="Theme.Guillotine" parent="Theme.AppCompat.NoActionBar">
         <item name="android:colorPrimaryDark">@color/guillotine_background</item>
@@ -9,5 +9,9 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

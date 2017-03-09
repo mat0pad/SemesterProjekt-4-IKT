@@ -7,12 +7,11 @@ import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.InstructionsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.StepModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.TextModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.SummaryModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.TextModel;
 
 import java.util.List;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.SummaryModel;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -28,8 +27,6 @@ public interface ISpoonacularAPI {
 
 
     interface ICompute{
-
-
 
 
         /**@Params
@@ -141,7 +138,7 @@ public interface ISpoonacularAPI {
         @GET("recipes/findByIngredients")
         Call<IngredientsModel> findByIngredients(
                 @Query("ingredients") String ingredients,
-                @Query("number") int maxNumberOfResults,               // default 5
+                @Query("number") int maxNumberOfResults,
                 @Query("fillIngredients") Boolean fillIngredients,
                 @Query("ranking") int rank
         );
@@ -193,15 +190,14 @@ public interface ISpoonacularAPI {
         limitLicense : Is author name/info needed? **/
         @GET("recipes/search")
         Call<List<RecipeModel>> searchAllRecipes(
-                @Query("query") String query,       // What to search for
-                @Query("type") String course,       // Type of course one of the following
-                                                    //main course, side dish, dessert, appetizer, salad, bread, breakfast, soup, beverage, sauce, or drink
-                @Query("diet") String diet,         // Only include from these diets: comma-separated
-                @Query("cuisine") String tags,      // Only include from these cuisine: comma-separated
+                @Query("query") String query,
+                @Query("type") String course,
+                @Query("diet") String diet,
+                @Query("cuisine") String tags,
                 @Query("instructionsRequired") boolean instructionsRequired,
                 @Query("intolerances") String intolerances,
-                @Query("number") int numberOfRecipes,       // 0-100
-                @Query("offset") int offset,        // 0-900
+                @Query("number") int numberOfRecipes,
+                @Query("offset") int offset,
                 @Query("limitLicense") boolean needLicense
         );
 

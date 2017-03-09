@@ -24,5 +24,6 @@
     <string name="send">SEND</string>
     <!-- String related to activities-->
     <string name="recipe_bot">RECIPE BOT</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
 </resources>

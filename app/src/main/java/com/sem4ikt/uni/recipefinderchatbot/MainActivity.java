@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
 
     private IMainPresenter mainPresenter;
 
+
     public enum FragmentMenu{
 
         CHATBOT,
@@ -184,3 +185,5 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
 
     }
 }
+
+
