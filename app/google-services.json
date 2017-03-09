@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "548734855315",
+    "firebase_url": "https://recipebot-fe68f.firebaseio.com",
+    "project_id": "recipebot-fe68f",
+    "storage_bucket": "recipebot-fe68f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:548734855315:android:b42101b6c9ef6c1c",
+        "android_client_info": {
+          "package_name": "com.sem4ikt.uni.recipefinderchatbot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "548734855315-n8nf2207ek8jorcmfc9475f2v4aia6r2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtrfoA4ZLLcX2stDBILU-i_TuoQoRoZfI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

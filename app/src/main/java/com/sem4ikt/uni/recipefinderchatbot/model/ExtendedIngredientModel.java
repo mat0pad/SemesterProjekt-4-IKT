@@ -9,8 +9,6 @@ import java.util.List;
  * Created by anton on 06-03-2017.
  */
 
-
-
 public class ExtendedIngredientModel {
 
     @SerializedName("id")
@@ -42,7 +40,7 @@ public class ExtendedIngredientModel {
     private String originalString;
     @SerializedName("metaInformation")
     @Expose
-    private List<Object> metaInformation = null;
+    private List<String> metaInformation = null;
 
     public Integer getId() {
         return id;
@@ -116,11 +114,11 @@ public class ExtendedIngredientModel {
         this.originalString = originalString;
     }
 
-    public List<Object> getMetaInformation() {
+    public List<String> getMetaInformation() {
         return metaInformation;
     }
 
-    public void setMetaInformation(List<Object> metaInformation) {
+    public void setMetaInformation(List<String> metaInformation) {
         this.metaInformation = metaInformation;
     }
 
