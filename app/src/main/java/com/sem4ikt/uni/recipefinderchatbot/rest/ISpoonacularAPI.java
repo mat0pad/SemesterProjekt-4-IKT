@@ -1,12 +1,18 @@
 package com.sem4ikt.uni.recipefinderchatbot.rest;
 
 import com.sem4ikt.uni.recipefinderchatbot.model.RecipeModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnswerModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientSubstituteModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientsModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.InstructionsModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.StepModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.TextModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 
 import java.util.List;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.SummaryModel;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -20,13 +26,66 @@ import retrofit2.http.Query;
 public interface ISpoonacularAPI {
 
     interface ICompute{
+
         @GET("recipes/{id}/information")
         Call<RecipeModel> getRecipe(@Path("id") int id, @Query("includeNutrition") boolean includeNutrition);
 
 
+        /**@Params
+
+            diet            : What diet it should be, etc vegetarian
+            targetCalories  : Amount of calories mealplan should try to hit
+            timeFrame       :Time of the mealplan
+            exclude         :What food should be excluded
+
+         **/
+        @GET("recipes/mealplans/generate")
+        Call<MealPlanModel> getMealPlan(
+            @Query("diet") String diet,
+            @Query("targetCalories") int targetCalories,
+            @Query("timeFrame") String timeFrame,
+            @Query("exclude")  String exclude
+            );
+
+
+        /** @Params
+            id  : id of recipe to be summarized.
+         **/
+        @GET("recipes/{id}/summary")
+        Call<SummaryModel> summarizeRecipe(
+                @Path("id")int id);
+
+        /**
+         *
+         * @param q     :Nutrion related question
+         */
+
+        @GET("recipes/quickAnswer")
+        Call<AnswerModel> getQuickAnswer(
+                @Query("q") String q
+        );
+
     }
 
     interface IData{
+
+        @GET("food/jokes/random")
+        Call<TextModel> getRandomFoodJoke();
+
+        @GET("food/trivia/random")
+        Call<TextModel> getFoodTrivia();
+
+        /**
+         *
+         * @param id                :the id of recipe
+         * @param stepBreakdown     :whether to break down recipe even more
+         */
+        @GET("recipes/{id}/analyzedInstructions")
+        Call<InstructionsModel> getRecipeInstructions(
+                @Query("id")  String id,
+                @Query("stepBreakdown") boolean stepBreakdown
+        );
+
 
     }
 
@@ -61,13 +120,20 @@ public interface ISpoonacularAPI {
                 @Query("random") Boolean getRandom
         );
 
-
+        /**
+         *
+         * @param ingredients           : Comma-seperated list of ingredients in recipes
+         * @param maxNumberOfResults    : Default 5
+         * @param fillIngredients       : Extra information about used and missing ingredients
+         * @param rank                  : Whether to maximize used ingredients (1) or minimize missing ingredients (2) first.
+         * @return
+         */
         @GET("recipes/findByIngredients")
         Call<IngredientsModel> findByIngredients(
                 @Query("ingredients") String ingredients,
                 @Query("number") int maxNumberOfResults,               // default 5
                 @Query("fillIngredients") Boolean fillIngredients,
-                @Query("ranking") int rank                            // Whether to maximize used ingredients (1) or minimize missing ingredients (2) first.
+                @Query("ranking") int rank
         );
 
         @GET("recipes/{id}/similar")
@@ -77,7 +143,12 @@ public interface ISpoonacularAPI {
         @GET("food/ingredients/substitutes")
         Call<IngredientSubstituteModel> findIngredientSubstitutes(@Query("ingredientName") String ingredientName);
 
-
+        /**
+         *
+         * @param numberOfRecipes   :Number of recipes to be returned betwheen [1,100]
+         * @param tags              :Tags that random recipes must adhere to
+         * @param needLicense       :true = allows for displaying with proper attribution.
+         */
         @GET("recipes/random")
         Call<List<RecipeModel>> findRandomRecipes(
                 @Query("number") int numberOfRecipes,
