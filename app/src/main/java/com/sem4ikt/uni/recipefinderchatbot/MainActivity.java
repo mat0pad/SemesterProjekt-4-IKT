@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
     {
         IApiClient client = new ApiClient();
 
-        ISpoonacularAPI apiService = client.getClient().create(ISpoonacularAPI.class);
+        ISpoonacularAPI.ICompute apiService = client.getClient().create(ISpoonacularAPI.ICompute.class);
 
         Call<RecipeModel> call = apiService.getRecipe(493006, false);
 
