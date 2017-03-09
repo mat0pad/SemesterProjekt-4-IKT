@@ -29,8 +29,7 @@ public interface ISpoonacularAPI {
 
     interface ICompute{
 
-        @GET("recipes/{id}/information")
-        Call<RecipeModel> getRecipe(@Path("id") int id, @Query("includeNutrition") boolean includeNutrition);
+
 
 
         /**@Params
@@ -61,7 +60,6 @@ public interface ISpoonacularAPI {
          *
          * @param q     :Nutrion related question
          */
-
         @GET("recipes/quickAnswer")
         Call<AnswerModel> getQuickAnswer(
                 @Query("q") String q
@@ -71,6 +69,16 @@ public interface ISpoonacularAPI {
 
     interface IData{
 
+
+        /**
+         *
+         * @param id                :the id of recipe
+         * @param includeNutrition  :include nutrition data to the
+         *                           recipe information
+         */
+        @GET("recipes/{id}/information")
+        Call<RecipeModel> getRecipe(@Path("id") int id, @Query("includeNutrition") boolean includeNutrition);
+        
         @GET("food/jokes/random")
         Call<TextModel> getRandomFoodJoke();
 
@@ -138,10 +146,17 @@ public interface ISpoonacularAPI {
                 @Query("ranking") int rank
         );
 
+        /**
+         *
+         * @param id    :id of recipe
+         */
         @GET("recipes/{id}/similar")
         Call<RecipesModel> findSimilarRecipes(@Path("id") int id);
 
-
+        /**
+         *
+         * @param ingredientName        :ingredientName
+         */
         @GET("food/ingredients/substitutes")
         Call<IngredientSubstituteModel> findIngredientSubstitutes(@Query("ingredientName") String ingredientName);
 
