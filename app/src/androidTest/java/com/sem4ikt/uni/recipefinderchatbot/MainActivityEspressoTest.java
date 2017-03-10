@@ -49,7 +49,7 @@ public class MainActivityEspressoTest {
     {
 
         MainActivity main = (MainActivity) getActivityInstance();
-        main.builder.open();
+        //main.builder.open();
 
         onView(withText("FAVORITES")).perform(click());
 

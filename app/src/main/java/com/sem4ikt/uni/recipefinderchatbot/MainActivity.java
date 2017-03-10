@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.sem4ikt.uni.recipefinderchatbot.model.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.IMainPresenter;
@@ -63,6 +66,25 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
         mainPresenter.setupMenu();
         mainPresenter.displayFragment(FragmentMenu.CHATBOT.ordinal());
 
+
+
+        // Create separate thread
+        Runnable runnable = new Runnable() {
+            public void run() {
+
+                // Test begin
+                // Causes exception if run on the GUI/main thread because this is a (blocking) network request
+                ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2016_07_11);
+                service.setUsernameAndPassword("f6c68c53-70a5-4a8c-af70-41a5eed85690", "1pMBh1PJOxP0");
+
+                MessageRequest newMessage = new MessageRequest.Builder().inputText("Hi").build();
+                MessageResponse response = service.message("e665abad-a305-4cf4-a21c-045354782015", newMessage).execute();
+                System.out.println(response);
+                // Test end
+            }
+        };
+        Thread myThread = new Thread(runnable);
+        myThread.start();
     }
 
     @Override
