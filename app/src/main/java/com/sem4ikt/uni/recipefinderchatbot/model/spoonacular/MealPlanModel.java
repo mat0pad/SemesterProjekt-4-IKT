@@ -20,8 +20,8 @@ public class MealPlanModel {
         return  RecipeModels;
     }
 
-    public void setRecipeModel(List<RecipeModel> meals) {
-        this.RecipeModels = RecipeModels;
+    public void setRecipeModels(List<RecipeModel> meals) {
+        this.RecipeModels = meals;
     }
 
     public NutrientModel getNutrients() {
