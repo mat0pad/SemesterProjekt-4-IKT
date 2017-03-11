@@ -19,7 +19,8 @@
         android:layout_toRightOf="@id/hud_image"
         android:layout_toEndOf="@id/hud_image"
         android:textSize="10sp"
-        android:textColor="@color/Gray_Dark"/>
+        android:textColor="@color/Gray_Dark"
+        />
 
     <LinearLayout
         android:layout_width="wrap_content"
