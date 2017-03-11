@@ -92,7 +92,7 @@ public interface ISpoonacularAPI {
          */
         @GET("recipes/{id}/analyzedInstructions")
         Call<InstructionsModel> getRecipeInstructions(
-                @Query("id")  int id,
+                @Path("id")  int id,
                 @Query("stepBreakdown") boolean stepBreakdown
         );
 

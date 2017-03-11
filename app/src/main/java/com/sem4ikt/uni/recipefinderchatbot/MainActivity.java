@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.sem4ikt.uni.recipefinderchatbot.model.RecipeModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnswerModel;
 import com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.IMainPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.MainPresenter;
@@ -59,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
         root = (FrameLayout) findViewById(R.id.root);
 
         mainPresenter = new MainPresenter(this);
-
         mainPresenter.setupMenu();
         mainPresenter.displayFragment(FragmentMenu.CHATBOT.ordinal());
 
@@ -160,24 +160,24 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
 
         ISpoonacularAPI.ICompute apiService = client.getClient().create(ISpoonacularAPI.ICompute.class);
 
-        Call<RecipeModel> call = apiService.getRecipe(493006, false);
+        Call<AnswerModel> call = apiService.getQuickAnswer("How much vitamin c is in 2 apples?");
 
-        call.enqueue(new Callback<RecipeModel>() {
+        call.enqueue(new Callback<AnswerModel>() {
             @Override
-            public void onResponse(Call<RecipeModel> call, Response<RecipeModel> response) {
+            public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
 
                 int statusCode = response.code();
 
                 if(statusCode == 200){
 
-                    RecipeModel model = response.body();
+                    AnswerModel model = response.body();
 
-                    System.out.println(model.toString());
+                    System.out.println(model.getAnswer());
                 }
             }
 
             @Override
-            public void onFailure(Call<RecipeModel> call, Throwable t) {
+            public void onFailure(Call<AnswerModel> call, Throwable t) {
 
             }
         });
