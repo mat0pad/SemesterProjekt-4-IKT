@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.sem4ikt.uni.recipefinderchatbot.model.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnswerModel;
 import com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.IMainPresenter;
@@ -33,15 +32,13 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
     private Toolbar toolbar;
     private FrameLayout root;
     private View contentHamburger;
-    private FrameLayout frameContainer;
+    FrameLayout frameContainer;
     private GuillotineAnimation builder;
-    private CanaroTextView mealPlan, chatbot, settings, favorites;
+    CanaroTextView mealPlan, chatbot, settings, favorites;
 
     private IMainPresenter mainPresenter;
 
-
-    public enum FragmentMenu{
-
+    private enum FragmentMenu{
         CHATBOT,
         MEAL_PLAN,
         FAVORITES,

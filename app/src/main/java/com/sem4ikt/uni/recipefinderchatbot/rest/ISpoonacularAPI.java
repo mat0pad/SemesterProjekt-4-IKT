@@ -25,7 +25,6 @@ import retrofit2.http.Query;
 public interface ISpoonacularAPI {
 
 
-
     interface ICompute{
 
 

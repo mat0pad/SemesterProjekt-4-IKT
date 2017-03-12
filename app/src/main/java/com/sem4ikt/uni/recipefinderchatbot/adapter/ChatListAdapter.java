@@ -1,6 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.adapter;
 
 import android.content.Context;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +18,22 @@ import java.util.List;
 
 public class ChatListAdapter extends BaseAdapter {
 
-    private List<String> dialog;
+    public static final int DIRECTION_INCOMING = 0;
+    public static final int DIRECTION_OUTGOING = 1;
+
+    private List<Pair<String, Integer>> dialog;
     private Context mContext;
 
-    public ChatListAdapter(List<String> dialog, Context context){
+    public ChatListAdapter(List<Pair<String, Integer>> dialog, Context context){
 
         this.dialog = dialog;
         this.mContext = context;
     }
 
+    public void addMessage(String m){
+        dialog.add(new Pair<String, Integer>(m, DIRECTION_OUTGOING));
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getCount() {
@@ -33,51 +41,62 @@ public class ChatListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
+    public Pair<String, Integer> getItem(int i) {
         return dialog.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
+    }
+
+    @Override
+    public int getItemViewType(int i) {
+        return dialog.get(i).second;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        int direction = getItemViewType(position);
         ViewHolder holder;
 
-        if(convertView == null){
+        if (convertView == null || ((ViewHolder) convertView.getTag()).direction != DIRECTION_OUTGOING) {
 
+            int res = 0;
+            int resid = 0;
             holder = new ViewHolder();
 
-            if(position % 2 == 0) {
-
-                convertView = LayoutInflater.from(mContext).inflate(R.layout.message_l_box, parent, false);
-
-                holder.text = (TextView) convertView.findViewById(R.id.left_bubble_text);
+            if (direction == DIRECTION_INCOMING) {
+                res = R.layout.message_l_box;
+                resid = R.id.left_bubble_text;
+                holder.direction = DIRECTION_INCOMING;
             }
-            else{
-                convertView = LayoutInflater.from(mContext).inflate(R.layout.message_r_box, parent, false);
-
-                holder.text = (TextView) convertView.findViewById(R.id.right_bubble_text);
+            else {
+                res = R.layout.message_r_box;
+                resid = R.id.right_bubble_text;
+                holder.direction = DIRECTION_OUTGOING;
             }
+            convertView = LayoutInflater.from(mContext).inflate(res, parent, false);
+
+            holder.text = (TextView) convertView.findViewById(resid);
 
             convertView.setTag(holder);
         }
-        else{
+        else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.text.setText(getItem(position).toString());
+        holder.text.setText(getItem(position).first);
+
         return convertView;
     }
 
 
     // Ensure that find by id is not called every time -> could cause slow scrolling
-
     private class ViewHolder {
         TextView text;
+        int direction; // Used to check wether we have the right recylced view or need to inflate new holder
     }
 
 }

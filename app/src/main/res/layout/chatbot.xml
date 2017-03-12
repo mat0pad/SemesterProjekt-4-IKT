@@ -37,6 +37,7 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:background="@drawable/send_button_state"
+        android:id="@+id/send_button"
         android:text="@string/send"
         android:layout_toEndOf="@id/message_edittext"
         android:layout_alignParentBottom="true"

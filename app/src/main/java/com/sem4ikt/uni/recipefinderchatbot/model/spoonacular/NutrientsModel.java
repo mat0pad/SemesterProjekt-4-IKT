@@ -26,13 +26,13 @@ public class NutrientsModel {
     private Integer calories;
     @SerializedName("protein")
     @Expose
-    private String protein;
+    private Integer protein;
     @SerializedName("fat")
     @Expose
-    private String fat;
+    private Integer fat;
     @SerializedName("carbs")
     @Expose
-    private String carbs;
+    private Integer carbs;
 
     public Integer getId() {
         return id;
@@ -74,27 +74,27 @@ public class NutrientsModel {
         this.calories = calories;
     }
 
-    public String getProtein() {
+    public Integer getProtein() {
         return protein;
     }
 
-    public void setProtein(String protein) {
+    public void setProtein(Integer protein) {
         this.protein = protein;
     }
 
-    public String getFat() {
+    public Integer getFat() {
         return fat;
     }
 
-    public void setFat(String fat) {
+    public void setFat(Integer fat) {
         this.fat = fat;
     }
 
-    public String getCarbs() {
+    public Integer getCarbs() {
         return carbs;
     }
 
-    public void setCarbs(String carbs) {
+    public void setCarbs(Integer carbs) {
         this.carbs = carbs;
     }
 
