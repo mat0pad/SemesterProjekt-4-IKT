@@ -62,21 +62,19 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
         switch (v.getId())
         {
             case R.id.meal_plan:
-                // do something
+                showFragment(1);
                 builder.close();
                 break;
             case R.id.chatbot:
-                // do something
+                showFragment(0);
                 builder.close();
                 break;
             case R.id.settings:
-                // do something
+                showFragment(3);
                 builder.close();
                 break;
             case R.id.favorites:  
-                // do something
-                Intent intent = new Intent(this, DetailRecipeActivity.class);
-                startActivity(intent);
+                showFragment(2);
                 builder.close();
                 break;
 
@@ -97,10 +95,13 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
                 transaction.replace(R.id.frame_container, new ChatbotFragment());
                 break;
             case SETTINGS:
+                transaction.replace(R.id.frame_container, new SettingsFragment());
                 break;
             case MEAL_PLAN:
+                transaction.replace(R.id.frame_container, new MealPlanFragment());
                 break;
             case FAVORITES:
+                transaction.replace(R.id.frame_container, new FavoritesFragment());
                 break;
         }
 
