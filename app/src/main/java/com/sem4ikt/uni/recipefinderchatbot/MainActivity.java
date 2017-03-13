@@ -2,6 +2,8 @@ package com.sem4ikt.uni.recipefinderchatbot;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,9 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.sem4ikt.uni.recipefinderchatbot.model.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.IMainPresenter;
@@ -38,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
     private FrameLayout frameContainer;
     private GuillotineAnimation builder;
     private CanaroTextView mealPlan, chatbot, settings, favorites;
+
+    public Handler mHandler;
 
     private IMainPresenter mainPresenter;
 
@@ -66,25 +67,13 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
         mainPresenter.setupMenu();
         mainPresenter.displayFragment(FragmentMenu.CHATBOT.ordinal());
 
-
-
-        // Create separate thread
-        Runnable runnable = new Runnable() {
-            public void run() {
-
-                // Test begin
-                // Causes exception if run on the GUI/main thread because this is a (blocking) network request
-                ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2016_07_11);
-                service.setUsernameAndPassword("f6c68c53-70a5-4a8c-af70-41a5eed85690", "1pMBh1PJOxP0");
-
-                MessageRequest newMessage = new MessageRequest.Builder().inputText("Hi").build();
-                MessageResponse response = service.message("e665abad-a305-4cf4-a21c-045354782015", newMessage).execute();
-                System.out.println(response);
-                // Test end
+        // Used for thread communication
+        mHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
             }
         };
-        Thread myThread = new Thread(runnable);
-        myThread.start();
     }
 
     @Override
@@ -115,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
             default:
                 break;
         }
+
     }
 
     public void showFragment(int frag){
@@ -147,6 +137,8 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle(null);
         }
+
+        int integer = 10;
 
         View guillotineMenu = LayoutInflater.from(this).inflate(R.layout.guillotine, null);
         root.addView(guillotineMenu);
@@ -193,7 +185,6 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
                 if(statusCode == 200){
 
                     RecipeModel model = response.body();
-
                     System.out.println(model.toString());
                 }
             }
@@ -204,5 +195,10 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
             }
         });
 
+
+
+
     }
+
+
 }
