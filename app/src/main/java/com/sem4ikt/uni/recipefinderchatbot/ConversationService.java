@@ -26,23 +26,7 @@ public class ConversationService {
     public ConversationService(String username, String password){
         service.setUsernameAndPassword(username, password);
     }
-
-    protected void onCreate(){
-
-        // Test begin
-        // Causes exception if run on the GUI/main thread because this is a (blocking) network request
-        // Create separate thread
-        /*Runnable runnable = new Runnable()
-        {
-            public void run()
-            {
-
-            }
-        };
-        Thread myThread = new Thread(runnable);
-        myThread.start();*/
-        // Test end
-    }
+    
 
     public MessageResponse message(String workspaceID, String msg){
         MessageRequest newMessage = new MessageRequest.Builder().context(context).inputText(msg).build();
