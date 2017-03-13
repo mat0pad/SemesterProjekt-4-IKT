@@ -2,6 +2,7 @@ package com.sem4ikt.uni.recipefinderchatbot;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
     FrameLayout frameContainer;
     private GuillotineAnimation builder;
     CanaroTextView mealPlan, chatbot, settings, favorites;
+
 
     private IMainPresenter mainPresenter;
 
@@ -89,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
             default:
                 break;
         }
+
     }
 
     public void showFragment(int frag){
@@ -124,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle(null);
         }
+
 
         View guillotineMenu = LayoutInflater.from(this).inflate(R.layout.guillotine, null);
         root.addView(guillotineMenu);
@@ -170,7 +174,6 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
                 if(statusCode == 200){
 
                     AnswerModel model = response.body();
-
                     System.out.println(model.getAnswer());
                 }
             }
@@ -181,7 +184,12 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
             }
         });
 
+
+
+
     }
+
+
 }
 
 

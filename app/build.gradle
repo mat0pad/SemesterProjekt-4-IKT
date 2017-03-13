@@ -69,6 +69,9 @@ dependencies {
     // Google firebase auth & db realtime
     compile 'com.google.firebase:firebase-auth:10.2.0'
     compile 'com.google.firebase:firebase-database:10.2.0'
+    // IBM Conversation and Toneanalyzer service
+    compile 'com.ibm.watson.developer_cloud:conversation:3.6.0'
+    compile 'com.ibm.watson.developer_cloud:tone-analyzer:3.6.0'
 }
 // Google services required for firebase
 apply plugin: 'com.google.gms.google-services'
