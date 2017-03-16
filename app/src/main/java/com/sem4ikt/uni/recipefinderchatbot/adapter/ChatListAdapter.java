@@ -35,6 +35,11 @@ public class ChatListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void addMessageResponse(String m){
+        dialog.add(new Pair<String, Integer>(m, DIRECTION_INCOMING));
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return dialog.size();

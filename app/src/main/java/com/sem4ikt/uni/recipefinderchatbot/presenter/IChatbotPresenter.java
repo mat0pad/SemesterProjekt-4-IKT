@@ -8,3 +8,4 @@ public interface IChatbotPresenter<V> extends IBasePresenter<V> {
 
     void send(String input);
 }
+
