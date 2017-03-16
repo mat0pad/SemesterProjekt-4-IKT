@@ -7,12 +7,17 @@ package com.sem4ikt.uni.recipefinderchatbot.Database;
 public class FirebaseAuth implements IFirebaseAuth {
 
     @Override
-    public void getUser() {
+    public void createUserWithEmailAndPassword(String email, String password) {
 
     }
 
     @Override
-    public boolean createUser(String email, String password) {
-        return false;
+    public void signIn(String email, String password) {
+
+    }
+
+    @Override
+    public void sendEmailAutchenitaction(String email) {
+
     }
 }
