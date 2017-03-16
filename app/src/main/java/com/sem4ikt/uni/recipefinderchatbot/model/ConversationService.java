@@ -30,11 +30,10 @@ public class ConversationService implements IConversationService {
     private ToneAnalyzer toneService = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
     private Map<String, Object> context;
     private String workspaceIdentifier, message;
-    private IChatbotView chatbotView;
+    private final ChatbotInteractor.ChatbotListener listener;
 
-    public ConversationService(IChatbotView view) {
-        chatbotView = view;
-        // TODO: Move this to ChatbotModel using the setters for both convService and toneService username and password
+    public ConversationService(ChatbotInteractor.ChatbotListener listener) {
+        this.listener = listener;
     }
 
     public ConversationService setConversationUsernameAndPassword(String username, String password) {
@@ -68,11 +67,13 @@ public class ConversationService implements IConversationService {
                     public void onResponse(MessageResponse response) {
                         context = response.getContext();
                         // Answer is ready
+                        listener.onChatbotResponse(response.getOutput().toString());
                         // TODO: Mekanisme som f.eks. observer pattern der gør at andre klasser kan subscibe på hvornår der er svar fra chatbotten
                     }
 
                     @Override
                     public void onFailure(Exception e) {
+                        listener.onChatbotFailed("Something went wrong, please try again");
                         Log.e("testbotConversation", e.toString());
                     }
                 });
