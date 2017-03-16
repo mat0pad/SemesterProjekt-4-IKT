@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
     @Override
     public void onLogin(String email, String password) {
 
-        auth.signIn(email, password);
+        System.out.println("Result: " + auth.signIn(email, password));
 
         /*
         // Show menu

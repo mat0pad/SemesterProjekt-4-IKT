@@ -17,6 +17,7 @@ public class Authentication implements IFirebaseAuth {
 
     private FirebaseAuth auth;
     private LoginActivity loginActivity;
+    private boolean result;
 
     public Authentication(LoginActivity loginActivity){
 
@@ -26,7 +27,9 @@ public class Authentication implements IFirebaseAuth {
     }
 
     @Override
-    public void createUserWithEmailAndPassword(String email, String password) {
+    public boolean createUserWithEmailAndPassword(String email, String password) {
+
+        result = false;
 
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(loginActivity, new OnCompleteListener<AuthResult>() {
@@ -34,22 +37,23 @@ public class Authentication implements IFirebaseAuth {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.i("Authentication", "createUserWithEmailAndPassword: " + task.isSuccessful());
 
-                        if(task.isSuccessful())
+                        if(task.isSuccessful()) {
                             task.getResult().getUser().sendEmailVerification();
+                            result = true;
+                        }
 
                     }
                 });
 
 
-
+        return result;
 
     }
 
     @Override
-    public void signIn(String email, String password) {
+    public boolean signIn(String email, String password) {
 
-
-        boolean returnValue;
+        result = false;
 
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(loginActivity, new OnCompleteListener<AuthResult>() {
@@ -60,18 +64,22 @@ public class Authentication implements IFirebaseAuth {
 
                         if(task.getResult().getUser().isEmailVerified()){
                             System.out.println("Success");
+                            result = true;
                         }
                         else{
                             System.out.println("Email Not Verified!");
+                            result = true;
                         }
                     }
                 });
+
+        return result;
     }
 
     @Override
-    public void sendEmailAutchenitaction(String email) {
+    public boolean sendEmailAutchenitaction(String email) {
 
         //auth.
-
+        return false;
     }
 }
