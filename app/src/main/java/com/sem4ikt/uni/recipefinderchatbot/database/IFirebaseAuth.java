@@ -6,8 +6,8 @@ package com.sem4ikt.uni.recipefinderchatbot.database;
 
 public interface IFirebaseAuth {
 
-    boolean createUserWithEmailAndPassword(String email, String password);
-    boolean signIn(String email,String password);
+    void createUserWithEmailAndPassword(String email, String password);
+    void signIn(String email,String password);
     boolean sendEmailAutchenitaction(String email);
 
 }

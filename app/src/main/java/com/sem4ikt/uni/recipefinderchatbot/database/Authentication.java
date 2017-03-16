@@ -27,7 +27,7 @@ public class Authentication implements IFirebaseAuth {
     }
 
     @Override
-    public boolean createUserWithEmailAndPassword(String email, String password) {
+    public void createUserWithEmailAndPassword(String email, String password) {
 
         result = false;
 
@@ -41,17 +41,17 @@ public class Authentication implements IFirebaseAuth {
                             task.getResult().getUser().sendEmailVerification();
                             result = true;
                         }
-
+                        loginActivity.onClearText(result);
                     }
                 });
 
 
-        return result;
+       // return result;
 
     }
 
     @Override
-    public boolean signIn(String email, String password) {
+    public void signIn(String email, String password) {
 
         result = false;
 
@@ -62,6 +62,8 @@ public class Authentication implements IFirebaseAuth {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.i("Authentication", "signInWithEmail: " + task.isSuccessful());
 
+                        Log.i("Thread: ", Thread.currentThread().getName());
+
                         if(task.getResult().getUser().isEmailVerified()){
                             System.out.println("Success");
                             result = true;
@@ -70,10 +72,10 @@ public class Authentication implements IFirebaseAuth {
                             System.out.println("Email Not Verified!");
                             result = true;
                         }
+
+                        loginActivity.onClearText(result);
                     }
                 });
-
-        return result;
     }
 
     @Override
