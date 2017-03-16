@@ -34,8 +34,14 @@ public class Authentication implements IFirebaseAuth {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.i("Authentication", "createUserWithEmailAndPassword: " + task.isSuccessful());
 
+                        if(task.isSuccessful())
+                            task.getResult().getUser().sendEmailVerification();
+
                     }
                 });
+
+
+
 
     }
 
@@ -43,21 +49,29 @@ public class Authentication implements IFirebaseAuth {
     public void signIn(String email, String password) {
 
 
+        boolean returnValue;
+
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(loginActivity, new OnCompleteListener<AuthResult>() {
 
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
                         Log.i("Authentication", "signInWithEmail: " + task.isSuccessful());
 
-
+                        if(task.getResult().getUser().isEmailVerified()){
+                            System.out.println("Success");
+                        }
+                        else{
+                            System.out.println("Email Not Verified!");
+                        }
                     }
                 });
     }
 
     @Override
     public void sendEmailAutchenitaction(String email) {
+
+        //auth.
 
     }
 }
