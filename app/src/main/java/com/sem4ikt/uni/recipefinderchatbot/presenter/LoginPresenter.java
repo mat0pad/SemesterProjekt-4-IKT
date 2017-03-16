@@ -16,6 +16,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
         super(view);
 
         user = new LoginUserModel();
+
     }
 
 

@@ -1,7 +1,5 @@
 package com.sem4ikt.uni.recipefinderchatbot.model;
 
-import com.sem4ikt.uni.recipefinderchatbot.Database.IFirebaseAuth;
-
 /**
  * Created by mathiaslykkepedersen on 16/03/2017.
  */
@@ -10,7 +8,6 @@ public class LoginUserModel implements ILoginUserModel {
 
     private String email;
     private String password;
-    private IFirebaseAuth firebaseAuth;
 
     public LoginUserModel(){
 
