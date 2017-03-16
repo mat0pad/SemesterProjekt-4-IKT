@@ -31,8 +31,30 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
         user.setPassword(password);
         user.setEmail(email);
 
-        if (user.checkUserValidity() == true)
+        if (user.checkUserValidity())
             view.onLogin(email,password);
+        else
+            System.out.println("Incorrect pass or mail");
+    }
+
+    @Override
+    public void signInResult(boolean isSuccessful) {
+
+        if (isSuccessful)
+            view.showMainActivity();
+        // else show error message
+
+    }
+
+
+    @Override
+    public void createUserResult(boolean isSuccessful) {
+
+    }
+
+    @Override
+    public void forgotPasswordResult(boolean isSuccessful) {
+
     }
 
     @Override

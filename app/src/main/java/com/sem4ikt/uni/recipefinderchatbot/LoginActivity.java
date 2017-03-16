@@ -1,7 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +23,15 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
     LoginPresenter loginPresenter;
     Authentication auth;
 
+    public enum AUTH{
+
+        SIGN_IN_SUCCESS,
+        SIGN_IN_FAILED,
+        CREATE_SUCCESS,
+        CREATE_FAILED,
+        FORGOT_PASSWORD_SUCCESS,
+        FORGOT_PASSWORD_FAILED
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,22 +67,52 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
     @Override
     public void onLogin(String email, String password) {
         auth.signIn(email,password);
-        /*
+    }
+
+    @Override
+    public void showMainActivity() {
         // Show menu
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
         // Kill this activity
-        finish();*/
+        finish();
     }
+
 
     @Override
     public void onClearText() {
 
     }
 
-    public void onClearText(boolean bb) {
-        System.out.println("Result " + bb);
+    public void authenticationHandler(AUTH auth, String reason) {
+
+        System.out.println("Authentication result: " + reason);
+
+        switch (auth){
+
+            case SIGN_IN_SUCCESS:
+                loginPresenter.signInResult(true);
+                break;
+            case SIGN_IN_FAILED:
+                loginPresenter.signInResult(false);
+                break;
+            case CREATE_SUCCESS:
+                loginPresenter.createUserResult(true);
+                break;
+            case CREATE_FAILED:
+                loginPresenter.createUserResult(false);
+                break;
+            case FORGOT_PASSWORD_SUCCESS:
+                loginPresenter.forgotPasswordResult(true);
+                break;
+            case FORGOT_PASSWORD_FAILED:
+                loginPresenter.forgotPasswordResult(false);
+                break;
+
+            default:
+                break;
+        }
     }
 
 

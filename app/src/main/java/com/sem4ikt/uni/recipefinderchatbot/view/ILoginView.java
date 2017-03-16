@@ -7,6 +7,7 @@ package com.sem4ikt.uni.recipefinderchatbot.view;
 public interface ILoginView {
 
     void onLogin(String email, String password);
+    void showMainActivity();
     void onClearText();
     void onSetProgressVisibility();
 }
