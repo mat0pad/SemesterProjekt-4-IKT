@@ -8,6 +8,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.sem4ikt.uni.recipefinderchatbot.LoginActivity;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+import android.widget.Toast;
+
+
 /**
  * Created by anton on 16-03-2017.
  */
@@ -41,6 +46,18 @@ public class Authentication implements IFirebaseAuth {
     @Override
     public void signIn(String email, String password) {
 
+
+        auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(loginActivity, new OnCompleteListener<AuthResult>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("Authentication", "signInWithEmail:failed", task.getException());
+                        }
+
+                    }
+                });
     }
 
     @Override
