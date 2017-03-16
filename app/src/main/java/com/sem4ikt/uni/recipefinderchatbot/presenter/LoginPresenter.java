@@ -32,7 +32,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
         user.setEmail(email);
 
         if (user.checkUserValidity() == true)
-            view.onLogin();
+            view.onLogin(email,password);
     }
 
     @Override

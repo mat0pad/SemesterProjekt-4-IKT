@@ -1,17 +1,13 @@
 package com.sem4ikt.uni.recipefinderchatbot.database;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.sem4ikt.uni.recipefinderchatbot.LoginActivity;
-
-import android.support.annotation.NonNull;
-import android.util.Log;
-import android.widget.Toast;
-
 
 /**
  * Created by anton on 16-03-2017.
@@ -22,7 +18,7 @@ public class Authentication implements IFirebaseAuth {
     private FirebaseAuth auth;
     private LoginActivity loginActivity;
 
-    Authentication(LoginActivity loginActivity){
+    public Authentication(LoginActivity loginActivity){
 
         this.loginActivity = loginActivity;
 
@@ -36,7 +32,7 @@ public class Authentication implements IFirebaseAuth {
                 .addOnCompleteListener(loginActivity, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
+                        Log.i("Authentication", "createUserWithEmailAndPassword: " + task.isSuccessful());
 
                     }
                 });
@@ -52,9 +48,9 @@ public class Authentication implements IFirebaseAuth {
 
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (!task.isSuccessful()) {
-                            Log.w("Authentication", "signInWithEmail:failed", task.getException());
-                        }
+
+                        Log.i("Authentication", "signInWithEmail: " + task.isSuccessful());
+
 
                     }
                 });

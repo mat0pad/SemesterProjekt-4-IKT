@@ -1,12 +1,12 @@
 package com.sem4ikt.uni.recipefinderchatbot;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ILoginView;
 
@@ -20,6 +20,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
     Button loginButton;
     EditText emailField, passwordField;
     LoginPresenter loginPresenter;
+    Authentication auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +32,11 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
         passwordField = (EditText) findViewById(R.id.password);
         emailField = (EditText) findViewById(R.id.email);
         loginButton = (Button) findViewById(R.id.sign_in_button);
-
         loginButton.setOnClickListener(this);
 
         loginPresenter = new LoginPresenter(this);
+
+        auth = new Authentication(this);
     }
 
     @Override
@@ -52,14 +54,17 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
     }
 
     @Override
-    public void onLogin() {
+    public void onLogin(String email, String password) {
 
+        auth.signIn(email, password);
+
+        /*
         // Show menu
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
         // Kill this activity
-        finish();
+        finish();*/
     }
 
     @Override
