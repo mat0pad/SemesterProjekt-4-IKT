@@ -1,5 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.services.ConversationService;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
 
@@ -7,7 +8,7 @@ import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
  * Created by mathiaslykkepedersen on 09/03/2017.
  */
 
-public class ChatbotPresenter extends BasePresenter<IChatbotView> implements IChatbotPresenter<IChatbotView>{
+public class ChatbotPresenter extends BasePresenter<IChatbotView> implements IChatbotPresenter<IChatbotView> {
 
     private ConversationService cs;
 
@@ -20,6 +21,6 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
     public void send(String input){
         // TODO: Change messageTest to message after done testing
         cs.message("e665abad-a305-4cf4-a21c-045354782015", input);
-        view.displayNormalResult(input);
+        view.displayMessage(input);
     }
 }

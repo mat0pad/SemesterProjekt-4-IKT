@@ -11,8 +11,8 @@ import android.widget.FrameLayout;
 
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnswerModel;
 import com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.IMainPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.MainPresenter;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IMainPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.rest.ApiClient;
 import com.sem4ikt.uni.recipefinderchatbot.rest.IApiClient;
 import com.sem4ikt.uni.recipefinderchatbot.rest.ISpoonacularAPI;

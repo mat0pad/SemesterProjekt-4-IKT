@@ -2,13 +2,14 @@ package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
 import com.sem4ikt.uni.recipefinderchatbot.model.ILoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ILoginView;
 
 /**
  * Created by mathiaslykkepedersen on 16/03/2017.
  */
 
-public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginPresenter<ILoginView>  {
+public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginPresenter<ILoginView> {
 
     private ILoginUserModel user;
 
@@ -16,13 +17,12 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
         super(view);
 
         user = new LoginUserModel();
-
     }
 
 
     @Override
     public void clear() {
-
+        view.onClearText();
     }
 
     @Override

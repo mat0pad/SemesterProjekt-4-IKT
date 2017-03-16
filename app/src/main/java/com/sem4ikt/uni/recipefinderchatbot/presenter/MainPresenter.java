@@ -1,5 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IMainPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IMainView;
 
 /**

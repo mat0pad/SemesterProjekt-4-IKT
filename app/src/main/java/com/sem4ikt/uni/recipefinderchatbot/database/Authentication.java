@@ -10,6 +10,8 @@ import com.sem4ikt.uni.recipefinderchatbot.LoginActivity;
 
 import static com.sem4ikt.uni.recipefinderchatbot.LoginActivity.AUTH.CREATE_FAILED;
 import static com.sem4ikt.uni.recipefinderchatbot.LoginActivity.AUTH.CREATE_SUCCESS;
+import static com.sem4ikt.uni.recipefinderchatbot.LoginActivity.AUTH.FORGOT_PASSWORD_FAILED;
+import static com.sem4ikt.uni.recipefinderchatbot.LoginActivity.AUTH.FORGOT_PASSWORD_SUCCESS;
 import static com.sem4ikt.uni.recipefinderchatbot.LoginActivity.AUTH.SIGN_IN_FAILED;
 import static com.sem4ikt.uni.recipefinderchatbot.LoginActivity.AUTH.SIGN_IN_SUCCESS;
 
@@ -41,7 +43,7 @@ public class Authentication implements IFirebaseAuth {
                         if(task.isSuccessful()) {
                             task.getResult().getUser().sendEmailVerification();
                             loginActivity.authenticationHandler(CREATE_SUCCESS, "Create user successfully! Now verify email");
-                    }
+                        }
                         else
                             loginActivity.authenticationHandler(CREATE_FAILED, "Create user failed!");
                     }
@@ -80,7 +82,11 @@ public class Authentication implements IFirebaseAuth {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 
-                        System.out.println(task.isSuccessful());
+                        if(task.isSuccessful()) {
+                            loginActivity.authenticationHandler(FORGOT_PASSWORD_SUCCESS, "Email sent. Forgot password successful!");
+                        }
+                        else
+                            loginActivity.authenticationHandler(FORGOT_PASSWORD_FAILED, "Forgot password failed!");
                     }
                 });
 
