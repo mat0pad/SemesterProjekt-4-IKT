@@ -1,8 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot;
 
-import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -36,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
     private View contentHamburger;
     FrameLayout frameContainer;
     private GuillotineAnimation builder;
-    CanaroTextView mealPlan, chatbot, settings, favorites;
+    CanaroTextView mealPlan, chatbot, settings, favorites, menuTitle;
 
 
     private IMainPresenter mainPresenter;
@@ -72,20 +70,23 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
         switch (v.getId())
         {
             case R.id.meal_plan:
-                showFragment(1);
+                showFragment(FragmentMenu.MEAL_PLAN.ordinal());
+                menuTitle.setText(R.string.meal_plan);
                 builder.close();
                 break;
             case R.id.chatbot:
-                showFragment(0);
+                showFragment(FragmentMenu.CHATBOT.ordinal());
+                menuTitle.setText(R.string.recipe_bot);
                 builder.close();
                 break;
             case R.id.settings:
-                showFragment(3);
-
+                showFragment(FragmentMenu.SETTINGS.ordinal());
+                menuTitle.setText(R.string.settings);
                 builder.close();
                 break;
             case R.id.favorites:
-                showFragment(2);
+                showFragment(FragmentMenu.FAVORITES.ordinal());
+                menuTitle.setText(R.string.favorites);
                 builder.close();
                 break;
 
@@ -137,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
         chatbot = (CanaroTextView) findViewById(R.id.chatbot);
         settings = (CanaroTextView) findViewById(R.id.settings);
         favorites = (CanaroTextView) findViewById(R.id.favorites);
+        menuTitle = (CanaroTextView) findViewById(R.id.menu_title);
 
         // Set onClick listeners
         mealPlan.setOnClickListener(this);
@@ -169,6 +171,8 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
         call.enqueue(new Callback<AnswerModel>() {
             @Override
             public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
+
+                Log.i("TAG", Thread.currentThread().getName());
 
                 int statusCode = response.code();
 

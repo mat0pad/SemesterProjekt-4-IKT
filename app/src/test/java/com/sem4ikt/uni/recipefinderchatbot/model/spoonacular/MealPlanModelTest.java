@@ -1,13 +1,11 @@
 package com.sem4ikt.uni.recipefinderchatbot.model.spoonacular;
 
-import com.sem4ikt.uni.recipefinderchatbot.model.RecipeModel;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by anton on 11-03-2017.

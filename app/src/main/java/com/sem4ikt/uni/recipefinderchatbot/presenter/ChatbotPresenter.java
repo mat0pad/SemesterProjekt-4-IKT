@@ -1,6 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
-import com.sem4ikt.uni.recipefinderchatbot.model.ConversationService;
+import com.sem4ikt.uni.recipefinderchatbot.services.ConversationService;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
 
 /**

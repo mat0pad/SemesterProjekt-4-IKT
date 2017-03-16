@@ -31,7 +31,11 @@ public class ChatListAdapter extends BaseAdapter {
     }
 
     public void addMessage(String m){
-        dialog.add(new Pair<String, Integer>(m, DIRECTION_OUTGOING));
+
+        if(!m.isEmpty())
+            dialog.add(new Pair<String, Integer>(m, DIRECTION_OUTGOING));
+        else
+            dialog.add(new Pair<String, Integer>(m, DIRECTION_INCOMING));
         notifyDataSetChanged();
     }
 
@@ -66,7 +70,7 @@ public class ChatListAdapter extends BaseAdapter {
         int direction = getItemViewType(position);
         ViewHolder holder;
 
-        if (convertView == null || ((ViewHolder) convertView.getTag()).direction != DIRECTION_OUTGOING) {
+        if (convertView == null || ((ViewHolder) convertView.getTag()).direction != direction) {
 
             int res = 0;
             int resid = 0;

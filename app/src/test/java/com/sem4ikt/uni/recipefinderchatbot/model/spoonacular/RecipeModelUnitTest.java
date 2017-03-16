@@ -1,8 +1,5 @@
 package com.sem4ikt.uni.recipefinderchatbot.model.spoonacular;
 
-import com.sem4ikt.uni.recipefinderchatbot.model.ExtendedIngredientModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.RecipeModel;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot.model;
+package com.sem4ikt.uni.recipefinderchatbot.model.spoonacular;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

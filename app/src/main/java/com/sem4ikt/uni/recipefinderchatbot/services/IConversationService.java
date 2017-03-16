@@ -1,6 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot.model;
-
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
+package com.sem4ikt.uni.recipefinderchatbot.services;
 
 /**
  * Created by henriknielsen on 14/03/2017.
