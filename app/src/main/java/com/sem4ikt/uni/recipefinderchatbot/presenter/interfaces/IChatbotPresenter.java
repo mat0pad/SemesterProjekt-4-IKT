@@ -7,5 +7,6 @@ package com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces;
 public interface IChatbotPresenter<V> extends IBasePresenter<V> {
 
     void send(String input);
+
 }
 

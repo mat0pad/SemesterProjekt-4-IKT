@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ILoginView;
 
 
@@ -20,18 +20,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
 
     Button loginButton;
     EditText emailField, passwordField;
-    LoginPresenter loginPresenter;
-    Authentication auth;
-
-    public enum AUTH{
-
-        SIGN_IN_SUCCESS,
-        SIGN_IN_FAILED,
-        CREATE_SUCCESS,
-        CREATE_FAILED,
-        FORGOT_PASSWORD_SUCCESS,
-        FORGOT_PASSWORD_FAILED
-    }
+    ILoginPresenter loginPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +35,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
         loginButton.setOnClickListener(this);
 
         loginPresenter = new LoginPresenter(this);
-
-        auth = new Authentication(this);
     }
 
     @Override
@@ -65,12 +52,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
     }
 
     @Override
-    public void onLogin(String email, String password) {
-        auth.signIn(email,password);
-    }
-
-    @Override
-    public void showMainActivity() {
+    public void onLogin(boolean isSuccessful) {
         // Show menu
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -79,45 +61,28 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
         finish();
     }
 
+    @Override
+    public void onRegister(boolean isSuccessful) {
+
+    }
+
+    @Override
+    public void onPassForgot(boolean isSuccessful) {
+
+    }
+
 
     @Override
     public void onClearText() {
 
-    }
-
-    public void authenticationHandler(AUTH auth, String reason) {
-
-        System.out.println("Authentication result: " + reason);
-
-        switch (auth){
-
-            case SIGN_IN_SUCCESS:
-                loginPresenter.signInResult(true);
-                break;
-            case SIGN_IN_FAILED:
-                loginPresenter.signInResult(false);
-                break;
-            case CREATE_SUCCESS:
-                loginPresenter.createUserResult(true);
-                break;
-            case CREATE_FAILED:
-                loginPresenter.createUserResult(false);
-                break;
-            case FORGOT_PASSWORD_SUCCESS:
-                loginPresenter.forgotPasswordResult(true);
-                break;
-            case FORGOT_PASSWORD_FAILED:
-                loginPresenter.forgotPasswordResult(false);
-                break;
-
-            default:
-                break;
-        }
+        emailField.getText().clear();
+        passwordField.getText().clear();
     }
 
 
     @Override
-    public void onSetProgressVisibility() {
+    public void onSetProgressVisibility(boolean visible) {
+
 
     }
 
