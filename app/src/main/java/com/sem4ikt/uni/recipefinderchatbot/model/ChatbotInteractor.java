@@ -65,7 +65,8 @@ public class ChatbotInteractor implements IChatbotInteractor
                     @Override
                     public void onChatbotResponse(Call call, MessageResponse response)
                     {
-                        listener.onChatbotResponse(response.getOutput().toString());
+                        String s = response.getOutput().get("text").toString();
+                        listener.onChatbotResponse(s.substring(1, s.length()-1));
                     }
 
                     @Override

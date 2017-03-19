@@ -88,6 +88,7 @@ public class ConversationService implements IConversationService, ChatbotInterac
             @Override
             public void onFailure(Exception e)
             {
+                callback1.onChatbotFailed(ConversationService.this, "Something went wrong, please try again");
                 Log.e("testbotTone", e.toString());
             }
         });
