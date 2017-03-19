@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot;
+package com.sem4ikt.uni.recipefinderchatbot.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;

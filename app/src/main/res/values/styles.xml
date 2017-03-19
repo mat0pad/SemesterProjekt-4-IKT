@@ -17,4 +17,8 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="SearchViewStyle" parent="TextAppearance.AppCompat">
+        <item name="android:editTextColor">@color/Primary_Dark</item>
+    </style>
+
 </resources>

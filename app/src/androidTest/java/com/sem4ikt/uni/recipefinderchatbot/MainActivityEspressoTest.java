@@ -7,21 +7,21 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 
+import com.sem4ikt.uni.recipefinderchatbot.activity.DetailRecipeActivity;
+import com.sem4ikt.uni.recipefinderchatbot.activity.MainActivity;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Collection;
 
+import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
-
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 /**
  * Instrumentation test, which will execute on an Android device.
@@ -53,7 +53,7 @@ public class MainActivityEspressoTest {
 
         onView(withText("FAVORITES")).perform(click());
 
-        boolean b = (getActivityInstance() instanceof  DetailRecipeActivity);
+        boolean b = (getActivityInstance() instanceof DetailRecipeActivity);
         assertTrue(b);
 
     }

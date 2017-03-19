@@ -6,7 +6,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.ILoginCallback;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginCallback;
 
 import static com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter.AUTH.CREATE_FAILED;
 import static com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter.AUTH.CREATE_SUCCESS;

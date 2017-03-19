@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot;
+package com.sem4ikt.uni.recipefinderchatbot.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -9,6 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.sem4ikt.uni.recipefinderchatbot.R;
+import com.sem4ikt.uni.recipefinderchatbot.fragment.ChatbotFragment;
+import com.sem4ikt.uni.recipefinderchatbot.fragment.FavoritesFragment;
+import com.sem4ikt.uni.recipefinderchatbot.fragment.MealPlanFragment;
+import com.sem4ikt.uni.recipefinderchatbot.fragment.SettingsFragment;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnswerModel;
 import com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.MainPresenter;

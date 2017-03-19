@@ -1,8 +1,9 @@
-package com.sem4ikt.uni.recipefinderchatbot;
+package com.sem4ikt.uni.recipefinderchatbot.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import com.sem4ikt.uni.recipefinderchatbot.R;
 
 /**
  * Created by mathiaslykkepedersen on 13/02/2017.

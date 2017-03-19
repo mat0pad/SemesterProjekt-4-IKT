@@ -6,6 +6,7 @@ import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
 import com.sem4ikt.uni.recipefinderchatbot.database.IFirebaseAuth;
 import com.sem4ikt.uni.recipefinderchatbot.model.ILoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginCallback;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ILoginView;
 
@@ -46,7 +47,6 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
         // Create model
         this.auth = auth;
     }
-
 
     @Override
     public void clear() {

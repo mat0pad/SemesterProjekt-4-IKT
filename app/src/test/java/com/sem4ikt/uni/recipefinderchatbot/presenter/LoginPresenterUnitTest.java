@@ -30,7 +30,6 @@ public class LoginPresenterUnitTest {
 
     private LoginPresenter presenter;
 
-
     @Before
     public void setup() throws Exception{
 
@@ -50,7 +49,6 @@ public class LoginPresenterUnitTest {
         presenter.onAuthenticationFinished(LoginPresenter.AUTH.SIGN_IN_FAILED, "");
         verify(view, times(1)).onLogin(false);
     }
-
 
     @Test
     public void registerSuccess()

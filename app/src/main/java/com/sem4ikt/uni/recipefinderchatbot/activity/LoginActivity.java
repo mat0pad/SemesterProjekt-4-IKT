@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot;
+package com.sem4ikt.uni.recipefinderchatbot.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ILoginView;
