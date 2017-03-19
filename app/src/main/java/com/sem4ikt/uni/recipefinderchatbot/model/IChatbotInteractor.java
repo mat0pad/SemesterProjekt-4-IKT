@@ -5,5 +5,5 @@ package com.sem4ikt.uni.recipefinderchatbot.model;
  */
 
 interface IChatbotInteractor {
-    void message(String msg);
+   ChatbotInteractor.ChatbotCall message(String workspaceId, String msg);
 }

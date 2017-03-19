@@ -7,5 +7,5 @@ package com.sem4ikt.uni.recipefinderchatbot.view;
 public interface IChatbotView {
 
     void displayNormalResult(String input);
-
+    void displayNormalResultResponse(String input);
 }
