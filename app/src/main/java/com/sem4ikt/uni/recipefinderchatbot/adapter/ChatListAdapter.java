@@ -38,10 +38,7 @@ public class ChatListAdapter extends BaseAdapter implements ChatListView {
 
     public void onAddMessage(String m, int direction){
 
-        if(!m.isEmpty())
-            dialog.add(new Pair<String, Integer>(m, DIRECTION_OUTGOING));
-        else
-            dialog.add(new Pair<String, Integer>(m, DIRECTION_INCOMING));
+        dialog.add(new Pair<String, Integer>(m, direction));
         notifyDataSetChanged();
     }
 

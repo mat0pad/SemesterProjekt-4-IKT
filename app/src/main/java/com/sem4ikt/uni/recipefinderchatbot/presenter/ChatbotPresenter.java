@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
 
 /**
@@ -19,12 +20,11 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
     {
         super(view);
         ci = new ChatbotInteractor();
-
     }
 
     public void send(String input)
     {
-        view.displayNormalResult(input);
+        view.displayMessage(input, 1);
 
         ci.message("e665abad-a305-4cf4-a21c-045354782015", input).setChatbotListener(new ChatbotInteractor.ChatbotListener()
         {
@@ -36,7 +36,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
                 Runnable myRunnable = new Runnable() {
                     @Override
                     public void run() {
-                        view.displayNormalResultResponse(response);
+                        view.displayMessage(response, 0);
                     }
                 };
                 mainHandler.post(myRunnable);

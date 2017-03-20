@@ -43,7 +43,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
         switch (view.getId()){
 
             case R.id.sign_in_button:
-                loginPresenter.doLogin(emailField.getText().toString(), passwordField.getText().toString());
+                onLogin(true);
+                //loginPresenter.doLogin(emailField.getText().toString(), passwordField.getText().toString());
                 break;
 
             default:

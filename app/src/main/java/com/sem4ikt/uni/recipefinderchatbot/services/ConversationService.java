@@ -1,8 +1,6 @@
-package com.sem4ikt.uni.recipefinderchatbot.model;
+package com.sem4ikt.uni.recipefinderchatbot.services;
 
 
-import android.content.Context;
-import android.os.Handler;
 import android.util.Log;
 
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
@@ -10,14 +8,9 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
-import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
+import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
 
 import java.util.Map;
-
-import jersey.repackaged.jsr166e.CompletableFuture;
-
-import static android.content.ContentValues.TAG;
-
 
 /**
  * Created by henriknielsen on 11/03/2017.

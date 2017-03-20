@@ -6,6 +6,6 @@ package com.sem4ikt.uni.recipefinderchatbot.view;
 
 public interface IChatbotView {
 
-    void displayMessage(String input);
+    void displayMessage(String input, int direction);
 
 }

@@ -82,12 +82,8 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
 
 
     @Override
-    public void displayMessage(String input) {
-        adapter.adapterPresenter.addMessage(input, 0);
+    public void displayMessage(String input, int direction) {
+        adapter.adapterPresenter.addMessage(input, direction);
     }
 
-    @Override
-    public void displayNormalResultResponse(String input) {
-        adapter.addMessageResponse(input);
-    }
 }

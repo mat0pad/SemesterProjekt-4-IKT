@@ -1,9 +1,8 @@
 package com.sem4ikt.uni.recipefinderchatbot.model;
 
 
-import android.view.View;
-
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
+import com.sem4ikt.uni.recipefinderchatbot.services.ConversationService;
 
 /**
  * Created by henriknielsen on 16/03/2017.
@@ -13,7 +12,6 @@ public class ChatbotInteractor implements IChatbotInteractor
 {
 
     private ConversationService cs = new ConversationService();
-    ;
 
 
     public interface ChatbotListener
@@ -28,12 +26,12 @@ public class ChatbotInteractor implements IChatbotInteractor
     }
 
 
-    interface Call
+    public interface Call
     {
         void setChatbotListener(Callback responseCallback);
     }
 
-    interface Callback
+    public interface Callback
     {
         void onChatbotResponse(Call call, MessageResponse response);
         void onChatbotFailed(Call call, String errorMsg);
@@ -65,8 +63,9 @@ public class ChatbotInteractor implements IChatbotInteractor
                     @Override
                     public void onChatbotResponse(Call call, MessageResponse response)
                     {
-                        String s = response.getOutput().get("text").toString();
-                        listener.onChatbotResponse(s.substring(1, s.length()-1));
+                        String s = response.getOutput().toString();
+                       // listener.onChatbotResponse(s.substring(1, s.length()-1));
+                        listener.onChatbotResponse(s);
                     }
 
                     @Override
