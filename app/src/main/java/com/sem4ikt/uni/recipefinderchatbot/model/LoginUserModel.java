@@ -1,5 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.model;
 
+import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ILoginUserModel;
+
 /**
  * Created by mathiaslykkepedersen on 16/03/2017.
  */
