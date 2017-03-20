@@ -24,22 +24,22 @@
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="50dp"
-                android:src="@drawable/common_google_signin_btn_icon_dark"/>
+                android:src="@drawable/common_google_signin_btn_icon_dark" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
+                android:paddingEnd="30dp"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
-                android:paddingEnd="30dp"
                 android:paddingStart="30dp">
 
                 <EditText
@@ -55,9 +55,9 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingEnd="30dp"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
-                android:paddingEnd="30dp"
                 android:paddingStart="30dp">
 
                 <EditText
@@ -73,16 +73,35 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <TextView
+                android:id="@+id/sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="285dp"
+                android:clickable="true"
+                android:onClick="onClickSignUp"
+                android:textColor="#ff0000ff"
+                android:text="Sign up" />
+
             <Button
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="40dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in"
-                android:textStyle="bold"
-                android:layout_marginEnd="40dp"
-                android:layout_marginStart="40dp"/>
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/restore_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="onClickRestorePassword"
+                android:textColor="#ff0000ff"
+                android:text="Restore Password" />
 
         </LinearLayout>
     </ScrollView>
