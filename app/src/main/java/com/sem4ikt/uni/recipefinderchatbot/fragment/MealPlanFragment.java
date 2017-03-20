@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot;
+package com.sem4ikt.uni.recipefinderchatbot.fragment;
 
 
 import android.os.Bundle;
@@ -7,11 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sem4ikt.uni.recipefinderchatbot.R;
 /**
  * Created by Christian on 12-03-2017.
  */
 
-public class FavoritesFragment extends Fragment {
+public class MealPlanFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -21,7 +22,7 @@ public class FavoritesFragment extends Fragment {
             return null;
         }
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.favorite, container, false);
+        View view = inflater.inflate(R.layout.mealplan, container, false);
 
         return view;
     }

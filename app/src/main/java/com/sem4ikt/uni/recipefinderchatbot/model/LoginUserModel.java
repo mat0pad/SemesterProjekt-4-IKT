@@ -35,6 +35,10 @@ public class LoginUserModel implements ILoginUserModel {
 
     @Override
     public boolean checkUserValidity() {
-        return true;
+
+        //String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w]-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        //String PASS_REGEX = "[a-zA-Z ]*\\d+.*";
+
+        return getPassword().length() >= 6 && !email.isEmpty(); //&& getPassword().matches(PASS_REGEX) && email.matches(EMAIL_REGEX);
     }
 }

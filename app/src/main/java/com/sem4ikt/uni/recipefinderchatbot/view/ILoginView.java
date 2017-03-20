@@ -6,8 +6,9 @@ package com.sem4ikt.uni.recipefinderchatbot.view;
 
 public interface ILoginView {
 
-    void onSetupFieldListeners();
-    void onLogin();
+    void onLogin(boolean isSuccessful);
+    void onRegister(boolean isSuccessful);
+    void onPassForgot(boolean isSuccessful);
     void onClearText();
-    void onSetProgressVisibility();
+    void onSetProgressVisibility(boolean visible );
 }

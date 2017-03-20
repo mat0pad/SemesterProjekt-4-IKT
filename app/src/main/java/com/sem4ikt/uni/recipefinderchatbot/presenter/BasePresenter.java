@@ -1,10 +1,12 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IBasePresenter;
+
 /**
  * Created by mathiaslykkepedersen on 02/03/2017.
  */
 
-abstract class BasePresenter<V> implements IBasePresenter<V>{
+abstract class BasePresenter<V> implements IBasePresenter<V> {
 
     protected V view = null;
 

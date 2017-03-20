@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot;
+package com.sem4ikt.uni.recipefinderchatbot.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,9 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatbotPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.IChatbotPresenter;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
 
 import java.util.ArrayList;
@@ -64,7 +65,6 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
 
     public void onClick(View v){
 
-
         switch (v.getId()){
 
             case R.id.send_button:
@@ -82,7 +82,8 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
 
 
     @Override
-    public void displayNormalResult(String input) {
-        adapter.addMessage(input);
+    public void displayMessage(String input, int direction) {
+        adapter.adapterPresenter.addMessage(input, direction);
     }
+
 }

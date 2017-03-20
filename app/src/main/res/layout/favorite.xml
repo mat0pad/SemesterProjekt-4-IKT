@@ -1,13 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@color/Primary_Dark">
 
-    <TextView
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/search_bar_favor"
+        android:background="@color/White"
+        android:closeIcon="@drawable/close"
+        style="@style/SearchViewStyle"
+        android:searchIcon="@drawable/search_icon"
+        android:searchHintIcon="@drawable/search_icon"
+        android:queryHint="@string/search_hint" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/Primary_Dark"/>
+
+    <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="@color/Primary_Dark"
-        android:text="Favorite" />
+        android:layout_marginTop="53dp"
+        android:numColumns="2"
+        android:id="@+id/favorites_gridview"
+        android:overScrollMode="never"
+        android:background="@color/White"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:src="@drawable/edit"
+        android:tint="@color/White"
+        app:fabSize="normal"
+        android:background="@color/Primary_Dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:backgroundTint="@color/Primary_Dark"
+        app:elevation="4dp"
+        android:layout_margin="15dp"/>
+
 
 </FrameLayout>

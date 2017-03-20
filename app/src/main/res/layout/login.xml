@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.sem4ikt.uni.recipefinderchatbot.LoginActivity">
+    tools:context="com.sem4ikt.uni.recipefinderchatbot.activity.LoginActivity">
 
     <!-- Login progress -->
     <ProgressBar
@@ -84,8 +84,8 @@
                 android:text="Sign up" />
 
             <Button
-                android:id="@+id/email_sign_in_button"
-                style="?android:textAppearanceSmall"
+                android:id="@+id/sign_in_button"
+                android:background="@drawable/send_button_state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="40dp"

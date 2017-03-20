@@ -1,17 +1,20 @@
 <resources>
-    <string name="app_name">RecipeFinderChatbot</string>
+    <string name="app_name">BOTLER</string>
 
     <!-- Related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
+
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."</string>
+
+    <string name="change_password">"Change password"</string>
+
+    <string name="search_hint">"Search your recipes"</string>
 
     <!-- Messages -->
     <string name="from_botler">Botler said:</string>
@@ -22,8 +25,9 @@
     <string name="favorites">FAVORITES</string>
     <string name="settings">SETTINGS</string>
     <string name="send">SEND</string>
+
     <!-- String related to activities-->
     <string name="recipe_bot">CHAT WITH BOTLER</string>
-    <string name="title_activity_main2">Main2Activity</string>
+
 
 </resources>

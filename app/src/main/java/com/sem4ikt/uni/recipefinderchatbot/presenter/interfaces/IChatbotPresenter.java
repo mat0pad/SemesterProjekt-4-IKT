@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot.presenter;
+package com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces;
 
 /**
  * Created by mathiaslykkepedersen on 09/03/2017.
@@ -7,5 +7,6 @@ package com.sem4ikt.uni.recipefinderchatbot.presenter;
 public interface IChatbotPresenter<V> extends IBasePresenter<V> {
 
     void send(String input);
+
 }
 
