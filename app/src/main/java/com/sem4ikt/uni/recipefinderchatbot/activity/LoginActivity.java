@@ -47,6 +47,14 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
                 //loginPresenter.doLogin(emailField.getText().toString(), passwordField.getText().toString());
                 break;
 
+            case R.id.sign_up:
+                onRegister(true);
+                break;
+
+            case R.id.restore_password:
+                onPassForgot(true);
+                break;
+
             default:
                 break;
         }
