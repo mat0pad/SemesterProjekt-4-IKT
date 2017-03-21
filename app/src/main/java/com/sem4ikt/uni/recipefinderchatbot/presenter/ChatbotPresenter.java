@@ -57,7 +57,8 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
                             api.switchWorkspace(response.getOutput().get("goTo").toString(), response.getInputText());
                         }
                         else{
-                            showText(response.getText().get(0));
+                            showText(response.getText().toString()
+                                    .substring(1, response.getText().toString().length()-1));
                         }
                     }
                 };
