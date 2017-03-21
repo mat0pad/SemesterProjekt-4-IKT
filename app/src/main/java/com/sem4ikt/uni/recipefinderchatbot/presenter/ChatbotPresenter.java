@@ -5,6 +5,7 @@ import android.os.Looper;
 
 import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
+import com.sem4ikt.uni.recipefinderchatbot.services.ConversationService;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
 
 /**
@@ -27,6 +28,8 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
         view.displayMessage(input, 1);
 
         ci.message("e665abad-a305-4cf4-a21c-045354782015", input).setChatbotListener(new ChatbotInteractor.ChatbotListener()
+
+        //ci.message("a26c7ea6-b320-4afa-a068-868b5b6ad21b", input).setChatbotListener(new ChatbotInteractor.ChatbotListener()
         {
             @Override
             public void onChatbotResponse(final String response)
