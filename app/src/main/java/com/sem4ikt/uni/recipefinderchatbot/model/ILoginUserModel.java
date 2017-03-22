@@ -14,5 +14,7 @@ public interface ILoginUserModel {
 
     void setPassword(String password);
 
+    void setConfirmPassword(String confirmPassword);
+
     boolean checkUserValidity();
 }

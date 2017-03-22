@@ -10,6 +10,8 @@ import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginCallback;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ILoginView;
 
+import java.util.Objects;
+
 /**
  * Created by mathiaslykkepedersen on 16/03/2017.
  */
@@ -69,18 +71,24 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
     }
 
     @Override
-    public void doCreateUser(String email, String password) {
+    public void doCreateUser(String email, String password, String confirm_password) {
 
         user.setPassword(password);
+        user.setPassword(confirm_password);
         user.setEmail(email);
 
         setProgressBarVisiblity(true);
 
         if (user.checkUserValidity())
-            auth.createUserWithEmailAndPassword(email,password, this);
+
+            if (Objects.equals(password, confirm_password))
+                auth.createUserWithEmailAndPassword(email,password, this);
+
+            else
+                System.out.println("Password and Confirm Password must be identical.");
 
         else
-            System.out.println("Incorrect pass or mail");
+            System.out.println("An account is already created using this e-mail");
     }
 
     @Override
@@ -90,6 +98,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
 
         auth.sendRestEmailVerification(email, this);
 
+        System.out.println("A password restoration email have been sent.");
     }
 
 

@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:visibility="visible"
             android:orientation="vertical">
 
             <ImageView
@@ -77,9 +78,7 @@
                 android:id="@+id/sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="285dp"
                 android:clickable="true"
-                android:onClick="onClickSignUp"
                 android:textColor="#ff0000ff"
                 android:text="Sign up" />
 
@@ -103,6 +102,126 @@
                 android:textColor="#ff0000ff"
                 android:text="Restore Password" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/email_signup_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:visibility="visible"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:paddingEnd="30dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:paddingStart="30dp">
+
+                <EditText
+                    android:id="@+id/email_signup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_email"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="30dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:paddingStart="30dp">
+
+                <EditText
+                    android:id="@+id/password_signup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_password"
+                    android:imeActionId="@+id/sign_up_password"
+                    android:imeActionLabel="sign_up_password"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="30dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:paddingStart="30dp">
+
+                <EditText
+                    android:id="@+id/password_signup_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Confirm password"
+                    android:imeActionId="@+id/conf_password"
+                    android:imeActionLabel="conf_password"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/sign_up_button"
+                android:background="@drawable/send_button_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="16dp"
+                android:text="Sign up"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/password_reset_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:paddingEnd="30dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:paddingStart="30dp">
+
+                <EditText
+                    android:id="@+id/email_for_password_reset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_email"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/reset_password_button"
+                android:background="@drawable/send_button_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="16dp"
+                android:text="Reset"
+                android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

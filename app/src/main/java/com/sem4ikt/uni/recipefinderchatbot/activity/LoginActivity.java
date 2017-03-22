@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter;
@@ -51,8 +52,16 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
                 onRegister(true);
                 break;
 
+            case R.id.sign_up_button:
+                onAccCreated(true);
+                break;
+
             case R.id.restore_password:
                 onPassForgot(true);
+                break;
+
+            case R.id.reset_password_button:
+                onPassSend(true);
                 break;
 
             default:
@@ -60,6 +69,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
         }
 
     }
+
 
     @Override
     public void onLogin(boolean isSuccessful) {
@@ -73,12 +83,42 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
 
     @Override
     public void onRegister(boolean isSuccessful) {
+        LinearLayout email_signup_form = (LinearLayout) findViewById(R.id.email_signup_form);
+        LinearLayout email_login_form = (LinearLayout) findViewById(R.id.email_login_form);
 
+        email_login_form.setVisibility(View.GONE);
+        email_signup_form.setVisibility(View.VISIBLE);
     }
+
+    public void onAccCreated(boolean isSuccessful) {
+        //create account
+
+        LinearLayout email_signup_form = (LinearLayout) findViewById(R.id.email_signup_form);
+        LinearLayout email_login_form = (LinearLayout) findViewById(R.id.email_login_form);
+
+        email_signup_form.setVisibility(View.GONE);
+        email_login_form.setVisibility(View.VISIBLE);
+    }
+
 
     @Override
     public void onPassForgot(boolean isSuccessful) {
+        LinearLayout password_reset_form = (LinearLayout) findViewById(R.id.password_reset_form);
+        LinearLayout email_login_form = (LinearLayout) findViewById(R.id.email_login_form);
 
+        email_login_form.setVisibility(View.GONE);
+        password_reset_form.setVisibility(View.VISIBLE);
+
+    }
+
+    public void onPassSend(boolean isSuccessful) {
+        //Send email
+
+        LinearLayout password_reset_form = (LinearLayout) findViewById(R.id.password_reset_form);
+        LinearLayout email_login_form = (LinearLayout) findViewById(R.id.email_login_form);
+
+        password_reset_form.setVisibility(View.GONE);
+        email_login_form.setVisibility(View.VISIBLE);
     }
 
 
