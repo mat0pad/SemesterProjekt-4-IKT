@@ -58,9 +58,7 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
         ListView listView = (ListView) view.findViewById(R.id.chat_listview);
         listView.setAdapter(adapter);
 
-        // returning user
-        //chatbotPresenter.switchWorkspace(0, "123123123123123returningUser");
-        // new user
+        // Needed for start up message
         chatbotPresenter.switchWorkspace(0, " ");
 
         return view;

@@ -1,6 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.model;
 
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IConversationInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnswerModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.TextModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.rest.ApiClient;
@@ -27,7 +28,7 @@ public class ConversationInteractor implements IConversationInteractor {
 
 
     @Override
-    public void performAction(String action) {
+    public void performAction(String action, String input) {
 
         switch (action){
 
@@ -39,6 +40,10 @@ public class ConversationInteractor implements IConversationInteractor {
                 invokeTrivia();
                 break;
 
+            case "fact":
+                invokeFact(input);
+                break;
+
             default:
                 presenter.showText(action);
                 break;
@@ -47,8 +52,6 @@ public class ConversationInteractor implements IConversationInteractor {
 
     @Override
     public void switchWorkspace(String which, String lastInput) {
-
-        System.out.println("workspace switcher");
 
         if(which.equals("recipe")){
 
@@ -79,6 +82,33 @@ public class ConversationInteractor implements IConversationInteractor {
         enqueueTextModelCall(call);
 
     }
+
+    private void invokeFact(String input){
+
+        ISpoonacularAPI.ICompute apiService = client.getClient().create(ISpoonacularAPI.ICompute.class);
+
+        Call<AnswerModel> call = apiService.getQuickAnswer(input);
+
+        call.enqueue(new Callback<AnswerModel>() {
+            @Override
+            public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
+
+                if(response.code() == 200){
+
+                    AnswerModel model = response.body();
+                    presenter.showText(model.getAnswer());
+                }
+                else
+                    presenter.showText(null);
+            }
+
+            @Override
+            public void onFailure(Call<AnswerModel> call, Throwable t) {
+                presenter.showText(null);
+            }
+        });
+    }
+
 
     private void enqueueTextModelCall(Call<TextModel> call){
 

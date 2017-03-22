@@ -46,7 +46,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
 
                         if (response.getOutput().containsKey("action")){
                             System.out.println("Action found!");
-                            api.performAction(response.getOutput().get("action").toString());
+                            api.performAction(response.getOutput().get("action").toString(), response.getInputText());
                         }
                         else if (response.getOutput().containsKey("goTo")){
 

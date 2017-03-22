@@ -6,7 +6,7 @@ package com.sem4ikt.uni.recipefinderchatbot.model.interfaces;
 
 public interface IConversationInteractor {
 
-    void performAction(String action);
+    void performAction(String action, String input);
     void switchWorkspace(String which, String lastInput);
 
 }
