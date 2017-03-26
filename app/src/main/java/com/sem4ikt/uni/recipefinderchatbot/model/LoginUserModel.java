@@ -1,6 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot.model;
 
-import java.util.regex.Pattern;
+import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ILoginUserModel;
 
 /**
  * Created by mathiaslykkepedersen on 16/03/2017.
@@ -22,13 +22,13 @@ public class LoginUserModel implements ILoginUserModel {
     }
 
     @Override
-    public String getPassword() {
-        return password;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
-    public void setEmail(String email) {
-        this.email = email;
+    public String getPassword() {
+        return password;
     }
 
     @Override
@@ -38,6 +38,11 @@ public class LoginUserModel implements ILoginUserModel {
 
     @Override
     public void setConfirmPassword(String confirmPassword) {this.confirmPassword = confirmPassword;}
+
+    @Override
+    public boolean checkPasswordsMatches() {
+        return confirmPassword.equals(password);
+    }
 
     @Override
     public boolean checkUserValidity() {
@@ -57,6 +62,6 @@ public class LoginUserModel implements ILoginUserModel {
                 ?= – means apply the assertion condition, meaningless by itself, always work with other combination
         */
 
-        return password.length() >= 6 && !email.isEmpty() && password.matches(PASS_REGEX) && email.matches(EMAIL_REGEX);
+        return password.matches(PASS_REGEX) && email.matches(EMAIL_REGEX);
     }
 }

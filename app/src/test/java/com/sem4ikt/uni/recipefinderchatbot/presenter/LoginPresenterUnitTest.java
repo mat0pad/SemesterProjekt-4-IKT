@@ -1,8 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
 import com.sem4ikt.uni.recipefinderchatbot.database.IFirebaseAuth;
-import com.sem4ikt.uni.recipefinderchatbot.model.ILoginUserModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ILoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.view.ILoginView;
 
 import org.junit.Assert;
@@ -94,7 +93,7 @@ public class LoginPresenterUnitTest {
     @Test
     public void registerFailedCreateUserWithEmailAndPassword()
     {
-        presenter.doCreateUser("test", "test");
+        presenter.doCreateUser("test", "test", "test");
         verify(model, times(0)).createUserWithEmailAndPassword("test", "test", presenter);
     }
 

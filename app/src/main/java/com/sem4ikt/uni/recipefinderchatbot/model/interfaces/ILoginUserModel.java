@@ -8,13 +8,15 @@ public interface ILoginUserModel {
 
     String getEmail();
 
-    String getPassword();
-
     void setEmail(String email);
+
+    String getPassword();
 
     void setPassword(String password);
 
     void setConfirmPassword(String confirmPassword);
+
+    boolean checkPasswordsMatches();
 
     boolean checkUserValidity();
 }

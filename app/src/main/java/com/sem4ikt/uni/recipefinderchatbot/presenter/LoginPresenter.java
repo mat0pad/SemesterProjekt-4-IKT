@@ -10,8 +10,6 @@ import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginCallback;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ILoginView;
 
-import java.util.Objects;
-
 /**
  * Created by mathiaslykkepedersen on 16/03/2017.
  */
@@ -20,16 +18,6 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
 
     private ILoginUserModel user;
     private IFirebaseAuth auth;
-
-    public enum AUTH{
-
-        SIGN_IN_SUCCESS,
-        SIGN_IN_FAILED,
-        CREATE_SUCCESS,
-        CREATE_FAILED,
-        FORGOT_PASSWORD_SUCCESS,
-        FORGOT_PASSWORD_FAILED
-    }
 
     public LoginPresenter(ILoginView view){
         super(view);
@@ -50,7 +38,6 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
         this.auth = auth;
         this.user = userModel;
     }
-
 
     @Override
     public void clear() {
@@ -76,14 +63,14 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
     public void doCreateUser(String email, String password, String confirm_password) {
 
         user.setPassword(password);
-        user.setPassword(confirm_password);
+        user.setConfirmPassword(confirm_password);
         user.setEmail(email);
 
         setProgressBarVisiblity(true);
 
         if (user.checkUserValidity())
 
-            if (Objects.equals(password, confirm_password))
+            if (user.checkPasswordsMatches())
                 auth.createUserWithEmailAndPassword(email,password, this);
 
             else
@@ -102,7 +89,6 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
 
         System.out.println("A password restoration email have been sent.");
     }
-
 
     @Override
     public void onAuthenticationFinished(AUTH auth, String reason) {
@@ -135,10 +121,20 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
         }
     }
 
-
     @Override
     public void setProgressBarVisiblity(boolean visible) {
         view.onSetProgressVisibility(visible);
+    }
+
+
+    public enum AUTH {
+
+        SIGN_IN_SUCCESS,
+        SIGN_IN_FAILED,
+        CREATE_SUCCESS,
+        CREATE_FAILED,
+        FORGOT_PASSWORD_SUCCESS,
+        FORGOT_PASSWORD_FAILED
     }
 }
 
