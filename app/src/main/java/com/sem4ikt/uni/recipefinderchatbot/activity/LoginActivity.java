@@ -24,9 +24,10 @@ import com.sem4ikt.uni.recipefinderchatbot.view.ILoginView;
 public class LoginActivity extends AppCompatActivity implements ILoginView, View.OnClickListener {
 
     Button loginButton, resetButton, signUpButton;
-    EditText emailField, passwordField;
+    EditText emailField, passwordField, confirmPassField;
     ILoginPresenter loginPresenter;
     ProgressBar progressBar;
+
     // Used to allow back checks
     LoginView state;
 
@@ -70,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
                 break;
 
             case R.id.sign_up_button:
-                loginPresenter.doCreateUser(emailField.getText().toString(), passwordField.getText().toString(), passwordField.getText().toString());
+                loginPresenter.doCreateUser(emailField.getText().toString(), passwordField.getText().toString(), confirmPassField.getText().toString());
                 break;
 
             case R.id.sign_up_text_action:
@@ -143,6 +144,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
             case FORGOT_PASSWORD:
                 state = LoginView.FORGOT_PASSWORD;
                 emailField = (EditText) findViewById(R.id.email_reset);
+                confirmPassField = (EditText) findViewById(R.id.conf_password);
                 passwordField = null;
                 break;
 
@@ -150,6 +152,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
                 state = null;
                 emailField = null;
                 passwordField = null;
+                confirmPassField = null;
                 break;
         }
 

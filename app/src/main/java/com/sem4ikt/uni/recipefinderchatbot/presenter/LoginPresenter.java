@@ -57,7 +57,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
             auth.signIn(email,password, this);
 
         else {
-            System.out.println("Incorrect pass or mail");
+            view.onShowToast("Incorrect password or email");
             setProgressBarVisiblity(false);
         }
     }
@@ -76,11 +76,12 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
             if (user.checkPasswordsMatches())
                 auth.createUserWithEmailAndPassword(email,password, this);
 
-            else
-                System.out.println("Password and Confirm Password must be identical.");
-
+            else {
+                view.onShowToast("Password and Confirm Password must be identical.");
+                setProgressBarVisiblity(false);
+            }
         else {
-            System.out.println("An account is already created using this e-mail");
+            view.onShowToast("An account is already created using this e-mail");
             setProgressBarVisiblity(false);
         }
     }
@@ -108,12 +109,9 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
                 view.onFinish();
                 break;
             case SIGN_UP:
-                view.onPresentView(LoginActivity.LoginView.LOGIN);
-                break;
             case FORGOT_PASSWORD:
-                view.onPresentView(LoginActivity.LoginView.LOGIN);
-                break;
             default:
+                view.onPresentView(LoginActivity.LoginView.LOGIN);
                 break;
         }
 
