@@ -2,6 +2,7 @@ package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
 import android.support.annotation.VisibleForTesting;
 
+import com.sem4ikt.uni.recipefinderchatbot.activity.LoginActivity;
 import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
 import com.sem4ikt.uni.recipefinderchatbot.database.IFirebaseAuth;
 import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
@@ -55,8 +56,10 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
         if (user.checkUserValidity())
             auth.signIn(email,password, this);
 
-        else
+        else {
             System.out.println("Incorrect pass or mail");
+            setProgressBarVisiblity(false);
+        }
     }
 
     @Override
@@ -76,8 +79,10 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
             else
                 System.out.println("Password and Confirm Password must be identical.");
 
-        else
+        else {
             System.out.println("An account is already created using this e-mail");
+            setProgressBarVisiblity(false);
+        }
     }
 
     @Override
@@ -87,13 +92,40 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
 
         auth.sendRestEmailVerification(email, this);
 
-        System.out.println("A password restoration email have been sent.");
+    }
+
+    @Override
+    public void showLayout(LoginActivity.LoginView v) {
+        view.onPresentView(v);
+    }
+
+    @Override
+    public void doBack(LoginActivity.LoginView state) {
+
+        switch (state) {
+
+            case LOGIN:
+                view.onFinish();
+                break;
+            case SIGN_UP:
+                view.onPresentView(LoginActivity.LoginView.LOGIN);
+                break;
+            case FORGOT_PASSWORD:
+                view.onPresentView(LoginActivity.LoginView.LOGIN);
+                break;
+            default:
+                break;
+        }
+
+        clear();
     }
 
     @Override
     public void onAuthenticationFinished(AUTH auth, String reason) {
 
         System.out.println("Authentication result: " + reason);
+
+        setProgressBarVisiblity(false);
 
         switch (auth){
 
@@ -126,6 +158,10 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
         view.onSetProgressVisibility(visible);
     }
 
+    @Override
+    public void doToast(String text) {
+        view.onShowToast(text);
+    }
 
     public enum AUTH {
 
