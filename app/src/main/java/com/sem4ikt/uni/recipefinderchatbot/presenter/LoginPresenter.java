@@ -41,14 +41,16 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
     }
 
     @VisibleForTesting
-    LoginPresenter(ILoginView view, IFirebaseAuth auth){
+    LoginPresenter(ILoginView view, IFirebaseAuth auth, ILoginUserModel userModel ){
         super(view);
 
         user = new LoginUserModel();
 
         // Create model
         this.auth = auth;
+        this.user = userModel;
     }
+
 
     @Override
     public void clear() {

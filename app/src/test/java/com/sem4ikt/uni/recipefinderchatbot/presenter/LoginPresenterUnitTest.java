@@ -1,6 +1,8 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
 import com.sem4ikt.uni.recipefinderchatbot.database.IFirebaseAuth;
+import com.sem4ikt.uni.recipefinderchatbot.model.ILoginUserModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.view.ILoginView;
 
 import org.junit.Assert;
@@ -28,12 +30,15 @@ public class LoginPresenterUnitTest {
     @Mock
     IFirebaseAuth model;
 
+    @Mock
+    ILoginUserModel userModel;
+
     private LoginPresenter presenter;
 
     @Before
     public void setup() throws Exception{
 
-        presenter = new LoginPresenter(view, model);
+        presenter = new LoginPresenter(view, model, userModel);
     }
 
     @Test
@@ -51,6 +56,28 @@ public class LoginPresenterUnitTest {
     }
 
     @Test
+    public void signInFailedSignIn()
+    {
+        presenter.doLogin("test", "test");
+        verify(model, times(0)).signIn("test", "test", presenter);
+    }
+
+    @Test
+    public void signInModelSetEmailAndPass()
+    {
+        presenter.doLogin("","");
+        verify(userModel, times(1)).setEmail("");
+        verify(userModel, times(1)).setPassword("");
+    }
+
+    @Test
+    public void signInModelCheckValid()
+    {
+        presenter.doLogin("test", "test");
+        verify(userModel, times(1)).checkUserValidity();
+    }
+
+    @Test
     public void registerSuccess()
     {
         presenter.onAuthenticationFinished(LoginPresenter.AUTH.CREATE_SUCCESS, "");
@@ -58,10 +85,17 @@ public class LoginPresenterUnitTest {
     }
 
     @Test
-    public void  registerFailed()
+    public void registerFailed()
     {
         presenter.onAuthenticationFinished(LoginPresenter.AUTH.CREATE_FAILED, "");
         verify(view, times(1)).onRegister(false);
+    }
+
+    @Test
+    public void registerFailedCreateUserWithEmailAndPassword()
+    {
+        presenter.doCreateUser("test", "test");
+        verify(model, times(0)).createUserWithEmailAndPassword("test", "test", presenter);
     }
 
     @Test
@@ -76,6 +110,13 @@ public class LoginPresenterUnitTest {
     {
         presenter.onAuthenticationFinished(LoginPresenter.AUTH.FORGOT_PASSWORD_FAILED, "");
         verify(view, times(1)).onPassForgot(false);
+    }
+
+    @Test
+    public void forgotPassSuccessSendRestEmailVerification()
+    {
+        presenter.doForgotPassword("test@test.com");
+        verify(model, times(1)).sendRestEmailVerification("test@test.com", presenter);
     }
 
     @Test
@@ -115,5 +156,7 @@ public class LoginPresenterUnitTest {
 
         Assert.assertEquals(presenter.getView(), view);
     }
+
+
 
 }

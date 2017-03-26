@@ -1,6 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot.model;
 
-import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ILoginUserModel;
+import java.util.regex.Pattern;
 
 /**
  * Created by mathiaslykkepedersen on 16/03/2017.
@@ -42,9 +42,21 @@ public class LoginUserModel implements ILoginUserModel {
     @Override
     public boolean checkUserValidity() {
 
-        //String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w]-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        //String PASS_REGEX = "[a-zA-Z ]*\\d+.*";
+        String EMAIL_REGEX = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        String PASS_REGEX = "((?=.*\\d)(?=.*[a-z]).{6,20})";
 
-        return getPassword().length() >= 6 && !email.isEmpty(); //&& getPassword().matches(PASS_REGEX) && email.matches(EMAIL_REGEX);
+        /*
+                (			    # Start of group
+                (?=.*\d)	    #   must contains one digit from 0-9
+                (?=.*[a-z])		#   must contains one lowercase characters
+                (?=.*[A-Z])		#   must contains one uppercase characters
+                .		        #   match anything with previous condition checking
+                {6,20}	        #   length at least 6 characters and maximum of 20
+                )			    # End of group
+
+                ?= – means apply the assertion condition, meaningless by itself, always work with other combination
+        */
+
+        return password.length() >= 6 && !email.isEmpty() && password.matches(PASS_REGEX) && email.matches(EMAIL_REGEX);
     }
 }
