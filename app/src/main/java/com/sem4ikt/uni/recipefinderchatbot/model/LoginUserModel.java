@@ -10,6 +10,7 @@ public class LoginUserModel implements ILoginUserModel {
 
     private String email;
     private String password;
+    private String confirmPassword;
 
     public LoginUserModel(){
 
@@ -34,6 +35,9 @@ public class LoginUserModel implements ILoginUserModel {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public void setConfirmPassword(String confirmPassword) {this.confirmPassword = confirmPassword;}
 
     @Override
     public boolean checkUserValidity() {

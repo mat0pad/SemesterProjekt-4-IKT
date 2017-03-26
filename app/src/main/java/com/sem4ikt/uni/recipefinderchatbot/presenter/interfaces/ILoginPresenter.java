@@ -8,7 +8,7 @@ public interface ILoginPresenter<V> extends IBasePresenter<V> {
 
     void clear();
     void doLogin(String email, String password);
-    void doCreateUser(String email, String password);
+    void doCreateUser(String email, String password, String confirm_password);
     void doForgotPassword(String email);
 
     void setProgressBarVisiblity(boolean visibile);
