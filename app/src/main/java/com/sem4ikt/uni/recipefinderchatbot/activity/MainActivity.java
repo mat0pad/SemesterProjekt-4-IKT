@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -14,19 +13,11 @@ import com.sem4ikt.uni.recipefinderchatbot.fragment.ChatbotFragment;
 import com.sem4ikt.uni.recipefinderchatbot.fragment.FavoritesFragment;
 import com.sem4ikt.uni.recipefinderchatbot.fragment.MealPlanFragment;
 import com.sem4ikt.uni.recipefinderchatbot.fragment.SettingsFragment;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnswerModel;
 import com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.MainPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IMainPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.rest.ApiClient;
-import com.sem4ikt.uni.recipefinderchatbot.rest.IApiClient;
-import com.sem4ikt.uni.recipefinderchatbot.rest.ISpoonacularAPI;
 import com.sem4ikt.uni.recipefinderchatbot.view.IMainView;
 import com.yalantis.guillotine.animation.GuillotineAnimation;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 /**
@@ -164,40 +155,6 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
         mainPresenter.clearView();
     }
 
-
-    public void testAPI()
-    {
-        IApiClient client = new ApiClient();
-
-        ISpoonacularAPI.ICompute apiService = client.getClient().create(ISpoonacularAPI.ICompute.class);
-
-        Call<AnswerModel> call = apiService.getQuickAnswer("How much vitamin c is in 2 apples?");
-
-        call.enqueue(new Callback<AnswerModel>() {
-            @Override
-            public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
-
-                Log.i("TAG", Thread.currentThread().getName());
-
-                int statusCode = response.code();
-
-                if(statusCode == 200){
-
-                    AnswerModel model = response.body();
-                    System.out.println(model.getAnswer());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AnswerModel> call, Throwable t) {
-
-            }
-        });
-
-
-
-
-    }
 
 
 }

@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot.model;
+package com.sem4ikt.uni.recipefinderchatbot.model.interfaces;
 
 /**
  * Created by mathiaslykkepedersen on 16/03/2017.

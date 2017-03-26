@@ -2,6 +2,7 @@ package com.sem4ikt.uni.recipefinderchatbot.model;
 
 
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
+import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IChatbotInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.services.ConversationService;
 
 /**
@@ -10,13 +11,11 @@ import com.sem4ikt.uni.recipefinderchatbot.services.ConversationService;
 
 public class ChatbotInteractor implements IChatbotInteractor
 {
-
     private ConversationService cs = new ConversationService();
-
 
     public interface ChatbotListener
     {
-        void onChatbotResponse(String response);
+        void onChatbotResponse(MessageResponse response);
         void onChatbotFailed(String errorMsg);
     }
 
@@ -24,7 +23,6 @@ public class ChatbotInteractor implements IChatbotInteractor
     {
         void setChatbotListener(ChatbotListener listener);
     }
-
 
     public interface Call
     {
@@ -40,7 +38,9 @@ public class ChatbotInteractor implements IChatbotInteractor
 
     public ChatbotInteractor()
     {
-        cs.setConversationUsernameAndPassword("f6c68c53-70a5-4a8c-af70-41a5eed85690", "1pMBh1PJOxP0").setToneAnalyzerUsernameAndPassword("48091cfc-fd99-456a-b67c-00bdeef74b06", "XQE4Xl4oZuk0");
+        cs.setConversationUsernameAndPassword("f6c68c53-70a5-4a8c-af70-41a5eed85690", "1pMBh1PJOxP0")
+                .setToneAnalyzerUsernameAndPassword("48091cfc-fd99-456a-b67c-00bdeef74b06", "XQE4Xl4oZuk0");
+
     }
 
 
@@ -49,7 +49,6 @@ public class ChatbotInteractor implements IChatbotInteractor
     {
 
         cs.message(workspaceId, msg);
-
 
         final Call call = cs;
 
@@ -63,9 +62,8 @@ public class ChatbotInteractor implements IChatbotInteractor
                     @Override
                     public void onChatbotResponse(Call call, MessageResponse response)
                     {
-                        String s = response.getOutput().toString();
-                       // listener.onChatbotResponse(s.substring(1, s.length()-1));
-                        listener.onChatbotResponse(s);
+                        System.out.println(response.getContext().toString());
+                        listener.onChatbotResponse(response);
                     }
 
                     @Override
