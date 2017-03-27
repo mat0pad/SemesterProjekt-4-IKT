@@ -12,7 +12,9 @@ import android.widget.ListView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatListPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatbotPresenter;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatListPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
 
@@ -28,24 +30,28 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
 
     Button sendButton;
     EditText inputField;
+
+    IChatbotPresenter<IChatbotView> chatbotPresenter;
+
+    // Adapter stuff
     ChatListAdapter adapter;
-
-    private IChatbotPresenter<IChatbotView> chatbotPresenter;
-
+    IChatListPresenter adapterPresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        if (container == null) {
+        if (container == null)
             return null;
-        }
+
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.chatbot, container, false);
 
+        // Set presenter
         chatbotPresenter = new ChatbotPresenter(this);
 
+        // Set click lsitener for send button
         sendButton = (Button) view.findViewById(R.id.send_button);
         sendButton.setOnClickListener(this);
 
@@ -54,7 +60,9 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
         List<Pair<String, Integer>> list = new ArrayList<>();
         list.add(new Pair<>("Hello I'm Botler. How can I help you?", ChatListAdapter.DIRECTION_INCOMING));
 
-        adapter = new ChatListAdapter(list,getContext());
+        adapter = new ChatListAdapter(list, getContext());
+
+        adapterPresenter = new ChatListPresenter(adapter);
 
         ListView listView = (ListView) view.findViewById(R.id.chat_listview);
         listView.setAdapter(adapter);
@@ -83,7 +91,7 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
 
     @Override
     public void displayMessage(String input, int direction) {
-        adapter.adapterPresenter.addMessage(input, direction);
+        adapterPresenter.addMessage(input, direction);
     }
 
 }

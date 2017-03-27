@@ -147,7 +147,7 @@ public interface ISpoonacularAPI {
          * @param id    :id of recipe
          */
         @GET("recipes/{id}/similar")
-        Call<RecipesModel> findSimilarRecipes(@Path("id") int id);
+        Call<List<RecipesModel>> findSimilarRecipes(@Path("id") int id);
 
         /**
          *

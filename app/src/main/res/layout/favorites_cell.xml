@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/White"
-    android:layout_width="wrap_content" android:layout_height="175dp">
+    android:layout_width="wrap_content"
+    android:layout_height="175dp"
+    android:background="@color/White">
 
     <ImageView
+        android:id="@+id/favorite_image_cell"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/favorite_image_cell"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         android:src="@drawable/close"/>
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#000"
-        android:alpha="0.5"
         android:layout_alignBottom="@+id/favorite_image_cell"
-        android:id="@+id/view" />
+        android:alpha="0.5"
+        android:background="#000" />
 
     <TextView
+        android:id="@+id/text_cell"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Some title here"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textColor="@color/White"
-        android:id="@+id/text_cell"
         android:layout_alignBottom="@+id/favorite_image_cell"
-        android:layout_alignTop="@+id/view" />
+        android:layout_alignTop="@+id/view"
+        android:gravity="center"
+        android:text="Some title here"
+        android:textColor="@color/White"
+        android:textStyle="bold" />
 
 </RelativeLayout>

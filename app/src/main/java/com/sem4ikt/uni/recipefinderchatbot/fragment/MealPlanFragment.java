@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
+import com.sem4ikt.uni.recipefinderchatbot.view.IMealPlanView;
+
 /**
  * Created by Christian on 12-03-2017.
  */
 
-public class MealPlanFragment extends Fragment {
+public class MealPlanFragment extends Fragment implements IMealPlanView {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
