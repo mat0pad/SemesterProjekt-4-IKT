@@ -39,6 +39,7 @@
     <!-- Related to recipe detail -->
     <string name="instructions">Instructions</string>
     <string name="ingredients">Ingredients</string>
+    <string name="summary">Summary</string>
     <string name="similar">Similar Recipes</string>
 
 </resources>

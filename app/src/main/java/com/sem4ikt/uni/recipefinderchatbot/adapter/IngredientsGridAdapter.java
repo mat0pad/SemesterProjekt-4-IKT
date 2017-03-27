@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.ExtendedIngredientModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -18,17 +18,15 @@ import java.util.List;
  * Created by mathiaslykkepedersen on 27/03/2017.
  */
 
-public class SimilarGridAdapter extends BaseAdapter {
+public class IngredientsGridAdapter extends BaseAdapter {
 
-    private static String BASE_URL = "https://spoonacular.com/recipeImages/";
-    public List<RecipesModel> list;
+    public List<ExtendedIngredientModel> list;
     private Context mContext;
 
-    public SimilarGridAdapter(Context context, List<RecipesModel> list) {
+    public IngredientsGridAdapter(Context context, List<ExtendedIngredientModel> list) {
         this.list = list;
         mContext = context;
     }
-
 
     @Override
     public int getCount() {
@@ -36,7 +34,7 @@ public class SimilarGridAdapter extends BaseAdapter {
     }
 
     @Override
-    public RecipesModel getItem(int i) {
+    public ExtendedIngredientModel getItem(int i) {
         return list.get(i);
     }
 
@@ -54,28 +52,28 @@ public class SimilarGridAdapter extends BaseAdapter {
 
             holder = new ViewHolder();
 
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.similar_cell, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.ingredient_cell, parent, false);
 
-            holder.text = (TextView) convertView.findViewById(R.id.text_cell);
-            holder.image = (ImageView) convertView.findViewById(R.id.similar_image_cell);
+            holder.name = (TextView) convertView.findViewById(R.id.ingredient_name_cell);
+            holder.amount = (TextView) convertView.findViewById(R.id.ingredient_amount_cell);
+            holder.image = (ImageView) convertView.findViewById(R.id.ingredient_image_cell);
 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.text.setText(getItem(position).getTitle());
+        holder.name.setText(getItem(position).getName());
+        holder.amount.setText(getItem(position).getAmount().toString() + " " + getItem(position).getUnitLong());
 
-        System.out.println(getItem(position).getImage());
-        Picasso.with(mContext).load(BASE_URL + getItem(position).getImage()).into(holder.image);
-        //holder.text.setText(getItem(position).ge());
+        Picasso.with(mContext).load(getItem(position).getImage()).into(holder.image);
 
         return convertView;
     }
 
     // Ensure that find by id is not called every time -> could cause slow scrolling
     private class ViewHolder {
-        TextView text;
+        TextView name, amount;
         ImageView image;
     }
 }

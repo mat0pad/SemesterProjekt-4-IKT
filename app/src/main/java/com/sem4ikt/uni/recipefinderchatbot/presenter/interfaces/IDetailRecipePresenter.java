@@ -6,4 +6,13 @@ package com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces;
 
 public interface IDetailRecipePresenter<V> extends IBasePresenter<V> {
 
+    void doLoadRecipe(int id);
+
+    void doFindSimilar(int id);
+
+    void doSummarize(int id);
+
+    void doInstructions(int id);
+
+    void doSaveRecipe();
 }
