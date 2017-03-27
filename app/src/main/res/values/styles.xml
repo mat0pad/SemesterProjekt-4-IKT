@@ -21,4 +21,31 @@
         <item name="android:editTextColor">@color/Primary_Dark</item>
     </style>
 
+    <style name="AppTheme.TextErrorAppearance" parent="TextAppearance.Design.Error">
+        <!-- Error message appearance here -->
+        <item name="android:textColor">#ff0000</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
+    <style name="TextLabel" parent="TextAppearance.AppCompat">
+
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/White</item>
+        <item name="android:textCursorDrawable">@drawable/cursor_color</item>
+        <item name="android:textSize">20sp</item>
+
+        <item name="errorTextAppearance">@style/AppTheme.TextErrorAppearance</item>
+        <item name="counterTextAppearance">@style/TextAppearance.Design.Counter</item>
+        <item name="counterOverflowTextAppearance">@style/TextAppearance.Design.Counter.Overflow
+        </item>
+
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+
+        <item name="colorAccent">@color/White</item>
+        <item name="colorControlNormal">@color/Primary_Dark</item>
+        <item name="colorControlActivated">@color/Primary_Light</item>
+    </style>
+
+
 </resources>

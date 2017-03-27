@@ -58,7 +58,6 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
         inputField = (EditText) view.findViewById(R.id.message_edittext);
 
         List<Pair<String, Integer>> list = new ArrayList<>();
-        list.add(new Pair<>("Hello I'm Botler. How can I help you?", ChatListAdapter.DIRECTION_INCOMING));
 
         adapter = new ChatListAdapter(list, getContext());
 
@@ -66,6 +65,9 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
 
         ListView listView = (ListView) view.findViewById(R.id.chat_listview);
         listView.setAdapter(adapter);
+
+        // Needed for start up message
+        chatbotPresenter.switchWorkspace(0, " ");
 
         return view;
     }
