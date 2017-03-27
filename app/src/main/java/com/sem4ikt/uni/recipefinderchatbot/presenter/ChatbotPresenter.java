@@ -2,12 +2,13 @@ package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.ConversationInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IConversationInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.services.ConversationService;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
 
 /**
