@@ -14,5 +14,7 @@ public interface IDetailRecipePresenter<V> extends IBasePresenter<V> {
 
     void doInstructions(int id);
 
+    void doShowContent();
+
     void doSaveRecipe();
 }

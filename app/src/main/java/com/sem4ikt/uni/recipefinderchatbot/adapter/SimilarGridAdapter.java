@@ -1,6 +1,8 @@
 package com.sem4ikt.uni.recipefinderchatbot.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,26 +11,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
+import com.sem4ikt.uni.recipefinderchatbot.activity.DetailRecipeActivity;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
+import com.sem4ikt.uni.recipefinderchatbot.view.ISimilarGridAdapterView;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by mathiaslykkepedersen on 27/03/2017.
  */
 
-public class SimilarGridAdapter extends BaseAdapter {
+public class SimilarGridAdapter extends BaseAdapter implements ISimilarGridAdapterView {
 
     private static String BASE_URL = "https://spoonacular.com/recipeImages/";
-    public List<RecipesModel> list;
+    private List<RecipesModel> list;
     private Context mContext;
 
-    public SimilarGridAdapter(Context context, List<RecipesModel> list) {
-        this.list = list;
+    public SimilarGridAdapter(Context context) {
+        list = new ArrayList<>();
         mContext = context;
     }
-
 
     @Override
     public int getCount() {
@@ -46,7 +50,7 @@ public class SimilarGridAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder;
 
@@ -64,14 +68,43 @@ public class SimilarGridAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        // Set title/name
         holder.text.setText(getItem(position).getTitle());
 
-        System.out.println(getItem(position).getImage());
-        Picasso.with(mContext).load(BASE_URL + getItem(position).getImage()).into(holder.image);
-        //holder.text.setText(getItem(position).ge());
+        // Load image
+        Picasso.with(mContext).load(BASE_URL + getItem(position).getImage()).fit().into(holder.image);
+
 
         return convertView;
     }
+
+    @Override
+    public void showSimilar(int id) {
+
+        System.out.println("Selected recipe id is " + id);
+
+        // Show recipe with id
+        Intent intent = new Intent(mContext, DetailRecipeActivity.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", id); // pass id
+
+        intent.putExtras(bundle); // Put id to Intent
+
+        mContext.startActivity(intent);
+    }
+
+    @Override
+    public void notifyUpdate() {
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void addItem(RecipesModel item) {
+        list.add(item);
+    }
+
+
 
     // Ensure that find by id is not called every time -> could cause slow scrolling
     private class ViewHolder {

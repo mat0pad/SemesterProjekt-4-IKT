@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f6f6f6"
-    android:orientation="vertical"
-    android:overScrollMode="never">
+    android:background="@color/White"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <!-- Login progress -->
+    <ProgressBar
+        android:id="@+id/detail_recipe_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:elevation="5dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/Primary_Dark"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="visible" />
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollView_detail_recipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/White"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,6 +53,10 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:gravity="center"
+                    android:shadowColor="@color/Black"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="10"
                     android:text="Spring Egg Rolls"
                     android:textColor="@color/White"
                     android:textSize="30sp"
@@ -56,6 +82,83 @@
                     android:src="@drawable/like" />
 
             </RelativeLayout>
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:columnCount="3"
+                android:orientation="horizontal"
+                android:paddingBottom="30dp"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:paddingTop="5dp"
+                android:rowCount="2">
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_column="0"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:layout_row="0"
+                    android:src="@drawable/gluten_free" />
+
+                <TextView
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_row="1"
+                    android:text="Gluten Free"
+                    android:textAlignment="center"
+                    android:textColor="@color/Black"
+                    android:textSize="15sp" />
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_column="1"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:layout_row="0"
+                    android:src="@drawable/price" />
+
+                <TextView
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_row="1"
+                    android:text="Price"
+                    android:textAlignment="center"
+                    android:textColor="@color/Black" />
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_column="2"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:layout_row="0"
+                    android:src="@drawable/time" />
+
+                <TextView
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="2"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_row="1"
+                    android:text="Ready in 25 minutes"
+                    android:textAlignment="center"
+                    android:textColor="@color/Black" />
+
+
+            </GridLayout>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -261,3 +364,4 @@
         </LinearLayout>
 
     </ScrollView>
+</LinearLayout>

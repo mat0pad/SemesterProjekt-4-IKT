@@ -10,21 +10,23 @@ import android.widget.TextView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.ExtendedIngredientModel;
+import com.sem4ikt.uni.recipefinderchatbot.view.IIngredientsGridAdapterView;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by mathiaslykkepedersen on 27/03/2017.
  */
 
-public class IngredientsGridAdapter extends BaseAdapter {
+public class IngredientsGridAdapter extends BaseAdapter implements IIngredientsGridAdapterView {
 
-    public List<ExtendedIngredientModel> list;
+    private List<ExtendedIngredientModel> list;
     private Context mContext;
 
-    public IngredientsGridAdapter(Context context, List<ExtendedIngredientModel> list) {
-        this.list = list;
+    public IngredientsGridAdapter(Context context) {
+        list = new ArrayList<>();
         mContext = context;
     }
 
@@ -69,6 +71,16 @@ public class IngredientsGridAdapter extends BaseAdapter {
         Picasso.with(mContext).load(getItem(position).getImage()).into(holder.image);
 
         return convertView;
+    }
+
+    @Override
+    public void notifyUpdate() {
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void addItem(ExtendedIngredientModel item) {
+        list.add(item);
     }
 
     // Ensure that find by id is not called every time -> could cause slow scrolling

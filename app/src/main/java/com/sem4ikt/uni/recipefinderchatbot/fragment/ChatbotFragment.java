@@ -12,9 +12,9 @@ import android.widget.ListView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatListPresenter;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatListAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatbotPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatListPresenter;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatListAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
 
@@ -35,7 +35,7 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
 
     // Adapter stuff
     ChatListAdapter adapter;
-    IChatListPresenter adapterPresenter;
+    IChatListAdapterPresenter adapterPresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
 
         adapter = new ChatListAdapter(list, getContext());
 
-        adapterPresenter = new ChatListPresenter(adapter);
+        adapterPresenter = new ChatListAdapterPresenter(adapter);
 
         ListView listView = (ListView) view.findViewById(R.id.chat_listview);
         listView.setAdapter(adapter);

@@ -123,6 +123,10 @@
                         android:id="@+id/sign_up_text_action"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:shadowColor="@color/White"
+                        android:shadowDx="2"
+                        android:shadowDy="2"
+                        android:shadowRadius="1"
                         android:text="@string/action_no_account"
                         android:textColor="@color/Primary_Dark"
                         android:textStyle="bold" />
@@ -161,6 +165,10 @@
                         android:id="@+id/forgot_password_text_action"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:shadowColor="@color/White"
+                        android:shadowDx="2"
+                        android:shadowDy="2"
+                        android:shadowRadius="1"
                         android:text="@string/action_forgot_password"
                         android:textColor="@color/Primary_Dark"
                         android:textStyle="bold" />

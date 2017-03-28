@@ -47,6 +47,12 @@ public class DetailRecipePresenter extends BasePresenter<IDetailRecipeView> impl
     }
 
     @Override
+    public void doShowContent() {
+        view.showLoader(false);
+        view.showContent(true);
+    }
+
+    @Override
     public void doSaveRecipe() {
 
     }
@@ -72,7 +78,7 @@ public class DetailRecipePresenter extends BasePresenter<IDetailRecipeView> impl
                 break;
             case INSTRUCTION:
                 if (model != null)
-                    view.setInstructions((List<InstructionsModel>) model);
+                    parseInstructions((List<InstructionsModel>) model);
                 break;
 
             default:
@@ -80,6 +86,21 @@ public class DetailRecipePresenter extends BasePresenter<IDetailRecipeView> impl
 
         }
 
+    }
+
+    private void parseInstructions(List<InstructionsModel> instructions) {
+
+        String steps = "";
+
+        if (instructions.size() >= 1) {
+
+            int size = instructions.get(0).getSteps().size();
+
+            for (int i = 0; i < size; i++)
+                steps += "• " + instructions.get(0).getSteps().get(i).getStep() + "\n" + (i != size - 1 ? "\n" : "");
+        }
+
+        view.setInstructions(steps);
     }
 
     public enum CALL_TYPE {GET_RECIPE, SUMMARIZE, SIMILAR, INSTRUCTION}

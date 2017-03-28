@@ -1,6 +1,5 @@
 package com.sem4ikt.uni.recipefinderchatbot.view;
 
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.InstructionsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.SummaryModel;
@@ -19,5 +18,9 @@ public interface IDetailRecipeView {
 
     void setRecipe(RecipeModel recipe);
 
-    void setInstructions(List<InstructionsModel> instructions);
+    void setInstructions(String instructions);
+
+    void showContent(boolean shouldShow);
+
+    void showLoader(boolean shouldShow);
 }

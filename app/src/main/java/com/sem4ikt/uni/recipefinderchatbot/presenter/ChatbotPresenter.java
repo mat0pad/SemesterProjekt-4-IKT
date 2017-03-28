@@ -5,6 +5,7 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
+import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.ConversationInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IConversationInteractor;
@@ -115,7 +116,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
                     @Override
                     public void onChatbotFailed(String errorMsg)
                     {
-
+                        System.out.println(errorMsg);
                     }
                 });
 
@@ -125,7 +126,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
     public void showText(String text){
 
         if(text != null)
-            view.displayMessage(text, 0);
+            view.displayMessage(text, ChatListAdapter.DIRECTION_INCOMING);
 
         // some error
     }
