@@ -33,8 +33,8 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
     {
         view.displayMessage(input, 1);
 
-        ci.message((isInGeneral ? "e665abad-a305-4cf4-a21c-045354782015" : "49630f5e-f2b9-453a-be68-927f17cf64bc"), input)
-                .setChatbotListener(new ChatbotInteractor.ChatbotListener()
+
+        ci.message((isInGeneral ? "e665abad-a305-4cf4-a21c-045354782015" : "49630f5e-f2b9-453a-be68-927f17cf64bc"), input).setChatbotListener(new ChatbotInteractor.ChatbotListener()
         {
             @Override
             public void onChatbotResponse(final MessageResponse response)
@@ -51,7 +51,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
                         }
                         else if (response.getOutput().containsKey("goTo")){
 
-                            isInGeneral = !isInGeneral;
+                           isInGeneral = !isInGeneral;
 
                             System.out.println(response.toString());
 

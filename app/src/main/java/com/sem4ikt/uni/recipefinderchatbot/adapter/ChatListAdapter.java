@@ -9,8 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatListPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatListPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ChatListView;
 
 import java.util.List;
@@ -23,7 +21,6 @@ public class ChatListAdapter extends BaseAdapter implements ChatListView {
 
     public static final int DIRECTION_INCOMING = 0;
     public static final int DIRECTION_OUTGOING = 1;
-    public IChatListPresenter adapterPresenter;
 
     private List<Pair<String, Integer>> dialog;
     private Context mContext;
@@ -32,8 +29,6 @@ public class ChatListAdapter extends BaseAdapter implements ChatListView {
 
         this.dialog = dialog;
         this.mContext = context;
-
-        adapterPresenter = new ChatListPresenter(this);
     }
 
     public void onAddMessage(String m, int direction){
@@ -70,8 +65,8 @@ public class ChatListAdapter extends BaseAdapter implements ChatListView {
 
         if (convertView == null || ((ViewHolder) convertView.getTag()).direction != direction) {
 
-            int res = 0;
-            int resid = 0;
+            int res, resid;
+
             holder = new ViewHolder();
 
             if (direction == DIRECTION_INCOMING) {

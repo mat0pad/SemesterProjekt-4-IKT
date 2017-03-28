@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f6f6f6"
     android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:background="#f6f6f6"
-        android:layout_height="match_parent">
+    android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -13,72 +12,81 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/cutaway"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:id="@+id/cutaway">
+                android:layout_height="400dp">
 
                 <ImageView
+                    android:id="@+id/poster_imageView"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:src="@drawable/thai"
-                    android:scaleType="centerCrop"
-                    android:id="@+id/imageView"
+                    android:layout_height="400dp"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true" />
-
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/thai" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#FFF"
-                    android:text="Spring Egg Rolls"
                     android:id="@+id/recipe_title"
-                    android:textSize="30sp"
-                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true" />
+                    android:gravity="center"
+                    android:text="Spring Egg Rolls"
+                    android:textColor="@color/White"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
 
                 <View
+                    android:id="@+id/view2"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:background="@drawable/cut_away"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:id="@+id/view2" />
+                    android:background="@drawable/cut_away" />
 
-                <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/favorite_save"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
-                    app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal_background" />//insert favorite
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/like" />
 
             </RelativeLayout>
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFF"
+                android:background="@color/White"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/recipe_instuct"
+                    android:id="@+id/recipe_summary_head"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:gravity="left"
-                    android:text="  Instructions"
-                    android:textColor="#006400"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:gravity="start"
+                    android:text="@string/summary"
+                    android:textColor="@color/Primary_Dark"
                     android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/close" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_below="@+id/recipe_instuct"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/recipe_summary_head"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="0dp"
@@ -86,10 +94,113 @@
 
 
                 <TextView
+                    android:id="@+id/summary_text"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_below="@id/recipe_instuct"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/recipe_summary_head"
                     android:layout_marginTop="0dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:padding="10dp"
+                    android:text="Info about how to cook food."
+                    android:textColor="#000" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/White"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/recipe_ingredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:gravity="start"
+                    android:text="@string/ingredients"
+                    android:textColor="@color/Primary_Dark"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/close" />
+
+                <View
+                    android:id="@+id/ingredients_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/recipe_ingredients"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@color/guillotine_background_dark" />
+
+                <com.sem4ikt.uni.recipefinderchatbot.other.ExpandingGridView
+                    android:id="@+id/ingredients_grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ingredients_divider"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="2.5dp"
+                    android:layout_marginStart="2.5dp"
+                    android:horizontalSpacing="2.5dp"
+                    android:numColumns="auto_fit"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="2.5dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/White"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/recipe_instuct_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:gravity="start"
+                    android:text="@string/instructions"
+                    android:textColor="@color/Primary_Dark"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/close" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/recipe_instuct_head"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@color/guillotine_background_dark" />
+
+
+                <TextView
+                    android:id="@+id/instrution_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/recipe_instuct_head"
+                    android:layout_marginTop="0dp"
+                    android:lineSpacingMultiplier="1.2"
                     android:padding="10dp"
                     android:text="Info about how to cook food."
                     android:textColor="#000" />
@@ -98,69 +209,54 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp">
-
-                <ImageButton
-                    android:id="@+id/imageButton4"
-                    android:layout_below="@+id/view3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/recipe_ingredients"
-                    android:layout_alignParentBottom="true"
-                    app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal_background" />
-
-                <ImageButton
-                    android:id="@+id/imageButton2"
-                    android:layout_below="@+id/view3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginEnd="26dp"
-                    android:layout_toStartOf="@+id/imageButton5"
-                    app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal_background" />
+                android:layout_height="wrap_content"
+                android:background="@color/White"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/recipe_ingredients"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/similar_recipes"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:gravity="left"
-                    android:text="  Ingredients"
-                    android:textColor="#006400"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:gravity="start"
+                    android:text="@string/similar"
+                    android:textColor="@color/Primary_Dark"
                     android:textSize="15sp" />
 
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/close" />
+
                 <View
-                    android:id="@+id/view3"
+                    android:id="@+id/similar_divider"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_below="@id/recipe_ingredients"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/similar_recipes"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="0dp"
                     android:background="@color/guillotine_background_dark" />
 
-                <ImageButton
-                    android:id="@+id/imageButton3"
-                    android:layout_below="@+id/view3"
-                    android:layout_width="wrap_content"
+                <com.sem4ikt.uni.recipefinderchatbot.other.ExpandingGridView
+                    android:id="@+id/similar_grid"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal_background" />
+                    android:layout_below="@+id/similar_divider"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="2.5dp"
+                    android:layout_marginStart="2.5dp"
+                    android:horizontalSpacing="2.5dp"
+                    android:isScrollContainer="false"
+                    android:numColumns="auto_fit"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="2.5dp" />
 
-                <ImageButton
-                    android:id="@+id/imageButton5"
-                    android:layout_below="@+id/view3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/view3"
-                    android:layout_marginEnd="23dp"
-                    android:layout_toStartOf="@+id/imageButton3"
-                    app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal_background" />
-                />
-
-                >
             </RelativeLayout>
         </LinearLayout>
 

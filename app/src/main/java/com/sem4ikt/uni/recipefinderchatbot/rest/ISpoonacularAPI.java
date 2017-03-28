@@ -87,7 +87,7 @@ public interface ISpoonacularAPI {
          * @param stepBreakdown     :whether to break down recipe even more
          */
         @GET("recipes/{id}/analyzedInstructions")
-        Call<InstructionsModel> getRecipeInstructions(
+        Call<List<InstructionsModel>> getRecipeInstructions(
                 @Path("id")  int id,
                 @Query("stepBreakdown") boolean stepBreakdown
         );
@@ -147,7 +147,7 @@ public interface ISpoonacularAPI {
          * @param id    :id of recipe
          */
         @GET("recipes/{id}/similar")
-        Call<RecipesModel> findSimilarRecipes(@Path("id") int id);
+        Call<List<RecipesModel>> findSimilarRecipes(@Path("id") int id);
 
         /**
          *

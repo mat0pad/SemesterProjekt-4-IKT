@@ -1,7 +1,5 @@
 package com.sem4ikt.uni.recipefinderchatbot.model;
 
-import android.util.Log;
-
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IConversationInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnswerModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.TextModel;
@@ -56,13 +54,9 @@ public class ConversationInteractor implements IConversationInteractor {
     public void switchWorkspace(String which, String lastInput) {
 
         if(which.equals("recipe")){
-
-
             presenter.switchWorkspace(1, lastInput);
-
         }
         else {
-
             presenter.switchWorkspace(0, lastInput);
         }
     }
@@ -121,6 +115,7 @@ public class ConversationInteractor implements IConversationInteractor {
             public void onResponse(Call<TextModel> call, Response<TextModel> response) {
 
                 if(response.code() == 200){
+
                     TextModel model = response.body();
                     presenter.showText(model.getText());
                 }

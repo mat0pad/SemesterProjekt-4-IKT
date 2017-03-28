@@ -25,22 +25,13 @@ import com.yalantis.guillotine.animation.GuillotineAnimation;
  */
 public class MainActivity extends AppCompatActivity implements IMainView , View.OnClickListener {
 
+    FrameLayout frameContainer;
+    CanaroTextView mealPlan, chatbot, settings, favorites, menuTitle;
     private Toolbar toolbar;
     private FrameLayout root;
     private View contentHamburger;
-    FrameLayout frameContainer;
     private GuillotineAnimation builder;
-    CanaroTextView mealPlan, chatbot, settings, favorites, menuTitle;
-
-
     private IMainPresenter mainPresenter;
-
-    private enum FragmentMenu{
-        CHATBOT,
-        MEAL_PLAN,
-        FAVORITES,
-        SETTINGS
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +144,13 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
         super.onDestroy();
 
         mainPresenter.clearView();
+    }
+
+    private enum FragmentMenu {
+        CHATBOT,
+        MEAL_PLAN,
+        FAVORITES,
+        SETTINGS
     }
 
 

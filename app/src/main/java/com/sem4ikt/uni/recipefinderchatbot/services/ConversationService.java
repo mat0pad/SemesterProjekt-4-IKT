@@ -18,7 +18,7 @@ import java.util.Map;
  */
 
 
-public class ConversationService implements IConversationService, ChatbotInteractor.Call
+public class ConversationService implements IConversationService
 {
     private com.ibm.watson.developer_cloud.conversation.v1.ConversationService convService = new com.ibm.watson.developer_cloud.conversation.v1.ConversationService(com.ibm.watson.developer_cloud.conversation.v1.ConversationService.VERSION_DATE_2016_07_11);
     private ToneAnalyzer toneService = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
@@ -32,7 +32,7 @@ public class ConversationService implements IConversationService, ChatbotInterac
         message = msg;
     }
 
-    public ConversationService setConversationUsernameAndPassword(String username, String password)
+    public ConversationService setConversationServiceCredentials(String username, String password)
     {
         convService.setUsernameAndPassword(username, password);
 
@@ -43,17 +43,16 @@ public class ConversationService implements IConversationService, ChatbotInterac
         return this;
     }
 
-    public ConversationService setToneAnalyzerUsernameAndPassword(String username, String password)
+    public ConversationService setToneAnalyzerCredentials(String username, String password)
     {
         toneService.setUsernameAndPassword(username, password);
         return this;
     }
 
 
-    public void setChatbotListener(ChatbotInteractor.Callback callback)
+    public void setChatbotListener(final ChatbotInteractor.Callback callback)
     {
-
-        final ChatbotInteractor.Callback callback1 = callback;
+        final String message = this.message;
 
         toneService.getTone(message, null).enqueue(new ServiceCallback<ToneAnalysis>()
         {
@@ -72,13 +71,13 @@ public class ConversationService implements IConversationService, ChatbotInterac
                     {
                         context = response.getContext();
                         // Answer is ready
-                        callback1.onChatbotResponse(ConversationService.this, response);
+                        callback.onChatbotResponse(ConversationService.this, response);
                     }
 
                     @Override
                     public void onFailure(Exception e)
                     {
-                        callback1.onChatbotFailed(ConversationService.this, "Something went wrong, please try again");
+                        callback.onChatbotFailed(ConversationService.this, "Something went wrong, please try again");
                         Log.e("testbotConversation", e.toString());
                     }
                 });
@@ -87,7 +86,7 @@ public class ConversationService implements IConversationService, ChatbotInterac
             @Override
             public void onFailure(Exception e)
             {
-                callback1.onChatbotFailed(ConversationService.this, "Something went wrong, please try again");
+                callback.onChatbotFailed(ConversationService.this, "Something went wrong, please try again");
                 Log.e("testbotTone", e.toString());
             }
         });

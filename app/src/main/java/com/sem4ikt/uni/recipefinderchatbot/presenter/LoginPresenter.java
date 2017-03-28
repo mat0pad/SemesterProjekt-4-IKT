@@ -2,6 +2,7 @@ package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
 import android.support.annotation.VisibleForTesting;
 
+import com.sem4ikt.uni.recipefinderchatbot.activity.LoginActivity;
 import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
 import com.sem4ikt.uni.recipefinderchatbot.database.IFirebaseAuth;
 import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
@@ -19,16 +20,6 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
     private ILoginUserModel user;
     private IFirebaseAuth auth;
 
-    public enum AUTH{
-
-        SIGN_IN_SUCCESS,
-        SIGN_IN_FAILED,
-        CREATE_SUCCESS,
-        CREATE_FAILED,
-        FORGOT_PASSWORD_SUCCESS,
-        FORGOT_PASSWORD_FAILED
-    }
-
     public LoginPresenter(ILoginView view){
         super(view);
 
@@ -39,13 +30,14 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
     }
 
     @VisibleForTesting
-    LoginPresenter(ILoginView view, IFirebaseAuth auth){
+    LoginPresenter(ILoginView view, IFirebaseAuth auth, ILoginUserModel userModel ){
         super(view);
 
         user = new LoginUserModel();
 
         // Create model
         this.auth = auth;
+        this.user = userModel;
     }
 
     @Override
@@ -64,23 +56,34 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
         if (user.checkUserValidity())
             auth.signIn(email,password, this);
 
-        else
-            System.out.println("Incorrect pass or mail");
+        else {
+            view.onShowToast("Incorrect password or email");
+            setProgressBarVisiblity(false);
+        }
     }
 
     @Override
-    public void doCreateUser(String email, String password) {
+    public void doCreateUser(String email, String password, String confirm_password) {
 
         user.setPassword(password);
+        user.setConfirmPassword(confirm_password);
         user.setEmail(email);
 
         setProgressBarVisiblity(true);
 
         if (user.checkUserValidity())
-            auth.createUserWithEmailAndPassword(email,password, this);
 
-        else
-            System.out.println("Incorrect pass or mail");
+            if (user.checkPasswordsMatches())
+                auth.createUserWithEmailAndPassword(email,password, this);
+
+            else {
+                view.onShowToast("Password and Confirm Password must be identical.");
+                setProgressBarVisiblity(false);
+            }
+        else {
+            view.onShowToast("An account is already created using this e-mail");
+            setProgressBarVisiblity(false);
+        }
     }
 
     @Override
@@ -92,11 +95,35 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
 
     }
 
+    @Override
+    public void showLayout(LoginActivity.LoginView v) {
+        view.onPresentView(v);
+    }
+
+    @Override
+    public void doBack(LoginActivity.LoginView state) {
+
+        switch (state) {
+
+            case LOGIN:
+                view.onFinish();
+                break;
+            case SIGN_UP:
+            case FORGOT_PASSWORD:
+            default:
+                view.onPresentView(LoginActivity.LoginView.LOGIN);
+                break;
+        }
+
+        clear();
+    }
 
     @Override
     public void onAuthenticationFinished(AUTH auth, String reason) {
 
         System.out.println("Authentication result: " + reason);
+
+        setProgressBarVisiblity(false);
 
         switch (auth){
 
@@ -124,10 +151,24 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
         }
     }
 
-
     @Override
     public void setProgressBarVisiblity(boolean visible) {
         view.onSetProgressVisibility(visible);
+    }
+
+    @Override
+    public void doToast(String text) {
+        view.onShowToast(text);
+    }
+
+    public enum AUTH {
+
+        SIGN_IN_SUCCESS,
+        SIGN_IN_FAILED,
+        CREATE_SUCCESS,
+        CREATE_FAILED,
+        FORGOT_PASSWORD_SUCCESS,
+        FORGOT_PASSWORD_FAILED
     }
 }
 

@@ -4,16 +4,25 @@
     <!-- Related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
+    <string name="prompt_confirm_pass">Confirm password</string>
+
     <string name="action_sign_in">Sign in</string>
-    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_sign_up">Sign up</string>
+    <string name="action_change_password">"Change password"</string>
+
+    <string name="text_no_account">No account?</string>
+    <string name="action_no_account">Sign up here</string>
+
+    <string name="text_forgot_password">Forgot password?</string>
+    <string name="action_forgot_password">Reset here</string>
 
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
 
-    <string name="change_password">"Change password"</string>
 
+    <!-- Related to favorites -->
     <string name="search_hint">"Search your recipes"</string>
 
     <!-- Messages -->
@@ -25,9 +34,12 @@
     <string name="favorites">FAVORITES</string>
     <string name="settings">SETTINGS</string>
     <string name="send">SEND</string>
-
-    <!-- String related to activities-->
     <string name="recipe_bot">CHAT WITH BOTLER</string>
 
+    <!-- Related to recipe detail -->
+    <string name="instructions">Instructions</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="summary">Summary</string>
+    <string name="similar">Similar Recipes</string>
 
 </resources>

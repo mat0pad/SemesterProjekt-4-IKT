@@ -14,6 +14,7 @@ import android.widget.SearchView;
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.FavoritesGridAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
+import com.sem4ikt.uni.recipefinderchatbot.view.IFavoritesView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.List;
  * Created by Christian on 12-03-2017.
  */
 
-public class FavoritesFragment extends Fragment {
+public class FavoritesFragment extends Fragment implements IFavoritesView {
 
     GridView gridView;
 
