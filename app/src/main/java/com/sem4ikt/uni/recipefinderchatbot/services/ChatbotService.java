@@ -18,32 +18,49 @@ import java.util.Map;
  */
 
 
-public class ConversationService implements IConversationService
+public class ChatbotService implements IChatbotService
 {
     private com.ibm.watson.developer_cloud.conversation.v1.ConversationService convService = new com.ibm.watson.developer_cloud.conversation.v1.ConversationService(com.ibm.watson.developer_cloud.conversation.v1.ConversationService.VERSION_DATE_2016_07_11);
     private ToneAnalyzer toneService = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
-    private Map<String, Object> context;
+    private Map<String, Object> contextGeneral;
+    private Map<String, Object> contextRecipe;
     private String workspaceIdentifier, message;
 
 
     public void message(String workspaceId, String msg)
     {
-        workspaceIdentifier = workspaceId;
+        if(workspaceIdentifier != workspaceId) {
+            workspaceIdentifier = workspaceId;
+
+            switch (workspaceId) {
+                case "e665abad-a305-4cf4-a21c-045354782015": // Switching to General
+
+                    contextGeneral.put("username" ,contextRecipe.get("username"));
+                    contextGeneral.put("returning_user", contextRecipe.get("returning_user"));
+                    break;
+
+                case "49630f5e-f2b9-453a-be68-927f17cf64bc": // Switching to Recipe
+                    contextRecipe.put("username" ,contextGeneral.get("username"));
+                    contextRecipe.put("returning_user", contextGeneral.get("returning_user"));
+                    break;
+            }
+        }
+
         message = msg;
     }
 
-    public ConversationService setConversationServiceCredentials(String username, String password)
+    public ChatbotService setConversationServiceCredentials(String username, String password)
     {
         convService.setUsernameAndPassword(username, password);
 
-        context = new HashMap<>();
-        context.put("returning_user", false);
-        context.put("username", "undefined");
+        contextGeneral = new HashMap<>();
+        contextGeneral.put("returning_user", false);
+        contextGeneral.put("username", "undefined");
 
         return this;
     }
 
-    public ConversationService setToneAnalyzerCredentials(String username, String password)
+    public ChatbotService setToneAnalyzerCredentials(String username, String password)
     {
         toneService.setUsernameAndPassword(username, password);
         return this;
@@ -53,32 +70,33 @@ public class ConversationService implements IConversationService
     public void setChatbotListener(final ChatbotInteractor.Callback callback)
     {
         final String message = this.message;
+        final String workspaceIdentifier = this.workspaceIdentifier;
 
         toneService.getTone(message, null).enqueue(new ServiceCallback<ToneAnalysis>()
         {
             @Override
             public void onResponse(ToneAnalysis response)
             {
-                // update context with the tone data returned by the Tone Analyzer
-                if (context != null)
-                    ToneDetection.updateUserTone(context, response, true);
+                // update contextGeneral with the tone data returned by the Tone Analyzer
+                if (contextGeneral != null)
+                    ToneDetection.updateUserTone(contextGeneral, response, true);
 
-                MessageRequest newMessage = new MessageRequest.Builder().context(context).inputText(message).build();
+                MessageRequest newMessage = new MessageRequest.Builder().context(contextGeneral).inputText(message).build();
                 convService.message(workspaceIdentifier, newMessage).enqueue(new ServiceCallback<MessageResponse>()
                 {
                     @Override
                     public void onResponse(MessageResponse response)
                     {
-                        context = response.getContext();
+                        contextGeneral = response.getContext();
                         // Answer is ready
-                        callback.onChatbotResponse(ConversationService.this, response);
+                        callback.onChatbotResponse(ChatbotService.this, response);
                     }
 
                     @Override
                     public void onFailure(Exception e)
                     {
-                        callback.onChatbotFailed(ConversationService.this, "Something went wrong, please try again");
-                        Log.e("testbotConversation", e.toString());
+                        callback.onChatbotFailed(ChatbotService.this, "Something went wrong, please try again");
+                        Log.e("botConversation", e.toString());
                     }
                 });
             }
@@ -86,8 +104,8 @@ public class ConversationService implements IConversationService
             @Override
             public void onFailure(Exception e)
             {
-                callback.onChatbotFailed(ConversationService.this, "Something went wrong, please try again");
-                Log.e("testbotTone", e.toString());
+                callback.onChatbotFailed(ChatbotService.this, "Something went wrong, please try again");
+                Log.e("botTone", e.toString());
             }
         });
     }
