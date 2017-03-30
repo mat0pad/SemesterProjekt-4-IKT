@@ -5,9 +5,11 @@ package com.sem4ikt.uni.recipefinderchatbot.database;
  */
 
 public interface IDatabaseApi {
+    boolean saveUser();
     boolean SaveRecipe();
     boolean SaveMealplan();
     boolean SaveCalories();
+    boolean getUser();
     boolean GetRecipe();
     boolean GetMealplan();
     boolean GetCalories();
