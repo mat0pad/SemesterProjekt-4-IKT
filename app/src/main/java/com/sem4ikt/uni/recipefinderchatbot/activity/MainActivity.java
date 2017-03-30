@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.fragment.ChatbotFragment;
 import com.sem4ikt.uni.recipefinderchatbot.fragment.FavoritesFragment;
@@ -70,6 +72,14 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
                 showFragment(FragmentMenu.SETTINGS.ordinal());
                 menuTitle.setText(R.string.settings);
                 builder.close();
+                DatabaseReference mDatabase;
+                mDatabase = FirebaseDatabase.getInstance().getReference();
+                mDatabase.child("user").child("Kasper").setValue("20");
+                mDatabase = FirebaseDatabase.getInstance().getReference("user/Anton");
+                mDatabase.removeValue();
+                //mDatabase.push();
+
+
                 break;
             case R.id.favorites:
                 showFragment(FragmentMenu.FAVORITES.ordinal());
