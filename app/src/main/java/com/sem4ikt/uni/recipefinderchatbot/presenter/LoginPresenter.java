@@ -51,17 +51,15 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
         user.setPassword(password);
         user.setEmail(email);
 
-        view.onLogin(true);
+        setProgressBarVisiblity(true);
 
-        //setProgressBarVisiblity(true);
+        if (user.checkUserValidity())
+            auth.signIn(email,password, this);
 
-        //if (user.checkUserValidity())
-        //    auth.signIn(email,password, this);
-
-        //else {
-         //   view.onShowToast("Incorrect password or email");
-         //   setProgressBarVisiblity(false);
-        //}
+        else {
+            view.onShowToast("Incorrect password or email");
+            setProgressBarVisiblity(false);
+        }
     }
 
     @Override

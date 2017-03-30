@@ -1,5 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Pair;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
+import com.sem4ikt.uni.recipefinderchatbot.activity.ListRecipeActivity;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatListAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatbotPresenter;
@@ -69,13 +71,16 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
         // Needed for start up message
         chatbotPresenter.switchWorkspace(0, " ");
 
+        Intent intent = new Intent(ChatbotFragment.this.getActivity(), ListRecipeActivity.class);
+        startActivity(intent);
+
         return view;
     }
 
 
-    public void onClick(View v){
+    public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
 
             case R.id.send_button:
 
