@@ -1,5 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
+import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatListAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ChatListView;
 
@@ -14,7 +15,7 @@ public class ChatListAdapterPresenter extends BasePresenter<ChatListView> implem
     }
 
     @Override
-    public void addMessage(String m, int direction) {
-        view.onAddMessage(m,direction);
+    public void addMessage(MessageModel m) {
+        view.onAddMessage(m);
     }
 }

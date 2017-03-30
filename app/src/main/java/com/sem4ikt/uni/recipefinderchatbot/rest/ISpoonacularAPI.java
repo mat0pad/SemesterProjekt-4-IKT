@@ -1,11 +1,13 @@
 package com.sem4ikt.uni.recipefinderchatbot.rest;
 
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnalyzedQueryModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnswerModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientSubstituteModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.InstructionsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RandomRecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.SummaryModel;
@@ -58,6 +60,14 @@ public interface ISpoonacularAPI {
          */
         @GET("recipes/quickAnswer")
         Call<AnswerModel> getQuickAnswer(
+                @Query("q") String q
+        );
+
+        /**
+         * @param q : Parse a recipe search query to find out its intention.
+         */
+        @GET("recipes/queries/analyze")
+        Call<AnalyzedQueryModel> getAnalyzedQuery(
                 @Query("q") String q
         );
 
@@ -163,7 +173,7 @@ public interface ISpoonacularAPI {
          * @param needLicense       :true = allows for displaying with proper attribution.
          */
         @GET("recipes/random")
-        Call<List<RecipeModel>> findRandomRecipes(
+        Call<RandomRecipeModel> findRandomRecipes(
                 @Query("number") int numberOfRecipes,
                 @Query("tags") String tags,
                 @Query("limitLicense") boolean needLicense

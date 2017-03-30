@@ -7,25 +7,31 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
+import com.sem4ikt.uni.recipefinderchatbot.adapter.EquipmentsGridAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.IngredientsGridAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.SimilarGridAdapter;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.EquipmentModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.SummaryModel;
 import com.sem4ikt.uni.recipefinderchatbot.other.ExpandingGridView;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.DetailRecipePresenter;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.EquipmentsAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.IngredientsAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.SimilarAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IDetailRecipePresenter;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IEquipmentsAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IIngredientsAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ISimilarAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IDetailRecipeView;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,9 +49,12 @@ public class DetailRecipeActivity extends AppCompatActivity implements IDetailRe
     // Ingredients adapter presenter
     IIngredientsAdapterPresenter ingredientAdapterPresenter;
 
+    // Equipment adapter presenter
+    IEquipmentsAdapterPresenter equipmentAdapterPresenter;
+
     ImageView posterImage, saveFavorite;
     TextView instructions, title, summary;
-    ExpandingGridView similarGrid, ingredientsGrid;
+    ExpandingGridView similarGrid, ingredientsGrid, equipmentGrid;
 
     boolean isSaved = false;
 
@@ -65,21 +74,28 @@ public class DetailRecipeActivity extends AppCompatActivity implements IDetailRe
         saveFavorite = (ImageView) findViewById(R.id.favorite_save);
         similarGrid = (ExpandingGridView) findViewById(R.id.similar_grid);
         ingredientsGrid = (ExpandingGridView) findViewById(R.id.ingredients_grid);
+        equipmentGrid = (ExpandingGridView) findViewById(R.id.tools_grid);
 
-        // Similar setup
+        // Similar grid setup
         SimilarGridAdapter adapterSimilar = new SimilarGridAdapter(getApplicationContext());
         similarGrid.setAdapter(adapterSimilar);
         similarAdapterPresenter = new SimilarAdapterPresenter(adapterSimilar);
 
-        // Ingredients setup
+        // Ingredients grid setup
         IngredientsGridAdapter ingredientsGridAdapter = new IngredientsGridAdapter(getApplicationContext());
         ingredientsGrid.setAdapter(ingredientsGridAdapter);
         ingredientAdapterPresenter = new IngredientsAdapterPresenter(ingredientsGridAdapter);
+
+        // Equipment grid setup
+        EquipmentsGridAdapter equipmentGridAdapter = new EquipmentsGridAdapter(getApplicationContext());
+        equipmentGrid.setAdapter(equipmentGridAdapter);
+        equipmentAdapterPresenter = new EquipmentsAdapterPresenter(equipmentGridAdapter);
 
         // Set num of columns manually since android defaults to 2 when using wrap_content
         int viewWidth = (int) (90 * getResources().getDisplayMetrics().density);
         int numOfColumns = getResources().getDisplayMetrics().widthPixels / viewWidth;
         ingredientsGrid.setNumColumns(numOfColumns);
+        equipmentGrid.setNumColumns(numOfColumns);
 
         // Click listener for save button
         saveFavorite.setOnClickListener(this);
@@ -149,9 +165,12 @@ public class DetailRecipeActivity extends AppCompatActivity implements IDetailRe
 
         title.setText(recipe.getTitle());
 
+        presenter.doSetRecipeIconType(recipe);
+
         // Load big image
         Picasso.with(getApplicationContext()).load(recipe.getImage()).fit().into(posterImage);
 
+        // Set ingredients
         ingredientAdapterPresenter.addAll(recipe.getExtendedIngredients());
     }
 
@@ -160,6 +179,23 @@ public class DetailRecipeActivity extends AppCompatActivity implements IDetailRe
 
         this.instructions.setText(instructions);
 
+    }
+
+    @Override
+    public void setEquipments(List<List<EquipmentModel>> equipments) {
+
+        List<EquipmentModel> list = new ArrayList<>();
+
+        for (List<EquipmentModel> item : equipments)
+            for (EquipmentModel i : item)
+                list.add(i);
+
+        // Hide equipment layout if null else show it
+        if (list.size() == 0) {
+            RelativeLayout layout = (RelativeLayout) findViewById(R.id.equipment_relative);
+            layout.setVisibility(View.GONE);
+        } else
+            equipmentAdapterPresenter.addAll(list);
     }
 
     @Override
@@ -175,4 +211,126 @@ public class DetailRecipeActivity extends AppCompatActivity implements IDetailRe
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.detail_recipe_progress);
         progressBar.setVisibility((shouldShow ? View.VISIBLE : View.GONE));
     }
+
+    @Override
+    public void setRecipeTypeIcon(ICON_TYPE type, boolean isVisible) {
+
+        TextView textView = (TextView) findViewById(R.id.recipe_type_text);
+        ImageView imageView = (ImageView) findViewById(R.id.recipe_type_image);
+
+        int imageResID = 0;
+        int textId = 0;
+
+        switch (type) {
+
+            case WHOLE30:
+                textId = R.string.whole30;
+                imageResID = R.drawable.whole30;
+                break;
+
+            case KETOGENIC:
+                textId = R.string.ketogenic;
+                imageResID = R.drawable.ketogenic;
+                break;
+
+            case WEIGHT_WATCH:
+                textId = R.string.weight_watch;
+                imageResID = R.drawable.weight_watch;
+                break;
+
+            case ORGANIC:
+                textId = R.string.organic;
+                imageResID = R.drawable.organic;
+                break;
+
+            case PALEO:
+                textId = R.string.paleo;
+                imageResID = R.drawable.paleo;
+                break;
+
+            case VEGAN:
+                textId = R.string.vegan;
+                imageResID = R.drawable.vegan;
+                break;
+
+            case VEGETARIAN:
+                textId = R.string.vegetarian;
+                imageResID = R.drawable.vegetarian;
+                break;
+
+            case DAIRY_FREE:
+                textId = R.string.dairy_free;
+                imageResID = R.drawable.dairy_free;
+                break;
+
+            case GLUTEN_FREE:
+                textId = R.string.gluten_free;
+                imageResID = R.drawable.gluten_free;
+                break;
+
+            default:
+                break;
+        }
+
+        // Set text & image
+        if (imageResID != 0)
+            imageView.setImageDrawable(getDrawable(imageResID));
+        if (textId != 0)
+            textView.setText(getString(textId));
+
+        // Set visibility
+        imageView.setVisibility((isVisible ? View.VISIBLE : View.GONE));
+        textView.setVisibility((isVisible ? View.VISIBLE : View.GONE));
+    }
+
+    @Override
+    public void showRecipeTime(String time, boolean shouldShow) {
+
+        // Set image
+        ImageView imageView = (ImageView) findViewById(R.id.recipe_time_image);
+        imageView.setImageDrawable(getDrawable(R.drawable.time));
+
+        // Set text
+        TextView textView = (TextView) findViewById(R.id.recipe_time_text);
+        textView.setText(time);
+
+        // Set visibility
+        imageView.setVisibility((shouldShow ? View.VISIBLE : View.GONE));
+        textView.setVisibility((shouldShow ? View.VISIBLE : View.GONE));
+    }
+
+    @Override
+    public void showRecipePriceOrPopular(String text, boolean isPrice, boolean shouldShow) {
+
+        // Set text
+        TextView textView = (TextView) findViewById(R.id.recipe_price_text);
+        textView.setText(text);
+
+        ImageView imageView = (ImageView) findViewById(R.id.recipe_price_image);
+
+        if (isPrice) {
+            imageView.setImageDrawable(getDrawable(R.drawable.price));
+        } else {
+            imageView.setImageDrawable(getDrawable(R.drawable.popular));
+        }
+
+        // Set visibility
+        imageView.setVisibility((shouldShow ? View.VISIBLE : View.GONE));
+        textView.setVisibility((shouldShow ? View.VISIBLE : View.GONE));
+    }
+
+    public enum ICON_TYPE {
+        GLUTEN_FREE,
+        DAIRY_FREE,
+        KETOGENIC,
+        ORGANIC,
+        PALEO,
+        VEGAN,
+        VEGETARIAN,
+        WHOLE30,
+        WEIGHT_WATCH,
+        NONE
+    }
+
+
 }

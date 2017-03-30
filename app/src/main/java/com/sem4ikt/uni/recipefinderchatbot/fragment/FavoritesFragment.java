@@ -59,7 +59,6 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
         }
 
         FavoritesGridAdapter adapter = new FavoritesGridAdapter(getContext(), list);
-
         gridView.setAdapter(adapter);
 
         return view;

@@ -38,8 +38,22 @@
 
     <!-- Related to recipe detail -->
     <string name="instructions">Instructions</string>
+    <string name="tools">Equipment</string>
     <string name="ingredients">Ingredients</string>
     <string name="summary">Summary</string>
     <string name="similar">Similar Recipes</string>
+
+
+    <!-- Related to recipe type icons -->
+    <string name="gluten_free">Gluten Free</string>
+    <string name="dairy_free">Dairy free &amp; Lactose free</string>
+    <string name="whole30">Whole30</string>
+    <string name="vegan">Vegan</string>
+    <string name="weight_watch">Weight Watcher</string>
+    <string name="vegetarian">Vegetarian</string>
+    <string name="paleo">Paleo</string>
+    <string name="organic">Organic</string>
+    <string name="ketogenic">Ketogenic</string>
+
 
 </resources>

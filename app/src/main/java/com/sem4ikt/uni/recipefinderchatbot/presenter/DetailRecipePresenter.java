@@ -1,7 +1,9 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
+import com.sem4ikt.uni.recipefinderchatbot.activity.DetailRecipeActivity;
 import com.sem4ikt.uni.recipefinderchatbot.model.DetailRecipeInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IDetailRecipeInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.EquipmentModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.InstructionsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
@@ -10,6 +12,8 @@ import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IDetailRecipeCal
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IDetailRecipePresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IDetailRecipeView;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,6 +62,28 @@ public class DetailRecipePresenter extends BasePresenter<IDetailRecipeView> impl
     }
 
     @Override
+    public void doSetRecipeIconType(RecipeModel recipe) {
+
+        if (recipe.getVeryPopular()) {
+            view.showRecipePriceOrPopular("Very popular!", false, true);
+        } else {
+            if (recipe.getPricePerServing() != 0) {
+
+                DecimalFormat numberFormat = new DecimalFormat("#.00");
+                String inDollars = numberFormat.format(recipe.getPricePerServing() / 100);
+
+                view.showRecipePriceOrPopular("$" + inDollars + " per serving", true, true);
+            }
+        }
+
+        if (recipe.getReadyInMinutes() != 0) {
+            view.showRecipeTime("Ready in " + recipe.getReadyInMinutes() + " minutes", true);
+        }
+
+        view.setRecipeTypeIcon(getSpecial(recipe), true);
+    }
+
+    @Override
     public void onReceived(Object model, CALL_TYPE type) {
 
         switch (type) {
@@ -92,15 +118,52 @@ public class DetailRecipePresenter extends BasePresenter<IDetailRecipeView> impl
 
         String steps = "";
 
-        if (instructions.size() >= 1) {
+        List<List<EquipmentModel>> equipments = new ArrayList<>();
 
-            int size = instructions.get(0).getSteps().size();
+        for (int i = 0; i < instructions.size(); i++) {
 
-            for (int i = 0; i < size; i++)
-                steps += "• " + instructions.get(0).getSteps().get(i).getStep() + "\n" + (i != size - 1 ? "\n" : "");
+            equipments.add(instructions.get(0).getSteps().get(i).getEquipment());
+
+            for (int j = 0; j < instructions.get(i).getSteps().size(); j++)
+                steps += "• " + instructions.get(i).getSteps().get(j).getStep() + "\n" + (j != instructions.get(i).getSteps().size() - 1 ? "\n" : "");
+
         }
 
+        view.setEquipments(equipments);
         view.setInstructions(steps);
+    }
+
+    private DetailRecipeActivity.ICON_TYPE getSpecial(RecipeModel recipe) {
+
+        DetailRecipeActivity.ICON_TYPE type = DetailRecipeActivity.ICON_TYPE.NONE;
+
+        if (recipe.getVegetarian()) {
+            System.out.println("Vegetarian");
+            type = DetailRecipeActivity.ICON_TYPE.VEGETARIAN;
+        } else if (recipe.getVegan()) {
+            System.out.println("Vegan");
+            type = DetailRecipeActivity.ICON_TYPE.VEGAN;
+        } else if (recipe.getWhole30()) {
+            System.out.println("Whole30");
+            type = DetailRecipeActivity.ICON_TYPE.WHOLE30;
+        } else if (recipe.getLowFodmap()) {
+            System.out.println("paleo");
+            type = DetailRecipeActivity.ICON_TYPE.PALEO;
+        } else if (recipe.getSustainable()) {
+            System.out.println("organic");
+            type = DetailRecipeActivity.ICON_TYPE.ORGANIC;
+        } else if (recipe.getGlutenFree()) {
+            System.out.println("GlutenFree");
+            type = DetailRecipeActivity.ICON_TYPE.GLUTEN_FREE;
+        } else if (recipe.getKetogenic()) {
+            System.out.println("Ketogenic");
+            type = DetailRecipeActivity.ICON_TYPE.KETOGENIC;
+        } else if (recipe.getVeryHealthy()) {
+            System.out.println("VeryHealthy");
+            type = DetailRecipeActivity.ICON_TYPE.WEIGHT_WATCH;
+        }
+
+        return type;
     }
 
     public enum CALL_TYPE {GET_RECIPE, SUMMARIZE, SIMILAR, INSTRUCTION}

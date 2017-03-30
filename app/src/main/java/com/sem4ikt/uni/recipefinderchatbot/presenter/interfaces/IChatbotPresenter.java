@@ -10,5 +10,7 @@ public interface IChatbotPresenter<V> extends IBasePresenter<V> {
     void switchWorkspace(int spaceId, String lastInput);
     void showText(String text);
 
+    void showSingleRecipeText(String msg, String img, int id);
+
 }
 

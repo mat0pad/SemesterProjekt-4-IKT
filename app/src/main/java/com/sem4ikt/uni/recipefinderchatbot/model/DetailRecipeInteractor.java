@@ -48,8 +48,12 @@ public class DetailRecipeInteractor implements IDetailRecipeInteractor {
 
             @Override
             public void onFailure(Call<RecipeModel> call, Throwable t) {
+                System.out.println("Failed getRecipe reason: " + t.getLocalizedMessage());
+
+                t.printStackTrace();
             }
         });
+
     }
 
     @Override
@@ -71,6 +75,9 @@ public class DetailRecipeInteractor implements IDetailRecipeInteractor {
 
             @Override
             public void onFailure(Call<SummaryModel> call, Throwable t) {
+                System.out.println("Failed getSummary reason: " + t.getLocalizedMessage());
+
+                t.printStackTrace();
             }
         });
     }
@@ -95,6 +102,9 @@ public class DetailRecipeInteractor implements IDetailRecipeInteractor {
 
             @Override
             public void onFailure(Call<List<RecipesModel>> call, Throwable t) {
+                System.out.println("Failed getSimilar reason: " + t.getLocalizedMessage());
+
+                t.printStackTrace();
             }
         });
 
@@ -114,6 +124,7 @@ public class DetailRecipeInteractor implements IDetailRecipeInteractor {
                 if (response.code() == 200) {
 
                     List<InstructionsModel> model = response.body();
+
                     callback.onReceived(model, DetailRecipePresenter.CALL_TYPE.INSTRUCTION);
                 }
             }

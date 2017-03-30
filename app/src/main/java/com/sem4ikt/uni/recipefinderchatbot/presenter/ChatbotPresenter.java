@@ -8,6 +8,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.ConversationInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IConversationInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
@@ -32,7 +33,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
 
     public void send(String input)
     {
-        view.displayMessage(input, 1);
+        view.displayNormalMessage(new MessageModel(input, 1));
 
 
         ci.message((isInGeneral ? "e665abad-a305-4cf4-a21c-045354782015" : "49630f5e-f2b9-453a-be68-927f17cf64bc"), input).setChatbotListener(new ChatbotInteractor.ChatbotListener()
@@ -126,10 +127,17 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
     public void showText(String text){
 
         if(text != null)
-            view.displayMessage(text, ChatListAdapter.DIRECTION_INCOMING);
+            view.displayNormalMessage(new MessageModel(text, ChatListAdapter.DIRECTION_INCOMING));
 
         // some error
     }
 
+    public void showSingleRecipeText(String msg, String img, int id) {
+
+        if (msg != null)
+            view.displayNormalMessage(new MessageModel(msg, ChatListAdapter.DIRECTION_INCOMING, img, id, MessageModel.TYPE.SINGLE_RECIPE));
+
+        // some error
+    }
 
 }

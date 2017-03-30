@@ -1,7 +1,9 @@
 package com.sem4ikt.uni.recipefinderchatbot.model;
 
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IConversationInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnalyzedQueryModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnswerModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RandomRecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.TextModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.rest.ApiClient;
@@ -44,6 +46,10 @@ public class ConversationInteractor implements IConversationInteractor {
                 invokeFact(input);
                 break;
 
+            case "single_random_recipe":
+                detectQueryIntention(input);
+                break;
+
             default:
                 presenter.showText(action);
                 break;
@@ -60,7 +66,6 @@ public class ConversationInteractor implements IConversationInteractor {
             presenter.switchWorkspace(0, lastInput);
         }
     }
-
 
     private void invokeJoke(){
 
@@ -107,6 +112,80 @@ public class ConversationInteractor implements IConversationInteractor {
         });
     }
 
+    private void detectQueryIntention(String input) {
+
+        ISpoonacularAPI.ICompute apiService = client.getClient().create(ISpoonacularAPI.ICompute.class);
+
+        Call<AnalyzedQueryModel> call = apiService.getAnalyzedQuery(input);
+
+        call.enqueue(new Callback<AnalyzedQueryModel>() {
+            @Override
+            public void onResponse(Call<AnalyzedQueryModel> call, Response<AnalyzedQueryModel> response) {
+
+                if (response.code() == 200) {
+
+                    AnalyzedQueryModel model = response.body();
+
+                    String query = "";
+
+                    for (int i = 0; i < model.getIngredients().size(); i++)
+                        if (model.getIngredients().get(i).getInclude())
+                            query += model.getIngredients().get(i).getName() + ",";
+
+                    for (int i = 0; i < model.getDishes().size(); i++)
+                        query += model.getDishes().get(i).getName() + ",";
+
+                    for (int i = 0; i < model.getModifiers().size(); i++)
+                        query += model.getModifiers().get(i).getName() + ",";
+
+                    for (int i = 0; i < model.getCuisines().size(); i++)
+                        query += model.getCuisines().get(i).getName() + ",";
+
+                    if (query.length() != 0 && query.charAt(query.length() - 1) == ',')
+                        query = query.substring(0, query.length() - 1);
+
+                    System.out.println(query);
+
+                    randomRecipe(query);
+                } else
+                    System.out.println("Failed detectQueryIntention");
+            }
+
+            @Override
+            public void onFailure(Call<AnalyzedQueryModel> call, Throwable t) {
+                System.out.println("Failed detectQueryIntention");
+            }
+        });
+
+    }
+
+    private void randomRecipe(String intent) {
+
+        ISpoonacularAPI.ISearch apiService = client.getClient().create(ISpoonacularAPI.ISearch.class);
+
+        Call<RandomRecipeModel> call = apiService.findRandomRecipes(1, intent, false);
+
+        call.enqueue(new Callback<RandomRecipeModel>() {
+            @Override
+            public void onResponse(Call<RandomRecipeModel> call, Response<RandomRecipeModel> response) {
+
+                if (response.code() == 200) {
+                    RandomRecipeModel model = response.body();
+                    presenter.showSingleRecipeText("Okay I found this:", model.getRecipesList().get(0).getImage(), model.getRecipesList().get(0).getId());
+                    //presenter.showText("Recipe name is " + model.getRecipesList().get(0).getTitle());
+                } else {
+                    System.out.println("Failed randomRecipe - code is " + response.code());
+                    presenter.showText("I'm sorry I couldn't find any...");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RandomRecipeModel> call, Throwable t) {
+                System.out.println("Failed randomRecipe");
+                presenter.showText(null);
+            }
+        });
+    }
 
     private void enqueueTextModelCall(Call<TextModel> call){
 

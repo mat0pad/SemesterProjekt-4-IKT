@@ -1,8 +1,9 @@
 package com.sem4ikt.uni.recipefinderchatbot.model.spoonacular;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 /**
  * Created by anton on 09-03-2017.
@@ -21,7 +22,7 @@ public class StepModel {
     private List<SummaryModel> ingredients = null;
     @SerializedName("equipment")
     @Expose
-    private List<SummaryModel> equipment = null;
+    private List<EquipmentModel> equipment = null;
 
     public Integer getNumber() {
         return number;
@@ -47,11 +48,11 @@ public class StepModel {
         this.ingredients = ingredients;
     }
 
-    public List<SummaryModel> getEquipment() {
+    public List<EquipmentModel> getEquipment() {
         return equipment;
     }
 
-    public void setEquipment(List<SummaryModel> equipment) {
+    public void setEquipment(List<EquipmentModel> equipment) {
         this.equipment = equipment;
     }
 

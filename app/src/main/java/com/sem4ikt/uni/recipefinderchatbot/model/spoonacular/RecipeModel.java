@@ -57,9 +57,24 @@ public class RecipeModel {
     @SerializedName("sourceUrl")
     @Expose
     private String sourceUrl;
+
+    @SerializedName("pricePerServing")
+    @Expose
+    private double pricePerServing;
+
+    // "spoonacularScore":61.0,"healthScore":14.0,
+    @SerializedName("spoonacularScore")
+    @Expose
+    private double spoonacularScore;
+
+    @SerializedName("healthScore")
+    @Expose
+    private double healthScore;
+
     @SerializedName("spoonacularSourceUrl")
     @Expose
     private String spoonacularSourceUrl;
+
     @SerializedName("aggregateLikes")
     @Expose
     private Integer aggregateLikes;
@@ -195,12 +210,36 @@ public class RecipeModel {
         this.whole30 = whole30;
     }
 
+    public double getPricePerServing() {
+        return pricePerServing;
+    }
+
+    public void setPricePerServing(double price) {
+        this.pricePerServing = pricePerServing;
+    }
+
     public Integer getServings() {
         return servings;
     }
 
     public void setServings(Integer servings) {
         this.servings = servings;
+    }
+
+    public double getSpoonacularScore() {
+        return spoonacularScore;
+    }
+
+    public void setSpoonacularScore(double spoonacularScore) {
+        this.spoonacularScore = spoonacularScore;
+    }
+
+    public double getHealthScore() {
+        return healthScore;
+    }
+
+    public void setHealthScore(double healthScore) {
+        this.healthScore = healthScore;
     }
 
     public String getSourceUrl() {

@@ -36,24 +36,9 @@ public class StepModelUnitTest {
         Assert.assertEquals(stepModel.getStep(), "test");
     }
 
-    @Test
-    public void setEquipment(){
-
-        List<SummaryModel> list = new ArrayList<>();
-
-        SummaryModel sm = new SummaryModel();
-
-        sm.setId(123);
-
-        list.add(sm);
-
-        stepModel.setEquipment(list);
-
-        Assert.assertEquals( stepModel.getEquipment(), list);
-    }
 
     @Test
-    public void setEquioment(){
+    public void setIngredients() {
 
         List<SummaryModel> list = new ArrayList<>();
 
@@ -65,6 +50,22 @@ public class StepModelUnitTest {
 
         stepModel.setIngredients(list);
 
-        Assert.assertEquals( stepModel.getIngredients(), list);
+        Assert.assertEquals(stepModel.getIngredients(), list);
+    }
+
+    @Test
+    public void setEquipments() {
+
+        List<EquipmentModel> list = new ArrayList<>();
+
+        EquipmentModel sm = new EquipmentModel();
+
+        sm.setId(123);
+
+        list.add(sm);
+
+        stepModel.setEquipment(list);
+
+        Assert.assertEquals(stepModel.getEquipment(), list);
     }
 }

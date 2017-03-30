@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/hud_image"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/user_profile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/hud_image"
+        android:layout_toRightOf="@id/hud_image"
+        android:text="@string/from_botler"
+        android:textColor="@color/Gray_Dark"
+        android:textSize="10sp" />
+
+    <LinearLayout
+        android:id="@+id/message_linear_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/hud_image"
+        android:background="@drawable/left_bobble"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/left_bubble_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:paddingEnd="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:paddingStart="10dp"
+            android:text="Some title here"
+            android:textColor="@color/White" />
+
+        <ImageView
+            android:id="@+id/message_l_image"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="7dp"
+            android:layout_weight="0.82"
+            android:elevation="10dp"
+            android:paddingEnd="7dp"
+            android:paddingStart="13dp"
+            android:scaleType="fitXY" />
+
+    </LinearLayout>
+
+</RelativeLayout>

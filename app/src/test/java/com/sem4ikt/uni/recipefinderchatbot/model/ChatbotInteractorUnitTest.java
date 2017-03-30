@@ -1,17 +1,11 @@
-package com.sem4ikt.uni.recipefinderchatbot.Chatbot;
+package com.sem4ikt.uni.recipefinderchatbot.model;
 
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
-import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.services.ConversationService;
 import com.sem4ikt.uni.recipefinderchatbot.services.IConversationService;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Matchers.any;

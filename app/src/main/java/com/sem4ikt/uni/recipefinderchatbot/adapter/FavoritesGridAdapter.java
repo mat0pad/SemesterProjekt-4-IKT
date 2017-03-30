@@ -27,7 +27,6 @@ public class FavoritesGridAdapter extends BaseAdapter {
         mContext = context;
     }
 
-
     @Override
     public int getCount() {
         return list.size();
@@ -64,7 +63,6 @@ public class FavoritesGridAdapter extends BaseAdapter {
         }
 
         holder.text.setText(getItem(position).getTitle());
-        //holder.text.setText(getItem(position).ge());
 
         return convertView;
     }

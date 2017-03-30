@@ -97,64 +97,72 @@
 
 
                 <ImageView
+                    android:id="@+id/recipe_type_image"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_column="0"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="5dp"
                     android:layout_row="0"
-                    android:src="@drawable/gluten_free" />
+                    android:src="@drawable/gluten_free"
+                    android:visibility="gone" />
 
                 <TextView
+                    android:id="@+id/recipe_type_text"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
                     android:layout_gravity="center_horizontal"
                     android:layout_row="1"
-                    android:text="Gluten Free"
                     android:textAlignment="center"
                     android:textColor="@color/Black"
-                    android:textSize="15sp" />
-
+                    android:textSize="15sp"
+                    android:visibility="gone" />
 
                 <ImageView
+                    android:id="@+id/recipe_price_image"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_column="1"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="5dp"
                     android:layout_row="0"
-                    android:src="@drawable/price" />
+                    android:src="@drawable/price"
+                    android:visibility="gone" />
 
                 <TextView
+                    android:id="@+id/recipe_price_text"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
                     android:layout_gravity="center_horizontal"
                     android:layout_row="1"
-                    android:text="Price"
                     android:textAlignment="center"
-                    android:textColor="@color/Black" />
+                    android:textColor="@color/Black"
+                    android:visibility="gone" />
 
 
                 <ImageView
+                    android:id="@+id/recipe_time_image"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_column="2"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="5dp"
                     android:layout_row="0"
-                    android:src="@drawable/time" />
+                    android:src="@drawable/time"
+                    android:visibility="gone" />
 
                 <TextView
+                    android:id="@+id/recipe_time_text"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
                     android:layout_gravity="center_horizontal"
                     android:layout_row="1"
-                    android:text="Ready in 25 minutes"
                     android:textAlignment="center"
-                    android:textColor="@color/Black" />
+                    android:textColor="@color/Black"
+                    android:visibility="gone" />
 
 
             </GridLayout>
@@ -209,7 +217,6 @@
 
             </RelativeLayout>
 
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -254,6 +261,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginEnd="2.5dp"
                     android:layout_marginStart="2.5dp"
+                    android:layout_marginTop="5dp"
                     android:horizontalSpacing="2.5dp"
                     android:numColumns="auto_fit"
                     android:stretchMode="columnWidth"
@@ -307,6 +315,59 @@
                     android:padding="10dp"
                     android:text="Info about how to cook food."
                     android:textColor="#000" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/equipment_relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/White"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/recipe_tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:gravity="start"
+                    android:text="@string/tools"
+                    android:textColor="@color/Primary_Dark"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/close" />
+
+                <View
+                    android:id="@+id/tools_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/recipe_tools"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@color/guillotine_background_dark" />
+
+                <com.sem4ikt.uni.recipefinderchatbot.other.ExpandingGridView
+                    android:id="@+id/tools_grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tools_divider"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="2.5dp"
+                    android:layout_marginStart="2.5dp"
+                    android:layout_marginTop="5dp"
+                    android:horizontalSpacing="2.5dp"
+                    android:numColumns="auto_fit"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="2.5dp" />
 
             </RelativeLayout>
 

@@ -2,7 +2,6 @@ package com.sem4ikt.uni.recipefinderchatbot.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +11,12 @@ import android.widget.ListView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
+import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatListAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatListAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -57,9 +54,7 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
 
         inputField = (EditText) view.findViewById(R.id.message_edittext);
 
-        List<Pair<String, Integer>> list = new ArrayList<>();
-
-        adapter = new ChatListAdapter(list, getContext());
+        adapter = new ChatListAdapter(getContext());
 
         adapterPresenter = new ChatListAdapterPresenter(adapter);
 
@@ -92,8 +87,8 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
 
 
     @Override
-    public void displayMessage(String input, int direction) {
-        adapterPresenter.addMessage(input, direction);
+    public void displayNormalMessage(MessageModel msg) {
+        adapterPresenter.addMessage(msg);
     }
 
 }

@@ -9,23 +9,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.ExtendedIngredientModel;
-import com.sem4ikt.uni.recipefinderchatbot.view.IIngredientsGridAdapterView;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.EquipmentModel;
+import com.sem4ikt.uni.recipefinderchatbot.view.IEquipmentsGridAdapterView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by mathiaslykkepedersen on 27/03/2017.
+ * Created by mathiaslykkepedersen on 30/03/2017.
  */
 
-public class IngredientsGridAdapter extends BaseAdapter implements IIngredientsGridAdapterView {
+public class EquipmentsGridAdapter extends BaseAdapter implements IEquipmentsGridAdapterView {
 
-    private List<ExtendedIngredientModel> list;
+    private List<EquipmentModel> list;
     private Context mContext;
 
-    public IngredientsGridAdapter(Context context) {
+    public EquipmentsGridAdapter(Context context) {
         list = new ArrayList<>();
         mContext = context;
     }
@@ -36,7 +36,7 @@ public class IngredientsGridAdapter extends BaseAdapter implements IIngredientsG
     }
 
     @Override
-    public ExtendedIngredientModel getItem(int i) {
+    public EquipmentModel getItem(int i) {
         return list.get(i);
     }
 
@@ -54,11 +54,10 @@ public class IngredientsGridAdapter extends BaseAdapter implements IIngredientsG
 
             holder = new ViewHolder();
 
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.ingredient_cell, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.equipment_cell, parent, false);
 
-            holder.name = (TextView) convertView.findViewById(R.id.ingredient_name_cell);
-            holder.amount = (TextView) convertView.findViewById(R.id.ingredient_amount_cell);
-            holder.image = (ImageView) convertView.findViewById(R.id.ingredient_image_cell);
+            holder.name = (TextView) convertView.findViewById(R.id.equipment_name_cell);
+            holder.image = (ImageView) convertView.findViewById(R.id.equipment_image_cell);
 
             convertView.setTag(holder);
         } else {
@@ -66,8 +65,6 @@ public class IngredientsGridAdapter extends BaseAdapter implements IIngredientsG
         }
 
         holder.name.setText(getItem(position).getName());
-        holder.amount.setText(getItem(position).getAmount().toString() + " " + getItem(position).getUnitLong());
-
         // Load image
         Picasso.with(mContext).load(getItem(position).getImage()).into(holder.image);
 
@@ -80,13 +77,13 @@ public class IngredientsGridAdapter extends BaseAdapter implements IIngredientsG
     }
 
     @Override
-    public void addItem(ExtendedIngredientModel item) {
+    public void addItem(EquipmentModel item) {
         list.add(item);
     }
 
     // Ensure that find by id is not called every time -> could cause slow scrolling
     private class ViewHolder {
-        TextView name, amount;
+        TextView name;
         ImageView image;
     }
 }

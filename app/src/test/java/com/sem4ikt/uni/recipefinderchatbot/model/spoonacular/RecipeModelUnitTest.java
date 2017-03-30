@@ -213,4 +213,24 @@ public class RecipeModelUnitTest {
         Assert.assertEquals( recipeModel.getWhole30(), true);
     }
 
+    @Test
+    public void setPricePerServing() {
+        recipeModel.setPricePerServing(23);
+
+        Assert.assertEquals(recipeModel.getPricePerServing(), 23, 23);
+    }
+
+    @Test
+    public void setHealthScore() {
+        recipeModel.setHealthScore(23);
+
+        Assert.assertEquals(recipeModel.getHealthScore(), 23, 23);
+    }
+
+    @Test
+    public void setSpoonacularScore() {
+        recipeModel.setSpoonacularScore(23);
+
+        Assert.assertEquals(recipeModel.getSpoonacularScore(), 23, 23);
+    }
 }
