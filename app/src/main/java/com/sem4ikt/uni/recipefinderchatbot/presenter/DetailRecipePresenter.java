@@ -1,7 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
 import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.FirebaseInteractor;
-import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.IFirebaseInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Interface.IFirebaseInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.DetailRecipeInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IDetailRecipeInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.InstructionsModel;
@@ -58,12 +58,12 @@ public class DetailRecipePresenter extends BasePresenter<IDetailRecipeView> impl
 
     @Override
     public void doSaveRecipe(RecipeModel recipe) {
-        DBinteractor.saveRecipe(recipe);
+        DBinteractor.addRecipe(recipe);
     }
 
     @Override
     public void doDeleteRecipe(RecipeModel recipe) {
-        DBinteractor.deleteRecipe(recipe);
+        DBinteractor.removeRecipe(recipe);
     }
 
     @Override
