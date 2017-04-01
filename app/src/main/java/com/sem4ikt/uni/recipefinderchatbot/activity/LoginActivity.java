@@ -126,7 +126,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
     @Override
     public void onPresentView(LoginView v) {
 
-
         switch (v) {
 
             case LOGIN:
@@ -139,12 +138,12 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
                 state = LoginView.SIGN_UP;
                 passwordField = (EditText) findViewById(R.id.password_signup);
                 emailField = (EditText) findViewById(R.id.email_signup);
+                confirmPassField = (EditText) findViewById(R.id.password_signup_confirm);
                 break;
 
             case FORGOT_PASSWORD:
                 state = LoginView.FORGOT_PASSWORD;
                 emailField = (EditText) findViewById(R.id.email_reset);
-                confirmPassField = (EditText) findViewById(R.id.conf_password);
                 passwordField = null;
                 break;
 
@@ -179,7 +178,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
             emailField.getText().clear();
 
         if (passwordField != null)
-        passwordField.getText().clear();
+            passwordField.getText().clear();
     }
 
     @Override

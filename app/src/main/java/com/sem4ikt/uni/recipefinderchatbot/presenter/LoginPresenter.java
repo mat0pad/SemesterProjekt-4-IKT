@@ -121,8 +121,6 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
     @Override
     public void onAuthenticationFinished(AUTH auth, String reason) {
 
-        System.out.println("Authentication result: " + reason);
-
         setProgressBarVisiblity(false);
 
         switch (auth){
@@ -135,12 +133,14 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
                 break;
             case CREATE_SUCCESS:
                 view.onRegister(true);
+                view.onPresentView(LoginActivity.LoginView.LOGIN);
                 break;
             case CREATE_FAILED:
                 view.onRegister(false);
                 break;
             case FORGOT_PASSWORD_SUCCESS:
                 view.onPassForgot(true);
+                view.onPresentView(LoginActivity.LoginView.LOGIN);
                 break;
             case FORGOT_PASSWORD_FAILED:
                 view.onPassForgot(false);
