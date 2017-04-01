@@ -1,5 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces;
 
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
+
 /**
  * Created by mathiaslykkepedersen on 27/03/2017.
  */
@@ -16,5 +18,7 @@ public interface IDetailRecipePresenter<V> extends IBasePresenter<V> {
 
     void doShowContent();
 
-    void doSaveRecipe();
+    void doSaveRecipe(RecipeModel recipe);
+
+    void doDeleteRecipe(RecipeModel recipe);
 }

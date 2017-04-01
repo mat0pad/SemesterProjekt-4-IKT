@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -12,10 +13,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.database.DatabaseApi;
+import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.FirebaseInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.IFirebaseInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.fragment.ChatbotFragment;
 import com.sem4ikt.uni.recipefinderchatbot.fragment.FavoritesFragment;
 import com.sem4ikt.uni.recipefinderchatbot.fragment.MealPlanFragment;
 import com.sem4ikt.uni.recipefinderchatbot.fragment.SettingsFragment;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.MainPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IMainPresenter;
@@ -73,8 +77,20 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
                 showFragment(FragmentMenu.SETTINGS.ordinal());
                 menuTitle.setText(R.string.settings);
                 builder.close();
-                DatabaseApi databaseApi = new DatabaseApi();
-                databaseApi.SaveRecipe();
+
+
+                /*
+                RecipeModel recipe = new RecipeModel();
+                recipe.setSourceName("Curry");
+                recipe.setCheap(true);
+                IFirebaseInteractor fib = new FirebaseInteractor();
+                fib.SetUid("test");
+                fib.SaveRecipe(recipe);
+                fib.UpdateName("Anton");
+                fib.SaveUser(true);
+                Log.e("settings",fib.GetUser().username);
+                */
+
 
 
                 break;

@@ -58,7 +58,8 @@ public class Authentication implements IFirebaseAuth{
                                 callback.onAuthenticationFinished(SIGN_IN_SUCCESS, "Sign in successful!");
 
                             else
-                                callback.onAuthenticationFinished(SIGN_IN_FAILED, "Email not verified!");
+                                callback.onAuthenticationFinished(SIGN_IN_SUCCESS, "Email not verified!");
+                                //callback.onAuthenticationFinished(SIGN_IN_FAILED, "Email not verified!");
                         }
                         else{
                             callback.onAuthenticationFinished(SIGN_IN_FAILED, "User does not exist yet!");

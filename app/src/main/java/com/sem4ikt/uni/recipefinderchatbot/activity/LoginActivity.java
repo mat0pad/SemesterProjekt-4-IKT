@@ -24,7 +24,7 @@ import com.sem4ikt.uni.recipefinderchatbot.view.ILoginView;
 public class LoginActivity extends AppCompatActivity implements ILoginView, View.OnClickListener {
 
     Button loginButton, resetButton, signUpButton;
-    EditText emailField, passwordField, confirmPassField;
+        EditText emailField, passwordField, confirmPassField;
     ILoginPresenter loginPresenter;
     ProgressBar progressBar;
 
@@ -92,7 +92,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
 
         if (isSuccessful) {
             // Show menu
-            Intent intent = new Intent(this, MainActivity.class);
+            //Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, DetailRecipeActivity.class);
             startActivity(intent);
 
             // Kill this activity

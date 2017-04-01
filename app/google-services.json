@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "399302204344-7ic8ag7lsd552kh25njadid95mq9krkr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sem4ikt.uni.recipefinderchatbot",
+            "certificate_hash": "01d7c92e1ac6568230e357bbbd91de7baae872fe"
+          }
+        },
+        {
           "client_id": "399302204344-gad41hb6l5hh9tmspldicmtsikrdkikm.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399302204344-gad41hb6l5hh9tmspldicmtsikrdkikm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

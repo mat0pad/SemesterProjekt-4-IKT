@@ -8,24 +8,27 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 
 public class DatabaseApi implements IDatabaseApi {
 
-  public  boolean SaveUser(String userName, String UID){
-      DatabaseReference ref=FirebaseDatabase.getInstance().getReference("user");
-      ref.child(UID).setValue(userName);
-      return true;
-  }
 
-   public boolean SaveRecipe(){
-       User user = new User("Anton","mail");
+    @Override
+    public boolean saveUser(String userName, String UID) {
+        DatabaseReference ref=FirebaseDatabase.getInstance().getReference("user");
+        ref.child(UID).setValue(userName);
+        return true;
+    }
+
+    public boolean SaveRecipe(RecipeModel recipe, String uId){
        DatabaseReference mDatabase;
 
-       mDatabase = FirebaseDatabase.getInstance().getReference();
-       mDatabase.child("user").child("2").push();
+       mDatabase = FirebaseDatabase.getInstance().getReference("Recipe/uId");
+        mDatabase.push().setValue(recipe);
 
        return true;
     }
+
     public boolean SaveMealplan(MealPlanModel mealPlan,String UID){
         DatabaseReference ref= FirebaseDatabase.getInstance().getReference();
         ref.child("Mealplan").child(UID).setValue(mealPlan);
@@ -36,6 +39,7 @@ public class DatabaseApi implements IDatabaseApi {
         return true;
     }
     private String userGetVar;
+
     @Override
     public String getUser(String UID) {
         DatabaseReference ref=FirebaseDatabase.getInstance().getReference("user");

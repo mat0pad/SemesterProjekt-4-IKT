@@ -8,6 +8,9 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
+import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.FirebaseInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.IFirebaseInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.User;
 import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
 
 import java.util.HashMap;
@@ -36,10 +39,22 @@ public class ConversationService implements IConversationService
     {
         convService.setUsernameAndPassword(username, password);
 
-        context = new HashMap<>();
-        context.put("returning_user", false);
-        context.put("username", "undefined");
-
+        //Test
+        IFirebaseInteractor fib = new FirebaseInteractor();
+        fib.setUid("test");
+        //fib.UpdateName("Anton");
+        User user = fib.getUser();
+        Log.e("usertest",user.username);
+        if(user != null) {
+            context = new HashMap<>();
+            context.put("returning_user", user.returninguser);
+            context.put("username", user.username);
+        }
+        else{
+            context = new HashMap<>();
+            context.put("returning_user", false);
+            context.put("username", "undefined");
+        }
         return this;
     }
 
