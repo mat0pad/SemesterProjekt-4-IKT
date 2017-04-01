@@ -104,7 +104,6 @@ public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapter
             if (holder.description != null) {
                 holder.description.setText(i.getId().toString());
             }
-
             if (holder.image != null) {
                 Picasso.with(mContext).load(i.getImage()).fit().into(holder.image);
             }

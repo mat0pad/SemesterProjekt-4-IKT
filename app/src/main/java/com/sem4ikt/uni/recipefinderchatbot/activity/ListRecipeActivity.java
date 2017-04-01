@@ -2,6 +2,7 @@ package com.sem4ikt.uni.recipefinderchatbot.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -10,7 +11,6 @@ import android.widget.Toast;
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ListRecipeAdapterPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.view.ILIstRecipeView;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
  * Created by henriknielsen on 29/03/2017.
  */
 
-public class ListRecipeActivity extends AppCompatActivity implements ILIstRecipeView {
+public class ListRecipeActivity extends AppCompatActivity /*implements ILIstRecipeView opdater override af metode hvis bruges*/ {
     ListView listView;
 
     private com.sem4ikt.uni.recipefinderchatbot.adapter.ListRecipeAdapter adapter = new com.sem4ikt.uni.recipefinderchatbot.adapter.ListRecipeAdapter(this);
@@ -43,6 +43,14 @@ public class ListRecipeActivity extends AppCompatActivity implements ILIstRecipe
         // Assign adapter to ListView
         listView.setAdapter(adapter);
 
+        List<RecipesModel> dataForPresenter = this.getIntent().getParcelableArrayListExtra("com.sem4ikt.uni.recipefinderchatbot.fragment.ChatbotFragment.ListOfRecipesModels");
+
+        Log.i("ID123",dataForPresenter.get(0).toString());
+        Log.i("ID123", (Integer.toString(dataForPresenter.size())));
+        Log.i("ID123", dataForPresenter.toString());
+
+        setRecipeList(dataForPresenter);
+
         // ListView Item Click Listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -66,8 +74,8 @@ public class ListRecipeActivity extends AppCompatActivity implements ILIstRecipe
         });
     }
 
-    @Override
-    public void setRecipeList(List<RecipesModel> models) {
+    //@Override
+    private void setRecipeList(List<RecipesModel> models) {
         presenter.setRecipeList(models);
     }
 }
