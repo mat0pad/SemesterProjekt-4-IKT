@@ -8,5 +8,5 @@ import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 
 public interface IListRecipeAdapterView {
     void addItem(RecipesModel model);
-    void update();
+    void notifyUpdate();
 }

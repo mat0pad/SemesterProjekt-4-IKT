@@ -93,7 +93,7 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
         // Pass the data
         intent.putParcelableArrayListExtra("com.sem4ikt.uni.recipefinderchatbot.fragment.ChatbotFragment.ListOfRecipesModels", recipeArray);
 
-        startActivity(intent);
+        //startActivity(intent);
 
         return view;
     }

@@ -19,29 +19,32 @@ import java.util.Objects;
  */
 
 
-public class ChatbotService implements IChatbotService
-{
+public class ChatbotService implements IChatbotService {
     private com.ibm.watson.developer_cloud.conversation.v1.ConversationService convService = new com.ibm.watson.developer_cloud.conversation.v1.ConversationService(com.ibm.watson.developer_cloud.conversation.v1.ConversationService.VERSION_DATE_2016_07_11);
     private ToneAnalyzer toneService = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
     private Map<String, Object> contextGeneral, contextRecipe;
     private String workspaceIdentifier, message;
 
 
-    public void message(String workspaceId, String msg)
-    {
-        if(workspaceIdentifier != workspaceId) {
+    public void message(String workspaceId, String msg) {
+        if (workspaceIdentifier != workspaceId) {
             workspaceIdentifier = workspaceId;
 
             switch (workspaceId) {
                 case "e665abad-a305-4cf4-a21c-045354782015": // Switching to General
 
-                    contextGeneral.put("username" ,contextRecipe.get("username"));
-                    contextGeneral.put("returning_user", contextRecipe.get("returning_user"));
+                    Object user = contextRecipe.get("username");
+                    Object returning = contextRecipe.get("returning_user");
+
+                    if (user != null)
+                        contextGeneral.put("username", user);
+                    if (returning != null)
+                        contextGeneral.put("returning_user", returning);
                     break;
 
                 case "49630f5e-f2b9-453a-be68-927f17cf64bc": // Switching to Recipe
 
-                    contextRecipe.put("username" ,contextGeneral.get("username"));
+                    contextRecipe.put("username", contextGeneral.get("username"));
                     contextRecipe.put("returning_user", contextGeneral.get("returning_user"));
                     break;
             }
@@ -50,8 +53,7 @@ public class ChatbotService implements IChatbotService
         message = msg;
     }
 
-    public ChatbotService setConversationServiceCredentials(String username, String password)
-    {
+    public ChatbotService setConversationServiceCredentials(String username, String password) {
         convService.setUsernameAndPassword(username, password);
 
         contextRecipe = new HashMap<>();
@@ -62,15 +64,13 @@ public class ChatbotService implements IChatbotService
         return this;
     }
 
-    public ChatbotService setToneAnalyzerCredentials(String username, String password)
-    {
+    public ChatbotService setToneAnalyzerCredentials(String username, String password) {
         toneService.setUsernameAndPassword(username, password);
         return this;
     }
 
 
-    public void setChatbotListener(final ChatbotInteractor.Callback callback)
-    {
+    public void setChatbotListener(final ChatbotInteractor.Callback callback) {
         final String message = this.message;
         final String workspaceIdentifier = this.workspaceIdentifier;
 
@@ -88,32 +88,38 @@ public class ChatbotService implements IChatbotService
 
         final Map<String, Object> context = ifContext;
 
-        toneService.getTone(message, null).enqueue(new ServiceCallback<ToneAnalysis>()
-        {
+        toneService.getTone(message, null).enqueue(new ServiceCallback<ToneAnalysis>() {
             @Override
-            public void onResponse(ToneAnalysis response)
-            {
-                // update contextGeneral with the tone data returned by the Tone Analyzer
+            public void onResponse(ToneAnalysis response) {
+                // notifyUpdate contextGeneral with the tone data returned by the Tone Analyzer
                 ToneDetection.updateUserTone(context, response, true);
 
                 MessageRequest newMessage = new MessageRequest.Builder().context(context).inputText(message).build();
-                convService.message(workspaceIdentifier, newMessage).enqueue(new ServiceCallback<MessageResponse>()
-                {
+                convService.message(workspaceIdentifier, newMessage).enqueue(new ServiceCallback<MessageResponse>() {
                     @Override
-                    public void onResponse(MessageResponse response)
-                    {
-                        if(Objects.equals(workspaceIdentifier, "e665abad-a305-4cf4-a21c-045354782015")) // General
+                    public void onResponse(MessageResponse response) {
+
+
+                        if (Objects.equals(workspaceIdentifier, "e665abad-a305-4cf4-a21c-045354782015")) // General
                             contextGeneral = response.getContext();
-                        else if(Objects.equals(workspaceIdentifier, "49630f5e-f2b9-453a-be68-927f17cf64bc")) // Recipe
+                        else if (Objects.equals(workspaceIdentifier, "49630f5e-f2b9-453a-be68-927f17cf64bc")) // Recipe
                             contextRecipe = response.getContext();
+
+                        if (contextGeneral.get("username") != null)
+                            Log.i("chatbotTesting", "General: " + contextGeneral.get("username").toString());
+                        if (contextGeneral.get("returning_user") != null)
+                            Log.i("chatbotTesting", "General: " + contextGeneral.get("returning_user").toString());
+                        if (contextRecipe.get("username") != null)
+                            Log.i("chatbotTesting", "Recipe: " + contextRecipe.get("username").toString());
+                        if (contextRecipe.get("returning_user") != null)
+                            Log.i("chatbotTesting", "Recipe: " + contextRecipe.get("returning_user").toString());
 
                         // Answer is ready
                         callback.onChatbotResponse(ChatbotService.this, response);
                     }
 
                     @Override
-                    public void onFailure(Exception e)
-                    {
+                    public void onFailure(Exception e) {
                         callback.onChatbotFailed(ChatbotService.this, "Something went wrong, please try again");
                         Log.e("botConversation", e.toString());
                     }
@@ -121,8 +127,7 @@ public class ChatbotService implements IChatbotService
             }
 
             @Override
-            public void onFailure(Exception e)
-            {
+            public void onFailure(Exception e) {
                 callback.onChatbotFailed(ChatbotService.this, "Something went wrong, please try again");
                 Log.e("botTone", e.toString());
             }

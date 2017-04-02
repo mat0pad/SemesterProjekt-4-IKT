@@ -22,6 +22,6 @@ public class ListRecipeAdapterPresenter extends BasePresenter<IListRecipeAdapter
             view.addItem(model);
         }
 
-        view.update();
+        view.notifyUpdate();
     }
 }

@@ -36,7 +36,7 @@ public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapter
         recipesModels.add(recipesModel);
     }
 
-    public void update() {
+    public void notifyUpdate() {
         notifyDataSetChanged();
     }
 
