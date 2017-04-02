@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB;
+package com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Model;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
@@ -11,8 +11,8 @@ import com.google.firebase.database.IgnoreExtraProperties;
     @IgnoreExtraProperties
 public class User {
 
-    public String username;
-    public boolean returninguser;
+    public String username = "undefined";
+    public boolean returninguser = false;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)

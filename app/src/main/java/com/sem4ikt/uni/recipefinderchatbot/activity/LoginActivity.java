@@ -92,8 +92,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
 
         if (isSuccessful) {
             // Show menu
-            //Intent intent = new Intent(this, MainActivity.class);
-            Intent intent = new Intent(this, DetailRecipeActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
+            //Intent intent = new Intent(this, DetailRecipeActivity.class);
             startActivity(intent);
 
             // Kill this activity

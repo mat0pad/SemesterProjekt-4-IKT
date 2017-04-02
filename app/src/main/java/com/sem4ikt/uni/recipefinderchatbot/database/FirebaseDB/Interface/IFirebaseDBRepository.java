@@ -1,8 +1,10 @@
 package com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Interface;
 
-import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.User;
+import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Model.User;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
+
+import java.util.List;
 
 /**
  * Created by mathiaslykkepedersen on 16/03/2017.
@@ -25,7 +27,7 @@ public interface IFirebaseDBRepository {
 
         void removeRecipe(RecipeModel recipe);
 
-        RecipeModel getRecipes();
+        List<RecipeModel> getRecipes();
     }
 
     interface IMealplanRepository{

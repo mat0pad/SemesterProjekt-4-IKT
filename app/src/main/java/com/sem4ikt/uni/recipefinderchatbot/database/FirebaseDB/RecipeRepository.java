@@ -2,6 +2,7 @@ package com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB;
 
 import android.util.Log;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -11,12 +12,16 @@ import com.google.firebase.database.ValueEventListener;
 import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Interface.IFirebaseDBRepository;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 
+import java.util.List;
+
 /**
  * Created by anton on 01-04-2017.
  */
 
 public class RecipeRepository implements IFirebaseDBRepository.IRecipeRepository {
     private DatabaseReference recipeDatabase;
+    private List<RecipeModel> recipeList;
+
     public RecipeRepository(String uid) {
 
         recipeDatabase = FirebaseDatabase.getInstance().getReference("recipe/"+uid);
@@ -47,7 +52,22 @@ public class RecipeRepository implements IFirebaseDBRepository.IRecipeRepository
     }
 
     @Override
-    public RecipeModel getRecipes() {
-        return null;
+    public List<RecipeModel> getRecipes() {
+        recipeDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                recipeList.clear();
+                for(DataSnapshot recipeSnapshot: dataSnapshot.getChildren()) {
+                    recipeList.add(recipeSnapshot.getValue(RecipeModel.class));
+                    //remeber callback
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("onCancelled",databaseError.getMessage());
+            }
+        });
+        return recipeList;
     }
 }
