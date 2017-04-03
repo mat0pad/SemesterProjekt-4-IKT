@@ -9,6 +9,9 @@ import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.model.FirebaseInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
+import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IFirebaseInteractor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,10 +59,20 @@ public class ChatbotService implements IChatbotService {
     public ChatbotService setConversationServiceCredentials(String username, String password) {
         convService.setUsernameAndPassword(username, password);
 
+        IFirebaseInteractor fib = new FirebaseInteractor();
+        User user = fib.getUser();
+
         contextRecipe = new HashMap<>();
         contextGeneral = new HashMap<>();
-        contextGeneral.put("returning_user", false);
-        contextGeneral.put("username", "undefined");
+
+        if (user != null) {
+            Log.e("tt", "userExist");
+            contextGeneral.put("returning_user", user.returninguser);
+            contextGeneral.put("username", user.username);
+        } else {
+            contextGeneral.put("returning_user", false);
+            contextGeneral.put("username", "undefined");
+        }
 
         return this;
     }

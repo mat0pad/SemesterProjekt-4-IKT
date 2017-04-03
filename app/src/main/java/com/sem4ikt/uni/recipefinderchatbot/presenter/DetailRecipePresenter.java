@@ -1,10 +1,12 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
+import android.support.annotation.VisibleForTesting;
+
 import com.sem4ikt.uni.recipefinderchatbot.activity.DetailRecipeActivity;
-import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.FirebaseInteractor;
-import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Interface.IFirebaseInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.DetailRecipeInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.model.FirebaseInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IDetailRecipeInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IFirebaseInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.EquipmentModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.InstructionsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
@@ -32,6 +34,14 @@ public class DetailRecipePresenter extends BasePresenter<IDetailRecipeView> impl
 
         interactor = new DetailRecipeInteractor();
         interactorDB = new FirebaseInteractor();
+    }
+
+    @VisibleForTesting
+    public DetailRecipePresenter(IDetailRecipeView view, IFirebaseInteractor model1, IDetailRecipeInteractor model2) {
+        super(view);
+
+        interactor = model2;
+        interactorDB = model1;
     }
 
     @Override

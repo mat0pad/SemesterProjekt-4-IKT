@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot.database;
+package com.sem4ikt.uni.recipefinderchatbot.database.Interface;
 
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;

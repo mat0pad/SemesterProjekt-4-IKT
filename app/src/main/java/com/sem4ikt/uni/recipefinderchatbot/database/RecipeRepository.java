@@ -1,15 +1,14 @@
-package com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB;
+package com.sem4ikt.uni.recipefinderchatbot.database;
 
 import android.util.Log;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Interface.IFirebaseDBRepository;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBRepository;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 
 import java.util.List;
@@ -19,6 +18,7 @@ import java.util.List;
  */
 
 public class RecipeRepository implements IFirebaseDBRepository.IRecipeRepository {
+
     private DatabaseReference recipeDatabase;
     private List<RecipeModel> recipeList;
 

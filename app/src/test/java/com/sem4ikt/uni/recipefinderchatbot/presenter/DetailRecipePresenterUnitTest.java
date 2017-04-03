@@ -1,5 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
+import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IDetailRecipeInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IFirebaseInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.view.IDetailRecipeView;
 
 import org.junit.Assert;
@@ -18,6 +20,8 @@ public class DetailRecipePresenterUnitTest {
 
     @Mock
     IDetailRecipeView view;
+    IDetailRecipeInteractor interactor;
+    IFirebaseInteractor interactorDB;
 
     private DetailRecipePresenter presenter;
 
@@ -25,7 +29,7 @@ public class DetailRecipePresenterUnitTest {
     @Before
     public void setup() throws Exception {
 
-        presenter = new DetailRecipePresenter(view);
+        presenter = new DetailRecipePresenter(view, interactorDB, interactor);
     }
 
     @Test

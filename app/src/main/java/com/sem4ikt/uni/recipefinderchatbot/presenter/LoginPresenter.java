@@ -4,7 +4,7 @@ import android.support.annotation.VisibleForTesting;
 
 import com.sem4ikt.uni.recipefinderchatbot.activity.LoginActivity;
 import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
-import com.sem4ikt.uni.recipefinderchatbot.database.IFirebaseAuth;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseAuth;
 import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ILoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginCallback;

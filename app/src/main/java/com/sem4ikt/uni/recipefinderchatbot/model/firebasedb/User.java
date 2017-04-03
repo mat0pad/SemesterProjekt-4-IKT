@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Model;
+package com.sem4ikt.uni.recipefinderchatbot.model.firebasedb;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 

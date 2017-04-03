@@ -1,21 +1,14 @@
-package com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB;
+package com.sem4ikt.uni.recipefinderchatbot.database;
 
-import android.net.sip.SipAudioCall;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Interface.IFirebaseDBRepository;
-import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Interface.IFirebaseInteractor;
-import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Interface.IOnGetDataListener;
-import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Model.User;
-
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.locks.Lock;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBRepository;
+import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
 
 /**
  * Created by anton on 01-04-2017.

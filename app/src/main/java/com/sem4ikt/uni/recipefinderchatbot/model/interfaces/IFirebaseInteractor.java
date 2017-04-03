@@ -1,7 +1,6 @@
-package com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Interface;
+package com.sem4ikt.uni.recipefinderchatbot.model.interfaces;
 
-import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.FirebaseInteractor;
-import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Model.User;
+import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 

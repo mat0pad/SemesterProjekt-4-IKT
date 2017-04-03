@@ -1,15 +1,13 @@
-package com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB;
-
-import android.util.Log;
+package com.sem4ikt.uni.recipefinderchatbot.model;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Interface.IFirebaseDBRepository;
-import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Interface.IFirebaseInteractor;
-import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Interface.IOnGetDataListener;
-import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Model.User;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBRepository;
+import com.sem4ikt.uni.recipefinderchatbot.database.MealplanRepository;
+import com.sem4ikt.uni.recipefinderchatbot.database.RecipeRepository;
+import com.sem4ikt.uni.recipefinderchatbot.database.UserRepository;
+import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
+import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IFirebaseInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 
@@ -20,6 +18,7 @@ import java.util.List;
  */
 
 public class FirebaseInteractor implements IFirebaseInteractor {
+
     private IFirebaseDBRepository.IRecipeRepository recipeRepository;
     private IFirebaseDBRepository.IUserRepository userRepository;
     private IFirebaseDBRepository.IMealplanRepository mealplanRepository;

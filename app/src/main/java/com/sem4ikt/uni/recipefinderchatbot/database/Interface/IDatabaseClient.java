@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot.database;
+package com.sem4ikt.uni.recipefinderchatbot.database.Interface;
 
 /**
  * Created by kaspe on 30-03-2017.

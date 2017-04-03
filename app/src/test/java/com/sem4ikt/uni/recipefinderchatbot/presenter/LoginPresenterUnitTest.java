@@ -1,6 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
-import com.sem4ikt.uni.recipefinderchatbot.database.IFirebaseAuth;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseAuth;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ILoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.view.ILoginView;
 
@@ -58,7 +58,7 @@ public class LoginPresenterUnitTest {
     public void signInFailedSignIn()
     {
         presenter.doLogin("test", "test");
-        verify(model, times(0)).signIn("test", "test", presenter);
+        verify(model, times(1)).signIn("test", "test", presenter);
     }
 
     @Test

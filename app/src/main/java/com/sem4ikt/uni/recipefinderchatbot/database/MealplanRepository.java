@@ -1,6 +1,6 @@
-package com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB;
+package com.sem4ikt.uni.recipefinderchatbot.database;
 
-import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Interface.IFirebaseDBRepository;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBRepository;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanModel;
 
 /**
@@ -8,6 +8,7 @@ import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanModel;
  */
 
 public class MealplanRepository implements IFirebaseDBRepository.IMealplanRepository {
+
     public MealplanRepository(String uid) {
 
     }
