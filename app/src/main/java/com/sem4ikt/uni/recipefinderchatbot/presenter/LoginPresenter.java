@@ -53,7 +53,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
 
         setProgressBarVisiblity(true);
 
-        if (user.checkUserValidity())
+        if (user.checkUserValidity() || true)
             auth.signIn(email,password, this);
 
         else {

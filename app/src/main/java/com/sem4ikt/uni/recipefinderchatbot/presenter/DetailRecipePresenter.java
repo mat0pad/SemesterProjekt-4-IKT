@@ -1,6 +1,8 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
 import com.sem4ikt.uni.recipefinderchatbot.activity.DetailRecipeActivity;
+import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.FirebaseInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Interface.IFirebaseInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.DetailRecipeInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IDetailRecipeInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.EquipmentModel;
@@ -23,11 +25,13 @@ import java.util.List;
 public class DetailRecipePresenter extends BasePresenter<IDetailRecipeView> implements IDetailRecipePresenter<IDetailRecipeView>, IDetailRecipeCallback {
 
     private IDetailRecipeInteractor interactor;
+    private IFirebaseInteractor interactorDB;
 
     public DetailRecipePresenter(IDetailRecipeView view) {
         super(view);
 
         interactor = new DetailRecipeInteractor();
+        interactorDB = new FirebaseInteractor();
     }
 
     @Override
@@ -57,8 +61,13 @@ public class DetailRecipePresenter extends BasePresenter<IDetailRecipeView> impl
     }
 
     @Override
-    public void doSaveRecipe() {
+    public void doSaveRecipe(RecipeModel recipe) {
+        interactorDB.addRecipe(recipe);
+    }
 
+    @Override
+    public void doDeleteRecipe(RecipeModel recipe) {
+        interactorDB.removeRecipe(recipe);
     }
 
     @Override

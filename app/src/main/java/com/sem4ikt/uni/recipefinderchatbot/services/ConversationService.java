@@ -8,6 +8,9 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
+import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.FirebaseInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Interface.IFirebaseInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.database.FirebaseDB.Model.User;
 import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
 
 import java.util.HashMap;
@@ -32,14 +35,24 @@ public class ConversationService implements IConversationService
         message = msg;
     }
 
-    public ConversationService setConversationServiceCredentials(String username, String password)
-    {
+    public ConversationService setConversationServiceCredentials(String username, String password){
         convService.setUsernameAndPassword(username, password);
 
-        context = new HashMap<>();
-        context.put("returning_user", false);
-        context.put("username", "undefined");
-
+        //Test
+        IFirebaseInteractor fib = new FirebaseInteractor();
+        User user = fib.getUser();
+        //Log.e("usertest",user.username);
+        if(user != null) {
+            Log.e("tt","userExist");
+            context = new HashMap<>();
+            context.put("returning_user", user.returninguser);
+            context.put("username", user.username);
+        }
+        else{
+            context = new HashMap<>();
+            context.put("returning_user", false);
+            context.put("username", "undefined");
+        }
         return this;
     }
 

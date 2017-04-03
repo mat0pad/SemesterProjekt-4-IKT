@@ -56,6 +56,8 @@ public class DetailRecipeActivity extends AppCompatActivity implements IDetailRe
     TextView instructions, title, summary;
     ExpandingGridView similarGrid, ingredientsGrid, equipmentGrid;
 
+    RecipeModel recipe;
+
     boolean isSaved = false;
 
     @Override
@@ -137,9 +139,10 @@ public class DetailRecipeActivity extends AppCompatActivity implements IDetailRe
             case R.id.favorite_save:
                 saveFavorite.setImageDrawable(getDrawable((isSaved ? R.drawable.like : R.drawable.like_filled)));
                 isSaved = !isSaved;
-
-                // save it here!
-                presenter.doSaveRecipe();
+                if(isSaved)
+                    presenter.doSaveRecipe(recipe);
+                else
+                    presenter.doDeleteRecipe(recipe);
             default:
                 break;
         }
@@ -167,6 +170,7 @@ public class DetailRecipeActivity extends AppCompatActivity implements IDetailRe
 
         presenter.doSetRecipeIconType(recipe);
 
+        this.recipe = recipe;
         // Load big image
         Picasso.with(getApplicationContext()).load(recipe.getImage()).fit().into(posterImage);
 

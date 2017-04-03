@@ -70,6 +70,22 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
                 showFragment(FragmentMenu.SETTINGS.ordinal());
                 menuTitle.setText(R.string.settings);
                 builder.close();
+
+
+                /*
+                RecipeModel recipe = new RecipeModel();
+                recipe.setSourceName("Curry");
+                recipe.setCheap(true);
+                IFirebaseInteractor fib = new FirebaseInteractor();
+                fib.SetUid("test");
+                fib.SaveRecipe(recipe);
+                fib.UpdateName("Anton");
+                fib.SaveUser(true);
+                Log.e("settings",fib.GetUser().username);
+                */
+
+
+
                 break;
             case R.id.favorites:
                 showFragment(FragmentMenu.FAVORITES.ordinal());

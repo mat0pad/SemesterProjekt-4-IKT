@@ -24,8 +24,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
     private ChatbotInteractor ci;
     private boolean isInGeneral = true;
 
-    public ChatbotPresenter(IChatbotView view)
-    {
+    public ChatbotPresenter(IChatbotView view){
         super(view);
         ci = new ChatbotInteractor();
         api = new ConversationInteractor(this);
