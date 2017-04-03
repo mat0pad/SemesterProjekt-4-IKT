@@ -1,11 +1,15 @@
-package com.sem4ikt.uni.recipefinderchatbot.model;
+package com.sem4ikt.uni.recipefinderchatbot.Chatbot;
 
 import com.sem4ikt.uni.recipefinderchatbot.services.IConversationService;
+import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.services.IChatbotService;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Matchers.any;
@@ -20,7 +24,7 @@ import static org.mockito.Mockito.verify;
 public class ChatbotInteractorUnitTest {
 
     @Mock
-    IConversationService cs;
+    IChatbotService cs;
 
     @Mock
     ChatbotInteractor.ChatbotListener listener;

@@ -162,7 +162,7 @@ public class ToneDetection {
       primaryEmotionScore = null;
     }
 
-    // update user emotion tone
+    // notifyUpdate user emotion tone
     Map<String, Object> emotion = (Map<String, Object>) ((Map<String, Object>) (user.get("tone"))).get("emotion");
     emotion.put("current", primaryEmotion);
 
@@ -213,7 +213,7 @@ public class ToneDetection {
       }
     }
 
-    // update user language tone
+    // notifyUpdate user language tone
     Map<String, Object> language = (Map<String, Object>) ((Map<String, Object>) user.get("tone")).get("language");
 
     // the current language pulled from tone
@@ -262,7 +262,7 @@ public class ToneDetection {
       }
     }
 
-    // update user language tone
+    // notifyUpdate user language tone
     Map<String, Object> social = (Map<String, Object>) ((Map<String, Object>) user.get("tone")).get("social");
     social.put("current", currentSocial);
 

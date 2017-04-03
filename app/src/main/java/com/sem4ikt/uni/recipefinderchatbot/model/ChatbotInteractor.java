@@ -3,8 +3,8 @@ package com.sem4ikt.uni.recipefinderchatbot.model;
 
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IChatbotInteractor;
-import com.sem4ikt.uni.recipefinderchatbot.services.ConversationService;
-import com.sem4ikt.uni.recipefinderchatbot.services.IConversationService;
+import com.sem4ikt.uni.recipefinderchatbot.services.ChatbotService;
+import com.sem4ikt.uni.recipefinderchatbot.services.IChatbotService;
 
 /**
  * Created by henriknielsen on 16/03/2017.
@@ -13,7 +13,7 @@ import com.sem4ikt.uni.recipefinderchatbot.services.IConversationService;
 public class ChatbotInteractor implements IChatbotInteractor
 {
 
-    private IConversationService cs = new ConversationService();
+    private IChatbotService cs = new ChatbotService();
 
 
     public ChatbotInteractor() {
@@ -58,7 +58,6 @@ public class ChatbotInteractor implements IChatbotInteractor
 
     public interface ChatbotListener {
         void onChatbotResponse(MessageResponse response);
-
         void onChatbotFailed(String errorMsg);
     }
 
@@ -66,15 +65,12 @@ public class ChatbotInteractor implements IChatbotInteractor
         void setChatbotListener(ChatbotListener listener);
     }
 
-
     public interface Call {
         void setChatbotListener(Callback responseCallback);
     }
 
-
     public interface Callback {
         void onChatbotResponse(Call call, MessageResponse response);
-
         void onChatbotFailed(Call call, String errorMsg);
     }
 }

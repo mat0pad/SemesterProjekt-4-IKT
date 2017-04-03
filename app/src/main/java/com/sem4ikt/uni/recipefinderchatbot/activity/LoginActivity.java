@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
     @Override
     public void onLogin(boolean isSuccessful) {
 
-        if (isSuccessful) {
+        //if (isSuccessful) {
             // Show menu
             Intent intent = new Intent(this, MainActivity.class);
             //Intent intent = new Intent(this, DetailRecipeActivity.class);
@@ -98,9 +98,9 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
 
             // Kill this activity
             finish();
-        } else {
-            loginPresenter.doToast("Sign In Failed - Try correct credentials");
-        }
+        //} else {
+         //   loginPresenter.doToast("Sign In Failed - Try correct credentials");
+        //}
     }
 
     @Override
