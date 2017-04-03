@@ -9,6 +9,7 @@ import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.ConversationInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IChatbotInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IConversationInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
@@ -21,7 +22,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
 {
 
     private IConversationInteractor api;
-    private ChatbotInteractor ci;
+    private IChatbotInteractor ci;
     private boolean isInGeneral = true;
 
     public ChatbotPresenter(IChatbotView view){

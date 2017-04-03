@@ -1,7 +1,5 @@
 package com.sem4ikt.uni.recipefinderchatbot.database;
 
-import android.util.Log;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,7 +42,7 @@ public class UserRepository implements IFirebaseDBRepository.IUserRepository {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 user = dataSnapshot.getValue(User.class);
                // semaphore.release();
-                Log.e("ondatachange",user.username);
+                //Log.e("ondatachange",user.username);
 
             }
 
