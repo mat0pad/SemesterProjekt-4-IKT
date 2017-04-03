@@ -105,15 +105,6 @@ public class ChatbotService implements IChatbotService {
                         else if (Objects.equals(workspaceIdentifier, "49630f5e-f2b9-453a-be68-927f17cf64bc")) // Recipe
                             contextRecipe = response.getContext();
 
-                        if (contextGeneral.get("username") != null)
-                            Log.i("chatbotTesting", "General: " + contextGeneral.get("username").toString());
-                        if (contextGeneral.get("returning_user") != null)
-                            Log.i("chatbotTesting", "General: " + contextGeneral.get("returning_user").toString());
-                        if (contextRecipe.get("username") != null)
-                            Log.i("chatbotTesting", "Recipe: " + contextRecipe.get("username").toString());
-                        if (contextRecipe.get("returning_user") != null)
-                            Log.i("chatbotTesting", "Recipe: " + contextRecipe.get("returning_user").toString());
-
                         // Answer is ready
                         callback.onChatbotResponse(ChatbotService.this, response);
                     }
