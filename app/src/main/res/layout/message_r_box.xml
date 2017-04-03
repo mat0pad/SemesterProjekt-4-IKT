@@ -1,51 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="10dp">
 
     <ImageView
+        android:id="@+id/hud_image"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/hud_image"
+        android:layout_alignParentRight="true"
         android:src="@drawable/user_profile"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/from_you"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:layout_toLeftOf="@id/hud_image"
         android:layout_toStartOf="@id/hud_image"
-        android:textSize="10sp"
-        android:textColor="@color/Gray_Dark"/>
+        android:text="@string/from_you"
+        android:textColor="@color/Gray_Dark"
+        android:textSize="10sp" />
 
     <LinearLayout
+        android:id="@+id/message_linear_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginEnd="5dp"
-        android:padding="5dp"
-        android:id="@+id/message_linear_layout"
-        android:background="@drawable/right_bobble"
-        android:orientation="vertical"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/hud_image">
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_toStartOf="@+id/hud_image"
+        android:background="@drawable/right_bubble"
+        android:orientation="vertical"
+        android:padding="5dp">
 
         <TextView
+            android:id="@+id/right_bubble_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/right_bubble_text"
-            android:textColor="@color/White"
             android:layout_margin="5dp"
-            android:paddingRight="10dp"
             android:paddingEnd="10dp"
             android:paddingLeft="5dp"
-            android:paddingStart="5dp"/>
+            android:paddingRight="10dp"
+            android:paddingStart="5dp"
+            android:textColor="@color/White" />
 
 
     </LinearLayout>

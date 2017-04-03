@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="10dp">
 
     <ImageView
+        android:id="@+id/hud_image"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:id="@+id/hud_image"
         android:src="@drawable/user_profile"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/from_botler"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
-        android:layout_toRightOf="@id/hud_image"
         android:layout_toEndOf="@id/hud_image"
-        android:textSize="10sp"
+        android:layout_toRightOf="@id/hud_image"
+        android:text="@string/from_botler"
         android:textColor="@color/Gray_Dark"
-        />
+        android:textSize="10sp" />
 
     <LinearLayout
+        android:id="@+id/message_linear_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:padding="5dp"
-        android:id="@+id/message_linear_layout"
-        android:background="@drawable/left_bobble"
-        android:orientation="vertical"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/hud_image">
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/hud_image"
+        android:background="@drawable/left_bubble"
+        android:orientation="vertical"
+        android:padding="5dp">
 
         <TextView
+            android:id="@+id/left_bubble_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/left_bubble_text"
-            android:textColor="@color/White"
             android:layout_margin="5dp"
+            android:paddingEnd="5dp"
             android:paddingLeft="10dp"
-            android:paddingStart="10dp"
             android:paddingRight="5dp"
-            android:paddingEnd="5dp"/>
+            android:paddingStart="10dp"
+            android:textColor="@color/White" />
 
     </LinearLayout>
 
