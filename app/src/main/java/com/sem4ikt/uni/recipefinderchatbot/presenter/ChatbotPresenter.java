@@ -8,9 +8,12 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.ConversationInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.model.FirebaseInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IChatbotInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IConversationInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IFirebaseInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
 
@@ -23,12 +26,14 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
 
     private IConversationInteractor api;
     private IChatbotInteractor ci;
+    private IFirebaseInteractor fi;
     private boolean isInGeneral = true;
 
-    public ChatbotPresenter(IChatbotView view){
+    public ChatbotPresenter(IChatbotView view) {
         super(view);
-        ci = new ChatbotInteractor();
         api = new ConversationInteractor(this);
+        fi = new FirebaseInteractor(this);
+        ci = new ChatbotInteractor();
     }
 
     public void send(String input)
@@ -132,12 +137,30 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
         // some error
     }
 
+
+
     public void showSingleRecipeText(String msg, String img, int id) {
 
         if (msg != null)
             view.displayNormalMessage(new MessageModel(msg, ChatListAdapter.DIRECTION_INCOMING, img, id, MessageModel.TYPE.SINGLE_RECIPE));
 
         // some error
+    }
+
+
+
+
+    @Override
+    public void getUser() {
+        fi.getUser();
+    }
+
+    @Override
+    public void callFromDatabase(User user) {
+        if(user == null)
+            fi.addUser(new User());
+            ci.setContext(user);
+            switchWorkspace(0, " ");
     }
 
 }

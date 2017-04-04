@@ -33,23 +33,13 @@ public class ConversationService implements IChatbotService {
         message = msg;
     }
 
-    public ConversationService setConversationServiceCredentials(String username, String password) {
+    public ConversationService setConversationServiceCredentials(String username, String password){
         convService.setUsernameAndPassword(username, password);
 
         //Test
-        IFirebaseInteractor fib = new FirebaseInteractor();
-        User user = fib.getUser();
+        //IFirebaseInteractor fib = new FirebaseInteractor();
         //Log.e("usertest",user.username);
-        if (user != null) {
-            Log.e("tt", "userExist");
-            context = new HashMap<>();
-            context.put("returning_user", user.returninguser);
-            context.put("username", user.username);
-        } else {
-            context = new HashMap<>();
-            context.put("returning_user", false);
-            context.put("username", "undefined");
-        }
+
         return this;
     }
 
@@ -57,6 +47,8 @@ public class ConversationService implements IChatbotService {
         toneService.setUsernameAndPassword(username, password);
         return this;
     }
+
+
 
 
     public void setChatbotListener(final ChatbotInteractor.Callback callback) {
@@ -92,5 +84,19 @@ public class ConversationService implements IChatbotService {
                 Log.e("testbotTone", e.toString());
             }
         });
+    }
+
+    @Override
+    public void setUserContextGeneral(User user) {
+        if (user != null) {
+            Log.e("tt", "userExist");
+            context = new HashMap<>();
+            context.put("returning_user", user.returninguser);
+            context.put("username", user.username);
+        } else {
+            context = new HashMap<>();
+            context.put("returning_user", false);
+            context.put("username", "undefined");
+        }
     }
 }

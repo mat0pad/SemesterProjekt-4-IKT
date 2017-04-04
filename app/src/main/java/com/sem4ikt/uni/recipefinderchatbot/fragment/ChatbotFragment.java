@@ -67,7 +67,10 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
         listView.setAdapter(adapter);
 
         // Needed for start up message
-        chatbotPresenter.switchWorkspace(0, " ");
+        //chatbotPresenter.switchWorkspace(0, " ");
+
+        chatbotPresenter.getUser();
+
 
 
         // Showing recipe list view and passing RecipesModels

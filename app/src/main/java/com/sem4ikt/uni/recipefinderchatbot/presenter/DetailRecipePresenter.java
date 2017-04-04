@@ -33,7 +33,7 @@ public class DetailRecipePresenter extends BasePresenter<IDetailRecipeView> impl
         super(view);
 
         interactor = new DetailRecipeInteractor();
-        interactorDB = new FirebaseInteractor();
+        //interactorDB = new FirebaseInteractor();
     }
 
     @VisibleForTesting

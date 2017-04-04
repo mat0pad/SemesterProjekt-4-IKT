@@ -3,6 +3,7 @@ package com.sem4ikt.uni.recipefinderchatbot.services;
 
 import android.util.Log;
 
+import com.google.firebase.database.ValueEventListener;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
@@ -56,15 +57,8 @@ public class ChatbotService implements IChatbotService {
         message = msg;
     }
 
-    public ChatbotService setConversationServiceCredentials(String username, String password) {
-        convService.setUsernameAndPassword(username, password);
-
-        IFirebaseInteractor fib = new FirebaseInteractor();
-        User user = fib.getUser();
-
-        contextRecipe = new HashMap<>();
-        contextGeneral = new HashMap<>();
-
+    public void setUserContextGeneral(User user)
+    {
         if (user != null) {
             Log.e("tt", "userExist");
             contextGeneral.put("returning_user", user.returninguser);
@@ -73,6 +67,13 @@ public class ChatbotService implements IChatbotService {
             contextGeneral.put("returning_user", false);
             contextGeneral.put("username", "undefined");
         }
+    }
+
+    public ChatbotService setConversationServiceCredentials(String username, String password){
+        convService.setUsernameAndPassword(username, password);
+
+        contextRecipe = new HashMap<>();
+        contextGeneral = new HashMap<>();
 
         return this;
     }

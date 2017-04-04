@@ -1,5 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot.model.interfaces;
 
+import com.google.android.gms.tasks.Task;
 import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
@@ -17,7 +18,7 @@ public interface IFirebaseInteractor {
 
     void removeUser();
 
-    User getUser();
+    void getUser();
 
     void removeRecipe(RecipeModel recipe);
 
@@ -30,5 +31,10 @@ public interface IFirebaseInteractor {
     void removeMealplan();
 
     MealPlanModel getMealplan();
+
+    void callback(User user);
+
+    void Test();
+
 
 }
