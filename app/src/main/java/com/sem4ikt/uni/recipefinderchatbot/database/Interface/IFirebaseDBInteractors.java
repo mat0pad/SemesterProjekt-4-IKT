@@ -4,6 +4,7 @@ import com.google.android.gms.tasks.Task;
 import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 
 import java.util.List;
 
@@ -11,9 +12,9 @@ import java.util.List;
  * Created by mathiaslykkepedersen on 16/03/2017.
  */
 
-public interface IFirebaseDBRepository {
+public interface IFirebaseDBInteractors {
 
-    interface IUserRepository {
+    interface IUserInteractor {
 
         void addUser(User user);
 
@@ -23,16 +24,16 @@ public interface IFirebaseDBRepository {
 
     }
 
-    interface IRecipeRepository {
+    interface IRecipeInteractor {
 
-        void addRecipe(RecipeModel recipe);
+        void addRecipe(RecipesModel recipe);
 
-        void removeRecipe(RecipeModel recipe);
+        void removeRecipe(RecipesModel recipe);
 
-        List<RecipeModel> getRecipes();
+        void getRecipes();
     }
 
-    interface IMealplanRepository{
+    interface IMealplanInteractor{
 
         void addMealPlan(MealPlanModel mealplan);
 

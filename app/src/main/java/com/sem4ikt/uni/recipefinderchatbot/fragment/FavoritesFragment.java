@@ -14,9 +14,9 @@ import android.widget.SearchView;
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.FavoritesGridAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IFavoritesPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IFavoritesView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +26,7 @@ import java.util.List;
 public class FavoritesFragment extends Fragment implements IFavoritesView {
 
     GridView gridView;
+    IFavoritesPresenter<IFavoritesView> presenter;
 
 
     @Override
@@ -48,6 +49,8 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
 
         gridView = (GridView) view.findViewById(R.id.favorites_gridview);
 
+        presenter.getRecipeList();
+        /*
         List<RecipesModel> list = new ArrayList<>();
 
         for (int i = 10; i != 0; i--){
@@ -58,9 +61,14 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
             list.add(test);
         }
 
-        FavoritesGridAdapter adapter = new FavoritesGridAdapter(getContext(), list);
-        gridView.setAdapter(adapter);
+        */
 
         return view;
+    }
+
+    @Override
+    public void displayList(List<RecipesModel> list) {
+        FavoritesGridAdapter adapter = new FavoritesGridAdapter(getContext(), list);
+        gridView.setAdapter(adapter);
     }
 }

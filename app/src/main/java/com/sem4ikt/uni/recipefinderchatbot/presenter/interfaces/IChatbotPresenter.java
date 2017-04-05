@@ -13,7 +13,7 @@ public interface IChatbotPresenter<V> extends IBasePresenter<V> {
     void showText(String text);
 
     void getUser();
-    void callFromDatabase(User user);
+    void onReceived(User user);
 
     void showSingleRecipeText(String msg, String img, int id);
 

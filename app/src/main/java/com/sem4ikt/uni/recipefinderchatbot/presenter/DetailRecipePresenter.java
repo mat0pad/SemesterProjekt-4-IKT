@@ -3,10 +3,10 @@ package com.sem4ikt.uni.recipefinderchatbot.presenter;
 import android.support.annotation.VisibleForTesting;
 
 import com.sem4ikt.uni.recipefinderchatbot.activity.DetailRecipeActivity;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
+import com.sem4ikt.uni.recipefinderchatbot.database.RecipeInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.DetailRecipeInteractor;
-import com.sem4ikt.uni.recipefinderchatbot.model.FirebaseInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IDetailRecipeInteractor;
-import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IFirebaseInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.EquipmentModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.InstructionsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
@@ -27,17 +27,17 @@ import java.util.List;
 public class DetailRecipePresenter extends BasePresenter<IDetailRecipeView> implements IDetailRecipePresenter<IDetailRecipeView>, IDetailRecipeCallback {
 
     private IDetailRecipeInteractor interactor;
-    private IFirebaseInteractor interactorDB;
+    private IFirebaseDBInteractors.IRecipeInteractor interactorDB;
 
     public DetailRecipePresenter(IDetailRecipeView view) {
         super(view);
 
         interactor = new DetailRecipeInteractor();
-        //interactorDB = new FirebaseInteractor();
+        interactorDB = new RecipeInteractor(null);
     }
 
     @VisibleForTesting
-    public DetailRecipePresenter(IDetailRecipeView view, IFirebaseInteractor model1, IDetailRecipeInteractor model2) {
+    public DetailRecipePresenter(IDetailRecipeView view, IFirebaseDBInteractors.IRecipeInteractor model1, IDetailRecipeInteractor model2) {
         super(view);
 
         interactor = model2;

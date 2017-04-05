@@ -10,9 +10,7 @@ import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
-import com.sem4ikt.uni.recipefinderchatbot.model.FirebaseInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
-import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IFirebaseInteractor;
 
 import java.util.HashMap;
 import java.util.Map;

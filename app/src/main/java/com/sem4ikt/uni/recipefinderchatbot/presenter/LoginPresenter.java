@@ -5,10 +5,7 @@ import android.support.annotation.VisibleForTesting;
 import com.sem4ikt.uni.recipefinderchatbot.activity.LoginActivity;
 import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseAuth;
-import com.sem4ikt.uni.recipefinderchatbot.model.FirebaseInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
-import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IFirebaseInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ILoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginCallback;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginPresenter;
@@ -22,7 +19,6 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
 
     private ILoginUserModel user;
     private IFirebaseAuth auth;
-    private IFirebaseInteractor database;
 
     public LoginPresenter(ILoginView view){
         super(view);
@@ -31,9 +27,6 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
 
         // Create model
         auth = new Authentication();
-
-        //database = new FirebaseInteractor();
-
 
     }
 
@@ -63,8 +56,6 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
 
         if (user.checkUserValidity() || true) {
             auth.signIn(email, password, this);
-            //if(database.getUser() == null);
-            //database.addUser(new User());
         }
 
         else {
