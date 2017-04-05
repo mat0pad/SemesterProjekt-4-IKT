@@ -56,12 +56,12 @@ public class RecipesInteractor implements IFirebaseDBInteractors.IRecipesInterac
 
     @Override
     public void getRecipes() {
-        Database.addValueEventListener(new ValueEventListener() {
+        Database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<RecipesModel> recipeList = new ArrayList<>();
-                for(DataSnapshot recipeSnapshot: dataSnapshot.getChildren()) {
-                    recipeList.add(recipeSnapshot.getValue(RecipesModel.class));
+                for(DataSnapshot recipesSnapshot: dataSnapshot.getChildren()) {
+                    recipeList.add(recipesSnapshot.getValue(RecipesModel.class));
                 }
                 callback.onReceived(recipeList);
             }
@@ -72,4 +72,27 @@ public class RecipesInteractor implements IFirebaseDBInteractors.IRecipesInterac
             }
         });
     }
+
+    @Override
+    public void searchRecipesbyTitle(final String Query) {
+        Database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<RecipesModel> list = new ArrayList<RecipesModel>();
+                for(DataSnapshot recipessnapshot : dataSnapshot.getChildren()){
+                    RecipesModel recipe = recipessnapshot.getValue(RecipesModel.class);
+                    if(recipe.getTitle().contains(Query))
+                        list.add(recipe);
+                }
+                callback.onReceived(list);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("onCancelled",databaseError.getMessage());
+            }
+        });
+    }
+
+
 }

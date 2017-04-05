@@ -42,6 +42,10 @@ public class FavoritesGridAdapter extends BaseAdapter {
         return 0;
     }
 
+    public List<RecipesModel> getList(){
+        return list;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 

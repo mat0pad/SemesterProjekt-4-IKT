@@ -15,7 +15,7 @@ import java.util.List;
 public class FavoritesPresenter extends BasePresenter<IFavoritesView> implements IFavoritesPresenter<IFavoritesView> {
 
     private IFirebaseDBInteractors.IRecipesInteractor interactor;
-    FavoritesPresenter(IFavoritesView view) {
+    public FavoritesPresenter(IFavoritesView view) {
         super(view);
         interactor = new RecipesInteractor(this);
     }
@@ -29,5 +29,10 @@ public class FavoritesPresenter extends BasePresenter<IFavoritesView> implements
     @Override
     public void onReceived(List<RecipesModel> list) {
         view.displayList(list);
+    }
+
+    @Override
+    public void doSearch(String query) {
+        interactor.searchRecipesbyTitle(query);
     }
 }

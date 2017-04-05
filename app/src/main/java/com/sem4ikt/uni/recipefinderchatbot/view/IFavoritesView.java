@@ -10,4 +10,6 @@ import java.util.List;
 
 public interface IFavoritesView {
     void displayList(List<RecipesModel> list);
+
+    void Update(String query);
 }

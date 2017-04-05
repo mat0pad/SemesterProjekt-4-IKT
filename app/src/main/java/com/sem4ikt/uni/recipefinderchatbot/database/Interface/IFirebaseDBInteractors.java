@@ -31,6 +31,8 @@ public interface IFirebaseDBInteractors {
         void removeRecipe(RecipesModel recipe);
 
         void getRecipes();
+
+        void searchRecipesbyTitle(String Query);
     }
 
     interface IMealplanInteractor{

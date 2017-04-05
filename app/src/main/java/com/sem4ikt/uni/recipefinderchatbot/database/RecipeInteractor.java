@@ -24,7 +24,7 @@ public class RecipeInteractor implements IFirebaseDBInteractors.IRecipeInteracto
     }
     @Override
     public void addRecipe(RecipeModel recipe) {
-
+        Database.push().setValue(recipe);
     }
 
     @Override
