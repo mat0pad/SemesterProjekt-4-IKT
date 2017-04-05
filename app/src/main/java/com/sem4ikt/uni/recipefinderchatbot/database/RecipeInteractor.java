@@ -1,77 +1,39 @@
 package com.sem4ikt.uni.recipefinderchatbot.database;
 
-import android.util.Log;
-
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.FavoritesPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IFavoritesPresenter;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IDetailRecipePresenter;
 
 /**
- * Created by anton on 01-04-2017.
+ * Created by anton on 05-04-2017.
  */
 
 public class RecipeInteractor implements IFirebaseDBInteractors.IRecipeInteractor {
 
-    private DatabaseReference recipeDatabase;
-    private IFavoritesPresenter callback;
+    private IDetailRecipePresenter callback;
+    private DatabaseReference Database;
 
-    public RecipeInteractor(IFavoritesPresenter callback) {
-        recipeDatabase = FirebaseDatabase.getInstance().getReference("recipe/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
+    public RecipeInteractor(IDetailRecipePresenter callback)
+    {
+        Database = FirebaseDatabase.getInstance().getReference("DetailRecipe/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
         this.callback = callback;
     }
-
     @Override
-    public void addRecipe(RecipesModel recipe) {
-        recipeDatabase.push().setValue(recipe);
+    public void addRecipe(RecipeModel recipe) {
+
     }
 
     @Override
-    public void removeRecipe(RecipesModel recipe) {
-        Query recipeQuery = recipeDatabase.orderByChild("id").equalTo(recipe.getId());
+    public void removeRecipe(RecipeModel recipe) {
 
-        recipeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot recipeSnapshot : dataSnapshot.getChildren()){
-                    recipeSnapshot.getRef().removeValue();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("onCancelled",databaseError.toString());
-            }
-        });
     }
 
     @Override
-    public void getRecipes() {
-        recipeDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<RecipesModel> recipeList = new ArrayList<>();
-                for(DataSnapshot recipeSnapshot: dataSnapshot.getChildren()) {
-                    recipeList.add(recipeSnapshot.getValue(RecipesModel.class));
-                }
-                callback.onReceived(recipeList);
-            }
+    public void getRecipe() {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("onCancelled",databaseError.getMessage());
-            }
-        });
     }
 }

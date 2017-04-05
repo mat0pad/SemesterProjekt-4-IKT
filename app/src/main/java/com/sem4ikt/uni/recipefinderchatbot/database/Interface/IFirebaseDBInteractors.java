@@ -24,7 +24,7 @@ public interface IFirebaseDBInteractors {
 
     }
 
-    interface IRecipeInteractor {
+    interface IRecipesInteractor {
 
         void addRecipe(RecipesModel recipe);
 
@@ -37,9 +37,19 @@ public interface IFirebaseDBInteractors {
 
         void addMealPlan(MealPlanModel mealplan);
 
-        void removeMealplan();
 
-        MealPlanModel getMealplan();
+        void removeMealplan(MealPlanModel mealplan);
+
+        void getMealplan();
+    }
+
+    interface  IRecipeInteractor {
+
+        void addRecipe(RecipeModel recipe);
+
+        void removeRecipe(RecipeModel recipe);
+
+        void getRecipe();
     }
 
 }

@@ -24,12 +24,11 @@ public class MealplanInteractor implements IFirebaseDBInteractors.IMealplanInter
     }
 
     @Override
-    public void removeMealplan() {
+    public void removeMealplan(MealPlanModel mealplan) {
 
     }
 
     @Override
-    public MealPlanModel getMealplan() {
-        return null;
+    public void getMealplan() {
     }
 }
