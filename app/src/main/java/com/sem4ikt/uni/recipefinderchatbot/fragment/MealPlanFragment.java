@@ -23,6 +23,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
         if (container == null) {
             return null;
         }
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.mealplan, container, false);
 
