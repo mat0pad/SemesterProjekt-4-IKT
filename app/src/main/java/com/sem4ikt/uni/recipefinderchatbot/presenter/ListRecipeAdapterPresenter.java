@@ -1,6 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
+import com.sem4ikt.uni.recipefinderchatbot.adapter.ListDataContainer;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IListRecipePresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IListRecipeAdapterView;
 
@@ -16,9 +16,9 @@ public class ListRecipeAdapterPresenter extends BasePresenter<IListRecipeAdapter
     }
 
     @Override
-    public void setRecipeList(List<RecipesModel> list) {
-        for (RecipesModel model:
-                list) {
+    public void setContainer(ListDataContainer container) {
+        for (List<> model:
+                container.getList()) {
             view.addItem(model);
         }
 

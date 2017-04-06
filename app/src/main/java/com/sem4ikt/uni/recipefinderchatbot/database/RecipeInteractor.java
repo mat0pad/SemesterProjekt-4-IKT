@@ -1,11 +1,9 @@
 package com.sem4ikt.uni.recipefinderchatbot.database;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IDetailRecipePresenter;
 
 /**
@@ -19,7 +17,7 @@ public class RecipeInteractor implements IFirebaseDBInteractors.IRecipeInteracto
 
     public RecipeInteractor(IDetailRecipePresenter callback)
     {
-        Database = FirebaseDatabase.getInstance().getReference("DetailRecipe/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
+        Database = FirebaseDatabase.getInstance().getReference("Test");
         this.callback = callback;
     }
     @Override
