@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
-import com.sem4ikt.uni.recipefinderchatbot.view.IListRecipeAdapterView;
+import com.sem4ikt.uni.recipefinderchatbot.view.IListAdapterView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import java.util.List;
  * Created by henriknielsen on 30/03/2017.
  */
 
-public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapterView {
+public class ListRecipeAdapter extends BaseAdapter implements IListAdapterView {
 
 
     private static String BASE_URL = "https://spoonacular.com/recipeImages/";
@@ -33,8 +33,8 @@ public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapter
         dataModels = new ArrayList<>();
     }
 
-    public void addItem(RecipesModel recipesModel) {
-        dataModels.add(recipesModel);
+    public void addItem(Object recipesModel) {
+        dataModels.add((RecipesModel) recipesModel);
     }
 
     public void notifyUpdate() {

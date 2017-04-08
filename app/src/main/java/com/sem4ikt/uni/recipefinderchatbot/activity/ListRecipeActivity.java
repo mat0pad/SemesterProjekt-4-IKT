@@ -10,9 +10,11 @@ import android.widget.ListView;
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ListDataContainer;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ListDataModel;
+import com.sem4ikt.uni.recipefinderchatbot.adapter.ListIngredientAdapter;
+import com.sem4ikt.uni.recipefinderchatbot.adapter.ListNutrientAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ListRecipeAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.ListRecipeAdapterPresenter;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.ListAdapterPresenter;
 
 import java.util.Objects;
 
@@ -23,7 +25,7 @@ import java.util.Objects;
 public class ListRecipeActivity extends AppCompatActivity /*implements ILIstRecipeView opdater override af metode hvis bruges*/ {
     ListView listView;
 
-    private ListRecipeAdapterPresenter presenter;
+    private ListAdapterPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +35,7 @@ public class ListRecipeActivity extends AppCompatActivity /*implements ILIstReci
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.list);
 
-        {
-            ListRecipeAdapter adapter = new ListRecipeAdapter(this);
-            presenter = new ListRecipeAdapterPresenter(adapter);
-            listView.setAdapter(adapter);
-        }
+
 
 
         final ListDataContainer dataForPresenter = getIntent().getParcelableExtra("com.sem4ikt.uni.recipefinderchatbot.fragment.ChatbotFragment.ListOfRecipesModels");
@@ -45,13 +43,25 @@ public class ListRecipeActivity extends AppCompatActivity /*implements ILIstReci
         String type = dataForPresenter.getType();
 
         if (Objects.equals(type, ListDataModel.ListDataType.RECIPE.toString()))
-
+        {
+            ListRecipeAdapter adapter = new ListRecipeAdapter(this);
+            presenter = new ListAdapterPresenter(adapter);
+            listView.setAdapter(adapter);
+        }
         else if (Objects.equals(type, ListDataModel.ListDataType.INGREDIENT.toString()))
-
+        {
+            ListIngredientAdapter adapter = new ListIngredientAdapter(this);
+            presenter = new ListAdapterPresenter(adapter);
+            listView.setAdapter(adapter);
+        }
         else if (Objects.equals(type, ListDataModel.ListDataType.NUTRIENT.toString()))
+        {
+            ListNutrientAdapter adapter = new ListNutrientAdapter(this);
+            presenter = new ListAdapterPresenter(adapter);
+            listView.setAdapter(adapter);
+        }
 
-
-        //setListData(dataForPresenter);
+        setListData(dataForPresenter);
 
         // ListView Item Click Listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

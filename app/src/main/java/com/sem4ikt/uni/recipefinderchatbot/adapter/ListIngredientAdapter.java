@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientsModel;
+import com.sem4ikt.uni.recipefinderchatbot.view.IListAdapterView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ import java.util.List;
  * Created by henriknielsen on 06/04/2017.
  */
 
-public class ListIngredientAdapter extends BaseAdapter {
+public class ListIngredientAdapter extends BaseAdapter implements IListAdapterView {
 
 
     private static String BASE_URL = "https://spoonacular.com/recipeImages/";
@@ -32,8 +34,8 @@ public class ListIngredientAdapter extends BaseAdapter {
         ingredientsModels = new ArrayList<>();
     }
 
-    public void addItem(IngredientsModel ingredientsModel) {
-        ingredientsModels.add(ingredientsModel);
+    public void addItem(Object ingredientsModel) {
+        ingredientsModels.add((IngredientsModel) ingredientsModel);
     }
 
     public void notifyUpdate() {
@@ -64,22 +66,10 @@ public class ListIngredientAdapter extends BaseAdapter {
 
         if (convertView == null) {
 
+            // Prevents calling (the resource heavy) findViewById every time the same view is loaded -> scrolling requires more resources otherwise
             holder = new ListIngredientAdapter.ViewHolder();
 
-            // assign the view we are converting to a local variable
-
-
-            // first check to see if the view is null. if so, we have to inflate it.
-            // to inflate it basically means to render, or show, the view.
             convertView = LayoutInflater.from(mContext).inflate(R.layout.recipe_list_cell, parent, false);
-
-		/*
-         * Recall that the variable position is sent in as an argument to this method.
-		 * The variable simply refers to the position of the current object in the list. (The ArrayAdapter
-		 * iterates through the list we sent it)
-		 *
-		 * Therefore, i refers to the current Item object.
-		 */
 
 
             // This is how you obtain a reference to the TextViews.
