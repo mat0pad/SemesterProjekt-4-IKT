@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:animateLayoutChanges="true"
+    android:id="@+id/meal_planner"
+    android:visibility="visible">
 
-    <TextView
+    <android.support.v7.widget.Toolbar
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:elevation="2dp"
+        android:background="#ffe95451"
+        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_below="@+id/prev_button"
+        android:layout_alignParentStart="true" />
+
+    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/compactcalendar_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Meal Plan"
-        android:textColor="@color/Primary_Dark"
-        android:layout_gravity="center"/>
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_height="250dp"
+        app:compactCalendarTargetHeight="250dp"
+        app:compactCalendarTextSize="12sp"
+        app:compactCalendarBackgroundColor="#ffe95451"
+        app:compactCalendarTextColor="#fff"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="#E57373"
+        app:compactCalendarCurrentDayBackgroundColor="#B71C1C"
+        app:compactCalendarMultiEventIndicatorColor="#fff"
+        app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="true"
+        app:compactCalendarDisplayOtherMonthDays="true"/>
 
-</FrameLayout>
+    <Button
+        android:layout_below="@+id/compactcalendar_view"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/prev_button"
+        android:text="Previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:layout_below="@+id/compactcalendar_view"
+        android:layout_alignParentRight="true"
+        android:id="@+id/next_button"
+        android:text="Next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
