@@ -122,7 +122,7 @@ public interface ISpoonacularAPI {
          random      : Should be random?
          **/
         @GET("recipes/findByNutrients")
-        Call<NutrientsDataModel> findByNutrients(
+        Call<List<NutrientsDataModel>> findByNutrients(
                 @Query("maxCalories") int maxCal,
                 @Query("minCalories") int minCal,
                 @Query("maxCarbs") int maxCarbs,

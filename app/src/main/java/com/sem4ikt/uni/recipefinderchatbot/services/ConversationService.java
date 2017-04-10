@@ -18,7 +18,9 @@ import java.util.Map;
  * Created by henriknielsen on 11/03/2017.
  */
 
-
+/**
+ * @deprecated Use ChatbotService instead
+ */
 public class ConversationService implements IChatbotService {
     private com.ibm.watson.developer_cloud.conversation.v1.ConversationService convService = new com.ibm.watson.developer_cloud.conversation.v1.ConversationService(com.ibm.watson.developer_cloud.conversation.v1.ConversationService.VERSION_DATE_2016_07_11);
     private ToneAnalyzer toneService = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);

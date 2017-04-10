@@ -22,7 +22,7 @@ import java.util.Objects;
  * Created by henriknielsen on 29/03/2017.
  */
 
-public class ListRecipeActivity extends AppCompatActivity /*implements ILIstRecipeView opdater override af metode hvis bruges*/ {
+public class ListDataModelActivity extends AppCompatActivity /*implements ILIstRecipeView opdater override af metode hvis bruges*/ {
     ListView listView;
 
     private ListAdapterPresenter presenter;
@@ -34,8 +34,6 @@ public class ListRecipeActivity extends AppCompatActivity /*implements ILIstReci
 
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.list);
-
-
 
 
         final ListDataContainer dataForPresenter = getIntent().getParcelableExtra("com.sem4ikt.uni.recipefinderchatbot.fragment.ChatbotFragment.ListOfRecipesModels");
@@ -73,7 +71,7 @@ public class ListRecipeActivity extends AppCompatActivity /*implements ILIstReci
                 // ListView Clicked item value
                 int modelId = ((RecipesModel) listView.getItemAtPosition(position)).getId();
 
-                final Intent intent = new Intent(ListRecipeActivity.this.getApplication(), DetailRecipeActivity.class);
+                final Intent intent = new Intent(ListDataModelActivity.this.getApplication(), DetailRecipeActivity.class);
                 intent.putExtra("id", modelId);
 
                 startActivity(intent);
