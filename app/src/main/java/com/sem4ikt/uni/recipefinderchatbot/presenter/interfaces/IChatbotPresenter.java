@@ -20,8 +20,6 @@ public interface IChatbotPresenter<V> extends IBasePresenter<V> {
     void showMoreRecipesText(String msg, String img, Object obj, MessageModel.TYPE type);
 
     void getUser();
-    void onReceived(User user);
-
 
 }
 

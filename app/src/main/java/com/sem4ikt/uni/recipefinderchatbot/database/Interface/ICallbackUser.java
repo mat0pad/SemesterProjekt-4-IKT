@@ -9,5 +9,5 @@ import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
 public interface ICallbackUser {
     void onReceived(User user,USER_CALLBACK_TYPE type);
 
-    enum  USER_CALLBACK_TYPE{GET_USER};
+    enum  USER_CALLBACK_TYPE{USER_FOUND,USER_NOT_FOUND};
 }

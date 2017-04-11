@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackUser;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
@@ -19,43 +20,45 @@ import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresente
 
 public class UserInteractor implements IFirebaseDBInteractors.IUserInteractor {
 
-    private DatabaseReference userDatabase;
+    private DatabaseReference database;
 
     private IChatbotPresenter callback;
 
 
-    public UserInteractor(IChatbotPresenter callback)
+    public UserInteractor()
     {
+        if(FirebaseAuth.getInstance().getCurrentUser() != null)
+            database = FirebaseDatabase.getInstance().getReference("User/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
+        else
+            database = FirebaseDatabase.getInstance().getReference("Test");
 
-        userDatabase = FirebaseDatabase.getInstance().getReference("User/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
-        this.callback = callback;
     }
 
     @Override
     public void addUser(User user) {
-        userDatabase.setValue(user);
+        database.setValue(user);
     }
 
     @Override
     public void removeUser() {
-        userDatabase.removeValue();
+        database.removeValue();
     }
 
 
     @Override
-    public void getUser()  {
+    public void getUser(final ICallbackUser callback)  {
 
         Log.e("Lock","Starting getUser");
-        userDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                callback.onReceived(dataSnapshot.getValue(User.class));
+                callback.onReceived(dataSnapshot.getValue(User.class), ICallbackUser.USER_CALLBACK_TYPE.USER_FOUND);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.e("Userinteractor","NONEUSER");
-                callback.onReceived(null);
+                callback.onReceived(null, ICallbackUser.USER_CALLBACK_TYPE.USER_NOT_FOUND);
             }
         });
     }

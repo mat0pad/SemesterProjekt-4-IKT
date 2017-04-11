@@ -26,7 +26,12 @@ public class MealplanInteractor implements IFirebaseDBInteractors.IMealplanInter
     private DatabaseReference database;
 
     public MealplanInteractor() {
-         database = FirebaseDatabase.getInstance().getReference("mealplan/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        if(FirebaseAuth.getInstance().getCurrentUser() != null)
+            database = FirebaseDatabase.getInstance().getReference("mealplan/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
+        else
+            database = FirebaseDatabase.getInstance().getReference("Test");
+
     }
 
     @Override

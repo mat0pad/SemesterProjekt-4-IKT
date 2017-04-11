@@ -3,9 +3,11 @@ package com.sem4ikt.uni.recipefinderchatbot.presenter;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.Switch;
 
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackUser;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.database.UserInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
@@ -23,7 +25,7 @@ import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
  * Created by mathiaslykkepedersen on 09/03/2017.
  */
 
-public class ChatbotPresenter extends BasePresenter<IChatbotView> implements IChatbotPresenter<IChatbotView>
+public class ChatbotPresenter extends BasePresenter<IChatbotView> implements IChatbotPresenter<IChatbotView>,ICallbackUser
 {
 
     private IConversationInteractor api;
@@ -34,7 +36,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
     public ChatbotPresenter(IChatbotView view){
         super(view);
         api = new ConversationInteractor(this);
-        ui = new UserInteractor(this);
+        ui = new UserInteractor();
         ci = new ChatbotInteractor();
     }
 
@@ -171,16 +173,24 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
 
     @Override
     public void getUser() {
-        ui.getUser();
+        ui.getUser(this);
     }
+
 
     @Override
-    public void onReceived(User user) {
-        if(user == null) {
-            ui.addUser(new User());
+    public void onReceived(User user, USER_CALLBACK_TYPE type) {
+        switch(type)
+        {
+            case USER_FOUND:
+                ci.setContext(user);
+                break;
+            case USER_NOT_FOUND:
+                ci.setContext(null);
+                ui.addUser(new User());
+                break;
+            default:
+                break;
         }
-        ci.setContext(user);
-        switchWorkspace(0, " ");
+        switchWorkspace(0," ");
     }
-
 }

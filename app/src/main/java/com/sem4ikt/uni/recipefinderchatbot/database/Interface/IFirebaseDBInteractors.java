@@ -20,7 +20,7 @@ public interface IFirebaseDBInteractors {
 
         void removeUser();
 
-        void getUser();
+        void getUser(ICallbackUser callback);
 
     }
 

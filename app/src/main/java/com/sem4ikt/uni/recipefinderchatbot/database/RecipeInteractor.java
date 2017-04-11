@@ -31,7 +31,10 @@ public class RecipeInteractor implements IFirebaseDBInteractors.IRecipeInteracto
 
     public RecipeInteractor()
     {
-        Database = FirebaseDatabase.getInstance().getReference("Recipe/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
+        if(FirebaseAuth.getInstance().getCurrentUser() != null)
+            Database = FirebaseDatabase.getInstance().getReference("Recipe/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
+        else
+            Database = FirebaseDatabase.getInstance().getReference("Test");
     }
     @Override
     public void addRecipe(RecipeModel recipe) {
