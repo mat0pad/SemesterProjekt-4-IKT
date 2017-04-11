@@ -5,14 +5,29 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.sem4ikt.uni.recipefinderchatbot.adapter.ListDataModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ListDataModel;
 
 /**
  * Created by mathiaslykkepedersen on 06/03/2017.
  */
 
-public class NutrientsDataModel implements Parcelable, ListDataModel {
+public class NutrientsModel implements Parcelable, ListDataModel {
 
+    public static final Parcelable.Creator<NutrientsModel> CREATOR
+            = new Parcelable.Creator<NutrientsModel>() {
+
+        // This simply calls our new constructor (typically private) and
+        // passes along the unmarshalled `Parcel`, and then returns the new object!
+        @Override
+        public NutrientsModel createFromParcel(Parcel in) {
+            return new NutrientsModel(in);
+        }
+
+        @Override
+        public NutrientsModel[] newArray(int size) {
+            return new NutrientsModel[size];
+        }
+    };
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -37,6 +52,17 @@ public class NutrientsDataModel implements Parcelable, ListDataModel {
     @SerializedName("carbs")
     @Expose
     private Integer carbs;
+
+    @SuppressWarnings("all")
+    private NutrientsModel(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        image = in.readString();
+    }
+
+    // Default constructor is needed when also having a private constructor
+    public NutrientsModel() {
+    }
 
     public Integer getId() {
         return id;
@@ -102,8 +128,6 @@ public class NutrientsDataModel implements Parcelable, ListDataModel {
         this.carbs = carbs;
     }
 
-
-
     // Allows this class to be passed as a parcel -> very fast
     @Override
     public int describeContents() {
@@ -119,32 +143,4 @@ public class NutrientsDataModel implements Parcelable, ListDataModel {
         parcel.writeString(title);
         parcel.writeString(image);
     }
-
-    @SuppressWarnings("all")
-    private NutrientsDataModel(Parcel in) {
-        id = in.readInt();
-        title = in.readString();
-        image = in.readString();
-    }
-
-    // Default constructor is needed when also having a private constructor
-    public NutrientsDataModel() {
-    }
-
-
-    public static final Parcelable.Creator<NutrientsDataModel> CREATOR
-            = new Parcelable.Creator<NutrientsDataModel>() {
-
-        // This simply calls our new constructor (typically private) and
-        // passes along the unmarshalled `Parcel`, and then returns the new object!
-        @Override
-        public NutrientsDataModel createFromParcel(Parcel in) {
-            return new NutrientsDataModel(in);
-        }
-
-        @Override
-        public NutrientsDataModel[] newArray(int size) {
-            return new NutrientsDataModel[size];
-        }
-    };
 }

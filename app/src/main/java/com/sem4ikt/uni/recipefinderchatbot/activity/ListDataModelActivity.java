@@ -8,11 +8,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
+import com.sem4ikt.uni.recipefinderchatbot.adapter.IngredientListAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ListDataContainer;
-import com.sem4ikt.uni.recipefinderchatbot.adapter.ListDataModel;
-import com.sem4ikt.uni.recipefinderchatbot.adapter.ListIngredientAdapter;
-import com.sem4ikt.uni.recipefinderchatbot.adapter.ListNutrientAdapter;
-import com.sem4ikt.uni.recipefinderchatbot.adapter.ListRecipeAdapter;
+import com.sem4ikt.uni.recipefinderchatbot.adapter.NutrientListAdapter;
+import com.sem4ikt.uni.recipefinderchatbot.adapter.RecipeListAdapter;
+import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ListDataModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ListAdapterPresenter;
 
@@ -42,19 +42,19 @@ public class ListDataModelActivity extends AppCompatActivity /*implements ILIstR
 
         if (Objects.equals(type, ListDataModel.ListDataType.RECIPE.toString()))
         {
-            ListRecipeAdapter adapter = new ListRecipeAdapter(this);
+            RecipeListAdapter adapter = new RecipeListAdapter(this);
             presenter = new ListAdapterPresenter(adapter);
             listView.setAdapter(adapter);
         }
         else if (Objects.equals(type, ListDataModel.ListDataType.INGREDIENT.toString()))
         {
-            ListIngredientAdapter adapter = new ListIngredientAdapter(this);
+            IngredientListAdapter adapter = new IngredientListAdapter(this);
             presenter = new ListAdapterPresenter(adapter);
             listView.setAdapter(adapter);
         }
         else if (Objects.equals(type, ListDataModel.ListDataType.NUTRIENT.toString()))
         {
-            ListNutrientAdapter adapter = new ListNutrientAdapter(this);
+            NutrientListAdapter adapter = new NutrientListAdapter(this);
             presenter = new ListAdapterPresenter(adapter);
             listView.setAdapter(adapter);
         }

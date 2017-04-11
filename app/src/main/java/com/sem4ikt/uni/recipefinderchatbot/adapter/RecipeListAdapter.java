@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
-import com.sem4ikt.uni.recipefinderchatbot.view.IListRecipeAdapterView;
+import com.sem4ikt.uni.recipefinderchatbot.view.IRecipeAdapterListView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,14 +21,13 @@ import java.util.List;
  * Created by henriknielsen on 30/03/2017.
  */
 
-public class ListRecipeAdapter extends BaseAdapter implements IListAdapterView {
-
+public class RecipeListAdapter extends BaseAdapter implements IRecipeAdapterListView {
 
     private static String BASE_URL = "https://spoonacular.com/recipeImages/";
     private List<RecipesModel> dataModels;
     private Context mContext;
 
-    public ListRecipeAdapter(Context context) {
+    public RecipeListAdapter(Context context) {
         mContext = context;
         dataModels = new ArrayList<>();
     }
@@ -68,10 +67,6 @@ public class ListRecipeAdapter extends BaseAdapter implements IListAdapterView {
             holder = new ViewHolder();
 
             convertView = LayoutInflater.from(mContext).inflate(R.layout.recipe_list_cell, parent, false);
-
-            holder.title = (TextView) convertView.findViewById(R.id.recipe_list_title);
-            holder.description = (TextView) convertView.findViewById(R.id.recipe_list_description);
-            holder.image = (ImageView) convertView.findViewById(R.id.recipe_list_image);
 
             holder.title = (TextView) convertView.findViewById(R.id.recipe_list_title);
             holder.readyInMinutes = (TextView) convertView.findViewById(R.id.recipe_list_readyInMinutes);

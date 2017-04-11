@@ -7,12 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientsModel;
-import com.sem4ikt.uni.recipefinderchatbot.view.IListAdapterView;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsModel;
+import com.sem4ikt.uni.recipefinderchatbot.view.IRecipeAdapterListView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,20 +21,20 @@ import java.util.List;
  * Created by henriknielsen on 06/04/2017.
  */
 
-public class ListIngredientAdapter extends BaseAdapter implements IListAdapterView {
+public class NutrientListAdapter extends BaseAdapter implements IRecipeAdapterListView {
 
 
     private static String BASE_URL = "https://spoonacular.com/recipeImages/";
-    private List<IngredientsModel> ingredientsModels;
+    private List<NutrientsModel> nutrientsModels;
     private Context mContext;
 
-    public ListIngredientAdapter(Context context) {
+    public NutrientListAdapter(Context context) {
         mContext = context;
-        ingredientsModels = new ArrayList<>();
+        nutrientsModels = new ArrayList<>();
     }
 
-    public void addItem(Object ingredientsModel) {
-        ingredientsModels.add((IngredientsModel) ingredientsModel);
+    public void addItem(Object nutrientsModels) {
+        this.nutrientsModels.add((NutrientsModel) nutrientsModels);
     }
 
     public void notifyUpdate() {
@@ -44,12 +43,12 @@ public class ListIngredientAdapter extends BaseAdapter implements IListAdapterVi
 
     @Override
     public int getCount() {
-        return ingredientsModels.size();
+        return nutrientsModels.size();
     }
 
     @Override
-    public IngredientsModel getItem(int position) {
-        return ingredientsModels.get(position);
+    public NutrientsModel getItem(int position) {
+        return nutrientsModels.get(position);
     }
 
     @Override
@@ -61,26 +60,38 @@ public class ListIngredientAdapter extends BaseAdapter implements IListAdapterVi
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ListIngredientAdapter.ViewHolder holder;
-        IngredientsModel i = ingredientsModels.get(position);
+        NutrientListAdapter.ViewHolder holder;
+        NutrientsModel i = nutrientsModels.get(position);
 
         if (convertView == null) {
 
-            // Prevents calling (the resource heavy) findViewById every time the same view is loaded -> scrolling requires more resources otherwise
-            holder = new ListIngredientAdapter.ViewHolder();
+            holder = new NutrientListAdapter.ViewHolder();
 
+            // assign the view we are converting to a local variable
+
+
+            // first check to see if the view is null. if so, we have to inflate it.
+            // to inflate it basically means to render, or show, the view.
             convertView = LayoutInflater.from(mContext).inflate(R.layout.recipe_list_cell, parent, false);
+
+		/*
+         * Recall that the variable position is sent in as an argument to this method.
+		 * The variable simply refers to the position of the current object in the list. (The ArrayAdapter
+		 * iterates through the list we sent it)
+		 *
+		 * Therefore, i refers to the current Item object.
+		 */
 
 
             // This is how you obtain a reference to the TextViews.
             // These TextViews are created in the XML files we defined.
             holder.title = (TextView) convertView.findViewById(R.id.recipe_list_title);
-            holder.ingredientsCount = (TextView) convertView.findViewById(R.id.recipe_list_readyInMinutes);
+            holder.calories = (TextView) convertView.findViewById(R.id.recipe_list_readyInMinutes);
             holder.image = (ImageView) convertView.findViewById(R.id.recipe_list_image);
 
             convertView.setTag(holder);
         } else {
-            holder = (ListIngredientAdapter.ViewHolder) convertView.getTag();
+            holder = (NutrientListAdapter.ViewHolder) convertView.getTag();
         }
 
 
@@ -91,22 +102,22 @@ public class ListIngredientAdapter extends BaseAdapter implements IListAdapterVi
             if (holder.title != null) {
                 holder.title.setText(i.getTitle());
             }
-            if (holder.ingredientsCount != null) {
+            if (holder.calories != null) {
 
-                int count = i.getUsedIngredientCount();
+                int count = i.getCalories();
 
                 String conjugation;
 
                 if(count == 1)
                 {
-                    conjugation = " ingredient";
+                    conjugation = " calorie";
                 }
                 else
                 {
-                    conjugation = " ingredients";
+                    conjugation = " calories";
                 }
 
-                holder.ingredientsCount.setText("Contains " + count + conjugation + " you specified");
+                holder.calories.setText("Contains " + count + conjugation);
             }
             if (holder.image != null) {
                 Picasso.with(mContext).load(BASE_URL + i.getImage()).fit().into(holder.image);
@@ -122,9 +133,8 @@ public class ListIngredientAdapter extends BaseAdapter implements IListAdapterVi
     // Ensure that find by id is not called every time -> could cause slow scrolling
     private class ViewHolder {
         TextView title;
-        TextView ingredientsCount;
+        TextView calories;
         ImageView image;
     }
 
 }
-

@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "399302204344",
-    "firebase_url": "https://testdatabase-4af0d.firebaseio.com",
-    "project_id": "testdatabase-4af0d",
-    "storage_bucket": "testdatabase-4af0d.appspot.com"
+    "project_number": "548734855315",
+    "firebase_url": "https://recipebot-fe68f.firebaseio.com",
+    "project_id": "recipebot-fe68f",
+    "storage_bucket": "recipebot-fe68f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:399302204344:android:b42101b6c9ef6c1c",
+        "mobilesdk_app_id": "1:548734855315:android:b42101b6c9ef6c1c",
         "android_client_info": {
           "package_name": "com.sem4ikt.uni.recipefinderchatbot"
         }
       },
       "oauth_client": [
         {
-          "client_id": "399302204344-7ic8ag7lsd552kh25njadid95mq9krkr.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.sem4ikt.uni.recipefinderchatbot",
-            "certificate_hash": "01d7c92e1ac6568230e357bbbd91de7baae872fe"
-          }
-        },
-        {
-          "client_id": "399302204344-gad41hb6l5hh9tmspldicmtsikrdkikm.apps.googleusercontent.com",
+          "client_id": "548734855315-n8nf2207ek8jorcmfc9475f2v4aia6r2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDUltEPadpD6iOcFQQSFGk2-OwkAOUTRww"
+          "current_key": "AIzaSyCtrfoA4ZLLcX2stDBILU-i_TuoQoRoZfI"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "399302204344-gad41hb6l5hh9tmspldicmtsikrdkikm.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

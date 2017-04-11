@@ -1,4 +1,4 @@
-package com.sem4ikt.uni.recipefinderchatbot.adapter;
+package com.sem4ikt.uni.recipefinderchatbot.model.interfaces;
 
 import android.os.Parcelable;
 

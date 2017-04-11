@@ -1,7 +1,8 @@
 package com.sem4ikt.uni.recipefinderchatbot.adapter;
 
+import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ListDataModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientsModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsDataModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 
 public class ListContainerFactory {
-    public static ListDataContainer createNutrientsListContainer(List<NutrientsDataModel> source) {
+    public static ListDataContainer createNutrientsListContainer(List<NutrientsModel> source) {
 
         List<Object> list = new ArrayList<Object>(source);
 
