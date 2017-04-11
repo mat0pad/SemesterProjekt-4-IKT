@@ -6,7 +6,7 @@ import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientSubstitut
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.InstructionsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsDataModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RandomRecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
@@ -122,7 +122,7 @@ public interface ISpoonacularAPI {
          random      : Should be random?
          **/
         @GET("recipes/findByNutrients")
-        Call<NutrientsModel> findByNutrients(
+        Call<NutrientsDataModel> findByNutrients(
                 @Query("maxCalories") int maxCal,
                 @Query("minCalories") int minCal,
                 @Query("maxCarbs") int maxCarbs,

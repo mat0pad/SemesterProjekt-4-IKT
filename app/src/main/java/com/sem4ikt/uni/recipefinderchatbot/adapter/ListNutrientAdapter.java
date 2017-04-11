@@ -10,31 +10,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
-import com.sem4ikt.uni.recipefinderchatbot.view.IListRecipeAdapterView;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsDataModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by henriknielsen on 30/03/2017.
+ * Created by henriknielsen on 06/04/2017.
  */
 
-public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapterView {
+public class ListNutrientAdapter extends BaseAdapter{
 
 
     private static String BASE_URL = "https://spoonacular.com/recipeImages/";
-    private List<RecipesModel> dataModels;
+    private List<NutrientsDataModel> nutrientsModels;
     private Context mContext;
 
-    public ListRecipeAdapter(Context context) {
+    public ListNutrientAdapter(Context context) {
         mContext = context;
-        dataModels = new ArrayList<>();
+        nutrientsModels = new ArrayList<>();
     }
 
-    public void addItem(RecipesModel recipesModel) {
-        dataModels.add(recipesModel);
+    public void addItem(NutrientsDataModel nutrientsModels) {
+        this.nutrientsModels.add(nutrientsModels);
     }
 
     public void notifyUpdate() {
@@ -43,12 +42,12 @@ public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapter
 
     @Override
     public int getCount() {
-        return dataModels.size();
+        return nutrientsModels.size();
     }
 
     @Override
-    public RecipesModel getItem(int position) {
-        return dataModels.get(position);
+    public NutrientsDataModel getItem(int position) {
+        return nutrientsModels.get(position);
     }
 
     @Override
@@ -60,12 +59,12 @@ public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapter
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ViewHolder holder;
-        RecipesModel i = dataModels.get(position);
+        ListNutrientAdapter.ViewHolder holder;
+        NutrientsDataModel i = nutrientsModels.get(position);
 
         if (convertView == null) {
 
-            holder = new ViewHolder();
+            holder = new ListNutrientAdapter.ViewHolder();
 
             // assign the view we are converting to a local variable
 
@@ -83,15 +82,15 @@ public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapter
 		 */
 
 
-                // This is how you obtain a reference to the TextViews.
-                // These TextViews are created in the XML files we defined.
-                holder.title = (TextView) convertView.findViewById(R.id.recipe_list_title);
-                holder.readyInMinutes = (TextView) convertView.findViewById(R.id.recipe_list_readyInMinutes);
-                holder.image = (ImageView) convertView.findViewById(R.id.recipe_list_image);
+            // This is how you obtain a reference to the TextViews.
+            // These TextViews are created in the XML files we defined.
+            holder.title = (TextView) convertView.findViewById(R.id.recipe_list_title);
+            holder.calories = (TextView) convertView.findViewById(R.id.recipe_list_readyInMinutes);
+            holder.image = (ImageView) convertView.findViewById(R.id.recipe_list_image);
 
             convertView.setTag(holder);
         } else {
-            holder = (ViewHolder) convertView.getTag();
+            holder = (ListNutrientAdapter.ViewHolder) convertView.getTag();
         }
 
 
@@ -102,8 +101,22 @@ public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapter
             if (holder.title != null) {
                 holder.title.setText(i.getTitle());
             }
-            if (holder.readyInMinutes != null) {
-                holder.readyInMinutes.setText(i.getReadyInMinutes().toString() + " min");
+            if (holder.calories != null) {
+
+                int count = i.getCalories();
+
+                String conjugation;
+
+                if(count == 1)
+                {
+                    conjugation = " calorie";
+                }
+                else
+                {
+                    conjugation = " calories";
+                }
+
+                holder.calories.setText("Contains " + count + conjugation);
             }
             if (holder.image != null) {
                 Picasso.with(mContext).load(BASE_URL + i.getImage()).fit().into(holder.image);
@@ -119,9 +132,8 @@ public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapter
     // Ensure that find by id is not called every time -> could cause slow scrolling
     private class ViewHolder {
         TextView title;
-        TextView readyInMinutes;
+        TextView calories;
         ImageView image;
     }
 
 }
-

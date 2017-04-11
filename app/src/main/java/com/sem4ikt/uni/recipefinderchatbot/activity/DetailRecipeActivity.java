@@ -153,7 +153,7 @@ public class DetailRecipeActivity extends AppCompatActivity implements IDetailRe
                 saveFavorite.setImageDrawable(getDrawable((isSaved ? R.drawable.like : R.drawable.like_filled)));
                 isSaved = !isSaved;
                 if(recipe == null)
-                    Log.e("recipe","Dosnt exist");
+                    Log.e("recipe","Doesn't exist");
                 if(isSaved)
                     presenter.doSaveRecipe(recipe);
                 else

@@ -1,5 +1,8 @@
 package com.sem4ikt.uni.recipefinderchatbot.model.spoonacular;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -8,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by mathiaslykkepedersen on 06/03/2017.
  */
 
-public class IngredientsModel {
+public class IngredientsModel implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -77,4 +80,48 @@ public class IngredientsModel {
         this.likes = likes;
     }
 
+
+    // Allows this class to be passed as a parcel -> very fast
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        if (id != null)
+            parcel.writeInt(id);
+        else
+            parcel.writeInt(0);
+        parcel.writeString(title);
+        parcel.writeString(image);
+    }
+
+    @SuppressWarnings("all")
+    private IngredientsModel(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        image = in.readString();
+    }
+
+    // Default constructor is needed when also having a private constructor
+    public IngredientsModel() {
+    }
+
+
+    public static final Parcelable.Creator<IngredientsModel> CREATOR
+            = new Parcelable.Creator<IngredientsModel>() {
+
+        // This simply calls our new constructor (typically private) and
+        // passes along the unmarshalled `Parcel`, and then returns the new object!
+        @Override
+        public IngredientsModel createFromParcel(Parcel in) {
+            return new IngredientsModel(in);
+        }
+
+        @Override
+        public IngredientsModel[] newArray(int size) {
+            return new IngredientsModel[size];
+        }
+    };
 }

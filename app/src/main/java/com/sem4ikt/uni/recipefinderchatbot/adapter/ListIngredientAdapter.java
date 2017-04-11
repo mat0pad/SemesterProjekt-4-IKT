@@ -10,31 +10,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
-import com.sem4ikt.uni.recipefinderchatbot.view.IListRecipeAdapterView;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientsModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by henriknielsen on 30/03/2017.
+ * Created by henriknielsen on 06/04/2017.
  */
 
-public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapterView {
+public class ListIngredientAdapter extends BaseAdapter {
 
 
     private static String BASE_URL = "https://spoonacular.com/recipeImages/";
-    private List<RecipesModel> dataModels;
+    private List<IngredientsModel> ingredientsModels;
     private Context mContext;
 
-    public ListRecipeAdapter(Context context) {
+    public ListIngredientAdapter(Context context) {
         mContext = context;
-        dataModels = new ArrayList<>();
+        ingredientsModels = new ArrayList<>();
     }
 
-    public void addItem(RecipesModel recipesModel) {
-        dataModels.add(recipesModel);
+    public void addItem(IngredientsModel ingredientsModel) {
+        ingredientsModels.add(ingredientsModel);
     }
 
     public void notifyUpdate() {
@@ -43,12 +42,12 @@ public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapter
 
     @Override
     public int getCount() {
-        return dataModels.size();
+        return ingredientsModels.size();
     }
 
     @Override
-    public RecipesModel getItem(int position) {
-        return dataModels.get(position);
+    public IngredientsModel getItem(int position) {
+        return ingredientsModels.get(position);
     }
 
     @Override
@@ -60,12 +59,12 @@ public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapter
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ViewHolder holder;
-        RecipesModel i = dataModels.get(position);
+        ListIngredientAdapter.ViewHolder holder;
+        IngredientsModel i = ingredientsModels.get(position);
 
         if (convertView == null) {
 
-            holder = new ViewHolder();
+            holder = new ListIngredientAdapter.ViewHolder();
 
             // assign the view we are converting to a local variable
 
@@ -83,15 +82,15 @@ public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapter
 		 */
 
 
-                // This is how you obtain a reference to the TextViews.
-                // These TextViews are created in the XML files we defined.
-                holder.title = (TextView) convertView.findViewById(R.id.recipe_list_title);
-                holder.readyInMinutes = (TextView) convertView.findViewById(R.id.recipe_list_readyInMinutes);
-                holder.image = (ImageView) convertView.findViewById(R.id.recipe_list_image);
+            // This is how you obtain a reference to the TextViews.
+            // These TextViews are created in the XML files we defined.
+            holder.title = (TextView) convertView.findViewById(R.id.recipe_list_title);
+            holder.ingredientsCount = (TextView) convertView.findViewById(R.id.recipe_list_readyInMinutes);
+            holder.image = (ImageView) convertView.findViewById(R.id.recipe_list_image);
 
             convertView.setTag(holder);
         } else {
-            holder = (ViewHolder) convertView.getTag();
+            holder = (ListIngredientAdapter.ViewHolder) convertView.getTag();
         }
 
 
@@ -102,8 +101,22 @@ public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapter
             if (holder.title != null) {
                 holder.title.setText(i.getTitle());
             }
-            if (holder.readyInMinutes != null) {
-                holder.readyInMinutes.setText(i.getReadyInMinutes().toString() + " min");
+            if (holder.ingredientsCount != null) {
+
+                int count = i.getUsedIngredientCount();
+
+                String conjugation;
+
+                if(count == 1)
+                {
+                    conjugation = " ingredient";
+                }
+                else
+                {
+                    conjugation = " ingredients";
+                }
+
+                holder.ingredientsCount.setText("Contains " + count + conjugation + " you specified");
             }
             if (holder.image != null) {
                 Picasso.with(mContext).load(BASE_URL + i.getImage()).fit().into(holder.image);
@@ -119,7 +132,7 @@ public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapter
     // Ensure that find by id is not called every time -> could cause slow scrolling
     private class ViewHolder {
         TextView title;
-        TextView readyInMinutes;
+        TextView ingredientsCount;
         ImageView image;
     }
 
