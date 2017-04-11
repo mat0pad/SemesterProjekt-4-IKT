@@ -21,13 +21,13 @@ import java.util.List;
  * Created by henriknielsen on 30/03/2017.
  */
 
-public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapterView {
+public class RecipeListAdapter extends BaseAdapter implements IListRecipeAdapterView {
 
 
     private List<RecipesModel> recipesModels;
     private Context mContext;
 
-    public ListRecipeAdapter(Context context) {
+    public RecipeListAdapter(Context context) {
         mContext = context;
         recipesModels = new ArrayList<>();
     }
@@ -66,36 +66,16 @@ public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapter
 
             holder = new ViewHolder();
 
-            // assign the view we are converting to a local variable
-
-
-            // first check to see if the view is null. if so, we have to inflate it.
-            // to inflate it basically means to render, or show, the view.
             convertView = LayoutInflater.from(mContext).inflate(R.layout.recipe_list_cell, parent, false);
 
-		/*
-         * Recall that the variable position is sent in as an argument to this method.
-		 * The variable simply refers to the position of the current object in the list. (The ArrayAdapter
-		 * iterates through the list we sent it)
-		 *
-		 * Therefore, i refers to the current Item object.
-		 */
-
-
-                // This is how you obtain a reference to the TextViews.
-                // These TextViews are created in the XML files we defined.
-                holder.title = (TextView) convertView.findViewById(R.id.recipe_list_title);
-                holder.description = (TextView) convertView.findViewById(R.id.recipe_list_description);
-                holder.image = (ImageView) convertView.findViewById(R.id.recipe_list_image);
+            holder.title = (TextView) convertView.findViewById(R.id.recipe_list_title);
+            holder.description = (TextView) convertView.findViewById(R.id.recipe_list_description);
+            holder.image = (ImageView) convertView.findViewById(R.id.recipe_list_image);
 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
-
-        // check to see if each individual textview is null.
-        // if not, assign some text!
 
         if (i != null) {
             if (holder.title != null) {
@@ -109,7 +89,6 @@ public class ListRecipeAdapter extends BaseAdapter implements IListRecipeAdapter
             }
         }
 
-        // the view must be returned to our activity
         return convertView;
 
     }

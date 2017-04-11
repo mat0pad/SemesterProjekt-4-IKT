@@ -3,6 +3,7 @@ package com.sem4ikt.uni.recipefinderchatbot.services;
 
 import android.util.Log;
 
+import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
@@ -23,7 +24,7 @@ import java.util.Objects;
 
 
 public class ChatbotService implements IChatbotService {
-    private com.ibm.watson.developer_cloud.conversation.v1.ConversationService convService = new com.ibm.watson.developer_cloud.conversation.v1.ConversationService(com.ibm.watson.developer_cloud.conversation.v1.ConversationService.VERSION_DATE_2016_07_11);
+    private ConversationService convService = new ConversationService(ConversationService.VERSION_DATE_2016_07_11);
     private ToneAnalyzer toneService = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
     private Map<String, Object> contextGeneral, contextRecipe;
     private String workspaceIdentifier, message;
@@ -38,15 +39,18 @@ public class ChatbotService implements IChatbotService {
 
                     Object user = contextRecipe.get("username");
                     Object returning = contextRecipe.get("returning_user");
+                    Object loop_count = contextRecipe.get("loop_count");
 
                     if (user != null)
                         contextGeneral.put("username", user);
                     if (returning != null)
                         contextGeneral.put("returning_user", returning);
+                    if (loop_count != null)
+                        contextGeneral.put("loop_count", loop_count);
                     break;
 
                 case "49630f5e-f2b9-453a-be68-927f17cf64bc": // Switching to Recipe
-
+                    contextRecipe.put("loop_count", contextGeneral.get("loop_count"));
                     contextRecipe.put("username", contextGeneral.get("username"));
                     contextRecipe.put("returning_user", contextGeneral.get("returning_user"));
                     break;
@@ -73,6 +77,13 @@ public class ChatbotService implements IChatbotService {
             contextGeneral.put("returning_user", false);
             contextGeneral.put("username", "undefined");
         }
+
+        contextGeneral.put("loop_count", 0);
+        contextGeneral.put("num_of_recipes", 0);
+        contextGeneral.put("diet", "undefined");
+        contextGeneral.put("course", "undefined");
+        contextGeneral.put("intolerance", "undefined");
+        contextGeneral.put("cuisine", "undefined");
 
         return this;
     }

@@ -1,6 +1,8 @@
 package com.sem4ikt.uni.recipefinderchatbot.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
+import com.sem4ikt.uni.recipefinderchatbot.activity.DetailRecipeActivity;
 import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.MoreRecipeMessageModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.SingleRecipeMessageModel;
 import com.sem4ikt.uni.recipefinderchatbot.view.ChatListView;
 import com.squareup.picasso.Picasso;
 
@@ -34,10 +39,57 @@ public class ChatListAdapter extends BaseAdapter implements ChatListView {
         this.mContext = context;
     }
 
+    private static String getImage(MessageModel model) {
+
+        String image;
+
+        switch (model.type) {
+
+            case SINGLE_RECIPE:
+                image = ((SingleRecipeMessageModel) model).image;
+                break;
+
+            default:
+                image = ((MoreRecipeMessageModel) model).image;
+                break;
+        }
+
+        return image;
+    }
+
     public void onAddMessage(MessageModel m) {
 
         dialog.add(m);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(int position) {
+
+        MessageModel model = getItem(position);
+
+        if (model != null && model.type != MessageModel.TYPE.NORMAL) {
+
+            if (model.type == MessageModel.TYPE.SINGLE_RECIPE) {
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", ((SingleRecipeMessageModel) model).id); // pass id
+
+                mContext.startActivity(new Intent(mContext, DetailRecipeActivity.class).putExtras(bundle));
+            } else if (model.type == MessageModel.TYPE.MORE_RECIPES_MODEL) {
+
+                /*
+                Cast example below:
+                    ((RecipesModel)((MoreRecipeMessageModel)model).obj).getId());
+                */
+            } else if (model.type == MessageModel.TYPE.MORE_INGREDIENTS_MODEL) {
+                // MORE_INGREDIENTS_MODEL here
+            } else if (model.type == MessageModel.TYPE.MORE_NUTRIENTS_MODEL) {
+                // MORE_NUTRIENTS_MODEL here
+            } else if (model.type == MessageModel.TYPE.MORE_RECIPE_MODEL) {
+                // MORE_RECIPE_MODEL here
+            }
+        }
     }
 
     @Override
@@ -75,11 +127,11 @@ public class ChatListAdapter extends BaseAdapter implements ChatListView {
 
             if (direction == DIRECTION_INCOMING) {
 
-                if (type == MessageModel.TYPE.SINGLE_RECIPE) {
+                if (type != MessageModel.TYPE.NORMAL)
                     res = R.layout.message_l_box_recipe;
-                } else {
+                else
                     res = R.layout.message_l_box;
-                }
+
                 resid = R.id.left_bubble_text;
                 holder.direction = DIRECTION_INCOMING;
                 holder.type = type.ordinal();
@@ -93,7 +145,7 @@ public class ChatListAdapter extends BaseAdapter implements ChatListView {
 
             holder.text = (TextView) convertView.findViewById(resid);
 
-            if (type == MessageModel.TYPE.SINGLE_RECIPE)
+            if (type != MessageModel.TYPE.NORMAL)
                 holder.image = (ImageView) convertView.findViewById(R.id.message_l_image);
 
             convertView.setTag(holder);
@@ -104,12 +156,11 @@ public class ChatListAdapter extends BaseAdapter implements ChatListView {
 
         holder.text.setText(getItem(position).message);
 
-        if (holder.type == MessageModel.TYPE.SINGLE_RECIPE.ordinal())
-            Picasso.with(mContext).load(getItem(position).image).into(holder.image);
+        if (holder.type != MessageModel.TYPE.NORMAL.ordinal())
+            Picasso.with(mContext).load(getImage(getItem(position))).into(holder.image);
 
         return convertView;
     }
-
 
     // Ensure that find by id is not called every time -> could cause slow scrolling
     private class ViewHolder {

@@ -10,6 +10,7 @@ import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RandomRecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.SearchRecipesModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.SummaryModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.TextModel;
 
@@ -122,7 +123,7 @@ public interface ISpoonacularAPI {
          random      : Should be random?
          **/
         @GET("recipes/findByNutrients")
-        Call<NutrientsModel> findByNutrients(
+        Call<List<NutrientsModel>> findByNutrients(
                 @Query("maxCalories") int maxCal,
                 @Query("minCalories") int minCal,
                 @Query("maxCarbs") int maxCarbs,
@@ -145,7 +146,7 @@ public interface ISpoonacularAPI {
          * @return
          */
         @GET("recipes/findByIngredients")
-        Call<IngredientsModel> findByIngredients(
+        Call<List<IngredientsModel>> findByIngredients(
                 @Query("ingredients") String ingredients,
                 @Query("number") int maxNumberOfResults,
                 @Query("fillIngredients") Boolean fillIngredients,
@@ -198,11 +199,12 @@ public interface ISpoonacularAPI {
 
         limitLicense : Is author name/info needed? **/
         @GET("recipes/search")
-        Call<List<RecipeModel>> searchAllRecipes(
+        Call<SearchRecipesModel> searchAllRecipes(
                 @Query("query") String query,
                 @Query("type") String course,
                 @Query("diet") String diet,
                 @Query("cuisine") String tags,
+                @Query("excludeIngredients") String exclude,
                 @Query("instructionsRequired") boolean instructionsRequired,
                 @Query("intolerances") String intolerances,
                 @Query("number") int numberOfRecipes,

@@ -9,4 +9,6 @@ import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
 public interface IChatListAdapterPresenter<V> extends IBasePresenter<V> {
 
     void addMessage(MessageModel m);
+
+    void doClick(int position);
 }

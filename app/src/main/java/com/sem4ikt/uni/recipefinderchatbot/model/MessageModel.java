@@ -7,26 +7,14 @@ package com.sem4ikt.uni.recipefinderchatbot.model;
 public class MessageModel {
 
     public String message;
-    public String image;
     public int direction;
-    public int id;
     public TYPE type;
 
-    public MessageModel(String msg, int direction) {
+    public MessageModel(String msg, int direction, TYPE type) {
         message = msg;
-        image = null;
-        id = -1;
-        this.direction = direction;
-        type = TYPE.NORMAL;
-    }
-
-    public MessageModel(String msg, int direction, String img, int id, TYPE type) {
-        message = msg;
-        image = img;
-        this.id = id;
         this.direction = direction;
         this.type = type;
     }
 
-    public enum TYPE {NORMAL, SINGLE_RECIPE, MORE_RECIPES}
+    public enum TYPE {NORMAL, SINGLE_RECIPE, MORE_RECIPE_MODEL, MORE_RECIPES_MODEL, MORE_NUTRIENTS_MODEL, MORE_INGREDIENTS_MODEL}
 }

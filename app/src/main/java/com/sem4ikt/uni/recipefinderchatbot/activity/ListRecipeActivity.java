@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
+import com.sem4ikt.uni.recipefinderchatbot.adapter.RecipeListAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ListRecipeAdapterPresenter;
 
@@ -20,7 +21,7 @@ import java.util.List;
 public class ListRecipeActivity extends AppCompatActivity /*implements ILIstRecipeView opdater override af metode hvis bruges*/ {
     ListView listView;
 
-    private com.sem4ikt.uni.recipefinderchatbot.adapter.ListRecipeAdapter adapter = new com.sem4ikt.uni.recipefinderchatbot.adapter.ListRecipeAdapter(this);
+    private RecipeListAdapter adapter = new RecipeListAdapter(this);
     private ListRecipeAdapterPresenter presenter = new ListRecipeAdapterPresenter(adapter);
 
     @Override
