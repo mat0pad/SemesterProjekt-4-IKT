@@ -19,7 +19,7 @@ import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ListContainerFactory;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ListDataContainer;
 import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsDataModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatListAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatListAdapterPresenter;
@@ -91,21 +91,21 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
         ApiClient client = new ApiClient();
         ISpoonacularAPI.ISearch apiService = client.getClient().create(ISpoonacularAPI.ISearch.class);
 
-        Call<List<NutrientsDataModel>> call = apiService.findByNutrients(1000, 0, 1000, 0, 50, 0, 9999, 0, 15, 1, true);
+        Call<List<RecipesModel>> call = apiService.findSimilarRecipes(1234);
 
 
-        call.enqueue(new Callback<List<NutrientsDataModel>>() {
+        call.enqueue(new Callback<List<RecipesModel>>() {
             @Override
-            public void onResponse(Call<List<NutrientsDataModel>> call, Response<List<NutrientsDataModel>> response) {
+            public void onResponse(Call<List<RecipesModel>> call, Response<List<RecipesModel>> response) {
 
                 Log.i("TESTLIST", Integer.toString(response.code()));
 
-                if(response.code() == 200){
+                if(response.code() == 200) {
 
-                    final ArrayList<NutrientsDataModel> list = new ArrayList<>();
+                    final ArrayList<RecipesModel> list = new ArrayList<>();
                     list.addAll(response.body());
 
-                    final ListDataContainer container = ListContainerFactory.createNutrientsListContainer(list);
+                    final ListDataContainer container = ListContainerFactory.createRecipesListContainer(list);
 
                     Handler mainHandler = new Handler(Looper.getMainLooper());
 
@@ -128,7 +128,7 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
             }
 
             @Override
-            public void onFailure(Call<List<NutrientsDataModel>> call, Throwable t) {
+            public void onFailure(Call<List<RecipesModel>> call, Throwable t) {
 
             }
         });
