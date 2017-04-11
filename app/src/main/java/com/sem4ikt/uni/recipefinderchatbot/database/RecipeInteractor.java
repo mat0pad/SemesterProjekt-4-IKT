@@ -2,7 +2,6 @@ package com.sem4ikt.uni.recipefinderchatbot.database;
 
 import android.util.Log;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,10 +12,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackRecipe;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.FavoritesPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IBasePresenter;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IDetailRecipePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +26,7 @@ public class RecipeInteractor implements IFirebaseDBInteractors.IRecipeInteracto
 
     public RecipeInteractor()
     {
-        Database = FirebaseDatabase.getInstance().getReference("Recipe/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
+        Database = FirebaseDatabase.getInstance().getReference("disable database"); //("Recipe/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
     @Override
     public void addRecipe(RecipeModel recipe) {
