@@ -30,7 +30,7 @@ public class RecipeInteractor implements IFirebaseDBInteractors.IRecipeInteracto
         if(FirebaseAuth.getInstance().getCurrentUser() != null)
             Database = FirebaseDatabase.getInstance().getReference("Recipe/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
         else
-            Database = FirebaseDatabase.getInstance().getReference("Test");
+            Database = FirebaseDatabase.getInstance().getReference("Test"); //Cant save data if not logged in
     }
     @Override
     public void addRecipe(RecipeModel recipe) {

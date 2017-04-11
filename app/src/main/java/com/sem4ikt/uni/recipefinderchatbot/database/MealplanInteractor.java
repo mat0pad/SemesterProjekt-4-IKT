@@ -30,7 +30,7 @@ public class MealplanInteractor implements IFirebaseDBInteractors.IMealplanInter
         if(FirebaseAuth.getInstance().getCurrentUser() != null)
             database = FirebaseDatabase.getInstance().getReference("mealplan/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
         else
-            database = FirebaseDatabase.getInstance().getReference("Test");
+            database = FirebaseDatabase.getInstance().getReference("Test"); //Cant save data if not logged in
 
     }
 
