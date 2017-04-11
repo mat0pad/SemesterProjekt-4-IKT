@@ -26,7 +26,8 @@ public class UserInteractor implements IFirebaseDBInteractors.IUserInteractor {
         if(FirebaseAuth.getInstance().getCurrentUser() != null)
             database = FirebaseDatabase.getInstance().getReference("User/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
         else
-            database = FirebaseDatabase.getInstance().getReference("Test");
+            database = FirebaseDatabase.getInstance().getReference("Test"); //Cant save data if not logged in
+
     }
 
     @Override
@@ -52,7 +53,6 @@ public class UserInteractor implements IFirebaseDBInteractors.IUserInteractor {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.e("Userinteractor","NONEUSER");
                 callback.onReceived(null, ICallbackUser.USER_CALLBACK_TYPE.USER_NOT_FOUND);
             }
         });
