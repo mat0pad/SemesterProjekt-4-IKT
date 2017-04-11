@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
-import com.sem4ikt.uni.recipefinderchatbot.activity.ListRecipeActivity;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ListContainerFactory;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ListDataContainer;
@@ -83,9 +82,9 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
         chatbotPresenter.getUser();
 
 
-
+/*
         // Showing recipe list view and passing RecipesModels
-        final Intent intent = new Intent(ChatbotFragment.this.getActivity(), ListRecipeActivity.class);
+       // final Intent intent = new Intent(ChatbotFragment.this.getActivity(), ListRecipeActivity.class);
 
         ApiClient client = new ApiClient();
         ISpoonacularAPI.ISearch apiService = client.getClient().create(ISpoonacularAPI.ISearch.class);
@@ -130,7 +129,7 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
 
             }
         });
-
+*/
 
 
         return view;
