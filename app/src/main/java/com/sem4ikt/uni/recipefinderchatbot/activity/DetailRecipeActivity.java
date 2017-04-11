@@ -118,9 +118,21 @@ public class DetailRecipeActivity extends AppCompatActivity implements IDetailRe
         if (bundle != null)
             id = bundle.getInt("id");
 
+        RecipeModel recipe = (RecipeModel)getIntent().getSerializableExtra("recipe");
+        if(recipe != null) {
+            Log.e("Recipe","found");
+            isSaved = true;
+            id = recipe.getId();
+            saveFavorite.setImageDrawable(getDrawable(R.drawable.like_filled));
+        }
+
         if (id != -1) {
             // Load data
-            presenter.doLoadRecipe(id);
+            if(recipe != null)
+                setRecipe(recipe);
+            else
+                presenter.doLoadRecipe(id);
+
             presenter.doInstructions(id);
             presenter.doSummarize(id);
             presenter.doFindSimilar(id);
