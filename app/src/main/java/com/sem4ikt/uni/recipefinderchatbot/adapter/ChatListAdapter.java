@@ -12,9 +12,13 @@ import android.widget.TextView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.activity.DetailRecipeActivity;
+import com.sem4ikt.uni.recipefinderchatbot.activity.ListDataModelActivity;
 import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.MoreRecipeMessageModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.SingleRecipeMessageModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientsModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 import com.sem4ikt.uni.recipefinderchatbot.view.ChatListView;
 import com.squareup.picasso.Picasso;
 
@@ -73,21 +77,51 @@ public class ChatListAdapter extends BaseAdapter implements ChatListView {
             if (model.type == MessageModel.TYPE.SINGLE_RECIPE) {
 
                 Bundle bundle = new Bundle();
-                bundle.putInt("id", ((SingleRecipeMessageModel) model).id); // pass id
+                bundle.putInt("id", ((SingleRecipeMessageModel) model).id); // pass id to detail
 
                 mContext.startActivity(new Intent(mContext, DetailRecipeActivity.class).putExtras(bundle));
-            } else if (model.type == MessageModel.TYPE.MORE_RECIPES_MODEL) {
+            } else {
 
-                /*
-                Cast example below:
-                    ((RecipesModel)((MoreRecipeMessageModel)model).obj).getId());
-                */
-            } else if (model.type == MessageModel.TYPE.MORE_INGREDIENTS_MODEL) {
-                // MORE_INGREDIENTS_MODEL here
-            } else if (model.type == MessageModel.TYPE.MORE_NUTRIENTS_MODEL) {
-                // MORE_NUTRIENTS_MODEL here
-            } else if (model.type == MessageModel.TYPE.MORE_RECIPE_MODEL) {
-                // MORE_RECIPE_MODEL here
+                Intent intent = new Intent(mContext, ListDataModelActivity.class);
+
+                MoreRecipeMessageModel mm = (MoreRecipeMessageModel) model;
+
+                if (model.type == MessageModel.TYPE.MORE_RECIPES_MODEL) {
+
+                    ListDataContainer container = ListContainerFactory
+                            .createRecipesListContainer((List<RecipesModel>) mm.obj);
+
+                    intent.putExtra("listOfRecipesModels", container);
+
+                    mContext.startActivity(intent);
+
+                } else if (model.type == MessageModel.TYPE.MORE_INGREDIENTS_MODEL) {
+
+                    ListDataContainer container = ListContainerFactory
+                            .createIngredientsListContainer((List<IngredientsModel>) mm.obj);
+
+                    intent.putExtra("listOfRecipesModels", container);
+
+                    mContext.startActivity(intent);
+
+                } else if (model.type == MessageModel.TYPE.MORE_NUTRIENTS_MODEL) {
+
+                    ListDataContainer container = ListContainerFactory
+                            .createNutrientsListContainer((List<NutrientsModel>) mm.obj);
+
+                    intent.putExtra("listOfRecipesModels", container);
+
+                    mContext.startActivity(intent);
+
+                } else if (model.type == MessageModel.TYPE.MORE_RECIPE_MODEL) {
+
+                    /*ListDataContainer container = ListContainerFactory
+                            .createNutrientsListContainer((List<RecipeModel>)mm.obj);
+
+                    intent.putExtra("listOfRecipesModels", container);
+
+                    mContext.startActivity(intent);*/
+                }
             }
         }
     }
@@ -156,9 +190,11 @@ public class ChatListAdapter extends BaseAdapter implements ChatListView {
 
         holder.text.setText(getItem(position).message);
 
-        if (holder.type != MessageModel.TYPE.NORMAL.ordinal())
-            Picasso.with(mContext).load(getImage(getItem(position))).into(holder.image);
+        if (holder.type != MessageModel.TYPE.NORMAL.ordinal()) {
+            System.out.println("From adapter:" + holder.image);
 
+            Picasso.with(mContext).load(getImage(getItem(position))).into(holder.image);
+        }
         return convertView;
     }
 

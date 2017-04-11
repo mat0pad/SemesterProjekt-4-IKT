@@ -11,7 +11,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackUser;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
 
 
 /**
@@ -22,16 +21,12 @@ public class UserInteractor implements IFirebaseDBInteractors.IUserInteractor {
 
     private DatabaseReference database;
 
-    private IChatbotPresenter callback;
-
-
     public UserInteractor()
     {
         if(FirebaseAuth.getInstance().getCurrentUser() != null)
             database = FirebaseDatabase.getInstance().getReference("User/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
         else
             database = FirebaseDatabase.getInstance().getReference("Test");
-
     }
 
     @Override

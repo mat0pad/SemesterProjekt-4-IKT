@@ -274,7 +274,15 @@ public class ConversationInteractor implements IConversationInteractor {
                         System.out.println(item.getTitle());
 
                     if (model.getResults().size() > 1) {
-                        presenter.showMoreRecipesText("I found these:", model.getResults().get(1).getImage(), model.getResults(), MessageModel.TYPE.MORE_RECIPES_MODEL);
+
+                        String image = "";
+
+                        for (RecipesModel item : model.getResults())
+                            if (!item.getImage().isEmpty())
+                                image = item.getImage();
+
+                        System.out.println("Conversation " + image);
+                        presenter.showMoreRecipesText("I found these:", image, model.getResults(), MessageModel.TYPE.MORE_RECIPES_MODEL);
                     } else if (model.getResults().size() == 1)
                         presenter.showSingleRecipeText("I found this:", model.getResults().get(0).getImage(), model.getResults().get(0).getId());
 

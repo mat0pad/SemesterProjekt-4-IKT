@@ -6,13 +6,19 @@ package com.sem4ikt.uni.recipefinderchatbot.model;
 
 public class MoreRecipeMessageModel extends MessageModel {
 
+    private static String BASE_URL = "https://spoonacular.com/recipeImages/";
+
     public Object obj;
     public String image;
 
     public MoreRecipeMessageModel(String msg, int direction, String img, Object obj, TYPE type) {
         super(msg, direction, type);
 
-        this.image = img;
+        if (!image.contains("https"))
+            this.image = BASE_URL + img;
+        else
+            this.image = img;
+
         this.obj = obj;
     }
 }

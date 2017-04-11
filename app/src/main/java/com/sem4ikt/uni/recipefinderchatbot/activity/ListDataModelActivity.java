@@ -36,7 +36,7 @@ public class ListDataModelActivity extends AppCompatActivity /*implements ILIstR
         listView = (ListView) findViewById(R.id.list);
 
 
-        final ListDataContainer dataForPresenter = getIntent().getParcelableExtra("com.sem4ikt.uni.recipefinderchatbot.fragment.ChatbotFragment.ListOfRecipesModels");
+        final ListDataContainer dataForPresenter = getIntent().getParcelableExtra("listOfRecipesModels");
 
         String type = dataForPresenter.getType();
 
