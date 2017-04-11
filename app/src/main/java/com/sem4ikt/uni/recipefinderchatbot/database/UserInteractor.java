@@ -2,6 +2,7 @@ package com.sem4ikt.uni.recipefinderchatbot.database;
 
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +27,7 @@ public class UserInteractor implements IFirebaseDBInteractors.IUserInteractor {
     public UserInteractor(IChatbotPresenter callback)
     {
 
-        userDatabase = FirebaseDatabase.getInstance().getReference("Test");//"User/"+FirebaseAuth.getInstance().getCurrentUser().getUid());
+        userDatabase = FirebaseDatabase.getInstance().getReference("User/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
         this.callback = callback;
     }
 
@@ -53,6 +54,8 @@ public class UserInteractor implements IFirebaseDBInteractors.IUserInteractor {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Log.e("Userinteractor","NONEUSER");
+                callback.onReceived(null);
             }
         });
     }

@@ -40,9 +40,9 @@ public interface IFirebaseDBInteractors {
         void addMealPlan(MealPlanModel mealplan);
 
 
-        void removeMealplan(MealPlanModel mealplan);
+        void removeMealplan();
 
-        void getMealplan();
+        void getMealplan(ICallbackMealplan callback);
     }
 
     interface  IRecipeInteractor {
@@ -51,7 +51,9 @@ public interface IFirebaseDBInteractors {
 
         void removeRecipe(RecipeModel recipe);
 
-        void getRecipe();
+        void getRecipe(ICallbackRecipe callback);
+
+        void checkUpdates(ICallbackRecipe callback);
     }
 
 }

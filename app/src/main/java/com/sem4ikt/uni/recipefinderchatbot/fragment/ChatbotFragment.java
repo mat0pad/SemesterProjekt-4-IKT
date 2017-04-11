@@ -1,5 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,6 +20,7 @@ import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ListContainerFactory;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ListDataContainer;
 import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatListAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatListAdapterPresenter;
@@ -56,6 +58,7 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
 
         if (container == null)
             return null;
+
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.chatbot, container, false);
@@ -97,6 +100,7 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
         ISpoonacularAPI.ISearch apiService = client.getClient().create(ISpoonacularAPI.ISearch.class);
 
         Call<List<RecipesModel>> call = apiService.findSimilarRecipes(1234);
+
 
 
         call.enqueue(new Callback<List<RecipesModel>>() {

@@ -9,28 +9,19 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
-import com.sem4ikt.uni.recipefinderchatbot.database.RecipesInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.fragment.ChatbotFragment;
 import com.sem4ikt.uni.recipefinderchatbot.fragment.FavoritesFragment;
 import com.sem4ikt.uni.recipefinderchatbot.fragment.MealPlanFragment;
 import com.sem4ikt.uni.recipefinderchatbot.fragment.SettingsFragment;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 import com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.DetailRecipePresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.MainPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IMainPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.rest.ApiClient;
-import com.sem4ikt.uni.recipefinderchatbot.rest.IApiClient;
-import com.sem4ikt.uni.recipefinderchatbot.rest.ISpoonacularAPI;
+
 import com.sem4ikt.uni.recipefinderchatbot.view.IMainView;
 import com.yalantis.guillotine.animation.GuillotineAnimation;
 
-import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 /**
