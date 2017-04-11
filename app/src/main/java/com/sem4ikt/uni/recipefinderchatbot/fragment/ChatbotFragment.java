@@ -20,7 +20,8 @@ import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ListContainerFactory;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ListDataContainer;
 import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RandomRecipeModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatListAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatListAdapterPresenter;
@@ -30,7 +31,6 @@ import com.sem4ikt.uni.recipefinderchatbot.rest.ISpoonacularAPI;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -93,28 +93,28 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
             }
         });
 
-        /*/ Showing recipe list view and passing RecipesModels
+        // Showing recipe list view and passing RecipesModels
         final Intent intent = new Intent(ChatbotFragment.this.getActivity(), ListDataModelActivity.class);
 
         ApiClient client = new ApiClient();
         ISpoonacularAPI.ISearch apiService = client.getClient().create(ISpoonacularAPI.ISearch.class);
 
-        Call<List<RecipesModel>> call = apiService.findSimilarRecipes(1234);
+        Call<RandomRecipeModel> call = apiService.findRandomRecipes(10, "", false);
 
 
-
-        call.enqueue(new Callback<List<RecipesModel>>() {
+        call.enqueue(new Callback<RandomRecipeModel>() {
             @Override
-            public void onResponse(Call<List<RecipesModel>> call, Response<List<RecipesModel>> response) {
+            public void onResponse(Call<RandomRecipeModel> call, Response<RandomRecipeModel> response) {
 
                 Log.i("TESTLIST", Integer.toString(response.code()));
 
                 if(response.code() == 200) {
 
-                    final ArrayList<RecipesModel> list = new ArrayList<>();
-                    list.addAll(response.body());
+                    RandomRecipeModel model = response.body();
 
-                    final ListDataContainer container = ListContainerFactory.createRecipesListContainer(list);
+                    final ArrayList<RecipeModel> list = new ArrayList<>(model.getRecipesList());
+
+                    final ListDataContainer container = ListContainerFactory.createRecipeListContainer(list);
 
                     Handler mainHandler = new Handler(Looper.getMainLooper());
 
@@ -137,10 +137,10 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
             }
 
             @Override
-            public void onFailure(Call<List<RecipesModel>> call, Throwable t) {
+            public void onFailure(Call<RandomRecipeModel> call, Throwable t) {
 
             }
-        });*/
+        });
 
 
 

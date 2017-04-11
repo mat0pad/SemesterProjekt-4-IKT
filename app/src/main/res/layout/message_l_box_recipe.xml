@@ -31,7 +31,6 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="15dp"
         android:layout_toEndOf="@+id/hud_image"
-        android:background="@drawable/left_bubble"
         android:orientation="vertical"
         android:padding="5dp"
         android:weightSum="1">

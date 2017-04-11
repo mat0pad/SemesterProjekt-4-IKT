@@ -13,10 +13,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackRecipe;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.FavoritesPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IBasePresenter;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IDetailRecipePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
