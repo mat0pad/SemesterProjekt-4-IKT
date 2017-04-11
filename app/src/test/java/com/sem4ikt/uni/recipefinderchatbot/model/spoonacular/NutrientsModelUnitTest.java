@@ -10,11 +10,11 @@ import org.junit.Test;
 
 public class NutrientsModelUnitTest {
 
-    private NutrientsModel nutrientsModel = null;
+    private NutrientsDataModel nutrientsModel = null;
 
     @Before
     public void setUp() {
-        nutrientsModel = new NutrientsModel();
+        nutrientsModel = new NutrientsDataModel();
     }
 
     @Test

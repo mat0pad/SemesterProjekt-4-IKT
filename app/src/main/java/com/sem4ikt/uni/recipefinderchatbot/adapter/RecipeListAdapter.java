@@ -21,19 +21,20 @@ import java.util.List;
  * Created by henriknielsen on 30/03/2017.
  */
 
-public class RecipeListAdapter extends BaseAdapter implements IListRecipeAdapterView {
+public class ListRecipeAdapter extends BaseAdapter implements IListAdapterView {
 
 
-    private List<RecipesModel> recipesModels;
+    private static String BASE_URL = "https://spoonacular.com/recipeImages/";
+    private List<RecipesModel> dataModels;
     private Context mContext;
 
-    public RecipeListAdapter(Context context) {
+    public ListRecipeAdapter(Context context) {
         mContext = context;
-        recipesModels = new ArrayList<>();
+        dataModels = new ArrayList<>();
     }
 
-    public void addItem(RecipesModel recipesModel) {
-        recipesModels.add(recipesModel);
+    public void addItem(Object recipesModel) {
+        dataModels.add((RecipesModel) recipesModel);
     }
 
     public void notifyUpdate() {
@@ -42,12 +43,12 @@ public class RecipeListAdapter extends BaseAdapter implements IListRecipeAdapter
 
     @Override
     public int getCount() {
-        return recipesModels.size();
+        return dataModels.size();
     }
 
     @Override
     public RecipesModel getItem(int position) {
-        return recipesModels.get(position);
+        return dataModels.get(position);
     }
 
     @Override
@@ -60,7 +61,7 @@ public class RecipeListAdapter extends BaseAdapter implements IListRecipeAdapter
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder;
-        RecipesModel i = recipesModels.get(position);
+        RecipesModel i = dataModels.get(position);
 
         if (convertView == null) {
 
@@ -72,6 +73,10 @@ public class RecipeListAdapter extends BaseAdapter implements IListRecipeAdapter
             holder.description = (TextView) convertView.findViewById(R.id.recipe_list_description);
             holder.image = (ImageView) convertView.findViewById(R.id.recipe_list_image);
 
+            holder.title = (TextView) convertView.findViewById(R.id.recipe_list_title);
+            holder.readyInMinutes = (TextView) convertView.findViewById(R.id.recipe_list_readyInMinutes);
+            holder.image = (ImageView) convertView.findViewById(R.id.recipe_list_image);
+
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -81,11 +86,11 @@ public class RecipeListAdapter extends BaseAdapter implements IListRecipeAdapter
             if (holder.title != null) {
                 holder.title.setText(i.getTitle());
             }
-            if (holder.description != null) {
-                holder.description.setText(i.getId().toString());
+            if (holder.readyInMinutes != null) {
+                holder.readyInMinutes.setText(i.getReadyInMinutes().toString() + " min");
             }
             if (holder.image != null) {
-                Picasso.with(mContext).load(i.getImage()).fit().into(holder.image);
+                Picasso.with(mContext).load(BASE_URL + i.getImage()).fit().into(holder.image);
             }
         }
 
@@ -97,7 +102,7 @@ public class RecipeListAdapter extends BaseAdapter implements IListRecipeAdapter
     // Ensure that find by id is not called every time -> could cause slow scrolling
     private class ViewHolder {
         TextView title;
-        TextView description;
+        TextView readyInMinutes;
         ImageView image;
     }
 

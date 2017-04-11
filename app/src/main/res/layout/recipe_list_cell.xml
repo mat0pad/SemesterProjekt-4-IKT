@@ -18,15 +18,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/recipe_list_image"
         android:gravity="center_vertical"
         android:textColor="@color/Black"
         android:text="Title"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="32dp" />
 
     <TextView
-        android:id="@+id/recipe_list_description"
+        android:id="@+id/recipe_list_readyInMinutes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -35,7 +37,9 @@
         android:textColor="@color/Black"
         android:ellipsize="marquee"
         android:text="Description"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 
 
 </RelativeLayout>

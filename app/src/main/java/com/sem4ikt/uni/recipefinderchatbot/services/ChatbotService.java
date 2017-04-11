@@ -4,15 +4,14 @@ package com.sem4ikt.uni.recipefinderchatbot.services;
 import android.util.Log;
 
 import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
+import com.google.firebase.database.ValueEventListener;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
-import com.sem4ikt.uni.recipefinderchatbot.model.FirebaseInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
-import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IFirebaseInteractor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,15 +59,8 @@ public class ChatbotService implements IChatbotService {
         message = msg;
     }
 
-    public ChatbotService setConversationServiceCredentials(String username, String password) {
-        convService.setUsernameAndPassword(username, password);
-
-        IFirebaseInteractor fib = new FirebaseInteractor();
-        User user = fib.getUser();
-
-        contextRecipe = new HashMap<>();
-        contextGeneral = new HashMap<>();
-
+    public void setUserContextGeneral(User user)
+    {
         if (user != null) {
             Log.e("tt", "userExist");
             contextGeneral.put("returning_user", user.returninguser);
@@ -84,6 +76,14 @@ public class ChatbotService implements IChatbotService {
         contextGeneral.put("course", "undefined");
         contextGeneral.put("intolerance", "undefined");
         contextGeneral.put("cuisine", "undefined");
+
+    }
+
+    public ChatbotService setConversationServiceCredentials(String username, String password){
+        convService.setUsernameAndPassword(username, password);
+
+        contextRecipe = new HashMap<>();
+        contextGeneral = new HashMap<>();
 
         return this;
     }

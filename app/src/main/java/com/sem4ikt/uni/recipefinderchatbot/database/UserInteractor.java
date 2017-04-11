@@ -1,25 +1,33 @@
 package com.sem4ikt.uni.recipefinderchatbot.database;
 
+import android.util.Log;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBRepository;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
+
 
 /**
  * Created by anton on 01-04-2017.
  */
 
-public class UserRepository implements IFirebaseDBRepository.IUserRepository {
+public class UserInteractor implements IFirebaseDBInteractors.IUserInteractor {
 
     private DatabaseReference userDatabase;
-    private User user;
 
-    public UserRepository(String uid)
+    private IChatbotPresenter callback;
+
+
+    public UserInteractor(IChatbotPresenter callback)
     {
-        userDatabase = FirebaseDatabase.getInstance().getReference("User/"+uid);
+
+        userDatabase = FirebaseDatabase.getInstance().getReference("Test");//"User/"+FirebaseAuth.getInstance().getCurrentUser().getUid());
+        this.callback = callback;
     }
 
     @Override
@@ -34,23 +42,19 @@ public class UserRepository implements IFirebaseDBRepository.IUserRepository {
 
 
     @Override
-    public User getUser() {
+    public void getUser()  {
 
-        //final Semaphore semaphore = new Semaphore(0);
+        Log.e("Lock","Starting getUser");
         userDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                user = dataSnapshot.getValue(User.class);
-               // semaphore.release();
-                //Log.e("ondatachange",user.username);
-
+                callback.onReceived(dataSnapshot.getValue(User.class));
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        //semaphore.acquire();
-        return user;
     }
+
 }

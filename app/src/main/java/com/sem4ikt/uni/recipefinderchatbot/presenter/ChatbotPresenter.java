@@ -6,16 +6,18 @@ import android.util.Log;
 
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
+import com.sem4ikt.uni.recipefinderchatbot.database.UserInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.ConversationInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.MoreRecipeMessageModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.SingleRecipeMessageModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IChatbotInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IConversationInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
-
 
 /**
  * Created by mathiaslykkepedersen on 09/03/2017.
@@ -26,12 +28,14 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
 
     private IConversationInteractor api;
     private IChatbotInteractor ci;
+    private IFirebaseDBInteractors.IUserInteractor ui;
     private boolean isInGeneral = true;
 
     public ChatbotPresenter(IChatbotView view){
         super(view);
-        ci = new ChatbotInteractor();
         api = new ConversationInteractor(this);
+        ui = new UserInteractor(this);
+        ci = new ChatbotInteractor();
     }
 
     @Override
@@ -162,4 +166,21 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
         else
             showErrorText();
     }
+
+
+
+    @Override
+    public void getUser() {
+        ui.getUser();
+    }
+
+    @Override
+    public void onReceived(User user) {
+        if(user == null) {
+            ui.addUser(new User());
+        }
+        ci.setContext(user);
+        switchWorkspace(0, " ");
+    }
+
 }

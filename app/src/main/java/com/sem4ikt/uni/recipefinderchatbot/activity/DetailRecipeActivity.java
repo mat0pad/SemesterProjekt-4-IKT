@@ -3,6 +3,7 @@ package com.sem4ikt.uni.recipefinderchatbot.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -139,6 +140,8 @@ public class DetailRecipeActivity extends AppCompatActivity implements IDetailRe
             case R.id.favorite_save:
                 saveFavorite.setImageDrawable(getDrawable((isSaved ? R.drawable.like : R.drawable.like_filled)));
                 isSaved = !isSaved;
+                if(recipe == null)
+                    Log.e("recipe","Doesn't exist");
                 if(isSaved)
                     presenter.doSaveRecipe(recipe);
                 else

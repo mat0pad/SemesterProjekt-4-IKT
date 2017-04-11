@@ -1,6 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces;
 
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 
 /**
  * Created by mathiaslykkepedersen on 27/03/2017.
