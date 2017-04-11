@@ -14,7 +14,7 @@ public class MoreRecipeMessageModel extends MessageModel {
     public MoreRecipeMessageModel(String msg, int direction, String img, Object obj, TYPE type) {
         super(msg, direction, type);
 
-        if (!image.contains("https"))
+        if (!img.contains("https"))
             this.image = BASE_URL + img;
         else
             this.image = img;

@@ -1,6 +1,5 @@
 package com.sem4ikt.uni.recipefinderchatbot.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,16 +23,16 @@ import java.util.List;
 public class RecipeListAdapter extends BaseAdapter implements IRecipeAdapterListView {
 
     private static String BASE_URL = "https://spoonacular.com/recipeImages/";
-    private List<RecipesModel> dataModels;
+    private List<RecipesModel> list;
     private Context mContext;
 
     public RecipeListAdapter(Context context) {
         mContext = context;
-        dataModels = new ArrayList<>();
+        list = new ArrayList<>();
     }
 
     public void addItem(Object recipesModel) {
-        dataModels.add((RecipesModel) recipesModel);
+        list.add((RecipesModel) recipesModel);
     }
 
     public void notifyUpdate() {
@@ -42,12 +41,12 @@ public class RecipeListAdapter extends BaseAdapter implements IRecipeAdapterList
 
     @Override
     public int getCount() {
-        return dataModels.size();
+        return list.size();
     }
 
     @Override
     public RecipesModel getItem(int position) {
-        return dataModels.get(position);
+        return list.get(position);
     }
 
     @Override
@@ -55,18 +54,17 @@ public class RecipeListAdapter extends BaseAdapter implements IRecipeAdapterList
         return 0;
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder;
-        RecipesModel i = dataModels.get(position);
+        RecipesModel i = list.get(position);
 
         if (convertView == null) {
 
             holder = new ViewHolder();
 
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.recipe_list_cell, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.recipe_list_cell_recipes, parent, false);
 
             holder.title = (TextView) convertView.findViewById(R.id.recipe_list_title);
             holder.readyInMinutes = (TextView) convertView.findViewById(R.id.recipe_list_readyInMinutes);
@@ -78,19 +76,17 @@ public class RecipeListAdapter extends BaseAdapter implements IRecipeAdapterList
         }
 
         if (i != null) {
-            if (holder.title != null) {
+            if (holder.title != null)
                 holder.title.setText(i.getTitle());
-            }
-            if (holder.readyInMinutes != null) {
+
+            if (holder.readyInMinutes != null)
                 holder.readyInMinutes.setText(i.getReadyInMinutes().toString() + " min");
-            }
-            if (holder.image != null) {
+
+            if (holder.image != null)
                 Picasso.with(mContext).load(BASE_URL + i.getImage()).fit().into(holder.image);
-            }
         }
 
         return convertView;
-
     }
 
 

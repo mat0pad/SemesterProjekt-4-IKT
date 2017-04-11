@@ -35,50 +35,46 @@ public class ListDataModelActivity extends AppCompatActivity /*implements ILIstR
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.list);
 
-
         final ListDataContainer dataForPresenter = getIntent().getParcelableExtra("listOfRecipesModels");
 
-        String type = dataForPresenter.getType();
+        if (dataForPresenter != null) {
+            String type = dataForPresenter.getType();
 
-        if (Objects.equals(type, ListDataModel.ListDataType.RECIPE.toString()))
-        {
-            RecipeListAdapter adapter = new RecipeListAdapter(this);
-            presenter = new ListAdapterPresenter(adapter);
-            listView.setAdapter(adapter);
-        }
-        else if (Objects.equals(type, ListDataModel.ListDataType.INGREDIENT.toString()))
-        {
-            IngredientListAdapter adapter = new IngredientListAdapter(this);
-            presenter = new ListAdapterPresenter(adapter);
-            listView.setAdapter(adapter);
-        }
-        else if (Objects.equals(type, ListDataModel.ListDataType.NUTRIENT.toString()))
-        {
-            NutrientListAdapter adapter = new NutrientListAdapter(this);
-            presenter = new ListAdapterPresenter(adapter);
-            listView.setAdapter(adapter);
-        }
-
-        setListData(dataForPresenter);
-
-        // ListView Item Click Listener
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                // ListView Clicked item value
-                int modelId = ((RecipesModel) listView.getItemAtPosition(position)).getId();
-
-                final Intent intent = new Intent(ListDataModelActivity.this.getApplication(), DetailRecipeActivity.class);
-                intent.putExtra("id", modelId);
-
-                startActivity(intent);
-
+            if (Objects.equals(type, ListDataModel.ListDataType.RECIPE.toString())) {
+                RecipeListAdapter adapter = new RecipeListAdapter(this);
+                presenter = new ListAdapterPresenter(adapter);
+                listView.setAdapter(adapter);
+            } else if (Objects.equals(type, ListDataModel.ListDataType.INGREDIENT.toString())) {
+                IngredientListAdapter adapter = new IngredientListAdapter(this);
+                presenter = new ListAdapterPresenter(adapter);
+                listView.setAdapter(adapter);
+            } else if (Objects.equals(type, ListDataModel.ListDataType.NUTRIENT.toString())) {
+                NutrientListAdapter adapter = new NutrientListAdapter(this);
+                presenter = new ListAdapterPresenter(adapter);
+                listView.setAdapter(adapter);
             }
 
-        });
+            setListData(dataForPresenter);
+
+            // ListView Item Click Listener
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        int position, long id) {
+
+                    // ListView Clicked item value
+                    int modelId = ((RecipesModel) listView.getItemAtPosition(position)).getId();
+
+                    final Intent intent = new Intent(ListDataModelActivity.this.getApplication(), DetailRecipeActivity.class);
+                    intent.putExtra("id", modelId);
+
+                    startActivity(intent);
+
+                }
+
+            });
+        }
     }
 
     //@Override

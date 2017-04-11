@@ -45,7 +45,20 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
     {
         view.displayNormalMessage(new MessageModel(input, ChatListAdapter.DIRECTION_OUTGOING, MessageModel.TYPE.NORMAL));
 
-        ci.message((isInGeneral ? "e665abad-a305-4cf4-a21c-045354782015" : "49630f5e-f2b9-453a-be68-927f17cf64bc"), input).setChatbotListener(new ChatbotInteractor.ChatbotListener()
+        doMessage((isInGeneral ? "e665abad-a305-4cf4-a21c-045354782015" : "49630f5e-f2b9-453a-be68-927f17cf64bc"), input);
+    }
+
+    @Override
+    public void switchWorkspace(int spaceId, String lastInput) {
+
+        // 0 = Generel, 1 = rR
+        doMessage((spaceId == 0 ? "e665abad-a305-4cf4-a21c-045354782015" : "49630f5e-f2b9-453a-be68-927f17cf64bc"), lastInput);
+
+    }
+
+    private void doMessage(String workspaceId, String input) {
+
+        ci.message(workspaceId, input).setChatbotListener(new ChatbotInteractor.ChatbotListener()
         {
             @Override
             public void onChatbotResponse(final MessageResponse response)
@@ -92,59 +105,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
                 showErrorText();
             }
         });
-    }
 
-    @Override
-    public void switchWorkspace(int spaceId, String lastInput) {
-
-        ci.message((spaceId == 0 ? "e665abad-a305-4cf4-a21c-045354782015" : "49630f5e-f2b9-453a-be68-927f17cf64bc"), lastInput) // 0 = Generel, 1 = rR
-                .setChatbotListener(new ChatbotInteractor.ChatbotListener()
-                {
-                    @Override
-                    public void onChatbotResponse(final MessageResponse response)
-                    {
-                        Handler mainHandler = new Handler(Looper.getMainLooper());
-
-                        Runnable myRunnable = new Runnable() {
-                            @Override
-                            public void run() {
-
-                                System.out.println(response.toString());
-
-                                if(response.getOutput().containsKey("action")) {
-                                    resetNodesVisited();
-                                    api.performAction(response.getOutput().get("action").toString(), response);
-                                }
-                                else if (response.getOutput().containsKey("goTo")){
-
-
-                                    isInGeneral = !isInGeneral;
-
-                                    if (isLooping(response.getOutput().get("nodes_visited").toString()))
-                                        handleLooping();
-
-                                    else
-                                        api.switchWorkspace(response.getOutput().get("goTo")
-                                                .toString(), response.getInputText());
-                                }
-                                else {
-                                    resetNodesVisited();
-                                    showText(response.getText().toString()
-                                            .substring(1, response.getText().toString().length() - 1));
-                                }
-
-                            }
-                        };
-                        mainHandler.post(myRunnable);
-                    }
-
-                    @Override
-                    public void onChatbotFailed(String errorMsg)
-                    {
-                        System.out.println(errorMsg);
-                        showErrorText();
-                    }
-                });
 
     }
 
@@ -190,6 +151,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
 
     @Override
     public void onReceived(User user, USER_CALLBACK_TYPE type) {
+
         switch(type)
         {
             case USER_FOUND:
@@ -202,10 +164,10 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
             default:
                 break;
         }
+
         switchWorkspace(0," ");
     }
 
-    // response.getOutput().get("nodes_visited").toString()
     private boolean isLooping(String nodes_visited) {
 
         JsonArray entries = (JsonArray) new JsonParser().parse(nodes_visited);

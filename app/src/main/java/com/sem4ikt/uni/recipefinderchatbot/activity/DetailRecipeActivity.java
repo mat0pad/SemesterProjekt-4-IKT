@@ -128,8 +128,9 @@ public class DetailRecipeActivity extends AppCompatActivity implements IDetailRe
 
         if (id != -1) {
             // Load data
-            if(recipe != null)
+            if (recipe != null) {
                 setRecipe(recipe);
+            }
             else
                 presenter.doLoadRecipe(id);
 

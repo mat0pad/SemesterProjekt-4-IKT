@@ -33,6 +33,7 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="15dp"
         android:layout_toStartOf="@+id/hud_image"
+        android:background="@drawable/right_bubble"
         android:orientation="vertical"
         android:padding="5dp">
 
@@ -47,7 +48,5 @@
             android:paddingStart="5dp"
             android:textColor="@color/White" />
 
-
     </LinearLayout>
-
 </RelativeLayout>

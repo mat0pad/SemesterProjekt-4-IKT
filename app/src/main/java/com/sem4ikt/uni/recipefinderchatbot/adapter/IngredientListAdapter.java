@@ -1,6 +1,5 @@
 package com.sem4ikt.uni.recipefinderchatbot.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,18 +22,17 @@ import java.util.List;
 
 public class IngredientListAdapter extends BaseAdapter implements IRecipeAdapterListView {
 
-
     private static String BASE_URL = "https://spoonacular.com/recipeImages/";
-    private List<IngredientsModel> ingredientsModels;
+    private List<IngredientsModel> list;
     private Context mContext;
 
     public IngredientListAdapter(Context context) {
         mContext = context;
-        ingredientsModels = new ArrayList<>();
+        list = new ArrayList<>();
     }
 
     public void addItem(Object ingredientsModel) {
-        ingredientsModels.add((IngredientsModel) ingredientsModel);
+        list.add((IngredientsModel) ingredientsModel);
     }
 
     public void notifyUpdate() {
@@ -43,12 +41,12 @@ public class IngredientListAdapter extends BaseAdapter implements IRecipeAdapter
 
     @Override
     public int getCount() {
-        return ingredientsModels.size();
+        return list.size();
     }
 
     @Override
     public IngredientsModel getItem(int position) {
-        return ingredientsModels.get(position);
+        return list.get(position);
     }
 
     @Override
@@ -56,25 +54,23 @@ public class IngredientListAdapter extends BaseAdapter implements IRecipeAdapter
         return 0;
     }
 
-    @SuppressLint("SetTextI18n")
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        IngredientListAdapter.ViewHolder holder;
-        IngredientsModel i = ingredientsModels.get(position);
+        ViewHolder holder;
+        IngredientsModel i = list.get(position);
 
         if (convertView == null) {
 
             // Prevents calling (the resource heavy) findViewById every time the same view is loaded -> scrolling requires more resources otherwise
             holder = new IngredientListAdapter.ViewHolder();
 
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.recipe_list_cell, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.recipe_list_cell_ingredients, parent, false);
 
-
-            // This is how you obtain a reference to the TextViews.
-            // These TextViews are created in the XML files we defined.
             holder.title = (TextView) convertView.findViewById(R.id.recipe_list_title);
-            holder.ingredientsCount = (TextView) convertView.findViewById(R.id.recipe_list_readyInMinutes);
+            holder.ingredientsMissed = (TextView) convertView.findViewById(R.id.recipe_list_ingredient_not);
+            holder.ingredientsRight = (TextView) convertView.findViewById(R.id.recipe_list_ingredient);
             holder.image = (ImageView) convertView.findViewById(R.id.recipe_list_image);
 
             convertView.setTag(holder);
@@ -85,43 +81,30 @@ public class IngredientListAdapter extends BaseAdapter implements IRecipeAdapter
 
         // check to see if each individual textview is null.
         // if not, assign some text!
-
         if (i != null) {
-            if (holder.title != null) {
+
+            if (holder.title != null)
                 holder.title.setText(i.getTitle());
-            }
-            if (holder.ingredientsCount != null) {
 
-                int count = i.getUsedIngredientCount();
+            if (holder.ingredientsMissed != null)
+                holder.ingredientsMissed.setText(i.getMissedIngredientCount());
 
-                String conjugation;
+            if (holder.ingredientsRight != null)
+                holder.ingredientsRight.setText(i.getUsedIngredientCount());
 
-                if(count == 1)
-                {
-                    conjugation = " ingredient";
-                }
-                else
-                {
-                    conjugation = " ingredients";
-                }
-
-                holder.ingredientsCount.setText("Contains " + count + conjugation + " you specified");
-            }
-            if (holder.image != null) {
+            if (holder.image != null)
                 Picasso.with(mContext).load(BASE_URL + i.getImage()).fit().into(holder.image);
-            }
         }
 
-        // the view must be returned to our activity
         return convertView;
-
     }
 
 
     // Ensure that find by id is not called every time -> could cause slow scrolling
     private class ViewHolder {
         TextView title;
-        TextView ingredientsCount;
+        TextView ingredientsMissed;
+        TextView ingredientsRight;
         ImageView image;
     }
 

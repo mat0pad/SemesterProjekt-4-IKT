@@ -1,6 +1,5 @@
 package com.sem4ikt.uni.recipefinderchatbot.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,18 +22,17 @@ import java.util.List;
 
 public class NutrientListAdapter extends BaseAdapter implements IRecipeAdapterListView {
 
-
     private static String BASE_URL = "https://spoonacular.com/recipeImages/";
-    private List<NutrientsModel> nutrientsModels;
+    private List<NutrientsModel> list;
     private Context mContext;
 
     public NutrientListAdapter(Context context) {
         mContext = context;
-        nutrientsModels = new ArrayList<>();
+        list = new ArrayList<>();
     }
 
     public void addItem(Object nutrientsModels) {
-        this.nutrientsModels.add((NutrientsModel) nutrientsModels);
+        this.list.add((NutrientsModel) nutrientsModels);
     }
 
     public void notifyUpdate() {
@@ -43,12 +41,12 @@ public class NutrientListAdapter extends BaseAdapter implements IRecipeAdapterLi
 
     @Override
     public int getCount() {
-        return nutrientsModels.size();
+        return list.size();
     }
 
     @Override
     public NutrientsModel getItem(int position) {
-        return nutrientsModels.get(position);
+        return list.get(position);
     }
 
     @Override
@@ -56,37 +54,23 @@ public class NutrientListAdapter extends BaseAdapter implements IRecipeAdapterLi
         return 0;
     }
 
-    @SuppressLint("SetTextI18n")
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        NutrientListAdapter.ViewHolder holder;
-        NutrientsModel i = nutrientsModels.get(position);
+        ViewHolder holder;
+        NutrientsModel i = list.get(position);
 
         if (convertView == null) {
 
-            holder = new NutrientListAdapter.ViewHolder();
+            holder = new ViewHolder();
 
-            // assign the view we are converting to a local variable
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.recipe_list_cell_recipes, parent, false);
 
-
-            // first check to see if the view is null. if so, we have to inflate it.
-            // to inflate it basically means to render, or show, the view.
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.recipe_list_cell, parent, false);
-
-		/*
-         * Recall that the variable position is sent in as an argument to this method.
-		 * The variable simply refers to the position of the current object in the list. (The ArrayAdapter
-		 * iterates through the list we sent it)
-		 *
-		 * Therefore, i refers to the current Item object.
-		 */
-
-
-            // This is how you obtain a reference to the TextViews.
-            // These TextViews are created in the XML files we defined.
             holder.title = (TextView) convertView.findViewById(R.id.recipe_list_title);
-            holder.calories = (TextView) convertView.findViewById(R.id.recipe_list_readyInMinutes);
+            holder.calories = (TextView) convertView.findViewById(R.id.recipe_list_calc);
+            holder.carbs = (TextView) convertView.findViewById(R.id.recipe_list_carbs);
+            holder.protein = (TextView) convertView.findViewById(R.id.recipe_list_protein);
             holder.image = (ImageView) convertView.findViewById(R.id.recipe_list_image);
 
             convertView.setTag(holder);
@@ -94,39 +78,25 @@ public class NutrientListAdapter extends BaseAdapter implements IRecipeAdapterLi
             holder = (NutrientListAdapter.ViewHolder) convertView.getTag();
         }
 
-
-        // check to see if each individual textview is null.
-        // if not, assign some text!
-
         if (i != null) {
-            if (holder.title != null) {
+            if (holder.title != null)
                 holder.title.setText(i.getTitle());
-            }
-            if (holder.calories != null) {
 
-                int count = i.getCalories();
+            if (holder.calories != null)
+                holder.calories.setText(i.getCalories());
 
-                String conjugation;
+            if (holder.carbs != null)
+                holder.carbs.setText(i.getCarbs());
 
-                if(count == 1)
-                {
-                    conjugation = " calorie";
-                }
-                else
-                {
-                    conjugation = " calories";
-                }
+            if (holder.carbs != null)
+                holder.carbs.setText(i.getProtein());
 
-                holder.calories.setText("Contains " + count + conjugation);
-            }
-            if (holder.image != null) {
+            if (holder.image != null)
                 Picasso.with(mContext).load(BASE_URL + i.getImage()).fit().into(holder.image);
-            }
         }
 
         // the view must be returned to our activity
         return convertView;
-
     }
 
 
@@ -134,6 +104,8 @@ public class NutrientListAdapter extends BaseAdapter implements IRecipeAdapterLi
     private class ViewHolder {
         TextView title;
         TextView calories;
+        TextView carbs;
+        TextView protein;
         ImageView image;
     }
 

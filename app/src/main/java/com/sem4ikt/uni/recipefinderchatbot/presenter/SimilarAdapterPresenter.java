@@ -1,6 +1,5 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ISimilarAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ISimilarGridAdapterView;
@@ -20,6 +19,8 @@ public class SimilarAdapterPresenter extends BasePresenter<ISimilarGridAdapterVi
     @Override
     public void setList(List<RecipesModel> list) {
 
+        for (RecipesModel item : list)
+            view.addItem(item);
 
         view.notifyUpdate();
     }
