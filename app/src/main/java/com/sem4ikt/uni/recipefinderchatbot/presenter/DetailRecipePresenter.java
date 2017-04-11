@@ -3,6 +3,7 @@ package com.sem4ikt.uni.recipefinderchatbot.presenter;
 import android.support.annotation.VisibleForTesting;
 
 import com.sem4ikt.uni.recipefinderchatbot.activity.DetailRecipeActivity;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackRecipe;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.database.RecipeInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.DetailRecipeInteractor;
@@ -33,7 +34,7 @@ public class DetailRecipePresenter extends BasePresenter<IDetailRecipeView> impl
         super(view);
 
         interactor = new DetailRecipeInteractor();
-        interactorDB = new RecipeInteractor(this);
+        interactorDB = new RecipeInteractor();
     }
 
     @VisibleForTesting
@@ -121,6 +122,7 @@ public class DetailRecipePresenter extends BasePresenter<IDetailRecipeView> impl
                 if (model != null)
                     view.setSimilar((List<RecipesModel>) model);
                 break;
+
             case INSTRUCTION:
                 if (model != null)
                     parseInstructions((List<InstructionsModel>) model);
@@ -184,6 +186,8 @@ public class DetailRecipePresenter extends BasePresenter<IDetailRecipeView> impl
 
         return type;
     }
+
+
 
     public enum CALL_TYPE {GET_RECIPE, SUMMARIZE, SIMILAR, INSTRUCTION}
 }

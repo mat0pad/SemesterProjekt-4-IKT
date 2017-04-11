@@ -3,6 +3,7 @@ package com.sem4ikt.uni.recipefinderchatbot.model.spoonacular;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  */
 
 
-public class RecipeModel {
+public class RecipeModel implements Serializable {
 
     @SerializedName("vegetarian")
     @Expose

@@ -1,5 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces;
 
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 
 import java.util.List;
@@ -15,4 +16,5 @@ public interface ISimilarAdapterPresenter<V> extends IBasePresenter<V> {
     void doClick(int id);
 
     int getItemId(int position);
+
 }
