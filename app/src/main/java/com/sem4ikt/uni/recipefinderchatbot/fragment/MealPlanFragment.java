@@ -42,7 +42,6 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
     ImageView lunch;
     MealPlanDayModel dayModel;
     MealPlanWeekModel weekModel;
-    MealplanInteractor mealplan= new  MealplanInteractor();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,6 +75,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
 
                     final MealPlanWeekModel model = response.body();
                     weekModel= response.body();
+                    //dayModel= response.body();
 
                     Handler mainHandler = new Handler(Looper.getMainLooper());
 
@@ -87,6 +87,8 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                             JsonObject jon = new JsonParser().parse(value).getAsJsonObject();
                             String image = jon.get("id").getAsString();
                             image= image+"-556x370.jpg";
+                           // image =dayModel.getRecipeModels().get(0).getImage();
+
 
                             {
                                 String BASE_URL = "https://spoonacular.com/recipeImages/";
@@ -103,6 +105,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                              jon = new JsonParser().parse(value).getAsJsonObject();
                             image = jon.get("id").getAsString();
                             image= image+"-556x370.jpg";
+                            // image =dayModel.getRecipeModels().get(1).getImage();
 
                             {
                                 String BASE_URL = "https://spoonacular.com/recipeImages/";
@@ -119,6 +122,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                             jon = new JsonParser().parse(value).getAsJsonObject();
                             image = jon.get("id").getAsString();
                             image= image+"-556x370.jpg";
+                            // image =dayModel.getRecipeModels().get(2).getImage();
 
                             {
                                 String BASE_URL = "https://spoonacular.com/recipeImages/";
@@ -154,7 +158,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
             @Override
             public void onClick(View v) {
                 int id;
-
+                //id= dayModel.getRecipeModels().get(0).getId();
                     String value =  weekModel.getItems().get(0).getValue();
                     JsonObject jon = new JsonParser().parse(value).getAsJsonObject();
                     id = jon.get("id").getAsInt();
@@ -171,7 +175,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
             @Override
             public void onClick(View v) {
                 int id;
-
+                //id= dayModel.getRecipeModels().get(1).getId();
                     String value =  weekModel.getItems().get(1).getValue();
                     JsonObject jon = new JsonParser().parse(value).getAsJsonObject();
                     id = jon.get("id").getAsInt();
@@ -188,7 +192,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
             @Override
             public void onClick(View v) {
                 int id;
-
+                //id= dayModel.getRecipeModels().get(2).getId();
                     String value =  weekModel.getItems().get(2).getValue();
                     JsonObject jon = new JsonParser().parse(value).getAsJsonObject();
                     id = jon.get("id").getAsInt();
