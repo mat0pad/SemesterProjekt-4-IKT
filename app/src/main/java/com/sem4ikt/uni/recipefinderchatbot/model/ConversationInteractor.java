@@ -77,7 +77,13 @@ public class ConversationInteractor implements IConversationInteractor {
             case "find_by_ingredient":
                 detectIngredients(response.getContext().get("with_query").toString(),
                         response.getContext().get("num_of_recipes").toString(),
-                        Integer.parseInt(response.getContext().get("rank").toString()));
+                        response.getContext().get("rank").toString());
+                break;
+
+            case "find_by_nutrient":
+                findByNutrients(response.getContext().get("num_of_recipes").toString(),
+                        response.getContext().get("nutrient_type").toString());
+                break;
 
             default:
                 presenter.showText("I don't known this action: " + action);
@@ -317,7 +323,10 @@ public class ConversationInteractor implements IConversationInteractor {
     }
 
 
-    private void detectIngredients(String input, final String numOfRecipes, final int rank) {
+    private void detectIngredients(String input, final String numOfRecipes, final String rank) {
+
+        presenter.showText("I'm searching...");
+
         ISpoonacularAPI.ICompute apiService = client.getClient().create(ISpoonacularAPI.ICompute.class);
 
         Call<AnalyzedQueryModel> call = apiService.getAnalyzedQuery(input);
@@ -341,7 +350,7 @@ public class ConversationInteractor implements IConversationInteractor {
 
                     System.out.println(query);
 
-                    findByIngredients(stringToInt(numOfRecipes), query, rank);
+                    findByIngredients(stringToInt(numOfRecipes), query, stringToInt(rank));
                 } else {
                     System.out.println("Failed detectIngredients");
                     presenter.showErrorText();
@@ -404,13 +413,32 @@ public class ConversationInteractor implements IConversationInteractor {
     }
 
     // The actual finding of recipes based on nutrients
-    private void findByNutrients(String numOfRecipes) {
+    private void findByNutrients(String numOfRecipes, String type) {
 
         int num = stringToInt(numOfRecipes);
 
         ISpoonacularAPI.ISearch apiService = client.getClient().create(ISpoonacularAPI.ISearch.class);
 
-        Call<List<NutrientsModel>> call = apiService.findByNutrients(0, 0, 0, 0, 0, 0, 0, 0, num, 0, true);
+        Call<List<NutrientsModel>> call;
+
+        switch (type) {
+
+            case "weight loss":
+                call = apiService.findByNutrients(600, 0, 80, 0, 20, 0, 300, 10, num, 0, true);
+                break;
+
+            case "unhealthy":
+                call = apiService.findByNutrients(3000, 1000, 3000, 100, 300, 40, 200, 0, num, 0, true);
+                break;
+
+            case "training":
+                call = apiService.findByNutrients(1000, 0, 200, 40, 20, 0, 200, 30, num, 0, true);
+                break;
+
+            default:
+                call = apiService.findByNutrients(800, 0, 900, 0, 50, 0, 300, 10, num, 0, true);
+                break;
+        }
 
         call.enqueue(new Callback<List<NutrientsModel>>() {
             @Override
@@ -454,6 +482,8 @@ public class ConversationInteractor implements IConversationInteractor {
     // Used to detect ingredients in query before substitutes search
     private void detectIngredientsForSubstitutes(String input) {
 
+        presenter.showText("I'm searching...");
+
         ISpoonacularAPI.ICompute apiService = client.getClient().create(ISpoonacularAPI.ICompute.class);
 
         Call<AnalyzedQueryModel> call = apiService.getAnalyzedQuery(input);
@@ -466,7 +496,7 @@ public class ConversationInteractor implements IConversationInteractor {
 
                     AnalyzedQueryModel model = response.body();
 
-                    String[] query = new String[model.getIngredients().size() - 1];
+                    String[] query = new String[model.getIngredients().size()];
 
                     for (int i = 0; i < model.getIngredients().size(); i++)
                         if (model.getIngredients().get(i).getInclude())
@@ -474,10 +504,14 @@ public class ConversationInteractor implements IConversationInteractor {
 
                     System.out.println(Arrays.toString(query));
 
-                    for (String aQuery : query)
-                        if (!aQuery.isEmpty())
-                            findIngredientSubstitutes(aQuery);
+                    if (query.length == 0)
+                        presenter.showText("I'm sorry I couldn't find any substitutes for that");
+                    else {
 
+                        for (String aQuery : query)
+                            if (!aQuery.isEmpty())
+                                findIngredientSubstitutes(aQuery);
+                    }
                 } else {
                     System.out.println("Failed detectIngredientsForSubstitutes");
                     presenter.showErrorText();
@@ -495,7 +529,7 @@ public class ConversationInteractor implements IConversationInteractor {
     }
 
     // The actual finding of ingredient substitutes based on ingredient name
-    private void findIngredientSubstitutes(String ingredientName) {
+    private void findIngredientSubstitutes(final String ingredientName) {
 
         ISpoonacularAPI.ISearch apiService = client.getClient().create(ISpoonacularAPI.ISearch.class);
 
@@ -511,18 +545,21 @@ public class ConversationInteractor implements IConversationInteractor {
                     if (model.getStatus().equals("success")) {
 
                         if (model.getSubstitutes().size() > 1) {
-                            presenter.showText(model.getMessage().replace('.', ' ') + model.getIngredient() + ". They are..");
+
+                            String result = "";
 
                             for (int i = 0; i < model.getSubstitutes().size(); i++)
-                                presenter.showText(i + 1 + ".\n" + model.getSubstitutes().get(i));
-                        } else if (model.getSubstitutes().size() == 1) {
-                            presenter.showText(model.getMessage().replace('.', ' ') + model.getIngredient() + ". It is..");
+                                result += i + 1 + ".\n" + model.getSubstitutes().get(i) + "\n";
 
-                            presenter.showText(model.getSubstitutes().get(0));
+                            presenter.showText(model.getMessage().replace('.', ' ') + model.getIngredient() + ".\nThey are:\n" + result);
+
+                        } else if (model.getSubstitutes().size() == 1) {
+                            presenter.showText(model.getMessage().replace('.', ' ') + model.getIngredient() + ".\nIt is:\n" + model.getSubstitutes().get(0));
+
                         } else
-                            presenter.showText("I'm sorry I couldn't find any substitutes for that ingredient...");
+                            presenter.showText("I'm sorry I couldn't find any substitutes for " + ingredientName);
                     } else
-                        presenter.showText("I'm sorry I couldn't find any substitutes for that ingredient...");
+                        presenter.showText("I'm sorry I couldn't find any substitutes for " + ingredientName);
 
                 } else {
                     System.out.println("Failed findIngredientSubstitutes - code is " + response.code());
