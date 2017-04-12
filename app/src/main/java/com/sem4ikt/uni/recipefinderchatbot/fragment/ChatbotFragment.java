@@ -1,11 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,26 +11,13 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
-import com.sem4ikt.uni.recipefinderchatbot.activity.ListDataModelActivity;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
-import com.sem4ikt.uni.recipefinderchatbot.adapter.ListContainerFactory;
-import com.sem4ikt.uni.recipefinderchatbot.adapter.ListDataContainer;
 import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientsModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatListAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatListAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.rest.ApiClient;
-import com.sem4ikt.uni.recipefinderchatbot.rest.ISpoonacularAPI;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 /**
@@ -92,56 +75,7 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
                 adapterPresenter.doClick(position);
             }
         });
-
-
-        // Showing recipe list view and passing RecipesModels
-        final Intent intent = new Intent(ChatbotFragment.this.getActivity(), ListDataModelActivity.class);
-
-        ApiClient client = new ApiClient();
-        ISpoonacularAPI.ISearch apiService = client.getClient().create(ISpoonacularAPI.ISearch.class);
-
-        Call<List<IngredientsModel>> call = apiService.findByIngredients("Chocolate", 15, false, 1);
-
-
-        call.enqueue(new Callback<List<IngredientsModel>>() {
-            @Override
-            public void onResponse(Call<List<IngredientsModel>> call, Response<List<IngredientsModel>> response) {
-
-                if (response.code() == 200) {
-
-                    final ArrayList<IngredientsModel> list = new ArrayList<>();
-                    list.addAll(response.body());
-
-                    Log.i("TESTLIST", list.toString());
-
-                    final ListDataContainer container = ListContainerFactory.createIngredientsListContainer(list);
-
-                    Handler mainHandler = new Handler(Looper.getMainLooper());
-
-                    Runnable myRunnable = new Runnable() {
-                        @Override
-                        public void run() {
-                            // Pass the data
-                            intent.putExtra("listOfRecipesModels", container);
-
-                            startActivity(intent);
-                        }
-                    };
-                    mainHandler.post(myRunnable);
-
-                } else {
-                    // Something went wrong
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<IngredientsModel>> call, Throwable t) {
-                Log.e("TESTLIST", t.toString());
-                t.printStackTrace();
-            }
-        });
-
+        
 
         return view;
     }
