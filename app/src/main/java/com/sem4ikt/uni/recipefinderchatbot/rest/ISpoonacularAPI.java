@@ -16,7 +16,6 @@ import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.TextModel;
 
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -35,9 +34,9 @@ public interface ISpoonacularAPI {
         /**@Params
 
             diet            : What diet it should be, etc vegetarian
-            targetCalories  : Amount of calories mealplan should try to hit
-            timeFrame       :Time of the mealplan
-            exclude         :What food should be excluded
+        targetCalories  : What is the caloric target for one day? The meal plan generator will try to get as close as possible to that goal.
+        timeFrame       : Either for one 'day' or an entire 'week'.
+        exclude         : A comma-separated list of allergens or ingredients that must be excluded.
 
          **/
         @GET("recipes/mealplans/generate")

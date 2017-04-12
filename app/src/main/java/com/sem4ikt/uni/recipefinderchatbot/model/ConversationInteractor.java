@@ -4,6 +4,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IConversationInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnalyzedQueryModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnswerModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientSubstituteModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RandomRecipeModel;
@@ -15,6 +16,7 @@ import com.sem4ikt.uni.recipefinderchatbot.rest.ApiClient;
 import com.sem4ikt.uni.recipefinderchatbot.rest.IApiClient;
 import com.sem4ikt.uni.recipefinderchatbot.rest.ISpoonacularAPI;
 
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -67,6 +69,9 @@ public class ConversationInteractor implements IConversationInteractor {
                         , response.getContext().get("exclude").toString());
                 break;
 
+            case "ingredient_substitute":
+                detectIngredientsForSubstitutes(response.getInputText());
+
             default:
                 presenter.showText("I don't known this action: " + action);
                 break;
@@ -84,6 +89,7 @@ public class ConversationInteractor implements IConversationInteractor {
         }
     }
 
+    // Used to get random food joke
     private void invokeJoke(){
 
         ISpoonacularAPI.IData apiService = client.getClient().create(ISpoonacularAPI.IData.class);
@@ -93,6 +99,7 @@ public class ConversationInteractor implements IConversationInteractor {
         enqueueTextModelCall(call);
     }
 
+    // Used to get random trivia
     private void invokeTrivia(){
 
         ISpoonacularAPI.IData apiService = client.getClient().create(ISpoonacularAPI.IData.class);
@@ -103,6 +110,7 @@ public class ConversationInteractor implements IConversationInteractor {
 
     }
 
+    // Used to get random fact
     private void invokeFact(String input){
 
         ISpoonacularAPI.ICompute apiService = client.getClient().create(ISpoonacularAPI.ICompute.class);
@@ -129,6 +137,7 @@ public class ConversationInteractor implements IConversationInteractor {
         });
     }
 
+    // Used to detect food in query before random search
     private void detectQueryIntention(String input, final String numOfRecipes) {
 
         ISpoonacularAPI.ICompute apiService = client.getClient().create(ISpoonacularAPI.ICompute.class);
@@ -180,6 +189,7 @@ public class ConversationInteractor implements IConversationInteractor {
 
     }
 
+    // The actual random recipe search
     private void randomRecipe(String intent, int numOfRecipes) {
 
         ISpoonacularAPI.ISearch apiService = client.getClient().create(ISpoonacularAPI.ISearch.class);
@@ -241,17 +251,14 @@ public class ConversationInteractor implements IConversationInteractor {
         });
     }
 
+    // The actual finding of recipes based on DICC: Diet, Intolerance, Cuisine, Course
     private void findRecipesBasedOnDICC(String numOfRecipes, String diet, String intolerance, String cuisine, String course, String query, String exclude) {
 
         int num = stringToInt(numOfRecipes);
 
         ISpoonacularAPI.ISearch apiService = client.getClient().create(ISpoonacularAPI.ISearch.class);
 
-        System.out.println("Query: " + query);
-        System.out.println("Diet: " + diet);
-        System.out.println("Cuisine: " + cuisine);
-        System.out.println("Course: " + course);
-        System.out.println("Intolerance: " + intolerance);
+        System.out.println("Query: " + query + "\nDiet: " + diet + "\nCuisine: " + cuisine + "\nCourse: " + course + "\nIntolerance: " + intolerance);
 
         Call<SearchRecipesModel> call = apiService
                 .searchAllRecipes((query.equals("undefined") ? "" : query)
@@ -270,9 +277,6 @@ public class ConversationInteractor implements IConversationInteractor {
                 if (response.code() == 200) {
                     SearchRecipesModel model = response.body();
 
-                    for (RecipesModel item : model.getResults())
-                        System.out.println(item.getTitle());
-
                     if (model.getResults().size() > 1) {
 
                         String image = "";
@@ -281,7 +285,6 @@ public class ConversationInteractor implements IConversationInteractor {
                             if (!item.getImage().isEmpty())
                                 image = item.getImage();
 
-                        System.out.println("Conversation " + image);
                         presenter.showMoreRecipesText("I found these:", image, model.getResults(), MessageModel.TYPE.MORE_RECIPES_MODEL);
                     } else if (model.getResults().size() == 1)
                         presenter.showSingleRecipeText("I found this:", model.getResults().get(0).getImage(), model.getResults().get(0).getId());
@@ -306,6 +309,7 @@ public class ConversationInteractor implements IConversationInteractor {
         });
     }
 
+    // The actual finding of recipes based on ingredients
     private void findByIngredients(String numOfRecipes, String ingredients, int rank) {
         int num = stringToInt(numOfRecipes);
 
@@ -352,6 +356,7 @@ public class ConversationInteractor implements IConversationInteractor {
         });
     }
 
+    // The actual finding of recipes based on nutrients
     private void findByNutrients(String numOfRecipes) {
 
         int num = stringToInt(numOfRecipes);
@@ -397,6 +402,97 @@ public class ConversationInteractor implements IConversationInteractor {
                 presenter.showErrorText();
             }
         });
+    }
+
+    // Used to detect ingredients in query before substitutes search
+    private void detectIngredientsForSubstitutes(String input) {
+
+        ISpoonacularAPI.ICompute apiService = client.getClient().create(ISpoonacularAPI.ICompute.class);
+
+        Call<AnalyzedQueryModel> call = apiService.getAnalyzedQuery(input);
+
+        call.enqueue(new Callback<AnalyzedQueryModel>() {
+            @Override
+            public void onResponse(Call<AnalyzedQueryModel> call, Response<AnalyzedQueryModel> response) {
+
+                if (response.code() == 200) {
+
+                    AnalyzedQueryModel model = response.body();
+
+                    String[] query = new String[model.getIngredients().size() - 1];
+
+                    for (int i = 0; i < model.getIngredients().size(); i++)
+                        if (model.getIngredients().get(i).getInclude())
+                            query[i] = model.getIngredients().get(i).getName();
+
+                    System.out.println(Arrays.toString(query));
+
+                    for (String aQuery : query)
+                        if (!aQuery.isEmpty())
+                            findIngredientSubstitutes(aQuery);
+
+                } else {
+                    System.out.println("Failed detectIngredientsForSubstitutes");
+                    presenter.showErrorText();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AnalyzedQueryModel> call, Throwable t) {
+                System.out.println("Failed detectIngredientsForSubstitutes");
+                t.printStackTrace();
+                presenter.showErrorText();
+            }
+        });
+
+    }
+
+    // The actual finding of ingredient substitutes based on ingredient name
+    private void findIngredientSubstitutes(String ingredientName) {
+
+        ISpoonacularAPI.ISearch apiService = client.getClient().create(ISpoonacularAPI.ISearch.class);
+
+        Call<IngredientSubstituteModel> call = apiService.findIngredientSubstitutes(ingredientName);
+
+        call.enqueue(new Callback<IngredientSubstituteModel>() {
+            @Override
+            public void onResponse(Call<IngredientSubstituteModel> call, Response<IngredientSubstituteModel> response) {
+
+                if (response.code() == 200) {
+                    IngredientSubstituteModel model = response.body();
+
+                    if (model.getStatus().equals("success")) {
+
+                        if (model.getSubstitutes().size() > 1) {
+                            presenter.showText(model.getMessage().replace('.', ' ') + model.getIngredient() + ". They are..");
+
+                            for (int i = 0; i < model.getSubstitutes().size(); i++)
+                                presenter.showText(i + 1 + ".\n" + model.getSubstitutes().get(i));
+                        } else if (model.getSubstitutes().size() == 1) {
+                            presenter.showText(model.getMessage().replace('.', ' ') + model.getIngredient() + ". It is..");
+
+                            presenter.showText(model.getSubstitutes().get(0));
+                        } else
+                            presenter.showText("I'm sorry I couldn't find any substitutes for that ingredient...");
+                    } else
+                        presenter.showText("I'm sorry I couldn't find any substitutes for that ingredient...");
+
+                } else {
+                    System.out.println("Failed findIngredientSubstitutes - code is " + response.code());
+                    presenter.showText("I'm sorry I couldn't find any...");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<IngredientSubstituteModel> call, Throwable t) {
+                System.out.println("Failed findIngredientSubstitutes");
+
+                t.printStackTrace();
+
+                presenter.showErrorText();
+            }
+        });
+
     }
 
     // Convert to int from string where float, double or int

@@ -59,13 +59,25 @@ public class FavoritesGridAdapterPresenter extends BasePresenter<IFavoritesGridA
         view.showRecipe(recipeModel);
     }
     @Override
-    public int getItemId(int position) {
-        return view.getItem(position).getId();
+    public RecipeModel getItem(int position) {
+        return view.getItem(position);
     }
 
     @Override
     public void deleteRecipe(RecipeModel recipe) {
         view.deleteRecipe(recipe);
+        view.notifyUpdate();
+    }
+
+    @Override
+    public void isDeleting(boolean isdeleting) {
+        view.setDeleting(isdeleting);
+        view.notifyUpdate();
+    }
+
+    @Override
+    public void deleteRecipe(int position) {
+        view.deleteRecipe(position);
         view.notifyUpdate();
     }
 

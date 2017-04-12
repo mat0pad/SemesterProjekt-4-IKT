@@ -21,7 +21,11 @@ public interface IFavoritesGridAdapterPresenter<V>  extends IBasePresenter<V>{
 
     void onClick(int recipeid);
 
-    int getItemId(int position);
+    RecipeModel getItem(int position);
 
     void deleteRecipe(RecipeModel recipe);
+
+    void isDeleting(boolean isdeleting);
+
+    void deleteRecipe(int position);
 }

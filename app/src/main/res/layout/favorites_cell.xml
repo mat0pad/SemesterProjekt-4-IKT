@@ -9,7 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/close"/>
+        android:src="@drawable/close"
+        android:alpha="1"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/delete"
+        android:id="@+id/close_image_cell"/>
 
     <View
         android:id="@+id/view"

@@ -11,5 +11,8 @@ import java.util.List;
 
 public interface IFavoritesPresenter<V> extends IBasePresenter<V> {
     void getRecipeList();
+
     void checkForUpdates();
+
+    void deleteRecipe(RecipeModel recipe);
 }

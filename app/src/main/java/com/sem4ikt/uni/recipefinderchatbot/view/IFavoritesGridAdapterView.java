@@ -25,4 +25,8 @@ public interface IFavoritesGridAdapterView {
     void showRecipe(RecipeModel recipe);
 
     void deleteRecipe(RecipeModel recipe);
+
+    void setDeleting(boolean isdeleting);
+
+    void deleteRecipe(int position);
 }
