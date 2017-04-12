@@ -4,7 +4,6 @@ package com.sem4ikt.uni.recipefinderchatbot.services;
 import android.util.Log;
 
 import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
-import com.google.firebase.database.ValueEventListener;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
@@ -38,18 +37,21 @@ public class ChatbotService implements IChatbotService {
 
                     Object user = contextRecipe.get("username");
                     Object returning = contextRecipe.get("returning_user");
-                    Object loop_count = contextRecipe.get("loop_count");
 
                     if (user != null)
                         contextGeneral.put("username", user);
                     if (returning != null)
                         contextGeneral.put("returning_user", returning);
-                    if (loop_count != null)
-                        contextGeneral.put("loop_count", loop_count);
+
+                    contextGeneral.put("num_of_recipes", contextRecipe.get("num_of_recipes"));
+                    contextGeneral.put("diet", contextRecipe.get("diet"));
+                    contextGeneral.put("course", contextRecipe.get("course"));
+                    contextGeneral.put("intolerance", contextRecipe.get("intolerance"));
+                    contextGeneral.put("cuisine", contextRecipe.get("cuisine"));
+
                     break;
 
                 case "49630f5e-f2b9-453a-be68-927f17cf64bc": // Switching to Recipe
-                    contextRecipe.put("loop_count", contextGeneral.get("loop_count"));
                     contextRecipe.put("username", contextGeneral.get("username"));
                     contextRecipe.put("returning_user", contextGeneral.get("returning_user"));
                     break;
@@ -70,7 +72,6 @@ public class ChatbotService implements IChatbotService {
             contextGeneral.put("username", "undefined");
         }
 
-        contextGeneral.put("loop_count", 0);
         contextGeneral.put("num_of_recipes", 0);
         contextGeneral.put("diet", "undefined");
         contextGeneral.put("course", "undefined");

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by anton on 09-03-2017.
  */
-public class MealPlanModel {
+public class MealPlanDayModel {
 
     @SerializedName("meals")
     @Expose
