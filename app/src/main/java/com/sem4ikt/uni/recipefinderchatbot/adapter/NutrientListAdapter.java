@@ -91,8 +91,8 @@ public class NutrientListAdapter extends BaseAdapter implements IRecipeAdapterLi
             if (holder.carbs != null)
                 holder.carbs.setText(i.getCarbs());
 
-            if (holder.carbs != null)
-                holder.carbs.setText(i.getProtein());
+            if (holder.protein != null)
+                holder.protein.setText(i.getProtein());
 
             if (holder.image != null) {
 
