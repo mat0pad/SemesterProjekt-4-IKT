@@ -2,6 +2,7 @@ package com.sem4ikt.uni.recipefinderchatbot.model;
 
 
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
+import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IChatbotInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.services.ChatbotService;
 import com.sem4ikt.uni.recipefinderchatbot.services.IChatbotService;
@@ -21,6 +22,7 @@ public class ChatbotInteractor implements IChatbotInteractor
                 .setToneAnalyzerCredentials("48091cfc-fd99-456a-b67c-00bdeef74b06", "XQE4Xl4oZuk0");
 
     }
+
 
     @Override
     public ChatbotCall message(String workspaceId, String msg)
@@ -53,6 +55,12 @@ public class ChatbotInteractor implements IChatbotInteractor
                 });
             }
         };
+    }
+
+    //New
+    @Override
+    public void setContext(User user) {
+        cs.setUserContextGeneral(user);
     }
 
 

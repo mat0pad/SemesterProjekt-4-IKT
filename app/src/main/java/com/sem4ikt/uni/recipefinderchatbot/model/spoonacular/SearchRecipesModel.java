@@ -31,7 +31,7 @@ public class SearchRecipesModel {
     private Integer processingTimeMs;
     @SerializedName("expires")
     @Expose
-    private Integer expires;
+    private double expires;
     @SerializedName("isStale")
     @Expose
     private Boolean isStale;
@@ -84,11 +84,11 @@ public class SearchRecipesModel {
         this.processingTimeMs = processingTimeMs;
     }
 
-    public Integer getExpires() {
+    public double getExpires() {
         return expires;
     }
 
-    public void setExpires(Integer expires) {
+    public void setExpires(double expires) {
         this.expires = expires;
     }
 

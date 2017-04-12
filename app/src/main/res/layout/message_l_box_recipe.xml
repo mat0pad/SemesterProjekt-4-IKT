@@ -50,17 +50,16 @@
 
         <ImageView
             android:id="@+id/message_l_image"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_width="250dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="13dp"
             android:layout_marginRight="7dp"
             android:layout_weight="0.82"
-            android:elevation="10dp"
             android:paddingEnd="7dp"
-            android:paddingStart="13dp"
-            android:scaleType="fitXY" />
+            android:paddingStart="11dp"
+            android:scaleType="centerCrop" />
 
     </LinearLayout>
 

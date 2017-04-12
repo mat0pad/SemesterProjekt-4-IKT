@@ -116,7 +116,6 @@ public class RecipesModel implements Parcelable {
             return new RecipesModel(in);
         }
 
-        // We just need to copy this and change the type to match our class.
         @Override
         public RecipesModel[] newArray(int size) {
             return new RecipesModel[size];

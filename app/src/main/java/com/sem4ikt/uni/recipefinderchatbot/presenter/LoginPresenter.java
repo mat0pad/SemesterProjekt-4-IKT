@@ -27,6 +27,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
 
         // Create model
         auth = new Authentication();
+
     }
 
     @VisibleForTesting
@@ -46,15 +47,16 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
     }
 
     @Override
-    public void doLogin(String email, String password) {
+    public void doLogin(String email, String password){
 
         user.setPassword(password);
         user.setEmail(email);
 
         setProgressBarVisiblity(true);
 
-        if (user.checkUserValidity() || true)
-            auth.signIn(email,password, this);
+        if (user.checkUserValidity() || true) {
+            auth.signIn(email, password, this);
+        }
 
         else {
             view.onShowToast("Incorrect password or email");
@@ -73,8 +75,9 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
 
         if (user.checkUserValidity())
 
-            if (user.checkPasswordsMatches())
-                auth.createUserWithEmailAndPassword(email,password, this);
+            if (user.checkPasswordsMatches()) {
+                auth.createUserWithEmailAndPassword(email, password, this);
+            }
 
             else {
                 view.onShowToast("Password and Confirm Password must be identical.");

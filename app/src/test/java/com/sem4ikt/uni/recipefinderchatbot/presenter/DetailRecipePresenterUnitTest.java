@@ -1,7 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IDetailRecipeInteractor;
-import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IFirebaseInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.view.IDetailRecipeView;
 
 import org.junit.Assert;
@@ -21,7 +21,7 @@ public class DetailRecipePresenterUnitTest {
     @Mock
     IDetailRecipeView view;
     IDetailRecipeInteractor interactor;
-    IFirebaseInteractor interactorDB;
+    IFirebaseDBInteractors.IRecipeInteractor interactorDB;
 
     private DetailRecipePresenter presenter;
 

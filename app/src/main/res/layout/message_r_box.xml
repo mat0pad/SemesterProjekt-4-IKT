@@ -48,7 +48,5 @@
             android:paddingStart="5dp"
             android:textColor="@color/White" />
 
-
     </LinearLayout>
-
 </RelativeLayout>

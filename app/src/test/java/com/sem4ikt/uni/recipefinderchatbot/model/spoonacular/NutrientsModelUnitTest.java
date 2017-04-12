@@ -40,16 +40,16 @@ public class NutrientsModelUnitTest {
 
     @Test
     public void setProtein() {
-        nutrientsModel.setProtein(123);
+        nutrientsModel.setProtein("123");
 
-        Assert.assertEquals( (int) nutrientsModel.getProtein(), 123);
+        Assert.assertEquals( nutrientsModel.getProtein(), "123");
     }
 
     @Test
     public void setCarbs() {
-        nutrientsModel.setCarbs(123);
+        nutrientsModel.setCarbs("123");
 
-        Assert.assertEquals( (int) nutrientsModel.getCarbs(), 123);
+        Assert.assertEquals(  nutrientsModel.getCarbs(), "123");
     }
 
     @Test
@@ -61,9 +61,9 @@ public class NutrientsModelUnitTest {
 
     @Test
     public void setFat() {
-        nutrientsModel.setFat(123);
+        nutrientsModel.setFat("123");
 
-        Assert.assertEquals( (int) nutrientsModel.getFat(), 123);
+        Assert.assertEquals( nutrientsModel.getFat(), "123");
     }
 
     @Test

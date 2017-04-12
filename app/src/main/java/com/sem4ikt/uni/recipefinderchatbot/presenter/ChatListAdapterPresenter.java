@@ -18,4 +18,11 @@ public class ChatListAdapterPresenter extends BasePresenter<ChatListView> implem
     public void addMessage(MessageModel m) {
         view.onAddMessage(m);
     }
+
+    @Override
+    public void doClick(int position) {
+        view.onClick(position);
+    }
+
+
 }

@@ -3,13 +3,14 @@ package com.sem4ikt.uni.recipefinderchatbot.model.spoonacular;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by anton on 06-03-2017.
  */
 
-public class ExtendedIngredientModel {
+public class ExtendedIngredientModel implements Serializable {
 
     @SerializedName("id")
     @Expose

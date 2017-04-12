@@ -3,15 +3,14 @@ package com.sem4ikt.uni.recipefinderchatbot.services;
 
 import android.util.Log;
 
+import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
-import com.sem4ikt.uni.recipefinderchatbot.model.FirebaseInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
-import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IFirebaseInteractor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +22,7 @@ import java.util.Objects;
 
 
 public class ChatbotService implements IChatbotService {
-    private com.ibm.watson.developer_cloud.conversation.v1.ConversationService convService = new com.ibm.watson.developer_cloud.conversation.v1.ConversationService(com.ibm.watson.developer_cloud.conversation.v1.ConversationService.VERSION_DATE_2016_07_11);
+    private ConversationService convService = new ConversationService(ConversationService.VERSION_DATE_2016_07_11);
     private ToneAnalyzer toneService = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
     private Map<String, Object> contextGeneral, contextRecipe;
     private String workspaceIdentifier, message;
@@ -43,10 +42,16 @@ public class ChatbotService implements IChatbotService {
                         contextGeneral.put("username", user);
                     if (returning != null)
                         contextGeneral.put("returning_user", returning);
+
+                    contextGeneral.put("num_of_recipes", contextRecipe.get("num_of_recipes"));
+                    contextGeneral.put("diet", contextRecipe.get("diet"));
+                    contextGeneral.put("course", contextRecipe.get("course"));
+                    contextGeneral.put("intolerance", contextRecipe.get("intolerance"));
+                    contextGeneral.put("cuisine", contextRecipe.get("cuisine"));
+
                     break;
 
                 case "49630f5e-f2b9-453a-be68-927f17cf64bc": // Switching to Recipe
-
                     contextRecipe.put("username", contextGeneral.get("username"));
                     contextRecipe.put("returning_user", contextGeneral.get("returning_user"));
                     break;
@@ -56,15 +61,8 @@ public class ChatbotService implements IChatbotService {
         message = msg;
     }
 
-    public ChatbotService setConversationServiceCredentials(String username, String password) {
-        convService.setUsernameAndPassword(username, password);
-
-        IFirebaseInteractor fib = new FirebaseInteractor();
-        User user = fib.getUser();
-
-        contextRecipe = new HashMap<>();
-        contextGeneral = new HashMap<>();
-
+    public void setUserContextGeneral(User user)
+    {
         if (user != null) {
             Log.e("tt", "userExist");
             contextGeneral.put("returning_user", user.returninguser);
@@ -73,6 +71,20 @@ public class ChatbotService implements IChatbotService {
             contextGeneral.put("returning_user", false);
             contextGeneral.put("username", "undefined");
         }
+
+        contextGeneral.put("num_of_recipes", 0);
+        contextGeneral.put("diet", "undefined");
+        contextGeneral.put("course", "undefined");
+        contextGeneral.put("intolerance", "undefined");
+        contextGeneral.put("cuisine", "undefined");
+
+    }
+
+    public ChatbotService setConversationServiceCredentials(String username, String password){
+        convService.setUsernameAndPassword(username, password);
+
+        contextRecipe = new HashMap<>();
+        contextGeneral = new HashMap<>();
 
         return this;
     }

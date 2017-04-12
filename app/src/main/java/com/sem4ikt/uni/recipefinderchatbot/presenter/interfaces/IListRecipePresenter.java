@@ -1,5 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces;
 
+import com.sem4ikt.uni.recipefinderchatbot.adapter.ListDataContainer;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 
 import java.util.List;
@@ -9,5 +10,5 @@ import java.util.List;
  */
 
 public interface IListRecipePresenter {
-    void setRecipeList(List<RecipesModel> list);
+    void setContainer(ListDataContainer container);
 }

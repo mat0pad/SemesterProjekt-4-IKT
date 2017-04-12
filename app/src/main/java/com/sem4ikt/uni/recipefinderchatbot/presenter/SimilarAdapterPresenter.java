@@ -36,4 +36,6 @@ public class SimilarAdapterPresenter extends BasePresenter<ISimilarGridAdapterVi
     }
 
 
+
+
 }

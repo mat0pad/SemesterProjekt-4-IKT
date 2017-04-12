@@ -9,7 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/close"/>
+        android:src="@drawable/close"
+        android:alpha="1"/>
+
 
     <View
         android:id="@+id/view"
@@ -29,5 +31,13 @@
         android:text="Some title here"
         android:textColor="@color/White"
         android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/close_image_cell"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/text_cell"
+        android:src="@drawable/delete" />
 
 </RelativeLayout>

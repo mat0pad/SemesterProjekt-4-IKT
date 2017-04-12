@@ -81,8 +81,6 @@ public class SimilarGridAdapter extends BaseAdapter implements ISimilarGridAdapt
     @Override
     public void showSimilar(int id) {
 
-        System.out.println("Selected recipe id is " + id);
-
         // Show recipe with id
         Intent intent = new Intent(mContext, DetailRecipeActivity.class);
 

@@ -1,6 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot.database.Interface;
 
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 
 /**
@@ -10,7 +10,8 @@ import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 public interface IDatabaseApi {
     boolean saveUser(String userName, String UID);
     boolean SaveRecipe(RecipeModel recipe,String uId);
-    boolean SaveMealplan(MealPlanModel mealPlan, String UID);
+
+    boolean SaveMealplan(MealPlanDayModel mealPlan, String UID);
     boolean SaveCalories();
     String getUser(String uid);
     boolean GetRecipe();

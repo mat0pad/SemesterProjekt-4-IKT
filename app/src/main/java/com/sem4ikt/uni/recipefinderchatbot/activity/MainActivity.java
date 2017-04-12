@@ -14,10 +14,14 @@ import com.sem4ikt.uni.recipefinderchatbot.fragment.FavoritesFragment;
 import com.sem4ikt.uni.recipefinderchatbot.fragment.MealPlanFragment;
 import com.sem4ikt.uni.recipefinderchatbot.fragment.SettingsFragment;
 import com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.DetailRecipePresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.MainPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IMainPresenter;
+
 import com.sem4ikt.uni.recipefinderchatbot.view.IMainView;
 import com.yalantis.guillotine.animation.GuillotineAnimation;
+
+
 
 
 /**

@@ -9,4 +9,6 @@ import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
 public interface ChatListView {
 
     void onAddMessage(MessageModel m);
+
+    void onClick(int position);
 }
