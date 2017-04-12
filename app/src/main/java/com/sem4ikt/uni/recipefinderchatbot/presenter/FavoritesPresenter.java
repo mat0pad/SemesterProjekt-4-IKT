@@ -36,6 +36,11 @@ public class FavoritesPresenter extends BasePresenter<IFavoritesView> implements
         interactor.checkUpdates(this);
     }
 
+    @Override
+    public void deleteRecipe(RecipeModel recipe) {
+        interactor.removeRecipe(recipe);
+    }
+
 
     @Override
     public void onReceived(Object recipe,RECIPE_CALLBACK_TYPE type) {
@@ -55,6 +60,8 @@ public class FavoritesPresenter extends BasePresenter<IFavoritesView> implements
                 break;
         }
     }
+
+
 
 
 

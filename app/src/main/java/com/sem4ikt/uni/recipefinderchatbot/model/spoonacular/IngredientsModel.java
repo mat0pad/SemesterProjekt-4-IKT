@@ -94,13 +94,22 @@ public class IngredientsModel implements Parcelable {
         else
             parcel.writeInt(0);
         parcel.writeString(title);
+        if(missedIngredientCount != null)
+        parcel.writeInt(missedIngredientCount);
+        else
+            parcel.writeInt(0);
+        if(usedIngredientCount != null)
+        parcel.writeInt(usedIngredientCount);
+        else
+            parcel.writeInt(0);
         parcel.writeString(image);
     }
 
-    @SuppressWarnings("all")
     private IngredientsModel(Parcel in) {
         id = in.readInt();
         title = in.readString();
+        missedIngredientCount = in.readInt();
+        usedIngredientCount = in.readInt();
         image = in.readString();
     }
 

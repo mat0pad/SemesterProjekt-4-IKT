@@ -82,8 +82,17 @@ public class RecipeListAdapter extends BaseAdapter implements IRecipeAdapterList
             if (holder.readyInMinutes != null)
                 holder.readyInMinutes.setText(i.getReadyInMinutes().toString() + " min");
 
-            if (holder.image != null)
-                Picasso.with(mContext).load(BASE_URL + i.getImage()).fit().into(holder.image);
+            if (holder.image != null) {
+
+                String imageUrl;
+
+                if (i.getImage().contains("https"))
+                    imageUrl = i.getImage();
+                else
+                    imageUrl = BASE_URL + i.getImage();
+
+                Picasso.with(mContext).load(imageUrl).fit().into(holder.image);
+            }
         }
 
         return convertView;

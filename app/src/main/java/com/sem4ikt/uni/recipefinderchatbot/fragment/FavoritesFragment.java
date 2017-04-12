@@ -2,7 +2,9 @@ package com.sem4ikt.uni.recipefinderchatbot.fragment;
 
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -35,8 +37,9 @@ import java.util.List;
 public class FavoritesFragment extends Fragment implements IFavoritesView {
 
     GridView gridView;
-    IFavoritesPresenter<IFavoritesView> presenter; //Test probably delete
+    IFavoritesPresenter<IFavoritesView> presenter;
     IFavoritesGridAdapterPresenter<IFavoritesGridAdapterView> gridPresenter;
+    boolean isdeleting = false;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +60,8 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
         EditText searchEditText = (EditText) searchView.findViewById(id);
         searchEditText.setTextColor(ContextCompat.getColor(getContext(), R.color.Primary_Dark));
         searchEditText.setHintTextColor(ContextCompat.getColor(getContext(), R.color.Primary_Dark));
+
+        final FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.FloatingActionButton);
 
         gridView = (GridView) view.findViewById(R.id.favorites_gridview);
 
@@ -84,8 +89,26 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
 
-                gridPresenter.onClick(position);
+                if(!isdeleting)
+                    gridPresenter.onClick(position);
+                else {
+                    presenter.deleteRecipe(gridPresenter.getItem(position));
+                    gridPresenter.deleteRecipe(position);
+                }
+            }
+        });
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(getContext(),"hello",Toast.LENGTH_SHORT).show();
+                isdeleting = !isdeleting;
+                if(isdeleting)
+                    fab.setImageResource(R.drawable.no_edit);
+                else
+                    fab.setImageResource(R.drawable.edit);
+
+                gridPresenter.isDeleting(isdeleting);
             }
         });
 

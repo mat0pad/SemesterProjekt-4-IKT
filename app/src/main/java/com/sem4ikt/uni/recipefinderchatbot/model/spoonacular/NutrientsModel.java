@@ -45,20 +45,14 @@ public class NutrientsModel implements Parcelable, ListDataModel {
     private Integer calories;
     @SerializedName("protein")
     @Expose
-    private Integer protein;
+    private String protein;
     @SerializedName("fat")
     @Expose
-    private Integer fat;
+    private String fat;
     @SerializedName("carbs")
     @Expose
-    private Integer carbs;
+    private String carbs;
 
-    @SuppressWarnings("all")
-    private NutrientsModel(Parcel in) {
-        id = in.readInt();
-        title = in.readString();
-        image = in.readString();
-    }
 
     // Default constructor is needed when also having a private constructor
     public NutrientsModel() {
@@ -104,31 +98,41 @@ public class NutrientsModel implements Parcelable, ListDataModel {
         this.calories = calories;
     }
 
-    public Integer getProtein() {
+    public String getProtein() {
         return protein;
     }
 
-    public void setProtein(Integer protein) {
+    public void setProtein(String protein) {
         this.protein = protein;
     }
 
-    public Integer getFat() {
+    public String getFat() {
         return fat;
     }
 
-    public void setFat(Integer fat) {
+    public void setFat(String fat) {
         this.fat = fat;
     }
 
-    public Integer getCarbs() {
+    public String getCarbs() {
         return carbs;
     }
 
-    public void setCarbs(Integer carbs) {
+    public void setCarbs(String carbs) {
         this.carbs = carbs;
     }
 
+
     // Allows this class to be passed as a parcel -> very fast
+    private NutrientsModel(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        image = in.readString();
+        calories = in.readInt();
+        carbs = in.readString();
+        protein = in.readString();
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -142,5 +146,11 @@ public class NutrientsModel implements Parcelable, ListDataModel {
             parcel.writeInt(0);
         parcel.writeString(title);
         parcel.writeString(image);
+        if (calories != null)
+        parcel.writeInt(calories);
+        else
+            parcel.writeInt(0);
+        parcel.writeString(carbs);
+        parcel.writeString(protein);
     }
 }

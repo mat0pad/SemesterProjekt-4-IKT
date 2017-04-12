@@ -87,13 +87,22 @@ public class IngredientListAdapter extends BaseAdapter implements IRecipeAdapter
                 holder.title.setText(i.getTitle());
 
             if (holder.ingredientsMissed != null)
-                holder.ingredientsMissed.setText(i.getMissedIngredientCount());
+                holder.ingredientsMissed.setText(i.getMissedIngredientCount().toString());
 
             if (holder.ingredientsRight != null)
-                holder.ingredientsRight.setText(i.getUsedIngredientCount());
+                holder.ingredientsRight.setText(i.getUsedIngredientCount().toString());
 
-            if (holder.image != null)
-                Picasso.with(mContext).load(BASE_URL + i.getImage()).fit().into(holder.image);
+            if (holder.image != null){
+
+                String imageUrl;
+
+                if (i.getImage().contains("https"))
+                    imageUrl = i.getImage();
+                else
+                    imageUrl = BASE_URL + i.getImage();
+
+                Picasso.with(mContext).load(imageUrl).fit().into(holder.image);
+            }
         }
 
         return convertView;

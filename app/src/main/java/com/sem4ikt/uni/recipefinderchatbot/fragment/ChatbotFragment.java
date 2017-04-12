@@ -75,7 +75,7 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
                 adapterPresenter.doClick(position);
             }
         });
-
+        
 
         return view;
     }

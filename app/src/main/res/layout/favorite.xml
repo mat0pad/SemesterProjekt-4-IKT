@@ -33,16 +33,17 @@
         android:background="@color/White"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:src="@drawable/edit"
-        android:tint="@color/White"
-        app:fabSize="normal"
-        android:background="@color/Primary_Dark"
+        android:id="@+id/FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        android:layout_margin="15dp"
+        android:background="@color/Primary_Dark"
+        android:src="@drawable/edit"
+        android:tint="@color/White"
         app:backgroundTint="@color/Primary_Dark"
         app:elevation="4dp"
-        android:layout_margin="15dp"/>
+        app:fabSize="normal" />
 
 
 </FrameLayout>
