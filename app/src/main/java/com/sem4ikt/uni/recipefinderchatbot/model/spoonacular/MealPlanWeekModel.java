@@ -1,7 +1,11 @@
 package com.sem4ikt.uni.recipefinderchatbot.model.spoonacular;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -10,7 +14,6 @@ import java.util.List;
  */
 
 public class MealPlanWeekModel {
-
     @SerializedName("name")
     @Expose
     private String name;
@@ -35,7 +38,7 @@ public class MealPlanWeekModel {
     }
 
 
-    private class Item {
+    public class Item {
 
         @SerializedName("day")
         @Expose

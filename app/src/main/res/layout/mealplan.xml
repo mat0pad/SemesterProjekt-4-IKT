@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:id="@+id/meal_planner"
+    android:background="@color/guillotine_background"
     android:visibility="visible">
 
 
@@ -61,14 +62,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/guillotine_background">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:gravity="center_horizontal"
                 android:text="Breakfast"
-                android:textColor="@color/Black"
+                android:textColor="@color/White"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 />
@@ -83,7 +85,7 @@
                 android:layout_height="35dp"
                 android:gravity="center_horizontal"
                 android:text="Lunch"
-                android:textColor="@color/Black"
+                android:textColor="@color/White"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 />
@@ -98,7 +100,7 @@
                 android:layout_height="35dp"
                 android:gravity="center_horizontal"
                 android:text="Dinner"
-                android:textColor="@color/Black"
+                android:textColor="@color/White"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 />
