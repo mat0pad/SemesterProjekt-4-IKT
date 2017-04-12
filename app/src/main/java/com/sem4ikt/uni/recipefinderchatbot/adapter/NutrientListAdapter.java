@@ -1,6 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,8 @@ public class NutrientListAdapter extends BaseAdapter implements IRecipeAdapterLi
 
     public void addItem(Object nutrientsModels) {
         this.list.add((NutrientsModel) nutrientsModels);
+
+        Log.i("TESTLIST", nutrientsModels.toString());
     }
 
     public void notifyUpdate() {
@@ -83,7 +86,7 @@ public class NutrientListAdapter extends BaseAdapter implements IRecipeAdapterLi
                 holder.title.setText(i.getTitle());
 
             if (holder.calories != null)
-                holder.calories.setText(i.getCalories());
+                holder.calories.setText(i.getCalories().toString());
 
             if (holder.carbs != null)
                 holder.carbs.setText(i.getCarbs());
@@ -91,8 +94,18 @@ public class NutrientListAdapter extends BaseAdapter implements IRecipeAdapterLi
             if (holder.carbs != null)
                 holder.carbs.setText(i.getProtein());
 
-            if (holder.image != null)
-                Picasso.with(mContext).load(BASE_URL + i.getImage()).fit().into(holder.image);
+            if (holder.image != null) {
+
+                String imageUrl;
+
+                if (i.getImage().contains("https"))
+                    imageUrl = i.getImage();
+                else
+                    imageUrl = BASE_URL + i.getImage();
+
+                Picasso.with(mContext).load(imageUrl).fit().into(holder.image);
+            }
+
         }
 
         // the view must be returned to our activity
