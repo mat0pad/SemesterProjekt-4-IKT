@@ -6,6 +6,7 @@ import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnalyzedQueryModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnswerModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientSubstituteModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientsModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RandomRecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
@@ -97,6 +98,7 @@ public class ConversationInteractor implements IConversationInteractor {
         Call<TextModel> call = apiService.getRandomFoodJoke();
 
         enqueueTextModelCall(call);
+
     }
 
     // Used to get random trivia
@@ -493,6 +495,29 @@ public class ConversationInteractor implements IConversationInteractor {
             }
         });
 
+    }
+
+    // The actual generation of mealplan
+    private void generateMealPlan() {
+
+        ISpoonacularAPI.ICompute apiService = client.getClient().create(ISpoonacularAPI.ICompute.class);
+
+        apiService.getMealPlan(null, 2000, "day", null).enqueue(new Callback<MealPlanModel>() {
+            @Override
+            public void onResponse(Call<MealPlanModel> call, Response<MealPlanModel> response) {
+
+                if (response.code() == 200) {
+                    MealPlanModel model = response.body();
+
+                    System.out.println("works: " + model.getNutrients().getCalories());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MealPlanModel> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
     // Convert to int from string where float, double or int
