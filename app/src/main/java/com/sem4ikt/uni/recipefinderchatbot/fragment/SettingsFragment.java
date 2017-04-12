@@ -20,7 +20,7 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
 
     Button resetButton;
 
-    ISettingsPresenter<ISettingsView> settingsPresenter;
+    //ISettingsPresenter settingsPresenter;
 
     //SettingsView state;
 
@@ -55,7 +55,6 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
 
     }
 
-    @Override
     public void onPresentView() {
 
 

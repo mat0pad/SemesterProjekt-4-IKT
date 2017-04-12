@@ -12,7 +12,6 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
     MealPlanPresenter(IMealPlanView view) {
         super(view);
     }
-
-
-
 }
+
+
