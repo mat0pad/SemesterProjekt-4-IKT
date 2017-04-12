@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.activity.DetailRecipeActivity;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
 import com.sem4ikt.uni.recipefinderchatbot.rest.ApiClient;
 import com.sem4ikt.uni.recipefinderchatbot.rest.ISpoonacularAPI;
 import com.sem4ikt.uni.recipefinderchatbot.view.IMealPlanView;
@@ -34,6 +35,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
     ImageView breakfast;
     ImageView lunch;
     MealPlanDayModel dayModel;
+    MealPlanWeekModel weekModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -132,7 +134,6 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
             }
         });
 
-
         breakfast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,7 +174,6 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
 
             }
         });
-
 
 
 
