@@ -18,6 +18,7 @@ import com.sem4ikt.uni.recipefinderchatbot.model.MoreRecipeMessageModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.SingleRecipeMessageModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 import com.sem4ikt.uni.recipefinderchatbot.view.ChatListView;
 import com.squareup.picasso.Picasso;
@@ -115,12 +116,12 @@ public class ChatListAdapter extends BaseAdapter implements ChatListView {
 
                 } else if (model.type == MessageModel.TYPE.MORE_RECIPE_MODEL) {
 
-                    /*ListDataContainer container = ListContainerFactory
-                            .createNutrientsListContainer((List<RecipeModel>)mm.obj);
+                    ListDataContainer container = ListContainerFactory
+                            .createRecipeListContainer((List<RecipeModel>) mm.obj);
 
                     intent.putExtra("listOfRecipesModels", container);
 
-                    mContext.startActivity(intent);*/
+                    mContext.startActivity(intent);
                 }
             }
         }
