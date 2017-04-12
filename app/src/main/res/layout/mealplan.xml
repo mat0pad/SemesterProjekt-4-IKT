@@ -9,15 +9,7 @@
     android:id="@+id/meal_planner"
     android:visibility="visible">
 
-    <android.support.v7.widget.Toolbar
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:elevation="2dp"
-        android:background="#ffe95451"
-        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_below="@+id/prev_button"
-        android:layout_alignParentStart="true" />
+
 
     <com.github.sundeepk.compactcalendarview.CompactCalendarView
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -52,4 +44,58 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/prev_button">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="center_horizontal"
+                android:text="Breakfast"
+                android:textColor="@color/White"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="155dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="center_horizontal"
+                android:text="Lunch"
+                android:textColor="@color/White"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="155dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="center_horizontal"
+                android:text="Dinner"
+                android:textColor="@color/White"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="155dp"
+                />
+
+            />
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
