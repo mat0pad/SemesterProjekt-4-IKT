@@ -30,11 +30,13 @@ public class FavoritesGridAdapter extends BaseAdapter implements IFavoritesGridA
     private List<RecipeModel> fullList;
     private List<RecipeModel> list;
     private Context mContext;
+    private boolean isdeleting;
 
     public FavoritesGridAdapter(Context context){
         fullList = new ArrayList<>();
         list = new ArrayList<>();
         mContext = context;
+        isdeleting = false;
 
     }
 
@@ -70,6 +72,16 @@ public class FavoritesGridAdapter extends BaseAdapter implements IFavoritesGridA
         Log.e("fullList.toString()",fullList.toString());
     }
 
+    @Override
+    public void setDeleting(boolean isdeleting) {
+        this.isdeleting = isdeleting;
+    }
+
+    @Override
+    public void deleteRecipe(int position) {
+        fullList.remove(position);
+    }
+
 
     @Override
     public List<RecipeModel> getList(){
@@ -97,7 +109,6 @@ public class FavoritesGridAdapter extends BaseAdapter implements IFavoritesGridA
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder;
-
         if (convertView == null) {
 
             holder = new ViewHolder();
@@ -106,7 +117,7 @@ public class FavoritesGridAdapter extends BaseAdapter implements IFavoritesGridA
 
             holder.text = (TextView) convertView.findViewById(R.id.text_cell);
             holder.image = (ImageView) convertView.findViewById(R.id.favorite_image_cell);
-
+            holder.closeimage = (ImageView) convertView.findViewById(R.id.close_image_cell);
             convertView.setTag(holder);
         }
         else {
@@ -114,7 +125,17 @@ public class FavoritesGridAdapter extends BaseAdapter implements IFavoritesGridA
         }
 
         holder.text.setText(getItem(position).getTitle());
-        Picasso.with(mContext).load(getItem(position).getImage()).into(holder.image);
+        if(!isdeleting) {
+            Picasso.with(mContext).load(getItem(position).getImage()).into(holder.image);
+            holder.image.setImageAlpha(255);
+            holder.closeimage.setVisibility(View.INVISIBLE);
+
+        }
+        else {
+            Picasso.with(mContext).load(getItem(position).getImage()).into(holder.image);
+            holder.image.setImageAlpha(100);
+            holder.closeimage.setVisibility(View.VISIBLE);
+        }
 
         return convertView;
     }
@@ -128,5 +149,6 @@ public class FavoritesGridAdapter extends BaseAdapter implements IFavoritesGridA
     private class ViewHolder {
         TextView text;
         ImageView image;
+        ImageView closeimage;
     }
 }
