@@ -28,60 +28,38 @@
         android:textColor="@color/Black"
         android:textSize="16sp" />
 
-
     <ImageView
-        android:id="@+id/carbs_image"
+        android:id="@+id/ingredient_image"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="80dp"
-        android:layout_toLeftOf="@+id/recipe_list_carbs"
-        android:src="@drawable/carbs" />
+        android:layout_toLeftOf="@+id/recipe_list_ingredient"
+        android:src="@drawable/apple_filled" />
 
     <TextView
-        android:id="@+id/recipe_list_carbs"
+        android:id="@+id/recipe_list_ingredient"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
+
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="80dp"
-        android:layout_toLeftOf="@+id/protein_image"
-        android:gravity="center_vertical"
-        android:text="1203"
-        android:textColor="@color/Black"
-        android:textSize="12sp" />
-
-
-    <ImageView
-        android:id="@+id/protein_image"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="80dp"
-        android:layout_toLeftOf="@+id/recipe_list_protein"
-        android:src="@drawable/protein" />
-
-    <TextView
-        android:id="@+id/recipe_list_protein"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="80dp"
-        android:layout_toLeftOf="@+id/calc_image"
+        android:layout_toLeftOf="@+id/ingredient_not_image"
         android:gravity="center_vertical"
         android:text="1203"
         android:textColor="@color/Black"
         android:textSize="12sp" />
 
     <ImageView
-        android:id="@+id/calc_image"
+        android:id="@+id/ingredient_not_image"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="80dp"
-        android:layout_toLeftOf="@+id/recipe_list_calc"
-        android:src="@drawable/calc" />
+        android:layout_toLeftOf="@+id/recipe_list_ingredient_not"
+        android:src="@drawable/no_apple_filled" />
 
     <TextView
-        android:id="@+id/recipe_list_calc"
+        android:id="@+id/recipe_list_ingredient_not"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_alignParentRight="true"
@@ -92,5 +70,6 @@
         android:text="1203"
         android:textColor="@color/Black"
         android:textSize="12sp" />
+
 
 </RelativeLayout>

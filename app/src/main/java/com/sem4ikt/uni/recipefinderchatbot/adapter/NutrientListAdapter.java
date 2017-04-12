@@ -65,7 +65,7 @@ public class NutrientListAdapter extends BaseAdapter implements IRecipeAdapterLi
 
             holder = new ViewHolder();
 
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.recipe_list_cell_recipes, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.recipe_list_cell_nutrients, parent, false);
 
             holder.title = (TextView) convertView.findViewById(R.id.recipe_list_title);
             holder.calories = (TextView) convertView.findViewById(R.id.recipe_list_calc);
