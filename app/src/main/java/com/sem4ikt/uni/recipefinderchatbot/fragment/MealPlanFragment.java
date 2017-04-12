@@ -1,6 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
+import com.sem4ikt.uni.recipefinderchatbot.activity.DetailRecipeActivity;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
 import com.sem4ikt.uni.recipefinderchatbot.rest.ApiClient;
 import com.sem4ikt.uni.recipefinderchatbot.rest.ISpoonacularAPI;
@@ -31,6 +33,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
     ImageView dinner;
     ImageView breakfast;
     ImageView lunch;
+    MealPlanDayModel dayModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,6 +66,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                 if(response.code() == 200) {
 
                     final MealPlanDayModel model = response.body();
+                    dayModel= response.body();
 
                     Handler mainHandler = new Handler(Looper.getMainLooper());
 
@@ -83,6 +87,32 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
 
                                 Picasso.with(getContext()).load(imageUrl).fit().into(breakfast);
                             }
+                            image =  model.getRecipeModels().get(1).getImage();
+
+                            {
+                                String BASE_URL = "https://spoonacular.com/recipeImages/";
+                                String imageUrl;
+
+                                if (image.contains("https"))
+                                    imageUrl = image;
+                                else
+                                    imageUrl = BASE_URL + image;
+
+                                Picasso.with(getContext()).load(imageUrl).fit().into(lunch);
+                            }
+                            image =  model.getRecipeModels().get(2).getImage();
+
+                            {
+                                String BASE_URL = "https://spoonacular.com/recipeImages/";
+                                String imageUrl;
+
+                                if (image.contains("https"))
+                                    imageUrl = image;
+                                else
+                                    imageUrl = BASE_URL + image;
+
+                                Picasso.with(getContext()).load(imageUrl).fit().into(dinner);
+                            }
 
                         }
                     };
@@ -98,6 +128,48 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
 
             @Override
             public void onFailure(Call<MealPlanDayModel> call, Throwable t) {
+
+            }
+        });
+
+
+        breakfast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id;
+               id=dayModel.getRecipeModels().get(0).getId();
+
+                final Intent intent = new Intent(MealPlanFragment.this.getActivity().getApplication(), DetailRecipeActivity.class);
+                intent.putExtra("id", id);
+
+                startActivity(intent);
+            }
+        });
+
+        lunch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id;
+                id=dayModel.getRecipeModels().get(1).getId();
+
+                final Intent intent=new Intent(MealPlanFragment.this.getActivity().getApplication(),DetailRecipeActivity.class);
+                intent.putExtra("id",id);
+
+                startActivity(intent);
+
+            }
+        });
+
+        dinner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id;
+                id=dayModel.getRecipeModels().get(2).getId();
+
+                final Intent intent=new Intent(MealPlanFragment.this.getActivity().getApplication(),DetailRecipeActivity.class);
+                intent.putExtra("id",id);
+
+                startActivity(intent);
 
             }
         });
