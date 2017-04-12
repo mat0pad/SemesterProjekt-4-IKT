@@ -23,12 +23,12 @@
 
         <ImageView
             style="@style/ImageView.GuillotineItem"
-            android:src="@drawable/ic_activity_active" />
+            android:src="@drawable/ic_activity" />
 
         <com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView
-            style="@style/TextView.GuillotineItem.Selected"
-            android:text="@string/recipe_bot"
-            android:id="@+id/chatbot"/>
+            android:id="@+id/chatbot"
+            style="@style/TextView.GuillotineItem"
+            android:text="@string/recipe_bot" />
     </LinearLayout>
 
     <LinearLayout
@@ -40,9 +40,9 @@
             android:src="@drawable/ic_profile" />
 
         <com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView
+            android:id="@+id/meal_plan"
             style="@style/TextView.GuillotineItem"
-            android:text="@string/meal_plan"
-            android:id="@+id/meal_plan"/>
+            android:text="@string/meal_plan" />
     </LinearLayout>
 
     <LinearLayout
@@ -54,9 +54,9 @@
             android:src="@drawable/ic_feed" />
 
         <com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView
+            android:id="@+id/favorites"
             style="@style/TextView.GuillotineItem"
-            android:text="@string/favorites"
-            android:id="@+id/favorites"/>
+            android:text="@string/favorites" />
     </LinearLayout>
 
 
@@ -73,8 +73,8 @@
             android:src="@drawable/ic_settings" />
 
         <com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView
+            android:id="@+id/settings"
             style="@style/TextView.GuillotineItem"
-            android:text="@string/settings"
-            android:id="@+id/settings"/>
+            android:text="@string/settings" />
     </LinearLayout>
 </LinearLayout>
