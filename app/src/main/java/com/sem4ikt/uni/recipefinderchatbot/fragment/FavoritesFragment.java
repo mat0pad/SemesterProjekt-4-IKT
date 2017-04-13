@@ -28,6 +28,7 @@ import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IFavoritesPresen
 import com.sem4ikt.uni.recipefinderchatbot.view.IFavoritesGridAdapterView;
 import com.sem4ikt.uni.recipefinderchatbot.view.IFavoritesView;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -101,7 +102,6 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getContext(),"hello",Toast.LENGTH_SHORT).show();
                 isdeleting = !isdeleting;
                 if(isdeleting)
                     fab.setImageResource(R.drawable.no_edit);
