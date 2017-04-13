@@ -70,6 +70,9 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
 
         gridPresenter = new FavoritesGridAdapterPresenter(adapter);
 
+
+        //presenter.checkForUpdates();
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
@@ -101,20 +104,18 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getContext(),"hello",Toast.LENGTH_SHORT).show();
+
                 isdeleting = !isdeleting;
-                if(isdeleting)
+                if(isdeleting) {
                     fab.setImageResource(R.drawable.no_edit);
+                    Toast.makeText(getContext(),"Click on the Recipe you want to delete",Toast.LENGTH_SHORT).show();
+                }
                 else
                     fab.setImageResource(R.drawable.edit);
 
                 gridPresenter.isDeleting(isdeleting);
             }
         });
-
-
-
-        presenter.getRecipeList();
         return view;
     }
 
@@ -144,9 +145,18 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
     public void onResume()
     {
         super.onResume();
-        Log.e("Welcome","back");
-        presenter.checkForUpdates();
+        presenter.getRecipeList();
 
+
+        Log.e("Welcome","back");
+
+
+    }
+
+
+    @Override
+    public  void onDestroy(){
+        super.onDestroy();
     }
 
 

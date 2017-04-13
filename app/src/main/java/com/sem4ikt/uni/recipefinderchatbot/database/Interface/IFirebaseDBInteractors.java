@@ -50,7 +50,7 @@ public interface IFirebaseDBInteractors {
 
         void getRecipe(ICallbackRecipe callback);
 
-        void checkUpdates(ICallbackRecipe callback);
+
     }
 
 }

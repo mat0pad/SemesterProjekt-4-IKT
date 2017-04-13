@@ -1,5 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
+import android.util.Log;
 import android.widget.Switch;
 
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackRecipe;
@@ -31,10 +32,7 @@ public class FavoritesPresenter extends BasePresenter<IFavoritesView> implements
         interactor.getRecipe(this);
     }
 
-    @Override
-    public void checkForUpdates() {
-        interactor.checkUpdates(this);
-    }
+
 
     @Override
     public void deleteRecipe(RecipeModel recipe) {
@@ -42,12 +40,15 @@ public class FavoritesPresenter extends BasePresenter<IFavoritesView> implements
     }
 
 
+
     @Override
     public void onReceived(Object recipe,RECIPE_CALLBACK_TYPE type) {
         switch (type)
         {
             case DELETE_RECIPE:
+                Log.e("PresenterOnReceived","DELETE_RECIPE " + ((RecipeModel) recipe).getId());
                 view.deleteRecipe((RecipeModel)recipe);
+
                 break;
             case ADD_RECIPE:
                 view.addRecipe((RecipeModel)recipe);
@@ -60,10 +61,5 @@ public class FavoritesPresenter extends BasePresenter<IFavoritesView> implements
                 break;
         }
     }
-
-
-
-
-
 
 }
