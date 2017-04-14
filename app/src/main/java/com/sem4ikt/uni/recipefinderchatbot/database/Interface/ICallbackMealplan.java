@@ -1,5 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.database.Interface;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -8,7 +10,7 @@ import java.util.Objects;
 
 public interface ICallbackMealplan {
 
-    void onReceived(Object mealplan,MEALPLAN_CALLBACK_TYPE type);
+    void onReceived(Object mealplan, List<Date> dateList, MEALPLAN_CALLBACK_TYPE type);
 
     enum MEALPLAN_CALLBACK_TYPE{GET_MEALPLAN};
 }
