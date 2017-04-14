@@ -11,21 +11,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import com.google.gson.Gson;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.activity.DetailRecipeActivity;
-import com.sem4ikt.uni.recipefinderchatbot.database.MealplanInteractor;
-import com.sem4ikt.uni.recipefinderchatbot.model.MealPlanInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.database.MealPlansInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.MealPlanPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.rest.ApiClient;
 import com.sem4ikt.uni.recipefinderchatbot.rest.ISpoonacularAPI;
 import com.sem4ikt.uni.recipefinderchatbot.view.IMealPlanView;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,8 +42,11 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
     ImageView dinner;
     ImageView breakfast;
     ImageView lunch;
-    MealPlanDayModel dayModel;
-    MealPlanWeekModel weekModel;
+    ScrollView day;
+    TextView noplan;
+    MealPlanWeekModel weekPlan;
+    MealPlanDayModel dayPlan;
+    MealPlanPresenter presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,18 +56,24 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
             return null;
         }
 
+        presenter=new MealPlanPresenter(this);
         final View view = inflater.inflate(R.layout.mealplan, container, false);
 
         dinner = (ImageView) view.findViewById(R.id.dinner);
         breakfast = (ImageView) view.findViewById(R.id.breakfast);
         lunch = (ImageView) view.findViewById(R.id.lunch);
+        day= (ScrollView) view.findViewById(R.id.dayview);// set visibility to GONE if no plan for date
+        noplan= (TextView) view.findViewById(R.id.noplan);//set visibility to visible if no plan for date
+
+        presenter.getMealPlanWeek();
 
 
 
+/*
         ApiClient client = new ApiClient();
         ISpoonacularAPI.ICompute apiService = client.getClient().create(ISpoonacularAPI.ICompute.class);
 
-        Call<MealPlanWeekModel>  call = apiService.getWeekMealPlan("vegan", 1000, "curry");
+        Call<MealPlanWeekModel>  call = apiService.getWeekMealPlan(null, 10000, null);
 
 
         call.enqueue(new Callback<MealPlanWeekModel>() {
@@ -73,9 +84,11 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
 
                 if(response.code() == 200) {
 
+
+
                     final MealPlanWeekModel model = response.body();
-                    weekModel= response.body();
-                    //dayModel= response.body();
+                    weekPlan= response.body();
+                    //dayPlan= response.body();
 
                     Handler mainHandler = new Handler(Looper.getMainLooper());
 
@@ -159,7 +172,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
             public void onClick(View v) {
                 int id;
                 //id= dayModel.getRecipeModels().get(0).getId();
-                    String value =  weekModel.getItems().get(0).getValue();
+                    String value =  weekPlan.getItems().get(0).getValue();
                     JsonObject jon = new JsonParser().parse(value).getAsJsonObject();
                     id = jon.get("id").getAsInt();
 
@@ -176,7 +189,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
             public void onClick(View v) {
                 int id;
                 //id= dayModel.getRecipeModels().get(1).getId();
-                    String value =  weekModel.getItems().get(1).getValue();
+                    String value =  weekPlan.getItems().get(1).getValue();
                     JsonObject jon = new JsonParser().parse(value).getAsJsonObject();
                     id = jon.get("id").getAsInt();
 
@@ -192,8 +205,9 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
             @Override
             public void onClick(View v) {
                 int id;
+
                 //id= dayModel.getRecipeModels().get(2).getId();
-                    String value =  weekModel.getItems().get(2).getValue();
+                    String value =  weekPlan.getItems().get(2).getValue();
                     JsonObject jon = new JsonParser().parse(value).getAsJsonObject();
                     id = jon.get("id").getAsInt();
 
@@ -204,7 +218,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                 startActivity(intent);
 
             }
-        });
+        }); */
 
 
 
@@ -212,5 +226,22 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
 
 
         return view;
+    }
+
+    @Override
+    public void getDayPlan(){
+    }
+
+    @Override
+    public void getWeekPlan(){
+        Date currentDate=new Date();
+        
+    }
+
+    public void onResume()
+    {
+        super.onResume();
+        Log.e("return","you have returned");
+        presenter.update();
     }
 }

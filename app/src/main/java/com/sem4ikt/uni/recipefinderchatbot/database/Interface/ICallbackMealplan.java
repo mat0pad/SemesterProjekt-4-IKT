@@ -12,5 +12,5 @@ public interface ICallbackMealplan {
 
     void onReceived(Object mealplan, List<Date> dateList, MEALPLAN_CALLBACK_TYPE type);
 
-    enum MEALPLAN_CALLBACK_TYPE{GET_MEALPLAN};
+    enum MEALPLAN_CALLBACK_TYPE{GET_MEALPLAN_DAY,GET_MEALPLAN_WEEK};
 }
