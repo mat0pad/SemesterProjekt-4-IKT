@@ -74,6 +74,8 @@ dependencies {
     // IBM Conversation and Toneanalyzer service
     compile 'com.ibm.watson.developer_cloud:conversation:3.6.0'
     compile 'com.ibm.watson.developer_cloud:tone-analyzer:3.6.0'
+    compile 'com.ibm.watson.developer_cloud:text-to-speech:3.7.2'
+    compile 'com.ibm.watson.developer_cloud:android-sdk:0.2.3'
 
     // Image loader
     compile 'com.squareup.picasso:picasso:2.5.2'

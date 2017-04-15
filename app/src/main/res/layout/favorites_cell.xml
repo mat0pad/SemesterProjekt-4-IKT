@@ -8,9 +8,9 @@
         android:id="@+id/favorite_image_cell"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:alpha="1"
         android:scaleType="centerCrop"
-        android:src="@drawable/close"
-        android:alpha="1"/>
+        android:src="@drawable/placeholder" />
 
 
     <View
@@ -36,8 +36,9 @@
         android:id="@+id/close_image_cell"
         android:layout_width="wrap_content"
         android:layout_height="250dp"
+        android:layout_above="@+id/view"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_above="@id/text_cell"
         android:src="@drawable/delete" />
 
 </RelativeLayout>

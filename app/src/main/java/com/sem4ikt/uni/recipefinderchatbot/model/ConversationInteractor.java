@@ -185,7 +185,7 @@ public class ConversationInteractor implements IConversationInteractor {
 
                     System.out.println(query);
 
-                    randomRecipe(query, stringToInt(numOfRecipes));
+                    randomRecipe(query.replace('-', ','), stringToInt(numOfRecipes));
                 } else {
                     System.out.println("Failed detectQueryIntention");
                     presenter.showErrorText();

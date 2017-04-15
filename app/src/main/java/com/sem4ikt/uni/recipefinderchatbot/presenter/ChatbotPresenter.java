@@ -111,15 +111,22 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
 
     @Override
     public void showErrorText() {
+
+        // Play
+        view.play("An error occurred. Please try again.");
+
         view.displayNormalMessage(new MessageModel("An error occurred. Please try again.", ChatListAdapter.DIRECTION_INCOMING, MessageModel.TYPE.NORMAL));
     }
 
     @Override
     public void showText(String msg) {
 
-        if (msg != null)
-            view.displayNormalMessage(new MessageModel(msg, ChatListAdapter.DIRECTION_INCOMING, MessageModel.TYPE.NORMAL));
+        if (msg != null) {
+            // Play
+            view.play(msg);
 
+            view.displayNormalMessage(new MessageModel(msg, ChatListAdapter.DIRECTION_INCOMING, MessageModel.TYPE.NORMAL));
+        }
         else
             showErrorText();
     }
@@ -127,19 +134,26 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
     @Override
     public void showSingleRecipeText(String msg, String img, int id) {
 
-        if (msg != null)
-            view.displayNormalMessage(new SingleRecipeMessageModel(msg, ChatListAdapter.DIRECTION_INCOMING, img, id));
+        if (msg != null) {
+            // Play
+            view.play(msg);
 
+            view.displayNormalMessage(new SingleRecipeMessageModel(msg, ChatListAdapter.DIRECTION_INCOMING, img, id));
+        }
         else
             showErrorText();
+
     }
 
     @Override
     public void showMoreRecipesText(String msg, String img, Object obj, MessageModel.TYPE type) {
 
-        if (msg != null)
-            view.displayNormalMessage(new MoreRecipeMessageModel(msg, ChatListAdapter.DIRECTION_INCOMING, img, obj, type));
+        if (msg != null) {
+            // Play
+            view.play(msg);
 
+            view.displayNormalMessage(new MoreRecipeMessageModel(msg, ChatListAdapter.DIRECTION_INCOMING, img, obj, type));
+        }
         else
             showErrorText();
     }
@@ -147,6 +161,11 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
     @Override
     public void getUser() {
         ui.getUser(this);
+    }
+
+    @Override
+    public void doInitText2Speech() {
+        view.initText2Speech();
     }
 
     @Override

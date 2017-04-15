@@ -59,7 +59,8 @@
             android:layout_weight="0.82"
             android:paddingEnd="7dp"
             android:paddingStart="11dp"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder" />
 
     </LinearLayout>
 

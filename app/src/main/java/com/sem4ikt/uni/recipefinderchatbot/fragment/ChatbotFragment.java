@@ -17,6 +17,7 @@ import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatListAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatListAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
+import com.sem4ikt.uni.recipefinderchatbot.services.Text2Speech;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
 
 
@@ -35,6 +36,9 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
     ChatListAdapter adapter;
     IChatListAdapterPresenter adapterPresenter;
 
+    // Text 2 speech
+    Text2Speech text2Speech;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -48,6 +52,9 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
 
         // Set presenter
         chatbotPresenter = new ChatbotPresenter(this);
+
+        // Text text 2 speech
+        chatbotPresenter.doInitText2Speech();
 
         // Set click lsitener for send button
         sendButton = (Button) view.findViewById(R.id.send_button);
@@ -102,6 +109,18 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
     @Override
     public void displayNormalMessage(MessageModel msg) {
         adapterPresenter.addMessage(msg);
+    }
+
+
+    // Player functions
+    @Override
+    public void play(String text2play) {
+        text2Speech.playerStart(text2play);
+    }
+
+    @Override
+    public void initText2Speech() {
+        text2Speech = new Text2Speech();
     }
 
 }
