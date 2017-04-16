@@ -88,7 +88,6 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
                 Log.e("onCancelled",databaseError.getMessage());
             }
         });
-
     }
 
 
@@ -118,13 +117,55 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
     }
 
     @Override
-    public void removeMealPlanDay(MealPlanDayModel mealPlanDayModel) {
+    public void removeMealPlanDay(Date startdate){
+        DateSetup ds = new DateSetup();
+        DateModel dm = ds.SetDateModelWeek(startdate);
+
+
+        Query dateQuery = datedb.orderByChild("startDate").equalTo(dm.startDate);
+        dateQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot datesnapshot : dataSnapshot.getChildren()){
+                    String key = datesnapshot.getKey();
+                    mealplandaydb.child(key).removeValue();
+                    datedb.child(key).removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("onCancelled",databaseError.toString());
+            }
+        });
 
     }
 
     @Override
-    public void removeMealPlanWeek(MealPlanWeekModel mealPlanWeekModel) {
+    public void removeMealPlanWeek(Date startdate) {
 
+        DateSetup ds = new DateSetup();
+        DateModel dm = ds.SetDateModelWeek(startdate);
+
+
+        Query dateQuery = datedb.orderByChild("startDate").equalTo(dm.startDate);
+
+
+        dateQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot datesnapshot : dataSnapshot.getChildren()){
+                    String key = datesnapshot.getKey();
+                    mealplanweekdb.child(key).removeValue();
+                    datedb.child(key).removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("onCancelled",databaseError.toString());
+            }
+        });
     }
 
     @Override
@@ -152,12 +193,11 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
+                        public void onCancelled(DatabaseError databaseError){
+                            Log.e("onCancelled",databaseError.getMessage());
                         }
                     });
                 }
-                //callback.onReceived(mealplan, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN);
             }
 
             @Override
