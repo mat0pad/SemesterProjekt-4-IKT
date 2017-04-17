@@ -33,7 +33,8 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
     private DatabaseReference datedb;
     private DatabaseReference mealplandaydb;
 
-    private List<Date> DateList;
+    private List<Date> dateweekList;
+    private List<Date> datedaylist;
 
     public MealPlansInteractor() {
 
@@ -48,7 +49,8 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
             datedb = FirebaseDatabase.getInstance().getReference("Test");
             mealplandaydb = FirebaseDatabase.getInstance().getReference("Test");
         }
-        DateList = new ArrayList<>();
+        dateweekList = new ArrayList<>();
+        datedaylist = new ArrayList<>();
 
 
     }
@@ -149,16 +151,20 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
 
     @Override
     public void getMealPlanWeek(final ICallbackMealplan callback) {
+
         mealplanweekdb.addListenerForSingleValueEvent(new ValueEventListener() {
             final List<MealPlanWeekModel> mealplanlist = new ArrayList<>();
 
+
             @Override
             public void onDataChange(DataSnapshot mealplanweeksnapshot) {
-                final List<String> keylist = new ArrayList<String>();
+                final List<String> keylist = new ArrayList<>();
                 for(final DataSnapshot datamealplan: mealplanweeksnapshot.getChildren()) {
                     mealplanlist.add(datamealplan.getValue(MealPlanWeekModel.class));
                     keylist.add(datamealplan.getKey());
                 }
+
+                dateweekList.clear();
 
                 for(int i =0;i< mealplanlist.size();++i) {
                     datedb.child(keylist.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -166,10 +172,9 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
                         public void onDataChange(DataSnapshot datasnapshot) {
                             if(datasnapshot.exists()) {
                                 long b = datasnapshot.getValue(DateModel.class).startDate;
-                                DateList.add(new Date(b));
-                                Log.e("asdkslkj", mealplanlist.size() + "");
-                                if (DateList.size() == mealplanlist.size())
-                                    callback.onReceived(mealplanlist, DateList, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_WEEK);
+                                dateweekList.add(new Date(b));
+                                if (dateweekList.size() == mealplanlist.size())
+                                    callback.onReceived(mealplanlist, dateweekList, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_WEEK);
                             }
                         }
 
@@ -189,12 +194,50 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
     }
 
     @Override
-    public void getMealPlanDay(ICallbackMealplan callback) {
+    public void getMealPlanDay(final ICallbackMealplan callback) {
+        final List<MealPlanDayModel> mealplandaylist = new ArrayList<>();
 
+        mealplandaydb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot mealplandaysnapshot) {
+                final List<String> keylist = new ArrayList<>();
+                for (final DataSnapshot datamealplan : mealplandaysnapshot.getChildren()) {
+                    mealplandaylist.add(datamealplan.getValue(MealPlanDayModel.class));
+                    keylist.add(datamealplan.getKey());
+                }
+
+                datedaylist.clear();
+
+                for (int i = 0; i < mealplandaylist.size(); ++i) {
+                    datedb.child(keylist.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot datasnapshot) {
+                            if (datasnapshot.exists()) {
+                                long b = datasnapshot.getValue(DateModel.class).startDate;
+                                datedaylist.add(new Date(b));
+                                if (datedaylist.size() == mealplandaylist.size())
+                                    callback.onReceived(mealplandaylist, datedaylist, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_DAY);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.e("onCancelled", databaseError.getMessage());
+                        }
+                    });
+
+                }
+            }
+                @Override
+                public void onCancelled (DatabaseError databaseError){
+                    Log.e("onCancelled",databaseError.getMessage());
+                }
+
+        });
     }
 
 
-    //isweek = true mealplanweek, isweek = false mealplanday
+
     private void checkForRoom(final MealPlanWeekModel mealplan,final DateModel dateModel)
     {
         Query upperbound = datedb.orderByChild("endDate").startAt((dateModel.startDate)).endAt(dateModel.endDate);
