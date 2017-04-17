@@ -1,5 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.model.firebasedb;
 
+import android.support.annotation.VisibleForTesting;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -9,7 +11,7 @@ import java.util.Date;
 
 public class DateSetup {
 
-    public DateModel SetDateModelWeek(Date startdate)
+    public DateModel setDateModelWeek(Date startdate)
     {
         Date trimstartdate  = trim(startdate);
         Date enddate = setEndDate(trimstartdate,6);

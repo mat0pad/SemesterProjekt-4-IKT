@@ -60,7 +60,7 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
 
         DateSetup ds = new DateSetup();
 
-        final DateModel dateModel = ds.SetDateModelWeek(startdate);
+        final DateModel dateModel = ds.setDateModelWeek(startdate);
 
         checkForRoom(mealplan,dateModel);
     }
@@ -100,7 +100,7 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
     @Override
     public void removeMealPlanDay(Date startdate){
         DateSetup ds = new DateSetup();
-        DateModel dm = ds.SetDateModelWeek(startdate);
+        DateModel dm = ds.setDateModelWeek(startdate);
 
 
         Query dateQuery = datedb.orderByChild("startDate").equalTo(dm.startDate);
@@ -126,7 +126,7 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
     public void removeMealPlanWeek(Date startdate) {
 
         DateSetup ds = new DateSetup();
-        DateModel dm = ds.SetDateModelWeek(startdate);
+        DateModel dm = ds.setDateModelWeek(startdate);
 
 
         Query dateQuery = datedb.orderByChild("startDate").equalTo(dm.startDate);
