@@ -20,14 +20,12 @@ public class ChatbotInteractor implements IChatbotInteractor
     public ChatbotInteractor() {
         cs.setConversationServiceCredentials("f6c68c53-70a5-4a8c-af70-41a5eed85690", "1pMBh1PJOxP0")
                 .setToneAnalyzerCredentials("48091cfc-fd99-456a-b67c-00bdeef74b06", "XQE4Xl4oZuk0");
-
     }
 
 
     @Override
     public ChatbotCall message(String workspaceId, String msg)
     {
-
         cs.message(workspaceId, msg);
 
 
@@ -62,7 +60,6 @@ public class ChatbotInteractor implements IChatbotInteractor
     public void setContext(User user) {
         cs.setUserContextGeneral(user);
     }
-
 
     public interface ChatbotListener {
         void onChatbotResponse(MessageResponse response);

@@ -4,7 +4,6 @@ package com.sem4ikt.uni.recipefinderchatbot.services;
 import android.util.Log;
 
 import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
-import com.google.firebase.database.ValueEventListener;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
@@ -92,7 +91,6 @@ public class ChatbotService implements IChatbotService {
         toneService.setUsernameAndPassword(username, password);
         return this;
     }
-
 
     public void setChatbotListener(final ChatbotInteractor.Callback callback) {
         final String message = this.message;
