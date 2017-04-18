@@ -17,9 +17,7 @@ public class MealPlanDayModel {
     @Expose
     private NutrientModel nutrientModel;
 
-    public List<RecipeModel> getRecipeModels() {
-        return  RecipeModels;
-    }
+    public List<RecipeModel> getRecipeModels() {return  RecipeModels;}
 
     public void setRecipeModels(List<RecipeModel> meals) {
         this.RecipeModels = meals;

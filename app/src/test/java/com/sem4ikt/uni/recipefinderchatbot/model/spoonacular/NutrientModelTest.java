@@ -21,8 +21,8 @@ public class NutrientModelTest {
     @Test
     public void setCalories()
     {
-        nutrientModel.setCalories(1);
-        Assert.assertEquals((int)nutrientModel.getCalories(),1);
+        nutrientModel.setCalories(1.0);
+        Assert.assertEquals((double)nutrientModel.getCalories(),1);
     }
 
     @Test

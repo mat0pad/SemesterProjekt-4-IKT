@@ -79,6 +79,10 @@ dependencies {
 
     // Image loader
     compile 'com.squareup.picasso:picasso:2.5.2'
+
+    // Calender view
+    compile 'com.github.sundeepk:compact-calendar-view:2.0.1'
+
 }
 // Google services required for firebase
 apply plugin: 'com.google.gms.google-services'

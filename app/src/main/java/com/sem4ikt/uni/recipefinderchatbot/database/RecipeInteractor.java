@@ -15,6 +15,7 @@ import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInterac
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
