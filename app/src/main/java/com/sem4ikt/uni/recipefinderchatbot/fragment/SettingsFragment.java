@@ -12,13 +12,14 @@ import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ISettingsPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ISettingsView;
 
+
 /**
  * Created by Christian on 12-03-2017.
  */
 
 public class SettingsFragment extends Fragment implements ISettingsView, View.OnClickListener{
 
-    Button resetButton;
+    //final Button deleteUserBut = (Button) getView().findViewById(delete_user);
 
     //ISettingsPresenter settingsPresenter;
 

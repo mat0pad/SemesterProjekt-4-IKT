@@ -10,8 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <Button
             android:id="@+id/change_password"
@@ -23,65 +23,10 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="70dp"
             android:background="@drawable/send_button_state"
-            android:text="@string/action_change_password" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/password_change_form"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        android:orientation="horizontal"
-        android:visibility="visible">
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingEnd="30dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:paddingStart="30dp"
-            android:textColorHint="@color/White_Dark"
-            android:theme="@style/TextLabel">
-
-            <EditText
-                android:id="@+id/new_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/prompt_password"
-                android:imeActionLabel="New password"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
-                android:maxLines="1" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingEnd="30dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:paddingStart="30dp"
-            android:textColorHint="@color/White_Dark"
-            android:theme="@style/TextLabel">
-
-            <EditText
-                android:id="@+id/new_passwordConfirm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/prompt_password"
-                android:imeActionLabel="Confirm new password"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
-                android:maxLines="1" />
-
-        </android.support.design.widget.TextInputLayout>
+            android:text="Change password" />
 
         <Button
-            android:id="@+id/update_password"
+            android:id="@+id/delete_user"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginEnd="40dp"
@@ -90,7 +35,10 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="70dp"
             android:background="@drawable/send_button_state"
-            android:text="Update password" />
+            android:text="Delete user" />
+
+
+
     </LinearLayout>
 
 </FrameLayout>

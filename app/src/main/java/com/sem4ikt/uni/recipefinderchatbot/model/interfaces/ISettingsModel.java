@@ -7,7 +7,9 @@ package com.sem4ikt.uni.recipefinderchatbot.model.interfaces;
 public interface ISettingsModel {
 
 
-    boolean checkPasswordsMatches();
+    void deleteUser();
 
-    boolean CheckPasswordValidity();
+    void reAuth();
+
+    void updatePassword();
 }

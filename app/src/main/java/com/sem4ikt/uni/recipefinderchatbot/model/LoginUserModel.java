@@ -40,9 +40,7 @@ public class LoginUserModel implements ILoginUserModel {
     public void setConfirmPassword(String confirmPassword) {this.confirmPassword = confirmPassword;}
 
     @Override
-    public boolean checkPasswordsMatches() {
-        return confirmPassword.equals(password);
-    }
+    public boolean checkPasswordsMatches() {return confirmPassword.equals(password);}
 
     @Override
     public boolean checkUserValidity() {

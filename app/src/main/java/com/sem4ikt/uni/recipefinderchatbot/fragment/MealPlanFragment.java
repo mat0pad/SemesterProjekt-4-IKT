@@ -6,14 +6,18 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sem4ikt.uni.recipefinderchatbot.R;
@@ -27,7 +31,9 @@ import com.sem4ikt.uni.recipefinderchatbot.rest.ISpoonacularAPI;
 import com.sem4ikt.uni.recipefinderchatbot.view.IMealPlanView;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,6 +53,9 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
     MealPlanWeekModel weekPlan;
     MealPlanDayModel dayPlan;
     MealPlanPresenter presenter;
+    private CompactCalendarView compactCalenderView;
+    private ActionBar toolbar;
+    private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,6 +68,12 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
         presenter=new MealPlanPresenter(this);
         final View view = inflater.inflate(R.layout.mealplan, container, false);
 
+        final Button showPreviousMonthBut = (Button) view.findViewById(R.id.prev_button);
+        final Button showNextMonthBut = (Button) view.findViewById(R.id.next_button);
+
+
+        //toolbar.setTitle(dateFormatForMonth.format(compactCalenderView.getFirstDayOfCurrentMonth()));
+
         dinner = (ImageView) view.findViewById(R.id.dinner);
         breakfast = (ImageView) view.findViewById(R.id.breakfast);
         lunch = (ImageView) view.findViewById(R.id.lunch);
@@ -67,7 +82,35 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
 
         presenter.getMealPlanWeek();
 
+        /*
+        compactCalenderView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
 
+            @Override
+            public void onDayClick(Date dateClicked) {
+                toolbar.setTitle(dateFormatForMonth.format(dateClicked));
+
+            }
+
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+                toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
+            }
+        });
+        */
+
+        showNextMonthBut.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                compactCalenderView.showNextMonth();
+            }
+        });
+
+        showPreviousMonthBut.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                compactCalenderView.showPreviousMonth();
+            }
+        });
 
 /*
         ApiClient client = new ApiClient();
@@ -227,6 +270,8 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
 
         return view;
     }
+
+
 
     @Override
     public void getDayPlan(){

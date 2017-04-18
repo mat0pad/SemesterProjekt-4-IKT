@@ -5,6 +5,7 @@ import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ISettingsModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ISettingsPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ISettingsView;
 import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseAuth;
 
 /**
  * Created by Christian on 07-04-2017.
