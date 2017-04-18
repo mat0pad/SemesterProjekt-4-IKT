@@ -75,7 +75,7 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
         chatbotPresenter.getUser();
 
 
-        // Set item listener
+        // Set item listenerz
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {

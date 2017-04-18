@@ -94,7 +94,6 @@ public class ChatbotService implements IChatbotService {
         return this;
     }
 
-
     public void setChatbotListener(final ChatbotInteractor.Callback callback) {
         final String message = this.message;
         final String workspaceIdentifier = this.workspaceIdentifier;
