@@ -25,6 +25,7 @@ import static org.mockito.Mockito.verify;
 public class FavoritesPresenterUnitTest {
 
     @Mock
+
     IFavoritesView view;
 
     @Mock

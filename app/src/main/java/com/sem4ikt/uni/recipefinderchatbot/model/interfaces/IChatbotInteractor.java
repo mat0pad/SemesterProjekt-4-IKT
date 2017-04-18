@@ -8,7 +8,8 @@ import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
  */
 
 public interface IChatbotInteractor {
-   ChatbotInteractor.ChatbotCall message(String workspaceId, String msg);
+
+    ChatbotInteractor.ChatbotCall message(String workspaceId, String msg);
 
    void setContext(User user);
 }

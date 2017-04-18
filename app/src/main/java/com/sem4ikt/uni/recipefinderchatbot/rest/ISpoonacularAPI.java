@@ -44,7 +44,6 @@ public interface ISpoonacularAPI {
         Call<MealPlanDayModel> getDayMealPlan(
                 @Query("diet") String diet,
                 @Query("targetCalories") int targetCalories,
-                //@Query("timeFrame") String timeFrame,
                 @Query("exclude")  String exclude
             );
 

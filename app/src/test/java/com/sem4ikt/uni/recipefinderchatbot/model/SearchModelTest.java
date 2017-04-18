@@ -2,7 +2,6 @@ package com.sem4ikt.uni.recipefinderchatbot.model;
 
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 
-import org.apache.commons.lang3.time.StopWatch;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,7 +61,7 @@ public class SearchModelTest {
 
     }
 
-    @Test
+    /*@Test
     public void multiThreadSearchFoundNone() throws InterruptedException {
         List<RecipeModel> list = new ArrayList<>();
         RecipeModel rp = new RecipeModel();
@@ -71,5 +70,5 @@ public class SearchModelTest {
 
         Assert.assertNotEquals(list.size(),sm.searchMultiThread(list,"Chicken").size());
 
-    }
+    }*/
 }

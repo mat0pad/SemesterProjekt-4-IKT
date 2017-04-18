@@ -1,9 +1,10 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
+import android.support.annotation.VisibleForTesting;
+
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackMealplan;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.database.MealPlansInteractor;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IMealPlanPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IMealPlanView;
 
@@ -15,16 +16,26 @@ import java.util.List;
  */
 
 public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements IMealPlanPresenter<IMealPlanView>,ICallbackMealplan {
-    private MealPlansInteractor ctrl;
-   public MealPlanPresenter(IMealPlanView view) {
+
+    private IFirebaseDBInteractors.IMealplanInteractor ctrl;
+
+    public MealPlanPresenter(IMealPlanView view) {
         super(view);
-       ctrl= new MealPlansInteractor();
+        ctrl = new MealPlansInteractor();
+    }
+
+    @VisibleForTesting
+    public MealPlanPresenter(IMealPlanView view, IFirebaseDBInteractors.IMealplanInteractor ctrl) {
+        super(view);
+        this.ctrl = ctrl;
     }
 
     public void getMealPlanDay(){ctrl.getMealPlanDay(this);}
+
     public void getMealPlanWeek(){ctrl.getMealPlanWeek(this);}
+
     public void update(){//ctrl.update(this);
-        }
+    }
 
 
 

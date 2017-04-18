@@ -55,7 +55,7 @@ public class ChatbotInteractor implements IChatbotInteractor
         };
     }
 
-    //New
+
     @Override
     public void setContext(User user) {
         cs.setUserContextGeneral(user);

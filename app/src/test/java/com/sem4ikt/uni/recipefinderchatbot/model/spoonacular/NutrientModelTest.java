@@ -9,20 +9,23 @@ import org.junit.Test;
  */
 
 public class NutrientModelTest {
-    private NutrientModel nutrientModel = null;
-
-    @Before
-    public void setUp(){nutrientModel = new NutrientModel();}
     /**
      DELTA is the max delta between excepted
      and actual number are still considered equal
      */
     private final double DELTA = 1e-15;
+    private NutrientModel nutrientModel = null;
+
+    @Before
+    public void setUp() {
+        nutrientModel = new NutrientModel();
+    }
+
     @Test
     public void setCalories()
     {
         nutrientModel.setCalories(1.0);
-        Assert.assertEquals((double)nutrientModel.getCalories(),1);
+        Assert.assertEquals(nutrientModel.getCalories(), 1.0, DELTA);
     }
 
     @Test

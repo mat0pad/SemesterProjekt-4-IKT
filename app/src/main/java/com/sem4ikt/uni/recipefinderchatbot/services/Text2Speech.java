@@ -38,8 +38,7 @@ public class Text2Speech {
         @Override
         protected String doInBackground(String... params) {
 
-            System.out.println("Play sound: " + params[0]);
-            player.playStream(textToSpeech.synthesize(params[0], Voice.EN_MICHAEL).execute());
+            player.playStream(textToSpeech.synthesize(params[0], Voice.EN_LISA).execute());
 
             return "Did synthesize";
         }
