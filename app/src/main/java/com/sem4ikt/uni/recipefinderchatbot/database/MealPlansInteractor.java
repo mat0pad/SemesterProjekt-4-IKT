@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by anton on 01-04-2017.
@@ -32,7 +33,8 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
     private DatabaseReference datedb;
     private DatabaseReference mealplandaydb;
 
-    private List<Date> DateList;
+    private List<Date> dateweekList;
+    private List<Date> datedaylist;
 
     public MealPlansInteractor() {
 
@@ -47,7 +49,9 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
             datedb = FirebaseDatabase.getInstance().getReference("Test");
             mealplandaydb = FirebaseDatabase.getInstance().getReference("Test");
         }
-        DateList = new ArrayList<>();
+        dateweekList = new ArrayList<>();
+        datedaylist = new ArrayList<>();
+
 
     }
 
@@ -55,40 +59,22 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
     public void addMealPlanWeek(final MealPlanWeekModel mealplan, final Date startdate) {
 
         DateSetup ds = new DateSetup();
-        final DateModel dateModel = ds.SetDateModelWeek(startdate);
+
+        final DateModel dateModel = ds.setDateModelWeek(startdate);
+
+        checkForRoom(mealplan,dateModel);
+    }
 
 
-        //Query to check if inserting mealplan would interfer with existing mealplans
-       Query upperbound = datedb.orderByChild("endDate").startAt((dateModel.startDate)).endAt(dateModel.endDate);
 
-        upperbound.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.exists()) {
-                    Query lowerbound = datedb.orderByChild("startDate").startAt(dateModel.startDate).endAt(dateModel.endDate);
+    @Override
+    public void addMealPlanDay(MealPlanDayModel mealplan, Date startdate) {
 
-                    lowerbound.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (!dataSnapshot.exists()) {
-                                insertMealPlanWeek(mealplan, dateModel);
-                            }
-                        }
+        DateSetup ds = new DateSetup();
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            Log.e("onCancelled",databaseError.getMessage());
-                        }
-                    });
-                }
-            }
+        DateModel dateModel = ds.setDateModelDay(startdate);
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("onCancelled",databaseError.getMessage());
-            }
-        });
-
+        checkForInside(mealplan,dateModel);
     }
 
 
@@ -109,55 +95,95 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
     }
 
 
+
+
     @Override
-    public void addMealPlanDay(MealPlanDayModel mealplan, Date date) {
-        String key = mealplandaydb.push().getKey(); //get key in advance
-        mealplandaydb.child(key).setValue(mealplan);
-        datedb.child(key).child("startDate").setValue(date);
-        datedb.child(key).child("endDate").setValue(date);
+    public void removeMealPlanDay(Date startdate){
+        DateSetup ds = new DateSetup();
+        DateModel dm = ds.setDateModelWeek(startdate);
+
+
+        Query dateQuery = datedb.orderByChild("startDate").equalTo(dm.startDate);
+        dateQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot datesnapshot : dataSnapshot.getChildren()){
+                    String key = datesnapshot.getKey();
+                    mealplandaydb.child(key).removeValue();
+                    datedb.child(key).removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("onCancelled",databaseError.toString());
+            }
+        });
+
     }
 
     @Override
-    public void removeMealPlanDay(MealPlanDayModel mealPlanDayModel) {
+    public void removeMealPlanWeek(Date startdate) {
 
-    }
+        DateSetup ds = new DateSetup();
+        DateModel dm = ds.setDateModelWeek(startdate);
 
-    @Override
-    public void removeMealPlanWeek(MealPlanWeekModel mealPlanWeekModel) {
 
+        Query dateQuery = datedb.orderByChild("startDate").equalTo(dm.startDate);
+
+
+        dateQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot datesnapshot : dataSnapshot.getChildren()){
+                    String key = datesnapshot.getKey();
+                    mealplanweekdb.child(key).removeValue();
+                    datedb.child(key).removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("onCancelled",databaseError.toString());
+            }
+        });
     }
 
     @Override
     public void getMealPlanWeek(final ICallbackMealplan callback) {
+
         mealplanweekdb.addListenerForSingleValueEvent(new ValueEventListener() {
             final List<MealPlanWeekModel> mealplanlist = new ArrayList<>();
 
+
             @Override
             public void onDataChange(DataSnapshot mealplanweeksnapshot) {
-                final List<String> keylist = new ArrayList<String>();
+                final List<String> keylist = new ArrayList<>();
                 for(final DataSnapshot datamealplan: mealplanweeksnapshot.getChildren()) {
                     mealplanlist.add(datamealplan.getValue(MealPlanWeekModel.class));
                     keylist.add(datamealplan.getKey());
                 }
 
+                dateweekList.clear();
+
                 for(int i =0;i< mealplanlist.size();++i) {
                     datedb.child(keylist.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot datasnapshot) {
+                            if(datasnapshot.exists()) {
                                 long b = datasnapshot.getValue(DateModel.class).startDate;
-                                DateList.add(new Date(b));
-                            Log.e("asdkslkj",mealplanlist.size()+"");
-                                if(DateList.size() == mealplanlist.size())
-                                    callback.onReceived(mealplanlist,DateList, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_WEEK);
+                                dateweekList.add(new Date(b));
+                                if (dateweekList.size() == mealplanlist.size())
+                                    callback.onReceived(mealplanlist, dateweekList, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_WEEK);
+                            }
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
+                        public void onCancelled(DatabaseError databaseError){
+                            Log.e("onCancelled",databaseError.getMessage());
                         }
                     });
                 }
-                //callback.onReceived(mealplan, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN);
             }
 
             @Override
@@ -168,7 +194,109 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
     }
 
     @Override
-    public void getMealPlanDay(ICallbackMealplan callback) {
+    public void getMealPlanDay(final ICallbackMealplan callback) {
+        final List<MealPlanDayModel> mealplandaylist = new ArrayList<>();
 
+        mealplandaydb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot mealplandaysnapshot) {
+                final List<String> keylist = new ArrayList<>();
+                for (final DataSnapshot datamealplan : mealplandaysnapshot.getChildren()) {
+                    mealplandaylist.add(datamealplan.getValue(MealPlanDayModel.class));
+                    keylist.add(datamealplan.getKey());
+                }
+
+                datedaylist.clear();
+
+                for (int i = 0; i < mealplandaylist.size(); ++i) {
+                    datedb.child(keylist.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot datasnapshot) {
+                            if (datasnapshot.exists()) {
+                                long b = datasnapshot.getValue(DateModel.class).startDate;
+                                datedaylist.add(new Date(b));
+                                if (datedaylist.size() == mealplandaylist.size())
+                                    callback.onReceived(mealplandaylist, datedaylist, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_DAY);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.e("onCancelled", databaseError.getMessage());
+                        }
+                    });
+
+                }
+            }
+                @Override
+                public void onCancelled (DatabaseError databaseError){
+                    Log.e("onCancelled",databaseError.getMessage());
+                }
+
+        });
+    }
+
+
+
+    private void checkForRoom(final MealPlanWeekModel mealplan,final DateModel dateModel)
+    {
+        Query upperbound = datedb.orderByChild("endDate").startAt((dateModel.startDate)).endAt(dateModel.endDate);
+
+        upperbound.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()) {
+                    Query lowerbound = datedb.orderByChild("startDate").startAt(dateModel.startDate).endAt(dateModel.endDate);
+
+                    lowerbound.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (!dataSnapshot.exists()) {
+                                insertMealPlanWeek(mealplan, dateModel);
+
+                                }
+                            }
+
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.e("onCancelled",databaseError.getMessage());
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("onCancelled",databaseError.getMessage());
+            }
+        });
+    }
+
+    private void checkForInside(final MealPlanDayModel mealplanday, final DateModel dateModel)
+    {
+        Query lower = datedb.orderByChild("endDate").startAt(dateModel.startDate);
+
+        lower.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(final DataSnapshot datamealplanDay: dataSnapshot.getChildren())
+                {
+                    DateModel startdateinside = datamealplanDay.getValue(DateModel.class);
+
+                    if(startdateinside.startDate <= dateModel.startDate) {
+                        Log.e("tag","tag");
+                        return;
+                    }
+
+                }
+                insertMealPlanDay(mealplanday,dateModel);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

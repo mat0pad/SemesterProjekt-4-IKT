@@ -42,9 +42,9 @@ public interface IFirebaseDBInteractors {
         void addMealPlanDay(MealPlanDayModel mealplan,Date date);
 
 
-        void removeMealPlanDay(MealPlanDayModel mealPlanDayModel);
+        void removeMealPlanDay(Date startsdate);
 
-        void removeMealPlanWeek(MealPlanWeekModel mealPlanWeekModel);
+        void removeMealPlanWeek(Date startsdate);
 
         void getMealPlanWeek(ICallbackMealplan callback);
 

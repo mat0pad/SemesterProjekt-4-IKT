@@ -7,7 +7,6 @@ import com.google.firebase.database.IgnoreExtraProperties;
  */
 
 
-//TEST
     @IgnoreExtraProperties
 public class User {
 

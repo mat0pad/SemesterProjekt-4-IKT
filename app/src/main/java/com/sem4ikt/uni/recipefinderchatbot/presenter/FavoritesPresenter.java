@@ -26,6 +26,10 @@ public class FavoritesPresenter extends BasePresenter<IFavoritesView> implements
         interactor = new RecipeInteractor();
     }
 
+    public FavoritesPresenter(IFavoritesView view,IFirebaseDBInteractors.IRecipeInteractor interactor) {
+        super(view);
+        this.interactor = interactor;
+    }
 
     @Override
     public void getRecipeList() {
