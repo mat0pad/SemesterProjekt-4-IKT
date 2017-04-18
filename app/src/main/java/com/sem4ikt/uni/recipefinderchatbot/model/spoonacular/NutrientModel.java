@@ -9,7 +9,7 @@ public class NutrientModel {
 
     @SerializedName("calories")
     @Expose
-    private Integer calories;
+    private Double calories;
     @SerializedName("protein")
     @Expose
     private Double protein;
@@ -20,11 +20,11 @@ public class NutrientModel {
     @Expose
     private Double carbohydrates;
 
-    public Integer getCalories() {
+    public Double getCalories() {
         return calories;
     }
 
-    public void setCalories(Integer calories) {
+    public void setCalories(Double calories) {
         this.calories = calories;
     }
 

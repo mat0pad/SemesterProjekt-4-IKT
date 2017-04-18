@@ -5,7 +5,8 @@ import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnswerModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientSubstituteModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.InstructionsModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RandomRecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
@@ -39,14 +40,20 @@ public interface ISpoonacularAPI {
         exclude         : A comma-separated list of allergens or ingredients that must be excluded.
 
          **/
-        @GET("recipes/mealplans/generate")
-        Call<MealPlanModel> getMealPlan(
-            @Query("diet") String diet,
-            @Query("targetCalories") int targetCalories,
-            @Query("timeFrame") String timeFrame,
-            @Query("exclude")  String exclude
+        @GET("recipes/mealplans/generate?timeFrame=day")
+        Call<MealPlanDayModel> getDayMealPlan(
+                @Query("diet") String diet,
+                @Query("targetCalories") int targetCalories,
+                //@Query("timeFrame") String timeFrame,
+                @Query("exclude")  String exclude
             );
 
+        @GET("recipes/mealplans/generate?timeFrame=week")
+        Call<MealPlanWeekModel> getWeekMealPlan(
+                @Query("diet") String diet,
+                @Query("targetCalories") int targetCalories,
+                @Query("exclude") String exclude
+        );
 
         /** @Params
             id  : id of recipe to be summarized.

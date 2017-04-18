@@ -12,7 +12,8 @@
         android:layout_alignParentTop="true"
         android:layout_margin="5dp"
         android:background="@color/Gray_Light"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/placeholder" />
 
     <TextView
         android:id="@+id/recipe_list_title"

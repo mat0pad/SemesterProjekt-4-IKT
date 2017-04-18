@@ -1,7 +1,5 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces;
 
-import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
-
 import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
 
 /**
@@ -21,5 +19,6 @@ public interface IChatbotPresenter<V> extends IBasePresenter<V> {
 
     void getUser();
 
+    void doInitText2Speech();
 }
 

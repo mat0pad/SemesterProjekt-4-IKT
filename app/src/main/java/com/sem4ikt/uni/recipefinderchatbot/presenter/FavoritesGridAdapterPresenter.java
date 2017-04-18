@@ -77,7 +77,8 @@ public class FavoritesGridAdapterPresenter extends BasePresenter<IFavoritesGridA
 
     @Override
     public void deleteRecipe(int position) {
-        view.deleteRecipe(position);
+        RecipeModel recipe = view.getItem(position);
+        view.deleteRecipe(recipe);
         view.notifyUpdate();
     }
 

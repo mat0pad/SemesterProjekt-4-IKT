@@ -44,7 +44,7 @@
                     android:layout_height="400dp"
                     android:layout_alignParentTop="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/thai" />
+                    android:src="@drawable/placeholder" />
 
                 <TextView
                     android:id="@+id/recipe_title"

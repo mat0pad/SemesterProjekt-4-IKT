@@ -11,11 +11,13 @@ import java.util.List;
  * Created by anton on 11-03-2017.
  */
 
-public class MealPlanModelTest {
-    private MealPlanModel mealPlanModel = null;
+public class MealPlanDayModelTest {
+    private MealPlanDayModel mealPlanDayModel = null;
 
     @Before
-    public void setUp(){mealPlanModel = new MealPlanModel();}
+    public void setUp() {
+        mealPlanDayModel = new MealPlanDayModel();
+    }
 
     @Test
     public void setRecipeModel()
@@ -24,17 +26,17 @@ public class MealPlanModelTest {
         list.add(new RecipeModel());
         list.add(new RecipeModel());
 
-        mealPlanModel.setRecipeModels(list);
-        Assert.assertEquals(mealPlanModel.getRecipeModels(),list);
+        mealPlanDayModel.setRecipeModels(list);
+        Assert.assertEquals(mealPlanDayModel.getRecipeModels(), list);
     }
 
     @Test
     public void setNutrientModel()
     {
         NutrientModel nutrientModel = new NutrientModel();
-        mealPlanModel.setNutrients(nutrientModel);
+        mealPlanDayModel.setNutrients(nutrientModel);
 
-        Assert.assertEquals(mealPlanModel.getNutrients(),nutrientModel);
+        Assert.assertEquals(mealPlanDayModel.getNutrients(), nutrientModel);
     }
 
 }

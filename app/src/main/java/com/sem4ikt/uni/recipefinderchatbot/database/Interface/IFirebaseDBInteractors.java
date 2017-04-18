@@ -1,12 +1,9 @@
 package com.sem4ikt.uni.recipefinderchatbot.database.Interface;
 
-import com.google.android.gms.tasks.Task;
 import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
-
-import java.util.List;
 
 /**
  * Created by mathiaslykkepedersen on 16/03/2017.
@@ -37,7 +34,7 @@ public interface IFirebaseDBInteractors {
 
     interface IMealplanInteractor{
 
-        void addMealPlan(MealPlanModel mealplan);
+        void addMealPlan(MealPlanDayModel mealplan);
 
 
         void removeMealplan();
@@ -53,7 +50,7 @@ public interface IFirebaseDBInteractors {
 
         void getRecipe(ICallbackRecipe callback);
 
-        void checkUpdates(ICallbackRecipe callback);
+
     }
 
 }

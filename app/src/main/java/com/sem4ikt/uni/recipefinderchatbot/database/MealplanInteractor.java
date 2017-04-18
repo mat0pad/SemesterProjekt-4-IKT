@@ -9,13 +9,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackMealplan;
-import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackRecipe;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
 
 /**
  * Created by anton on 01-04-2017.
@@ -35,7 +30,7 @@ public class MealplanInteractor implements IFirebaseDBInteractors.IMealplanInter
     }
 
     @Override
-    public void addMealPlan(MealPlanModel mealplan) {
+    public void addMealPlan(MealPlanDayModel mealplan) {
         database.push().setValue(mealplan);
     }
 
@@ -50,7 +45,7 @@ public class MealplanInteractor implements IFirebaseDBInteractors.IMealplanInter
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.e("GetMealplan","call");
-                MealPlanModel mealplan = dataSnapshot.getValue(MealPlanModel.class);
+                MealPlanDayModel mealplan = dataSnapshot.getValue(MealPlanDayModel.class);
 
                 callback.onReceived(mealplan, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN);
             }
