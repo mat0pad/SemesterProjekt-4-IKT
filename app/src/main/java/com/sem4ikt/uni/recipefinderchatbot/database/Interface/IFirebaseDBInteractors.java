@@ -24,23 +24,11 @@ public interface IFirebaseDBInteractors {
 
     }
 
-    interface IRecipesInteractor {
-
-        void addRecipe(RecipesModel recipe);
-
-        void removeRecipe(RecipesModel recipe);
-
-        void getRecipes();
-
-        void searchRecipesbyTitle(String Query);
-    }
-
     interface IMealplanInteractor{
 
         void addMealPlanWeek(MealPlanWeekModel mealplan, Date date);
 
         void addMealPlanDay(MealPlanDayModel mealplan,Date date);
-
 
         void removeMealPlanDay(Date startsdate);
 
@@ -59,7 +47,10 @@ public interface IFirebaseDBInteractors {
 
         void getRecipe(ICallbackRecipe callback);
 
+    }
 
+    interface IDeleteInfoInteractor {
+        void removeAllUserInfo(String uid);
     }
 
 }
