@@ -1,6 +1,9 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
+import android.support.annotation.VisibleForTesting;
+
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackMealplan;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.database.MealPlansInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
@@ -15,16 +18,26 @@ import java.util.List;
  */
 
 public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements IMealPlanPresenter<IMealPlanView>,ICallbackMealplan {
-    private MealPlansInteractor ctrl;
-   public MealPlanPresenter(IMealPlanView view) {
+
+    private IFirebaseDBInteractors.IMealplanInteractor ctrl;
+
+    public MealPlanPresenter(IMealPlanView view) {
         super(view);
-       ctrl= new MealPlansInteractor();
+        ctrl = new MealPlansInteractor();
+    }
+
+    @VisibleForTesting
+    public MealPlanPresenter(IMealPlanView view, IFirebaseDBInteractors.IMealplanInteractor ctrl) {
+        super(view);
+        this.ctrl = ctrl;
     }
 
     public void getMealPlanDay(){ctrl.getMealPlanDay(this);}
+
     public void getMealPlanWeek(){ctrl.getMealPlanWeek(this);}
+
     public void update(){//ctrl.update(this);
-        }
+    }
 
 
 
@@ -32,11 +45,11 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
     public void onReceived(Object mealplan, List<Date> date, MEALPLAN_CALLBACK_TYPE type) {
         switch (type) {
             case GET_MEALPLAN_DAY:
-                view.getDayPlan();
+                view.getDayPlan((MealPlanDayModel) mealplan,date);
                 break;
 
             case GET_MEALPLAN_WEEK:
-                view.getWeekPlan();
+                view.getWeekPlan((MealPlanWeekModel) mealplan,date);
                 break;
         }
 
