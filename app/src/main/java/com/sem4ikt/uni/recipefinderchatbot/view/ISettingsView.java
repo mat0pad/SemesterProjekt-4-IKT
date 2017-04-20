@@ -12,4 +12,8 @@ public interface ISettingsView {
     void onFinish();
 
     void onShowToast(String text);
+
+    void switchToSettingsView();
+
+    void switchToChangePassView();
 }

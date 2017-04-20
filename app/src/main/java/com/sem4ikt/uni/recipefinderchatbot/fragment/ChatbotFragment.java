@@ -62,7 +62,7 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
 
         inputField = (EditText) view.findViewById(R.id.message_edittext);
 
-        adapter = new ChatListAdapter(getContext());
+        adapter = new ChatListAdapter(getActivity());
 
         adapterPresenter = new ChatListAdapterPresenter(adapter);
 
