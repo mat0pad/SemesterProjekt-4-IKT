@@ -12,4 +12,8 @@ public interface IFirebaseAuth {
     void signIn(String email, String password, ILoginCallback callable);
     void sendRestEmailVerification(String email, ILoginCallback callable);
 
+    void updatePassword(String newPassword, final ILoginCallback callback);
+
+    void deleteAccount(final ILoginCallback callback);
+
 }

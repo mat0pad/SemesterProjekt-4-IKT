@@ -2,13 +2,18 @@ package com.sem4ikt.uni.recipefinderchatbot.fragment;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
+import com.sem4ikt.uni.recipefinderchatbot.activity.LoginActivity;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.SettingsPresenter;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ISettingsPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ISettingsView;
 
 /**
@@ -19,10 +24,7 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
 
     Button resetButton;
 
-    //ISettingsPresenter settingsPresenter;
-
-    //SettingsView state;
-
+    private ISettingsPresenter presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,6 +36,8 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.settings, container, false);
 
+        presenter = new SettingsPresenter(this);
+
         return view;
     }
 
@@ -43,26 +47,32 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
             switch (v.getId()){
 
                 case R.id.change_password:
-
-
-
                     break;
 
                 default:
                     break;
             }
-
     }
 
-    public void onPresentView() {
-
-
-
-
-    }
 
     @Override
     public void onChangePassword() {
 
+    }
+
+    @Override
+    public void onFinish() {
+
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+
+        getActivity().startActivity(intent);
+
+        getActivity().finish();
+    }
+
+    @Override
+    public void onShowToast(String text) {
+        Toast toast = Toast.makeText(getActivity(), text, Toast.LENGTH_LONG);
+        toast.show();
     }
 }
