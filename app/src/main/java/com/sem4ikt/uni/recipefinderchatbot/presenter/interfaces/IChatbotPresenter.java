@@ -20,5 +20,6 @@ public interface IChatbotPresenter<V> extends IBasePresenter<V> {
     void getUser();
 
     void doInitText2Speech();
+
 }
 

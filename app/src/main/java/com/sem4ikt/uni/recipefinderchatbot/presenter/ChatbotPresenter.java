@@ -101,8 +101,15 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
             @Override
             public void onChatbotFailed(String errorMsg)
             {
-                System.out.println(errorMsg);
-                showErrorText();
+                System.out.println(errorMsg + "thread: " + Thread.currentThread());
+
+                Runnable myRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        showErrorText();
+                    }
+                };
+                new Handler(Looper.getMainLooper()).post(myRunnable);
             }
         });
 
@@ -240,4 +247,5 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
                 });
 
     }
+
 }

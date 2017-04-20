@@ -1,7 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.activity;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -14,10 +14,8 @@ import com.sem4ikt.uni.recipefinderchatbot.fragment.FavoritesFragment;
 import com.sem4ikt.uni.recipefinderchatbot.fragment.MealPlanFragment;
 import com.sem4ikt.uni.recipefinderchatbot.fragment.SettingsFragment;
 import com.sem4ikt.uni.recipefinderchatbot.other.CanaroTextView;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.DetailRecipePresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.MainPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IMainPresenter;
-
 import com.sem4ikt.uni.recipefinderchatbot.view.IMainView;
 import com.yalantis.guillotine.animation.GuillotineAnimation;
 
@@ -51,7 +49,9 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
 
         mainPresenter = new MainPresenter(this);
         mainPresenter.setupMenu();
+
         mainPresenter.displayFragment(FragmentMenu.CHATBOT.ordinal());
+
 
     }
 
@@ -90,22 +90,26 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
     public void showFragment(int frag){
 
         // Add the fragment to the frameLayout
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         // Create a new Fragment to be placed in the activity layout
         switch (FragmentMenu.values()[frag])
         {
             case CHATBOT:
                 transaction.replace(R.id.frame_container, new ChatbotFragment());
+
                 break;
             case SETTINGS:
                 transaction.replace(R.id.frame_container, new SettingsFragment());
+
                 break;
             case MEAL_PLAN:
                 transaction.replace(R.id.frame_container, new MealPlanFragment());
+
                 break;
             case FAVORITES:
                 transaction.replace(R.id.frame_container, new FavoritesFragment());
+
                 break;
         }
 

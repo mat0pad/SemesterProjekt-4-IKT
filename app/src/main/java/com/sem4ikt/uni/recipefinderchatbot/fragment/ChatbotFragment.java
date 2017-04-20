@@ -1,7 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.fragment;
 
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -122,5 +122,15 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
     public void initText2Speech() {
         text2Speech = new Text2Speech();
     }
+
+
+    @Override
+    public void setMenuVisibility(final boolean visible) {
+        super.setMenuVisibility(visible);
+        if (!visible) {
+            text2Speech.playerStop();
+        }
+    }
+
 
 }

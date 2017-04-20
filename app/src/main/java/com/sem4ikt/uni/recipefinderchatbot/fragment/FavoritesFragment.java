@@ -1,9 +1,9 @@
 package com.sem4ikt.uni.recipefinderchatbot.fragment;
 
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
