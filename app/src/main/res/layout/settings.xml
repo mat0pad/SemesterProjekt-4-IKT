@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <Button
             android:id="@+id/change_password_button"
@@ -70,7 +70,7 @@
             android:theme="@style/TextLabel">
 
             <EditText
-                android:id="@+id/password_signup"
+                android:id="@+id/change_password_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_password"
@@ -95,7 +95,7 @@
             android:theme="@style/TextLabel">
 
             <EditText
-                android:id="@+id/password_signup_confirm"
+                android:id="@+id/change_password_input_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_confirm_pass"
@@ -118,7 +118,7 @@
             android:layout_marginStart="50dp" />
 
         <Button
-            android:id="@+id/back_button"
+            android:id="@+id/cancel_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/send_button_state"

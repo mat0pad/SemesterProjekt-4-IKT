@@ -10,4 +10,6 @@ public interface ISettingsModel {
     boolean checkPasswordsMatches();
 
     boolean CheckPasswordValidity();
+
+
 }

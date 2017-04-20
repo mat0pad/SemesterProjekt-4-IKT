@@ -4,6 +4,8 @@ import android.support.annotation.VisibleForTesting;
 
 import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseAuth;
+import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ILoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ISettingsModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ISettingsPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ISettingsView;
@@ -29,6 +31,32 @@ public class SettingsPresenter extends BasePresenter<ISettingsView> implements I
         super(view);
 
         this.auth = auth;
+    }
+
+
+    public void doCheckPassSucess(String pass1, String pass2)
+    {
+        if(pass1 == null || pass2 ==null) {
+            view.onShowToast("Password required in both fields");
+            return;
+        }
+
+        ILoginUserModel passChecker = new LoginUserModel();
+        passChecker.setPassword(pass1);
+        passChecker.setConfirmPassword(pass2);
+        boolean equal = passChecker.checkPasswordsMatches();
+
+
+    }
+
+    public void doShowPasswordChangeView()
+    {
+        view.onSwitchToChangePassView();
+    }
+
+    public void doShowSettingsView()
+    {
+        view.onSwitchToSettingsView();
     }
 
     @Override
