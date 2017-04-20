@@ -21,6 +21,8 @@ import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IConversationInterac
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by mathiaslykkepedersen on 09/03/2017.
  */
@@ -173,6 +175,12 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
     @Override
     public void doInitText2Speech() {
         view.initText2Speech();
+    }
+
+    @Override
+    public void updateUser(String name, String response) {
+        ui.updateUser(name,true);
+        showText(response);
     }
 
     @Override

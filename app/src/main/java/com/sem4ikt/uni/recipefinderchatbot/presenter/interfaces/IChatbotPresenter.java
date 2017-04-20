@@ -21,5 +21,6 @@ public interface IChatbotPresenter<V> extends IBasePresenter<V> {
 
     void doInitText2Speech();
 
+    void updateUser(String name, String response);
 }
 
