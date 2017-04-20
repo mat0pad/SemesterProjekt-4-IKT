@@ -29,7 +29,7 @@ public class ChatbotService implements IChatbotService {
 
 
     public void message(String workspaceId, String msg) {
-        if (workspaceIdentifier != workspaceId) {
+        if (!Objects.equals(workspaceIdentifier, workspaceId)) {
             workspaceIdentifier = workspaceId;
 
             switch (workspaceId) {

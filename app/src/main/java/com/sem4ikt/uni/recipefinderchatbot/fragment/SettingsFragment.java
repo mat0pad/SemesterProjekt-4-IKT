@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ISettingsPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ISettingsView;
 
 /**
@@ -18,7 +17,11 @@ import com.sem4ikt.uni.recipefinderchatbot.view.ISettingsView;
 
 public class SettingsFragment extends Fragment implements ISettingsView, View.OnClickListener{
 
-    Button resetButton;
+    private Button changePass;
+    private Button deleteAcc;
+
+    private Button confirmPass;
+    private Button cancel;
 
     //ISettingsPresenter settingsPresenter;
 
@@ -34,6 +37,7 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
         }
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.settings, container, false);
+        changePass = (Button) view.findViewById(R.id.change_password_button);
 
         return view;
     }
@@ -52,7 +56,6 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
                 default:
                     break;
             }
-
     }
 
     public void onPresentView() {
