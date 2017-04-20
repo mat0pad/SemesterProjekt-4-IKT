@@ -6,6 +6,8 @@ import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnalyzedQueryModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.AnswerModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientSubstituteModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientsModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RandomRecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
@@ -15,9 +17,14 @@ import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresente
 import com.sem4ikt.uni.recipefinderchatbot.rest.ApiClient;
 import com.sem4ikt.uni.recipefinderchatbot.rest.IApiClient;
 import com.sem4ikt.uni.recipefinderchatbot.rest.ISpoonacularAPI;
-
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,6 +90,11 @@ public class ConversationInteractor implements IConversationInteractor {
             case "find_by_nutrient":
                 findByNutrients(response.getContext().get("num_of_recipes").toString(),
                         response.getContext().get("nutrient_type").toString());
+                break;
+
+            case "mealplan":
+                generateMealPlan(response.getContext().get("diet").toString(),response.getContext().get("calories").toString(),
+                        response.getContext().get("duration").toString(),response.getContext().get("start_date").toString());
                 break;
 
             case "save_user":
@@ -582,28 +594,82 @@ public class ConversationInteractor implements IConversationInteractor {
 
     }
 
-    // The actual generation of mealplan
-/*    private void generateMealPlan() {
-
+    private  void generateForDay(String diet, int targetCalories, final Date date){
         ISpoonacularAPI.ICompute apiService = client.getClient().create(ISpoonacularAPI.ICompute.class);
 
-        apiService.getMealPlan(null, 2000, "day", null).enqueue(new Callback<MealPlanDayModel>() {
+        apiService.getDayMealPlan(diet,targetCalories,null).enqueue(new Callback<MealPlanDayModel>() {
             @Override
             public void onResponse(Call<MealPlanDayModel> call, Response<MealPlanDayModel> response) {
-
                 if (response.code() == 200) {
                     MealPlanDayModel model = response.body();
 
-                    System.out.println("works: " + model.getNutrients().getCalories());
+                    presenter.showText(model.getRecipeModels().get(0).getTitle() + "date is " + date);
+
+                }
+                else{
+                    presenter.showText("I'm sorry I couldn't find any...");
                 }
             }
 
             @Override
             public void onFailure(Call<MealPlanDayModel> call, Throwable t) {
-                t.printStackTrace();
+
             }
         });
-    }*/
+    }
+
+    private void generateForWeek(final String diet, int targetCalories, final Date date) {
+        ISpoonacularAPI.ICompute apiService = client.getClient().create(ISpoonacularAPI.ICompute.class);
+
+        apiService.getWeekMealPlan(diet,targetCalories,null).enqueue(new Callback<MealPlanWeekModel>() {
+            @Override
+            public void onResponse(Call<MealPlanWeekModel> call, Response<MealPlanWeekModel> response) {
+                if (response.code() == 200) {
+                    MealPlanWeekModel model = response.body();
+
+                    presenter.showText(model.getName() + "date is " + date);
+
+
+                }
+                else{
+                    presenter.showText("I'm sorry I couldn't find any...");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MealPlanWeekModel> call, Throwable t) {
+                System.out.println("Failed generateForWeek");
+
+                t.printStackTrace();
+
+                presenter.showErrorText();
+            }
+        });
+
+    }
+    // The actual generation of mealplan
+     private void generateMealPlan(String diet,String targetCalories,String duration,String startdato) {
+
+         int calories = stringToInt(targetCalories);
+         if(calories == 0)
+             calories = 3000;
+
+         if(startdato.equals("undefined"))
+             generateForDay(diet,calories,new Date());
+         else{
+             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+             try {
+                 Date date = dateFormat.parse(startdato);
+                 if(duration.equals("week"))
+                     generateForWeek(diet,calories,date);
+                 else
+                     generateForDay(diet,calories,date);
+             } catch (ParseException e) {
+                 e.printStackTrace();
+                 presenter.showErrorText();
+             }
+         }
+    }
 
     //Saving name to database and returningUser
     private void saveName(String name,String response)

@@ -48,7 +48,7 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
 
     @Override
     public void onClick(View v) {
-
+/*
             switch (v.getId()){
 
                 case R.id.change_password:
@@ -57,6 +57,7 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
                 default:
                     break;
             }
+            */
     }
 
 
