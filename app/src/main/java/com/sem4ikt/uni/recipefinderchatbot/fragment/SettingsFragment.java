@@ -30,7 +30,7 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
     private RelativeLayout settingsView;
     private LinearLayout changePassView;
 
-    private EditText password, confirmPassword;
+    private EditText passwordField, confirmPasswordField;
 
     private ISettingsPresenter presenter;
 
@@ -52,8 +52,8 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
         settingsView = (RelativeLayout) view.findViewById(R.id.settings_view);
         changePassView = (LinearLayout) view.findViewById(R.id.change_password_view);
 
-        password = (EditText) view.findViewById(R.id.change_password_input);
-        confirmPassword = (EditText) view.findViewById(R.id.change_password_input_confirm);
+        passwordField = (EditText) view.findViewById(R.id.change_password_input);
+        confirmPasswordField = (EditText) view.findViewById(R.id.change_password_input_confirm);
 
         presenter = new SettingsPresenter(this);
 
@@ -67,20 +67,19 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
         switch (v.getId()) {
 
             case R.id.change_password_button:
-                // Call presenter
-
+                presenter.doShowPasswordChangeView();
                 break;
 
             case R.id.delete_account_button:
-                // Call presenter
+                // Database, presenter, authorization, whatever
                 break;
 
             case R.id.confirm_password_button:
-                // Call presenter
+                presenter.doCheckPassSucess(passwordField.getText().toString(), confirmPasswordField.getText().toString());
                 break;
 
             case R.id.cancel_button:
-                // Call presenter
+                presenter.doShowSettingsView();
                 break;
 
             default:
@@ -88,21 +87,18 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
         }
     }
 
-    public void switchToSettingsView() {
+    @Override
+    public void onSwitchToSettingsView() {
         settingsView.setVisibility(View.VISIBLE);
         changePassView.setVisibility(View.GONE);
     }
 
-    public void switchToChangePassView() {
+    @Override
+    public void onSwitchToChangePassView() {
         changePassView.setVisibility(View.VISIBLE);
         settingsView.setVisibility(View.GONE);
     }
 
-
-    @Override
-    public void onChangePassword() {
-
-    }
 
     @Override
     public void onFinish() {

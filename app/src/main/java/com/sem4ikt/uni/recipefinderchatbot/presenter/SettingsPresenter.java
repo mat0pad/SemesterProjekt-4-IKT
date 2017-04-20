@@ -36,20 +36,27 @@ public class SettingsPresenter extends BasePresenter<ISettingsView> implements I
 
     public void doCheckPassSucess(String pass1, String pass2)
     {
+        if(pass1 == null || pass2 ==null) {
+            view.onShowToast("Password required in both fields");
+            return;
+        }
+
         ILoginUserModel passChecker = new LoginUserModel();
         passChecker.setPassword(pass1);
         passChecker.setConfirmPassword(pass2);
-        boolean b = passChecker.checkPasswordsMatches();
+        boolean equal = passChecker.checkPasswordsMatches();
+
+
     }
 
     public void doShowPasswordChangeView()
     {
-        view.switchToChangePassView();
+        view.onSwitchToChangePassView();
     }
 
     public void doShowSettingsView()
     {
-        view.switchToSettingsView();
+        view.onSwitchToSettingsView();
     }
 
     @Override
