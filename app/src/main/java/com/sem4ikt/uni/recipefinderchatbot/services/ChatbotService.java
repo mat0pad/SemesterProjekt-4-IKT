@@ -22,6 +22,7 @@ import java.util.Objects;
 
 
 public class ChatbotService implements IChatbotService {
+
     private ConversationService convService = new ConversationService(ConversationService.VERSION_DATE_2016_07_11);
     private ToneAnalyzer toneService = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
     private Map<String, Object> contextGeneral, contextRecipe;

@@ -61,4 +61,10 @@ public class UserInteractor implements IFirebaseDBInteractors.IUserInteractor {
         });
     }
 
+    @Override
+    public void updateUser(String name, boolean returning) {
+        User user = new User(name,returning);
+        database.setValue(user);
+    }
+
 }

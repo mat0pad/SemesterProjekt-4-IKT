@@ -85,6 +85,9 @@ public class ConversationInteractor implements IConversationInteractor {
                         response.getContext().get("nutrient_type").toString());
                 break;
 
+            case "save_user":
+                saveName(response.getContext().get("username").toString(),response.getText().get(0).toString());
+                break;
             default:
                 presenter.showText("I don't known this action: " + action);
                 break;
@@ -602,6 +605,11 @@ public class ConversationInteractor implements IConversationInteractor {
         });
     }*/
 
+    //Saving name to database and returningUser
+    private void saveName(String name,String response)
+    {
+        presenter.updateUser(name,response);
+    }
     // Convert to int from string where float, double or int
     private int stringToInt(String num) {
 

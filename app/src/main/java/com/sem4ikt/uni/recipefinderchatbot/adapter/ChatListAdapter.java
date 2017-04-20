@@ -192,7 +192,6 @@ public class ChatListAdapter extends BaseAdapter implements ChatListAdapterView 
         holder.text.setText(getItem(position).message);
 
         if (holder.type != MessageModel.TYPE.NORMAL.ordinal()) {
-            System.out.println("From adapter:" + holder.image);
 
             Picasso.with(mContext).load(getImage(getItem(position))).into(holder.image);
         }

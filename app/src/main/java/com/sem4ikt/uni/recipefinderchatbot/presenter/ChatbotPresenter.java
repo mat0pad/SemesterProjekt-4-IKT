@@ -21,6 +21,8 @@ import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IConversationInterac
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by mathiaslykkepedersen on 09/03/2017.
  */
@@ -101,8 +103,15 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
             @Override
             public void onChatbotFailed(String errorMsg)
             {
-                System.out.println(errorMsg);
-                showErrorText();
+                System.out.println(errorMsg + "thread: " + Thread.currentThread());
+
+                Runnable myRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        showErrorText();
+                    }
+                };
+                new Handler(Looper.getMainLooper()).post(myRunnable);
             }
         });
 
@@ -166,6 +175,12 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
     @Override
     public void doInitText2Speech() {
         view.initText2Speech();
+    }
+
+    @Override
+    public void updateUser(String name, String response) {
+        ui.updateUser(name,true);
+        showText(response);
     }
 
     @Override
@@ -240,4 +255,5 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
                 });
 
     }
+
 }

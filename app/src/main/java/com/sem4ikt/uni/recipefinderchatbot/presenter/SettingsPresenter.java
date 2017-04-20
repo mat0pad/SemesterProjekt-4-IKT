@@ -1,10 +1,12 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
+import android.support.annotation.VisibleForTesting;
+
+import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseAuth;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ISettingsModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ISettingsPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ISettingsView;
-import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
 
 /**
  * Created by Christian on 07-04-2017.
@@ -15,9 +17,42 @@ public class SettingsPresenter extends BasePresenter<ISettingsView> implements I
     private ISettingsModel settings;
     private IFirebaseAuth auth;
 
-    SettingsPresenter(ISettingsView view) {
+    public SettingsPresenter(ISettingsView view) {
         super(view);
 
-
+        // Create model
+        auth = new Authentication();
     }
+
+    @VisibleForTesting
+    public SettingsPresenter(ISettingsView view, IFirebaseAuth auth) {
+        super(view);
+
+        this.auth = auth;
+    }
+
+    @Override
+    public void onAuthenticationFinished(LoginPresenter.AUTH auth, String reason) {
+
+        switch (auth) {
+
+            case UPDATE_PASSWORD_SUCCESS:
+                view.onShowToast(reason);
+                break;
+            case UPDATE_PASSWORD_FAILED:
+                view.onShowToast(reason);
+                break;
+            case DELETE_ACCOUNT_SUCCESS:
+                view.onShowToast(reason);
+                view.onFinish();
+                break;
+            case DELETE_ACCOUNT_FAILED:
+                view.onShowToast(reason);
+                break;
+
+            default:
+                break;
+        }
+    }
+
 }

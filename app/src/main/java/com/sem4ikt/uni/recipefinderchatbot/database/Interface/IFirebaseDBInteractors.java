@@ -22,6 +22,7 @@ public interface IFirebaseDBInteractors {
 
         void getUser(ICallbackUser callback);
 
+        void updateUser(String name, boolean b);
     }
 
     interface IMealplanInteractor{

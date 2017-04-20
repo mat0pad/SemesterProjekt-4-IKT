@@ -32,13 +32,17 @@ public class Text2Speech {
 
     }
 
+    public void playerStop() {
+        player.interrupt();
+    }
+
 
     private class SynthesisTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
 
-            player.playStream(textToSpeech.synthesize(params[0], Voice.EN_LISA).execute());
+            player.playStream(textToSpeech.synthesize(params[0], Voice.EN_MICHAEL).execute());
 
             return "Did synthesize";
         }
