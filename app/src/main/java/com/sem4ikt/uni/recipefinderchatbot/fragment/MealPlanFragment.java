@@ -42,8 +42,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by Christian on 12-03-2017.
+/*
+  Created by Christian on 12-03-2017.
  */
 
 public class MealPlanFragment extends Fragment implements IMealPlanView {
@@ -57,7 +57,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
     MealPlanDayModel dayPlan;
     MealPlanPresenter presenter;
     private CompactCalendarView compactCalenderView;
-    private ActionBar toolbar;
+    //private ActionBar toolbar;
     private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
     private Date selectedDate;
     List<Date> daysWithMealplan;
@@ -81,7 +81,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
         final Button showNextMonthBut = (Button) view.findViewById(R.id.next_button);
 
 
-        toolbar.setTitle(dateFormatForMonth.format(compactCalenderView.getFirstDayOfCurrentMonth()));
+        //toolbar.setTitle(dateFormatForMonth.format(compactCalenderView.getFirstDayOfCurrentMonth()));
         selectedDate= new Date();
 
         dinner = (ImageView) view.findViewById(R.id.dinner);
@@ -324,7 +324,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
 
             @Override
             public void onDayClick(Date dateClicked) {
-                toolbar.setTitle(dateFormatForMonth.format(dateClicked));
+                //toolbar.setTitle(dateFormatForMonth.format(dateClicked));
                 selectedDate=dateClicked;
                 myRunnable.run();
 
@@ -332,7 +332,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
 
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
-                toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
+               // toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
                 selectedDate=firstDayOfNewMonth;
                 myRunnable.run();
             }
