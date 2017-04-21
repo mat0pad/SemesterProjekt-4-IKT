@@ -26,9 +26,9 @@ public interface IFirebaseDBInteractors {
 
     interface IMealplanInteractor{
 
-        void addMealPlanWeek(MealPlanWeekModel mealplan, Date date);
+        void addMealPlanWeek(MealPlanWeekModel mealplan, Date date,ICallbackMealPlanAdd callback);
 
-        void addMealPlanDay(MealPlanDayModel mealplan,Date date);
+        void addMealPlanDay(MealPlanDayModel mealplan,Date date,ICallbackMealPlanAdd callback);
 
         void removeMealPlanDay(Date startsdate);
 

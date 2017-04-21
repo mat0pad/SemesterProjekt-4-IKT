@@ -7,8 +7,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackMealPlanAdd;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackUser;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
+import com.sem4ikt.uni.recipefinderchatbot.database.MealPlansInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.database.UserInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.ConversationInteractor;
@@ -18,31 +20,36 @@ import com.sem4ikt.uni.recipefinderchatbot.model.SingleRecipeMessageModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IChatbotInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IConversationInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IChatbotView;
+
+import java.util.Date;
 
 /**
  * Created by mathiaslykkepedersen on 09/03/2017.
  */
 
-public class ChatbotPresenter extends BasePresenter<IChatbotView> implements IChatbotPresenter<IChatbotView>,ICallbackUser
-{
+public class ChatbotPresenter extends BasePresenter<IChatbotView> implements IChatbotPresenter<IChatbotView>,ICallbackUser,ICallbackMealPlanAdd {
     private static String[] nodesVisited = new String[2];
     private IConversationInteractor api;
     private IChatbotInteractor ci;
     private IFirebaseDBInteractors.IUserInteractor ui;
     private boolean isInGeneral = true;
+    private IFirebaseDBInteractors.IMealplanInteractor mi;
 
-    public ChatbotPresenter(IChatbotView view){
+    public ChatbotPresenter(IChatbotView view) {
         super(view);
         api = new ConversationInteractor(this);
         ui = new UserInteractor();
         ci = new ChatbotInteractor();
+        mi = new MealPlansInteractor();
+
     }
 
     @Override
-    public void send(String input)
-    {
+    public void send(String input) {
         view.displayNormalMessage(new MessageModel(input, ChatListAdapter.DIRECTION_OUTGOING, MessageModel.TYPE.NORMAL));
 
         doMessage((isInGeneral ? "e665abad-a305-4cf4-a21c-045354782015" : "49630f5e-f2b9-453a-be68-927f17cf64bc"), input);
@@ -58,23 +65,20 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
 
     private void doMessage(String workspaceId, String input) {
 
-        ci.message(workspaceId, input).setChatbotListener(new ChatbotInteractor.ChatbotListener()
-        {
+        ci.message(workspaceId, input).setChatbotListener(new ChatbotInteractor.ChatbotListener() {
             @Override
-            public void onChatbotResponse(final MessageResponse response)
-            {
+            public void onChatbotResponse(final MessageResponse response) {
                 Handler mainHandler = new Handler(Looper.getMainLooper());
 
                 Runnable myRunnable = new Runnable() {
                     @Override
                     public void run() {
 
-                        if (response.getOutput().containsKey("action")){
+                        if (response.getOutput().containsKey("action")) {
                             resetNodesVisited();
                             System.out.println("Action found!");
                             api.performAction(response.getOutput().get("action").toString(), response);
-                        }
-                        else if (response.getOutput().containsKey("goTo")){
+                        } else if (response.getOutput().containsKey("goTo")) {
 
                             isInGeneral = !isInGeneral;
                             System.out.println(response.toString());
@@ -86,12 +90,11 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
                                 api.switchWorkspace(response.getOutput().get("goTo")
                                         .toString(), response.getInputText());
 
-                        }
-                        else{
+                        } else {
                             resetNodesVisited();
                             System.out.println(response);
                             showText(response.getText().toString()
-                                    .substring(1, response.getText().toString().length()-1));
+                                    .substring(1, response.getText().toString().length() - 1));
                         }
                     }
                 };
@@ -99,8 +102,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
             }
 
             @Override
-            public void onChatbotFailed(String errorMsg)
-            {
+            public void onChatbotFailed(String errorMsg) {
                 System.out.println(errorMsg + "thread: " + Thread.currentThread());
 
                 Runnable myRunnable = new Runnable() {
@@ -133,8 +135,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
             view.play(msg);
 
             view.displayNormalMessage(new MessageModel(msg, ChatListAdapter.DIRECTION_INCOMING, MessageModel.TYPE.NORMAL));
-        }
-        else
+        } else
             showErrorText();
     }
 
@@ -146,8 +147,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
             view.play(msg);
 
             view.displayNormalMessage(new SingleRecipeMessageModel(msg, ChatListAdapter.DIRECTION_INCOMING, img, id));
-        }
-        else
+        } else
             showErrorText();
 
     }
@@ -160,8 +160,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
             view.play(msg);
 
             view.displayNormalMessage(new MoreRecipeMessageModel(msg, ChatListAdapter.DIRECTION_INCOMING, img, obj, type));
-        }
-        else
+        } else
             showErrorText();
     }
 
@@ -177,15 +176,24 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
 
     @Override
     public void updateUser(String name, String response) {
-        ui.updateUser(name,true);
+        ui.updateUser(name, true);
         showText(response);
+    }
+
+    @Override
+    public void addMealPlanWeek(MealPlanWeekModel model, Date date) {
+        mi.addMealPlanWeek(model, date,this);
+    }
+
+    @Override
+    public void addMealPlanDay(MealPlanDayModel model, Date date) {
+        mi.addMealPlanDay(model, date,this);
     }
 
     @Override
     public void onReceived(User user, USER_CALLBACK_TYPE type) {
 
-        switch(type)
-        {
+        switch (type) {
             case USER_FOUND:
                 ci.setContext(user);
                 break;
@@ -197,7 +205,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
                 break;
         }
 
-        switchWorkspace(0," ");
+        switchWorkspace(0, " ");
     }
 
     private boolean isLooping(String nodes_visited) {
@@ -254,4 +262,18 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
 
     }
 
+    @Override
+    public void onReceived(ADD_CALLBACK_TYPE type) {
+        switch (type) {
+            case SUCCESS:
+                showText("Meal plan is successfully saved, you can now inspect it in the meal plan tab");
+                break;
+            case FAILURE:
+                showText("Error! there seems to already be a meal plan saved in this time interval");
+                break;
+            default:
+                showErrorText();
+                break;
+        }
+    }
 }

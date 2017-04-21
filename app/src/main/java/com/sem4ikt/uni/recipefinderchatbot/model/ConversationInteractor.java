@@ -603,8 +603,7 @@ public class ConversationInteractor implements IConversationInteractor {
                 if (response.code() == 200) {
                     MealPlanDayModel model = response.body();
 
-                    presenter.showText(model.getRecipeModels().get(0).getTitle() + "date is " + date);
-
+                    presenter.addMealPlanDay(model,date);
                 }
                 else{
                     presenter.showText("I'm sorry I couldn't find any...");
@@ -627,9 +626,7 @@ public class ConversationInteractor implements IConversationInteractor {
                 if (response.code() == 200) {
                     MealPlanWeekModel model = response.body();
 
-                    presenter.showText(model.getName() + "date is " + date);
-
-
+                    presenter.addMealPlanWeek(model,date);
                 }
                 else{
                     presenter.showText("I'm sorry I couldn't find any...");
