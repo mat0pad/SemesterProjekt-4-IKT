@@ -54,6 +54,7 @@ public class ChatbotService implements IChatbotService {
 
                 case "49630f5e-f2b9-453a-be68-927f17cf64bc": // Switching to Recipe
                     contextRecipe.put("username", contextGeneral.get("username"));
+                    contextRecipe.put("timezone", contextGeneral.get("timezone"));
                     contextRecipe.put("returning_user", contextGeneral.get("returning_user"));
                     break;
             }
