@@ -114,22 +114,26 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                             int meal = 0;
                             int days;
                             //breakfast
-                            if (daysWithMealplan.contains(selectedDate)) {
-                                planIndex = daysWithMealplan.indexOf(selectedDate);
-                                image = dayPlans.get(planIndex).getRecipeModels().get(meal).getImage();//if dayplan
-                                noplan.setVisibility(View.GONE);
-                                day.setVisibility(View.VISIBLE);
-                                beenInDay = true;
-                                meal++;
+                            if(daysWithMealplan!=null) {
+                                if (daysWithMealplan.contains(selectedDate)) {
+                                    planIndex = daysWithMealplan.indexOf(selectedDate);
+                                    image = dayPlans.get(planIndex).getRecipeModels().get(meal).getImage();//if dayplan
+                                    noplan.setVisibility(View.GONE);
+                                    day.setVisibility(View.VISIBLE);
+                                    beenInDay = true;
+                                    meal++;
+                                }
                             }
                             if (!beenInDay) {
-                                for (dayInWeek = 0; dayInWeek < 7; dayInWeek++) {
-                                    cal.add(Calendar.DATE, -dayInWeek);
-                                    mealPlanStart = cal.getTime();
-                                    containsPlan = weeksWithMealplan.contains(mealPlanStart);//find out if contains plan and find day in week
-                                    if (containsPlan) {
-                                        foundweekDay = true;
-                                        break;
+                                if (weeksWithMealplan != null) {
+                                    for (dayInWeek = 0; dayInWeek < 7; dayInWeek++) {
+                                        cal.add(Calendar.DATE, -dayInWeek);
+                                        mealPlanStart = cal.getTime();
+                                        containsPlan = weeksWithMealplan.contains(mealPlanStart);//find out if contains plan and find day in week
+                                        if (containsPlan) {
+                                            foundweekDay = true;
+                                            break;
+                                        }
                                     }
                                 }
                             }
