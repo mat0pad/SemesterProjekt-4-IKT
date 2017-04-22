@@ -53,8 +53,8 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
     ImageView lunch;
     ScrollView day;
     TextView noplan;
-    MealPlanWeekModel weekPlan;
-    MealPlanDayModel dayPlan;
+    List<MealPlanWeekModel> weekPlans;
+    List<MealPlanDayModel> dayPlans;
     MealPlanPresenter presenter;
     private CompactCalendarView compactCalenderView;
     //private ActionBar toolbar;
@@ -64,7 +64,9 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
     List<Date> weeksWithMealplan;
     Calendar cal;
     int dayInWeek=0;
-    Date WeekDayPassed=null;
+    boolean dayplanActive;
+    int planIndex;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -101,51 +103,50 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                         @Override
                         public void run() {
                             // Pass the data
-                            String image=null;
+                            String image = null;
                             String value;
                             JsonObject jon;
-                            boolean beenInDay= false;
-                            boolean foundweekDay=false;
-                            int index;
-                            int meal=0;
+                            boolean beenInDay = false;
+                            boolean foundweekDay = false;
+                            boolean containsPlan = false;
+                            Date mealPlanStart = selectedDate;
+                            int dateIndex;
+                            int meal = 0;
+                            int days;
                             //breakfast
-                            if(daysWithMealplan.contains(selectedDate)){
-                                image =dayPlan.getRecipeModels().get(meal).getImage();//if dayplan
+                            if (daysWithMealplan.contains(selectedDate)) {
+                                planIndex = daysWithMealplan.indexOf(selectedDate);
+                                image = dayPlans.get(planIndex).getRecipeModels().get(meal).getImage();//if dayplan
                                 noplan.setVisibility(View.GONE);
                                 day.setVisibility(View.VISIBLE);
-                                beenInDay=true;
+                                beenInDay = true;
                                 meal++;
                             }
-                            if(!beenInDay) {
-                                Iterator<Date> iter = weeksWithMealplan.iterator();
-                                Date dato = weeksWithMealplan.get(0);
-                                for (index = 0; iter.hasNext(); index++) {//if weekplan
-                                    foundweekDay = dato == selectedDate;
-                                    if (foundweekDay) break;//find mealplan start
-                                    dato = iter.next();
-                                    iter.remove();
-                                }
-                                if (foundweekDay) {
-                                    if (selectedDate != WeekDayPassed) {
-                                        value = weekPlan.getItems().get(index).getValue();
-                                        dayInWeek = 0;
-                                        WeekDayPassed = selectedDate;//find day of mealplan
-                                    } else {
-                                        dayInWeek++;
-                                        value = weekPlan.getItems().get(index + dayInWeek+meal).getValue();
+                            if (!beenInDay) {
+                                for (dayInWeek = 0; dayInWeek < 7; dayInWeek++) {
+                                    cal.add(Calendar.DATE, -dayInWeek);
+                                    mealPlanStart = cal.getTime();
+                                    containsPlan = weeksWithMealplan.contains(mealPlanStart);//find out if contains plan and find day in week
+                                    if (containsPlan) {
+                                        foundweekDay = true;
+                                        break;
                                     }
-
+                                }
+                            }
+                                if (containsPlan) {
+                                    planIndex = weeksWithMealplan.indexOf(mealPlanStart);
+                                    value = weekPlans.get(planIndex).getItems().get(dayInWeek + meal).getValue();
                                     jon = new JsonParser().parse(value).getAsJsonObject();
                                     image = jon.get("id").getAsString();
-                                    image = image + "-556x370.jpg";//create picture URL
+                                    image = image + "-556x370.jpg";                             //create picture URL
                                     day.setVisibility(View.VISIBLE);
                                     noplan.setVisibility(View.GONE);
                                     meal++;
                                 }
-                            }
+
                             else {
                                 noplan.setVisibility(View.VISIBLE);
-                                day.setVisibility(View.GONE);
+                                day.setVisibility(View.GONE);                   //if no plan exists for day
                             }
 
                             if(image!=null)
@@ -162,41 +163,28 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                             }
 
                             //lunch
-                            if(daysWithMealplan.contains(selectedDate)){
-                                image =dayPlan.getRecipeModels().get(meal).getImage();
+                            if (beenInDay) {
+                                planIndex = daysWithMealplan.indexOf(selectedDate);
+                                image = dayPlans.get(planIndex).getRecipeModels().get(meal).getImage();//if dayplan
                                 noplan.setVisibility(View.GONE);
-                                day.setVisibility(View.VISIBLE);//repeat
-                                beenInDay=true;
+                                day.setVisibility(View.VISIBLE);
+                                meal++;
                             }
-                            if(!beenInDay) {
-                                Iterator<Date> iter = weeksWithMealplan.iterator();
-                                Date dato = weeksWithMealplan.get(0);
-                                for (index = 0; iter.hasNext(); index++) {
-                                    foundweekDay = dato == selectedDate;
-                                    if (foundweekDay) break;
-                                    dato = iter.next();
-                                    iter.remove();
-                                }
-                                if (foundweekDay) {
-                                    if (selectedDate != WeekDayPassed) {
-                                        value = weekPlan.getItems().get(index).getValue();
-                                        dayInWeek = 0;
-                                        WeekDayPassed = selectedDate;
-                                    } else {
-                                        dayInWeek++;
-                                        value = weekPlan.getItems().get(index + dayInWeek+meal).getValue();
-                                    }
+                            else if (containsPlan) {
+                                planIndex = weeksWithMealplan.indexOf(mealPlanStart);
+                                value = weekPlans.get(planIndex).getItems().get(dayInWeek + meal).getValue();
+                                jon = new JsonParser().parse(value).getAsJsonObject();
+                                image = jon.get("id").getAsString();
+                                image = image + "-556x370.jpg";                             //create picture URL
+                                day.setVisibility(View.VISIBLE);
+                                noplan.setVisibility(View.GONE);
+                                meal++;
+                            }
 
-                                    jon = new JsonParser().parse(value).getAsJsonObject();
-                                    image = jon.get("id").getAsString();
-                                    image = image + "-556x370.jpg";
-                                    day.setVisibility(View.VISIBLE);
-                                    noplan.setVisibility(View.GONE);
-                                }
-                            }
                             else {
+                                image=null;
                                 noplan.setVisibility(View.VISIBLE);
-                                day.setVisibility(View.GONE);
+                                day.setVisibility(View.GONE);                   //if no plan exists for day
                             }
 
                             if(image!=null)
@@ -207,47 +195,32 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                                 if (image.contains("https"))
                                     imageUrl = image;
                                 else
-                                    imageUrl = BASE_URL + image;
+                                    imageUrl = BASE_URL + image;//insert picture
 
                                 Picasso.with(getContext()).load(imageUrl).fit().into(breakfast);
                             }
 
                             //dinner
-                            if(daysWithMealplan.contains(selectedDate)){
-                                image =dayPlan.getRecipeModels().get(meal).getImage();
+                            if (beenInDay) {
+                                planIndex = daysWithMealplan.indexOf(selectedDate);
+                                image = dayPlans.get(planIndex).getRecipeModels().get(meal).getImage();//if dayplan
                                 noplan.setVisibility(View.GONE);
                                 day.setVisibility(View.VISIBLE);
-                                beenInDay=true;
                             }
-                            if(!beenInDay) {
-                                Iterator<Date> iter = weeksWithMealplan.iterator();
-                                Date dato = weeksWithMealplan.get(0);
-                                for (index = 0; iter.hasNext(); index++) {
-                                    foundweekDay = dato == selectedDate;
-                                    if (foundweekDay) break;
-                                    dato = iter.next();
-                                    iter.remove();
-                                }
-                                if (foundweekDay) {
-                                    if (selectedDate != WeekDayPassed) {
-                                        value = weekPlan.getItems().get(index).getValue();
-                                        dayInWeek = 0;
-                                        WeekDayPassed = selectedDate;
-                                    } else {
-                                        dayInWeek++;
-                                        value = weekPlan.getItems().get(index + dayInWeek+meal).getValue();
-                                    }
+                            else if (containsPlan) {
+                                planIndex = weeksWithMealplan.indexOf(mealPlanStart);
+                                value = weekPlans.get(planIndex).getItems().get(dayInWeek + meal).getValue();
+                                jon = new JsonParser().parse(value).getAsJsonObject();
+                                image = jon.get("id").getAsString();
+                                image = image + "-556x370.jpg";                             //create picture URL
+                                day.setVisibility(View.VISIBLE);
+                                noplan.setVisibility(View.GONE);
+                            }
 
-                                    jon = new JsonParser().parse(value).getAsJsonObject();
-                                    image = jon.get("id").getAsString();
-                                    image = image + "-556x370.jpg";
-                                    day.setVisibility(View.VISIBLE);
-                                    noplan.setVisibility(View.GONE);
-                                }
-                            }
                             else {
+                                image=null;
                                 noplan.setVisibility(View.VISIBLE);
-                                day.setVisibility(View.GONE);
+                                day.setVisibility(View.GONE);                   //if no plan exists for day
                             }
 
                             if(image!=null)
@@ -258,10 +231,11 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                                 if (image.contains("https"))
                                     imageUrl = image;
                                 else
-                                    imageUrl = BASE_URL + image;
+                                    imageUrl = BASE_URL + image;//insert picture
 
                                 Picasso.with(getContext()).load(imageUrl).fit().into(breakfast);
                             }
+                            dayplanActive=beenInDay;
                         }
                     };
                     mainHandler.post(myRunnable);
@@ -271,11 +245,14 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
             @Override
             public void onClick(View v) {
                 int id;
-                //id= dayModel.getRecipeModels().get(0).getId();
-                    String value =  weekPlan.getItems().get(0).getValue();
+                if(dayplanActive){
+                    id= dayPlans.get(planIndex).getRecipeModels().get(0).getId();
+                }
+                else {
+                    String value = weekPlans.get(planIndex).getItems().get(0).getValue();
                     JsonObject jon = new JsonParser().parse(value).getAsJsonObject();
                     id = jon.get("id").getAsInt();
-
+                }
 
                 final Intent intent = new Intent(MealPlanFragment.this.getActivity().getApplication(), DetailRecipeActivity.class);
                 intent.putExtra("id", id);
@@ -288,10 +265,14 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
             @Override
             public void onClick(View v) {
                 int id;
-                //id= dayModel.getRecipeModels().get(1).getId();
-                    String value =  weekPlan.getItems().get(1).getValue();
+                if(dayplanActive) {
+                    id = dayPlans.get(planIndex).getRecipeModels().get(1).getId();
+                }
+                else {
+                    String value = weekPlans.get(planIndex).getItems().get(1).getValue();
                     JsonObject jon = new JsonParser().parse(value).getAsJsonObject();
                     id = jon.get("id").getAsInt();
+                }
 
                 final Intent intent=new Intent(MealPlanFragment.this.getActivity().getApplication(),DetailRecipeActivity.class);
                 intent.putExtra("id",id);
@@ -305,12 +286,14 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
             @Override
             public void onClick(View v) {
                 int id;
-
-                //id= dayModel.getRecipeModels().get(2).getId();
-                    String value =  weekPlan.getItems().get(2).getValue();
+                if(dayplanActive) {
+                    id= dayPlans.get(planIndex).getRecipeModels().get(2).getId();
+                }
+                else {
+                    String value = weekPlans.get(planIndex).getItems().get(2).getValue();
                     JsonObject jon = new JsonParser().parse(value).getAsJsonObject();
                     id = jon.get("id").getAsInt();
-
+                }
 
                 final Intent intent=new Intent(MealPlanFragment.this.getActivity().getApplication(),DetailRecipeActivity.class);
                 intent.putExtra("id",id);
@@ -363,15 +346,15 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
 
 
     @Override
-    public void getDayPlan(MealPlanDayModel mealplan,List<Date> dates){
+    public void getDayPlan(List<MealPlanDayModel> mealplan,List<Date> dates){
             daysWithMealplan.addAll(dates);
-            dayPlan=mealplan;
+            dayPlans.addAll(mealplan);
     }
 
     @Override
-    public void getWeekPlan(MealPlanWeekModel mealplan,List<Date> dates){
+    public void getWeekPlan(List<MealPlanWeekModel> mealplan,List<Date> dates){
         weeksWithMealplan.addAll(dates);
-        weekPlan=mealplan;
+        weekPlans.addAll(mealplan);
 
     }
 

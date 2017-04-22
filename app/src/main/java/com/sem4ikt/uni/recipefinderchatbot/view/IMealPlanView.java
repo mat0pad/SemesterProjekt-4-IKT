@@ -11,6 +11,6 @@ import java.util.List;
  */
 
 public interface IMealPlanView {
-    void getDayPlan(MealPlanDayModel mealplan, List<Date>dates);
-    void getWeekPlan(MealPlanWeekModel mealplan,List<Date> dates);
+    void getDayPlan(List<MealPlanDayModel> mealplan, List<Date>dates);
+    void getWeekPlan(List<MealPlanWeekModel> mealplan,List<Date> dates);
 }

@@ -45,11 +45,11 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
     public void onReceived(Object mealplan, List<Date> date, MEALPLAN_CALLBACK_TYPE type) {
         switch (type) {
             case GET_MEALPLAN_DAY:
-                view.getDayPlan(MealPlanDayModel.class.cast(mealplan),date);
+                view.getDayPlan((List<MealPlanDayModel>)mealplan,date);
                 break;
 
             case GET_MEALPLAN_WEEK:
-                view.getWeekPlan(MealPlanWeekModel.class.cast(mealplan),date);
+                view.getWeekPlan((List<MealPlanWeekModel>)mealplan,date);
                 break;
         }
 
