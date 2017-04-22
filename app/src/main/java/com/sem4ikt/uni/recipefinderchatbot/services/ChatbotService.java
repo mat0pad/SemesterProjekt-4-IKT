@@ -131,12 +131,12 @@ public class ChatbotService implements IChatbotService {
                             contextRecipe = response.getContext();
 
                         // Answer is ready
-                        callback.onChatbotResponse(ChatbotService.this, response);
+                        callback.onChatbotResponse(response);
                     }
 
                     @Override
                     public void onFailure(Exception e) {
-                        callback.onChatbotFailed(ChatbotService.this, "Something went wrong, please try again");
+                        callback.onChatbotFailed("Something went wrong, please try again");
                         Log.e("botConversation", e.toString());
                     }
                 });
@@ -144,7 +144,7 @@ public class ChatbotService implements IChatbotService {
 
             @Override
             public void onFailure(Exception e) {
-                callback.onChatbotFailed(ChatbotService.this, "Something went wrong, please try again");
+                callback.onChatbotFailed("Something went wrong, please try again");
                 Log.e("botTone", e.toString());
             }
         });
