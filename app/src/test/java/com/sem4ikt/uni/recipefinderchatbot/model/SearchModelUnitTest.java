@@ -13,7 +13,7 @@ import java.util.List;
  * Created by anton on 07-04-2017.
  */
 
-public class SearchModelTest {
+public class SearchModelUnitTest {
 
     private SearchModel sm;
 

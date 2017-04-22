@@ -70,8 +70,6 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
         listView.setAdapter(adapter);
 
         // Needed for start up message
-        //chatbotPresenter.switchWorkspace(0, " ");
-
         chatbotPresenter.getUser();
 
 
@@ -103,6 +101,11 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
                 break;
         }
 
+    }
+
+    @Override
+    public void shouldSendButton(boolean shouldEnable) {
+        sendButton.setEnabled(shouldEnable);
     }
 
 

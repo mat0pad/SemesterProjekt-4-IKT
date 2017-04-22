@@ -32,11 +32,13 @@ import java.util.Date;
  */
 
 public class ChatbotPresenter extends BasePresenter<IChatbotView> implements IChatbotPresenter<IChatbotView>,ICallbackUser,ICallbackMealPlanAdd {
+
     private static String[] nodesVisited = new String[2];
+    private boolean isInGeneral = true;
+
     private IConversationInteractor api;
     private IChatbotInteractor ci;
     private IFirebaseDBInteractors.IUserInteractor ui;
-    private boolean isInGeneral = true;
     private IFirebaseDBInteractors.IMealplanInteractor mi;
 
     public ChatbotPresenter(IChatbotView view) {
@@ -50,6 +52,10 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
 
     @Override
     public void send(String input) {
+
+        // Disable send
+        view.shouldSendButton(false);
+
         view.displayNormalMessage(new MessageModel(input, ChatListAdapter.DIRECTION_OUTGOING, MessageModel.TYPE.NORMAL));
 
         doMessage((isInGeneral ? "e665abad-a305-4cf4-a21c-045354782015" : "49630f5e-f2b9-453a-be68-927f17cf64bc"), input);
@@ -63,6 +69,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
 
     }
 
+    // Used by send & switchWorkspace
     private void doMessage(String workspaceId, String input) {
 
         ci.message(workspaceId, input).setChatbotListener(new ChatbotInteractor.ChatbotListener() {
@@ -115,7 +122,6 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
             }
         });
 
-
     }
 
     @Override
@@ -125,6 +131,9 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
         view.play("An error occurred. Please try again.");
 
         view.displayNormalMessage(new MessageModel("An error occurred. Please try again.", ChatListAdapter.DIRECTION_INCOMING, MessageModel.TYPE.NORMAL));
+
+        // Enable send
+        view.shouldSendButton(true);
     }
 
     @Override
@@ -137,6 +146,9 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
             view.displayNormalMessage(new MessageModel(msg, ChatListAdapter.DIRECTION_INCOMING, MessageModel.TYPE.NORMAL));
         } else
             showErrorText();
+
+        // Enable send
+        view.shouldSendButton(true);
     }
 
     @Override
@@ -150,6 +162,8 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
         } else
             showErrorText();
 
+        // Enable send
+        view.shouldSendButton(true);
     }
 
     @Override
@@ -162,6 +176,9 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
             view.displayNormalMessage(new MoreRecipeMessageModel(msg, ChatListAdapter.DIRECTION_INCOMING, img, obj, type));
         } else
             showErrorText();
+
+        // Enable send
+        view.shouldSendButton(true);
     }
 
     @Override
@@ -208,6 +225,22 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
         switchWorkspace(0, " ");
     }
 
+    @Override
+    public void onReceived(ADD_CALLBACK_TYPE type) {
+        switch (type) {
+            case SUCCESS:
+                showText("The meal plan has been successfully saved, you can now inspect it in the meal plan tab");
+                break;
+            case FAILURE:
+                showText("Error! There seems to already be a meal plan saved in this time interval");
+                break;
+            default:
+                showErrorText();
+                break;
+        }
+    }
+
+    // Below functions are to prevent loop in workspaces
     private boolean isLooping(String nodes_visited) {
 
         JsonArray entries = (JsonArray) new JsonParser().parse(nodes_visited);
@@ -229,7 +262,6 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
         nodesVisited[1] = "";
     }
 
-    // Function to prevent loop in workspaces
     private void handleLooping() {
 
         ci.message("e665abad-a305-4cf4-a21c-045354782015", "anything_else")
@@ -260,20 +292,5 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
                     }
                 });
 
-    }
-
-    @Override
-    public void onReceived(ADD_CALLBACK_TYPE type) {
-        switch (type) {
-            case SUCCESS:
-                showText("Meal plan is successfully saved, you can now inspect it in the meal plan tab");
-                break;
-            case FAILURE:
-                showText("Error! there seems to already be a meal plan saved in this time interval");
-                break;
-            default:
-                showErrorText();
-                break;
-        }
     }
 }

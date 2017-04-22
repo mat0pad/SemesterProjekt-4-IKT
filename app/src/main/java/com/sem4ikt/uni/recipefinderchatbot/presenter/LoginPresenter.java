@@ -54,10 +54,9 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
 
         setProgressBarVisiblity(true);
 
-        if (user.checkUserValidity() || true) {
+        if (user.checkUserValidity()) {
             auth.signIn(email, password, this);
         }
-
         else {
             view.onShowToast("Incorrect password or email");
             setProgressBarVisiblity(false);
@@ -94,7 +93,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
 
         setProgressBarVisiblity(true);
 
-        auth.sendRestEmailVerification(email, this);
+        auth.sendResetEmailVerification(email, this);
 
     }
 

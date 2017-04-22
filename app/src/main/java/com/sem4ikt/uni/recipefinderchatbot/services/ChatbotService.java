@@ -79,6 +79,7 @@ public class ChatbotService implements IChatbotService {
         contextGeneral.put("course", "undefined");
         contextGeneral.put("intolerance", "undefined");
         contextGeneral.put("cuisine", "undefined");
+        contextGeneral.put("timezone", "Europe/Paris");
 
     }
 

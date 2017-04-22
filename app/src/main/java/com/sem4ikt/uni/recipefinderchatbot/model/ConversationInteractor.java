@@ -17,11 +17,11 @@ import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatbotPresente
 import com.sem4ikt.uni.recipefinderchatbot.rest.ApiClient;
 import com.sem4ikt.uni.recipefinderchatbot.rest.IApiClient;
 import com.sem4ikt.uni.recipefinderchatbot.rest.ISpoonacularAPI;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -337,7 +337,7 @@ public class ConversationInteractor implements IConversationInteractor {
         });
     }
 
-
+    // Detect ingredients
     private void detectIngredients(String input, final String numOfRecipes, final String rank) {
 
         presenter.showText("I'm searching...");
@@ -594,6 +594,7 @@ public class ConversationInteractor implements IConversationInteractor {
 
     }
 
+    // Generate the mealpaln for a day
     private  void generateForDay(String diet, int targetCalories, final Date date){
         ISpoonacularAPI.ICompute apiService = client.getClient().create(ISpoonacularAPI.ICompute.class);
 
@@ -617,6 +618,7 @@ public class ConversationInteractor implements IConversationInteractor {
         });
     }
 
+    // Generate the mealpaln for a week
     private void generateForWeek(final String diet, int targetCalories, final Date date) {
         ISpoonacularAPI.ICompute apiService = client.getClient().create(ISpoonacularAPI.ICompute.class);
 
@@ -644,8 +646,9 @@ public class ConversationInteractor implements IConversationInteractor {
         });
 
     }
+
     // The actual generation of mealplan
-     private void generateMealPlan(String diet,String targetCalories,String duration,String startdato) {
+    private void generateMealPlan(String diet, String targetCalories, String duration, String startdato) {
 
          int calories = stringToInt(targetCalories);
          if(calories == 0)
@@ -673,6 +676,7 @@ public class ConversationInteractor implements IConversationInteractor {
     {
         presenter.updateUser(name,response);
     }
+
     // Convert to int from string where float, double or int
     private int stringToInt(String num) {
 
