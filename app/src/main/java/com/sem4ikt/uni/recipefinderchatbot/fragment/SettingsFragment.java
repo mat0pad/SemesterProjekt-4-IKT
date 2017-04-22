@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
@@ -20,9 +23,14 @@ import com.sem4ikt.uni.recipefinderchatbot.view.ISettingsView;
  * Created by Christian on 12-03-2017.
  */
 
-public class SettingsFragment extends Fragment implements ISettingsView, View.OnClickListener{
+public class SettingsFragment extends Fragment implements ISettingsView, View.OnClickListener {
 
-    Button resetButton;
+    private Button changePass, deleteAcc, confirmPass, cancel;
+
+    private RelativeLayout settingsView;
+    private LinearLayout changePassView;
+
+    private EditText passwordField, confirmPasswordField;
 
     private ISettingsPresenter presenter;
 
@@ -36,7 +44,19 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.settings, container, false);
 
+        changePass = (Button) view.findViewById(R.id.change_password_button);
+        deleteAcc = (Button) view.findViewById(R.id.delete_account_button);
+        confirmPass = (Button) view.findViewById(R.id.confirm_password_button);
+        cancel = (Button) view.findViewById(R.id.cancel_button);
+
+        settingsView = (RelativeLayout) view.findViewById(R.id.settings_view);
+        changePassView = (LinearLayout) view.findViewById(R.id.change_password_view);
+
+        passwordField = (EditText) view.findViewById(R.id.change_password_input);
+        confirmPasswordField = (EditText) view.findViewById(R.id.change_password_input_confirm);
+
         presenter = new SettingsPresenter(this);
+
 
         return view;
     }
@@ -44,21 +64,41 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
     @Override
     public void onClick(View v) {
 
-            switch (v.getId()){
+        switch (v.getId()) {
 
-                case R.id.change_password:
-                    break;
+            case R.id.change_password_button:
+                presenter.doShowPasswordChangeView();
+                break;
 
-                default:
-                    break;
-            }
+            case R.id.delete_account_button:
+                // Database, presenter, authorization, whatever
+                break;
+
+            case R.id.confirm_password_button:
+                presenter.doCheckPassSucess(passwordField.getText().toString(), confirmPasswordField.getText().toString());
+                break;
+
+            case R.id.cancel_button:
+                presenter.doShowSettingsView();
+                break;
+
+            default:
+                break;
+        }
     }
-
 
     @Override
-    public void onChangePassword() {
-
+    public void onSwitchToSettingsView() {
+        settingsView.setVisibility(View.VISIBLE);
+        changePassView.setVisibility(View.GONE);
     }
+
+    @Override
+    public void onSwitchToChangePassView() {
+        changePassView.setVisibility(View.VISIBLE);
+        settingsView.setVisibility(View.GONE);
+    }
+
 
     @Override
     public void onFinish() {

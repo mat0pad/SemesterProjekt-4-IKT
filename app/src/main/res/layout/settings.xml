@@ -1,44 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="100">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        android:orientation="horizontal"
-        android:visibility="gone">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"
+        android:src="@drawable/main" />
 
-        <Button
-            android:id="@+id/change_password"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="70dp"
-            android:background="@drawable/send_button_state"
-            android:text="@string/action_change_password" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/password_change_form"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        android:orientation="horizontal"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.2"
+        android:background="#000" />
+    
+    <RelativeLayout
+        android:id="@+id/settings_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:visibility="visible">
 
+        <Button
+            android:id="@+id/change_password_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/send_button_state"
+            android:text="@string/action_change_password"
+            android:layout_marginTop="217dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="50dp" />
+
+
+        <Button
+            android:id="@+id/delete_account_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/send_button_state"
+            android:text="@string/action_delete_account"
+            android:layout_marginBottom="217dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="50dp" />
+        
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/change_password_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_centerInParent="true">
+
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:paddingEnd="30dp"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
@@ -47,11 +70,12 @@
             android:theme="@style/TextLabel">
 
             <EditText
-                android:id="@+id/new_password"
+                android:id="@+id/change_password_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_password"
-                android:imeActionLabel="New password"
+                android:imeActionId="@+id/sign_up_password"
+                android:imeActionLabel="sign_up_password"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1" />
@@ -61,6 +85,8 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:paddingEnd="30dp"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
@@ -69,11 +95,12 @@
             android:theme="@style/TextLabel">
 
             <EditText
-                android:id="@+id/new_passwordConfirm"
+                android:id="@+id/change_password_input_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_password"
-                android:imeActionLabel="Confirm new password"
+                android:hint="@string/prompt_confirm_pass"
+                android:imeActionId="@+id/conf_password"
+                android:imeActionLabel="conf_password"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1" />
@@ -81,19 +108,28 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/update_password"
+            android:id="@+id/confirm_password_button"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="70dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/send_button_state"
-            android:text="Update password" />
-    </LinearLayout>
+            android:text="@string/prompt_confirm_pass"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="50dp" />
 
-</FrameLayout>
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/send_button_state"
+            android:text="@string/action_cancel"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginStart="80dp" />
+
+    </LinearLayout>
+    
+</RelativeLayout>
 
 
 

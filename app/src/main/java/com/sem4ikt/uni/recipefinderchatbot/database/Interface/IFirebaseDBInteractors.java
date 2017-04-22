@@ -4,7 +4,6 @@ import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 
 import java.util.Date;
 
@@ -27,9 +26,9 @@ public interface IFirebaseDBInteractors {
 
     interface IMealplanInteractor{
 
-        void addMealPlanWeek(MealPlanWeekModel mealplan, Date date);
+        void addMealPlanWeek(MealPlanWeekModel mealplan, Date date,ICallbackMealPlanAdd callback);
 
-        void addMealPlanDay(MealPlanDayModel mealplan,Date date);
+        void addMealPlanDay(MealPlanDayModel mealplan,Date date,ICallbackMealPlanAdd callback);
 
         void removeMealPlanDay(Date startsdate);
 

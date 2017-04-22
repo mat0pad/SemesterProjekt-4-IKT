@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,14 +53,14 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
 
         int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
         EditText searchEditText = (EditText) searchView.findViewById(id);
-        searchEditText.setTextColor(ContextCompat.getColor(getContext(), R.color.Primary_Dark));
-        searchEditText.setHintTextColor(ContextCompat.getColor(getContext(), R.color.Primary_Dark));
+        searchEditText.setTextColor(ContextCompat.getColor(getActivity(), R.color.Primary_Dark));
+        searchEditText.setHintTextColor(ContextCompat.getColor(getActivity(), R.color.Primary_Dark));
 
         final FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.FloatingActionButton);
 
         gridView = (GridView) view.findViewById(R.id.favorites_gridview);
 
-        FavoritesGridAdapter adapter = new FavoritesGridAdapter(getContext());
+        FavoritesGridAdapter adapter = new FavoritesGridAdapter(getActivity());
         gridView.setAdapter(adapter);
 
         gridPresenter = new FavoritesGridAdapterPresenter(adapter);

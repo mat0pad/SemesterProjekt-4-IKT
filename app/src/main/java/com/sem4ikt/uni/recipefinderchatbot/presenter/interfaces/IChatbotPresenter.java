@@ -1,6 +1,10 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces;
 
 import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
+
+import java.util.Date;
 
 /**
  * Created by mathiaslykkepedersen on 09/03/2017.
@@ -22,5 +26,9 @@ public interface IChatbotPresenter<V> extends IBasePresenter<V> {
     void doInitText2Speech();
 
     void updateUser(String name, String response);
+
+    void addMealPlanWeek(MealPlanWeekModel model, Date date);
+
+    void addMealPlanDay(MealPlanDayModel model, Date date);
 }
 
