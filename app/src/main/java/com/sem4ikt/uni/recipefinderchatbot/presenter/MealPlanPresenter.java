@@ -12,6 +12,7 @@ import com.sem4ikt.uni.recipefinderchatbot.view.IMealPlanView;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /*
   Created by mathiaslykkepedersen on 27/03/2017.
@@ -45,11 +46,15 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
     public void onReceived(Object mealplan, List<Date> date, MEALPLAN_CALLBACK_TYPE type) {
         switch (type) {
             case GET_MEALPLAN_DAY:
-                view.getDayPlan((List<MealPlanDayModel>)mealplan,date);
-                break;
+                if (mealplan != null && date != null) {
+                    view.getDayPlan((List<MealPlanDayModel>) mealplan, date);
+                }
+                    break;
 
             case GET_MEALPLAN_WEEK:
-                view.getWeekPlan((List<MealPlanWeekModel>)mealplan,date);
+                if(mealplan!=null&&date!=null) {
+                    view.getWeekPlan((List<MealPlanWeekModel>) mealplan, date);
+                }
                 break;
         }
 

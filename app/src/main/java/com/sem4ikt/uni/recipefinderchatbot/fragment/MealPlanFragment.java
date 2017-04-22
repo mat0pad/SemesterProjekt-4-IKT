@@ -351,15 +351,18 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
 
     @Override
     public void getDayPlan(List<MealPlanDayModel> mealplan,List<Date> dates){
+        if(mealplan!=null&&dates!=null) {
             daysWithMealplan.addAll(dates);
             dayPlans.addAll(mealplan);
+        }
     }
 
     @Override
     public void getWeekPlan(List<MealPlanWeekModel> mealplan,List<Date> dates){
-        weeksWithMealplan.addAll(dates);
-        weekPlans.addAll(mealplan);
-
+        if(mealplan!=null && dates!=null) {
+            weeksWithMealplan.addAll(dates);
+            weekPlans.addAll(mealplan);
+        }
     }
 
     public void onResume()
