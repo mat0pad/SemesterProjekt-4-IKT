@@ -4,6 +4,7 @@ import android.support.annotation.VisibleForTesting;
 
 import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseAuth;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ILoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ISettingsModel;
@@ -18,6 +19,7 @@ public class SettingsPresenter extends BasePresenter<ISettingsView> implements I
 
     private ISettingsModel settings;
     private IFirebaseAuth auth;
+    private IFirebaseDBInteractors.IDeleteInfoInteractor dB;
 
     public SettingsPresenter(ISettingsView view) {
         super(view);
@@ -27,10 +29,11 @@ public class SettingsPresenter extends BasePresenter<ISettingsView> implements I
     }
 
     @VisibleForTesting
-    public SettingsPresenter(ISettingsView view, IFirebaseAuth auth) {
+    public SettingsPresenter(ISettingsView view, IFirebaseAuth auth,IFirebaseDBInteractors.IDeleteInfoInteractor dB) {
         super(view);
 
         this.auth = auth;
+        this.dB = dB;
     }
 
 
