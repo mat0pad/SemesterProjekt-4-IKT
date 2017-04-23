@@ -58,7 +58,7 @@ public class LoginPresenterUnitTest {
     public void signInFailedSignIn()
     {
         presenter.doLogin("test", "test");
-        verify(model, times(1)).signIn("test", "test", presenter);
+        verify(model, times(0)).signIn("test", "test", presenter);
     }
 
     @Test
@@ -115,7 +115,7 @@ public class LoginPresenterUnitTest {
     public void forgotPassSuccessSendRestEmailVerification()
     {
         presenter.doForgotPassword("test@test.com");
-        verify(model, times(1)).sendRestEmailVerification("test@test.com", presenter);
+        verify(model, times(1)).sendResetEmailVerification("test@test.com", presenter);
     }
 
     @Test

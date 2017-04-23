@@ -20,14 +20,12 @@ public class ChatbotInteractor implements IChatbotInteractor
     public ChatbotInteractor() {
         cs.setConversationServiceCredentials("f6c68c53-70a5-4a8c-af70-41a5eed85690", "1pMBh1PJOxP0")
                 .setToneAnalyzerCredentials("48091cfc-fd99-456a-b67c-00bdeef74b06", "XQE4Xl4oZuk0");
-
     }
 
 
     @Override
     public ChatbotCall message(String workspaceId, String msg)
     {
-
         cs.message(workspaceId, msg);
 
 
@@ -41,14 +39,14 @@ public class ChatbotInteractor implements IChatbotInteractor
                 call.setChatbotListener(new Callback()
                 {
                     @Override
-                    public void onChatbotResponse(Call call, MessageResponse response)
+                    public void onChatbotResponse(MessageResponse response)
                     {
                         System.out.println(response.getContext().toString());
                         listener.onChatbotResponse(response);
                     }
 
                     @Override
-                    public void onChatbotFailed(Call call, String errorMsg)
+                    public void onChatbotFailed(String errorMsg)
                     {
                         listener.onChatbotFailed(errorMsg);
                     }
@@ -57,12 +55,11 @@ public class ChatbotInteractor implements IChatbotInteractor
         };
     }
 
-    //New
+
     @Override
     public void setContext(User user) {
         cs.setUserContextGeneral(user);
     }
-
 
     public interface ChatbotListener {
         void onChatbotResponse(MessageResponse response);
@@ -78,7 +75,7 @@ public class ChatbotInteractor implements IChatbotInteractor
     }
 
     public interface Callback {
-        void onChatbotResponse(Call call, MessageResponse response);
-        void onChatbotFailed(Call call, String errorMsg);
+        void onChatbotResponse(MessageResponse response);
+        void onChatbotFailed(String errorMsg);
     }
 }

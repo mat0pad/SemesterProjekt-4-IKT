@@ -48,7 +48,10 @@ public class UserInteractor implements IFirebaseDBInteractors.IUserInteractor {
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                callback.onReceived(dataSnapshot.getValue(User.class), ICallbackUser.USER_CALLBACK_TYPE.USER_FOUND);
+                if(dataSnapshot.exists())
+                    callback.onReceived(dataSnapshot.getValue(User.class), ICallbackUser.USER_CALLBACK_TYPE.USER_FOUND);
+                else
+                    callback.onReceived(null, ICallbackUser.USER_CALLBACK_TYPE.USER_NOT_FOUND);
             }
 
             @Override
@@ -56,6 +59,12 @@ public class UserInteractor implements IFirebaseDBInteractors.IUserInteractor {
                 callback.onReceived(null, ICallbackUser.USER_CALLBACK_TYPE.USER_NOT_FOUND);
             }
         });
+    }
+
+    @Override
+    public void updateUser(String name, boolean returning) {
+        User user = new User(name,returning);
+        database.setValue(user);
     }
 
 }

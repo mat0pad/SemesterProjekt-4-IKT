@@ -1,17 +1,15 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
-import android.widget.Switch;
+import android.support.annotation.VisibleForTesting;
 
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackRecipe;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.database.RecipeInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IFavoritesPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IFavoritesView;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by mathiaslykkepedersen on 27/03/2017.
@@ -20,13 +18,16 @@ import java.util.Objects;
 public class FavoritesPresenter extends BasePresenter<IFavoritesView> implements IFavoritesPresenter<IFavoritesView>,ICallbackRecipe {
 
     private IFirebaseDBInteractors.IRecipeInteractor interactor;
+
     public FavoritesPresenter(IFavoritesView view) {
         super(view);
         interactor = new RecipeInteractor();
     }
 
-    public FavoritesPresenter(IFavoritesView view,IFirebaseDBInteractors.IRecipeInteractor interactor) {
+    @VisibleForTesting
+    public FavoritesPresenter(IFavoritesView view, IFirebaseDBInteractors.IRecipeInteractor interactor) {
         super(view);
+
         this.interactor = interactor;
     }
 
@@ -35,15 +36,13 @@ public class FavoritesPresenter extends BasePresenter<IFavoritesView> implements
         interactor.getRecipe(this);
     }
 
-    @Override
-    public void checkForUpdates() {
-        interactor.checkUpdates(this);
-    }
+
 
     @Override
     public void deleteRecipe(RecipeModel recipe) {
         interactor.removeRecipe(recipe);
     }
+
 
 
     @Override
@@ -52,6 +51,7 @@ public class FavoritesPresenter extends BasePresenter<IFavoritesView> implements
         {
             case DELETE_RECIPE:
                 view.deleteRecipe((RecipeModel)recipe);
+
                 break;
             case ADD_RECIPE:
                 view.addRecipe((RecipeModel)recipe);
@@ -64,10 +64,5 @@ public class FavoritesPresenter extends BasePresenter<IFavoritesView> implements
                 break;
         }
     }
-
-
-
-
-
 
 }

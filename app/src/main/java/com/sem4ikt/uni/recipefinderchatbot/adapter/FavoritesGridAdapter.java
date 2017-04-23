@@ -19,6 +19,7 @@ import com.sem4ikt.uni.recipefinderchatbot.view.IFavoritesGridAdapterView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -68,8 +69,22 @@ public class FavoritesGridAdapter extends BaseAdapter implements IFavoritesGridA
 
     @Override
     public void deleteRecipe(RecipeModel recipe) {
-        fullList.remove(recipe);
-        Log.e("fullList.toString()",fullList.toString());
+
+        if(fullList.contains(recipe)) {
+            fullList.remove(recipe);
+            list.remove(recipe);
+            Log.e("Recipe","CONTAINTS");
+            return;
+        }
+        for(int i = 0; i < fullList.size();++i)
+        {
+            if(recipe.getId() == fullList.get(i).getId()) {
+                fullList.remove(fullList.get(i));
+                list.remove(fullList.get(i));
+                Log.e("RECIPE","FOUNTBYITERATOR");
+                break;
+            }
+        }
     }
 
     @Override
@@ -77,10 +92,6 @@ public class FavoritesGridAdapter extends BaseAdapter implements IFavoritesGridA
         this.isdeleting = isdeleting;
     }
 
-    @Override
-    public void deleteRecipe(int position) {
-        fullList.remove(position);
-    }
 
 
     @Override

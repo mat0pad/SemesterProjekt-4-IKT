@@ -1,13 +1,10 @@
 package com.sem4ikt.uni.recipefinderchatbot.fragment;
 
 
-import android.content.Intent;
-import android.media.Image;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +12,8 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
-import com.sem4ikt.uni.recipefinderchatbot.activity.DetailRecipeActivity;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.FavoritesGridAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.FavoritesGridAdapterPresenter;
@@ -28,7 +23,6 @@ import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IFavoritesPresen
 import com.sem4ikt.uni.recipefinderchatbot.view.IFavoritesGridAdapterView;
 import com.sem4ikt.uni.recipefinderchatbot.view.IFavoritesView;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -59,14 +53,14 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
 
         int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
         EditText searchEditText = (EditText) searchView.findViewById(id);
-        searchEditText.setTextColor(ContextCompat.getColor(getContext(), R.color.Primary_Dark));
-        searchEditText.setHintTextColor(ContextCompat.getColor(getContext(), R.color.Primary_Dark));
+        searchEditText.setTextColor(ContextCompat.getColor(getActivity(), R.color.Primary_Dark));
+        searchEditText.setHintTextColor(ContextCompat.getColor(getActivity(), R.color.Primary_Dark));
 
         final FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.FloatingActionButton);
 
         gridView = (GridView) view.findViewById(R.id.favorites_gridview);
 
-        FavoritesGridAdapter adapter = new FavoritesGridAdapter(getContext());
+        FavoritesGridAdapter adapter = new FavoritesGridAdapter(getActivity());
         gridView.setAdapter(adapter);
 
         gridPresenter = new FavoritesGridAdapterPresenter(adapter);
@@ -111,12 +105,9 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
                 gridPresenter.isDeleting(isdeleting);
             }
         });
-
-
-
-        presenter.getRecipeList();
         return view;
     }
+
 
 
     @Override
@@ -139,15 +130,11 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
         gridPresenter.addRecipe(recipe);
     }
 
-
     @Override
     public void onResume()
     {
         super.onResume();
-        Log.e("Welcome","back");
-        presenter.checkForUpdates();
-
+        presenter.getRecipeList();
     }
-
 
 }

@@ -222,6 +222,7 @@ public class DetailRecipeActivity extends AppCompatActivity implements IDetailRe
     public void showContent(boolean shouldShow) {
 
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView_detail_recipe);
+        scrollView.smoothScrollTo(0, scrollView.getTop());
         scrollView.setVisibility((shouldShow ? View.VISIBLE : View.GONE));
     }
 
@@ -288,19 +289,27 @@ public class DetailRecipeActivity extends AppCompatActivity implements IDetailRe
                 imageResID = R.drawable.gluten_free;
                 break;
 
+            case NONE:
             default:
+                textId = 0;
+                imageResID = 0;
                 break;
         }
-
-        // Set text & image
-        if (imageResID != 0)
-            imageView.setImageDrawable(getDrawable(imageResID));
-        if (textId != 0)
-            textView.setText(getString(textId));
 
         // Set visibility
         imageView.setVisibility((isVisible ? View.VISIBLE : View.GONE));
         textView.setVisibility((isVisible ? View.VISIBLE : View.GONE));
+
+        // Set text & image
+        if (imageResID != 0)
+            imageView.setImageDrawable(getDrawable(imageResID));
+        else
+            imageView.setVisibility(View.GONE);
+
+        if (textId != 0)
+            textView.setText(getString(textId));
+        else
+            textView.setVisibility(View.GONE);
     }
 
     @Override

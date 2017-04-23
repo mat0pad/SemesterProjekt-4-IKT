@@ -10,4 +10,10 @@ public interface IChatbotView {
 
     void displayNormalMessage(MessageModel m);
 
+    void initText2Speech();
+
+    void play(String text2play);
+
+    void shouldSendButton(boolean shouldDisable);
+
 }

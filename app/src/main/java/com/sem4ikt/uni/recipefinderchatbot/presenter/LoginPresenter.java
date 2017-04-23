@@ -54,10 +54,9 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
 
         setProgressBarVisiblity(true);
 
-        if (user.checkUserValidity() || true) {
+        if (user.checkUserValidity()) {
             auth.signIn(email, password, this);
         }
-
         else {
             view.onShowToast("Incorrect password or email");
             setProgressBarVisiblity(false);
@@ -94,7 +93,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
 
         setProgressBarVisiblity(true);
 
-        auth.sendRestEmailVerification(email, this);
+        auth.sendResetEmailVerification(email, this);
 
     }
 
@@ -148,6 +147,14 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
             case FORGOT_PASSWORD_FAILED:
                 view.onPassForgot(false);
                 break;
+            case UPDATE_PASSWORD_SUCCESS:
+                break;
+            case UPDATE_PASSWORD_FAILED:
+                break;
+            case DELETE_ACCOUNT_SUCCESS:
+                break;
+            case DELETE_ACCOUNT_FAILED:
+                break;
 
             default:
                 break;
@@ -171,7 +178,11 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
         CREATE_SUCCESS,
         CREATE_FAILED,
         FORGOT_PASSWORD_SUCCESS,
-        FORGOT_PASSWORD_FAILED
+        FORGOT_PASSWORD_FAILED,
+        UPDATE_PASSWORD_SUCCESS,
+        UPDATE_PASSWORD_FAILED,
+        DELETE_ACCOUNT_SUCCESS,
+        DELETE_ACCOUNT_FAILED
     }
 }
 

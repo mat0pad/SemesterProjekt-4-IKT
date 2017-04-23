@@ -26,12 +26,15 @@ public class RecipeInteractor implements IFirebaseDBInteractors.IRecipeInteracto
 
     private DatabaseReference Database;
 
+    private ChildEventListener childEventListener;
+
     public RecipeInteractor()
     {
         if(FirebaseAuth.getInstance().getCurrentUser() != null)
             Database = FirebaseDatabase.getInstance().getReference("Recipe/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
         else
             Database = FirebaseDatabase.getInstance().getReference("Test"); //Cant save data if not logged in
+
     }
     @Override
     public void addRecipe(RecipeModel recipe) {
@@ -78,36 +81,6 @@ public class RecipeInteractor implements IFirebaseDBInteractors.IRecipeInteracto
         });
     }
 
-    @Override
-    public void checkUpdates(final ICallbackRecipe callback) {
-         Database.limitToLast(1).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.e("childadded","childadded");
-                RecipeModel recipe = dataSnapshot.getValue(RecipeModel.class);
-                callback.onReceived(recipe,ICallbackRecipe.RECIPE_CALLBACK_TYPE.ADD_RECIPE);
-            }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Log.e("childChanged","childChanged");
-            }
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Log.e("childremoved","childremoved");
-                RecipeModel deleterecipe = dataSnapshot.getValue(RecipeModel.class);
-                callback.onReceived(deleterecipe,ICallbackRecipe.RECIPE_CALLBACK_TYPE.DELETE_RECIPE);
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("onCancelled",databaseError.getMessage());
-            }
-        });
-    }
 }

@@ -22,6 +22,7 @@ import java.util.Objects;
 
 
 public class ChatbotService implements IChatbotService {
+
     private ConversationService convService = new ConversationService(ConversationService.VERSION_DATE_2016_07_11);
     private ToneAnalyzer toneService = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
     private Map<String, Object> contextGeneral, contextRecipe;
@@ -29,7 +30,7 @@ public class ChatbotService implements IChatbotService {
 
 
     public void message(String workspaceId, String msg) {
-        if (workspaceIdentifier != workspaceId) {
+        if (!Objects.equals(workspaceIdentifier, workspaceId)) {
             workspaceIdentifier = workspaceId;
 
             switch (workspaceId) {
@@ -53,6 +54,7 @@ public class ChatbotService implements IChatbotService {
 
                 case "49630f5e-f2b9-453a-be68-927f17cf64bc": // Switching to Recipe
                     contextRecipe.put("username", contextGeneral.get("username"));
+                    contextRecipe.put("timezone", contextGeneral.get("timezone"));
                     contextRecipe.put("returning_user", contextGeneral.get("returning_user"));
                     break;
             }
@@ -77,6 +79,7 @@ public class ChatbotService implements IChatbotService {
         contextGeneral.put("course", "undefined");
         contextGeneral.put("intolerance", "undefined");
         contextGeneral.put("cuisine", "undefined");
+        contextGeneral.put("timezone", "Europe/Paris");
 
     }
 
@@ -93,7 +96,6 @@ public class ChatbotService implements IChatbotService {
         toneService.setUsernameAndPassword(username, password);
         return this;
     }
-
 
     public void setChatbotListener(final ChatbotInteractor.Callback callback) {
         final String message = this.message;
@@ -131,12 +133,12 @@ public class ChatbotService implements IChatbotService {
                             contextRecipe = response.getContext();
 
                         // Answer is ready
-                        callback.onChatbotResponse(ChatbotService.this, response);
+                        callback.onChatbotResponse(response);
                     }
 
                     @Override
                     public void onFailure(Exception e) {
-                        callback.onChatbotFailed(ChatbotService.this, "Something went wrong, please try again");
+                        callback.onChatbotFailed("Something went wrong, please try again");
                         Log.e("botConversation", e.toString());
                     }
                 });
@@ -144,7 +146,7 @@ public class ChatbotService implements IChatbotService {
 
             @Override
             public void onFailure(Exception e) {
-                callback.onChatbotFailed(ChatbotService.this, "Something went wrong, please try again");
+                callback.onChatbotFailed("Something went wrong, please try again");
                 Log.e("botTone", e.toString());
             }
         });

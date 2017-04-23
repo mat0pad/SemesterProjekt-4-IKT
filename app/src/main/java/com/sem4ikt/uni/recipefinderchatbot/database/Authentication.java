@@ -12,10 +12,14 @@ import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginCallback;
 
 import static com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter.AUTH.CREATE_FAILED;
 import static com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter.AUTH.CREATE_SUCCESS;
+import static com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter.AUTH.DELETE_ACCOUNT_FAILED;
+import static com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter.AUTH.DELETE_ACCOUNT_SUCCESS;
 import static com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter.AUTH.FORGOT_PASSWORD_FAILED;
 import static com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter.AUTH.FORGOT_PASSWORD_SUCCESS;
 import static com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter.AUTH.SIGN_IN_FAILED;
 import static com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter.AUTH.SIGN_IN_SUCCESS;
+import static com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter.AUTH.UPDATE_PASSWORD_FAILED;
+import static com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter.AUTH.UPDATE_PASSWORD_SUCCESS;
 
 
 /**
@@ -61,8 +65,7 @@ public class Authentication implements IFirebaseAuth {
                                 callback.onAuthenticationFinished(SIGN_IN_SUCCESS, "Sign in successful!");
 
                             else
-                                callback.onAuthenticationFinished(SIGN_IN_SUCCESS, "Email not verified!");
-                                //callback.onAuthenticationFinished(SIGN_IN_FAILED, "Email not verified!");
+                                callback.onAuthenticationFinished(SIGN_IN_FAILED, "Email not verified!");
                         }
                         else{
                             Log.e("Failure","failed");
@@ -74,7 +77,7 @@ public class Authentication implements IFirebaseAuth {
     }
 
     @Override
-    public void sendRestEmailVerification(String email, final ILoginCallback callback) {
+    public void sendResetEmailVerification(String email, final ILoginCallback callback) {
 
        auth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -88,6 +91,47 @@ public class Authentication implements IFirebaseAuth {
                             callback.onAuthenticationFinished(FORGOT_PASSWORD_FAILED, "Forgot password failed!");
                     }
                 });
+
+    }
+
+    @Override
+    public void updatePassword(String newPassword, final ILoginCallback callback) {
+
+        if (auth.getCurrentUser() != null) {
+            auth.getCurrentUser().updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    if (task.isSuccessful()) {
+                        callback.onAuthenticationFinished(UPDATE_PASSWORD_SUCCESS, "Your password has been updated!");
+                    } else
+                        callback.onAuthenticationFinished(UPDATE_PASSWORD_FAILED, "Updating your password failed!");
+                }
+            });
+        } else {
+            callback.onAuthenticationFinished(UPDATE_PASSWORD_FAILED, "Updating your password failed!");
+        }
+
+    }
+
+    @Override
+    public void deleteAccount(final ILoginCallback callback) {
+
+        if (auth.getCurrentUser() != null) {
+            auth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    if (task.isSuccessful()) {
+                        callback.onAuthenticationFinished(DELETE_ACCOUNT_SUCCESS, "Your account has been deleted!");
+                    } else
+                        callback.onAuthenticationFinished(DELETE_ACCOUNT_FAILED, "Deleting your account failed!");
+                }
+            });
+        } else {
+            callback.onAuthenticationFinished(DELETE_ACCOUNT_FAILED, "Deleting your account failed!");
+        }
+
 
     }
 
