@@ -5,6 +5,8 @@ import android.support.annotation.VisibleForTesting;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackMealplan;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.database.MealPlansInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IMealPlanPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IMealPlanView;
 

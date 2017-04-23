@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,9 +41,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/*
-  Created by Christian on 12-03-2017.
- */
 
 public class MealPlanFragment extends Fragment implements IMealPlanView {
 
@@ -186,7 +181,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                                 else
                                     imageUrl = BASE_URL + image;//insert picture
 
-                                Picasso.with(getContext()).load(imageUrl).fit().into(breakfast);
+                                Picasso.with(getActivity()).load(imageUrl).fit().into(breakfast);
                                 Log.e("url Breakfasr",imageUrl);
                             }
 
@@ -228,7 +223,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                                 else
                                     imageUrl = BASE_URL + image;//insert picture
 
-                                Picasso.with(getContext()).load(imageUrl).fit().into(lunch);
+                                Picasso.with(getActivity()).load(imageUrl).fit().into(lunch);
                                 Log.e("url lunch",imageUrl);
                             }
 
@@ -269,7 +264,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                                 else
                                     imageUrl = BASE_URL + image;//insert picture
 
-                                Picasso.with(getContext()).load(imageUrl).fit().into(dinner);
+                                Picasso.with(getActivity()).load(imageUrl).fit().into(dinner);
                                 Log.e("url dinner",imageUrl);
                             }
                             dayplanActive=beenInDay;
