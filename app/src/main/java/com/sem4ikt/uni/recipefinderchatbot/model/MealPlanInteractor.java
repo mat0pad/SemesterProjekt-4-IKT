@@ -1,15 +1,15 @@
 package com.sem4ikt.uni.recipefinderchatbot.model;
 
+import android.support.annotation.VisibleForTesting;
+
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.IMealPlanInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
-import com.sem4ikt.uni.recipefinderchatbot.rest.ApiClient;
-import com.sem4ikt.uni.recipefinderchatbot.rest.IApiClient;
-import com.sem4ikt.uni.recipefinderchatbot.rest.ISpoonacularAPI;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
-import java.util.List;
+import com.sem4ikt.uni.recipefinderchatbot.rest.ApiClient;
+import com.sem4ikt.uni.recipefinderchatbot.rest.ISpoonacularAPI;
 
-import retrofit2.Callback;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
@@ -18,11 +18,12 @@ import retrofit2.Response;
 
 public class MealPlanInteractor implements IMealPlanInteractor {
 
+
     ApiClient client;
     MealPlanDayModel dayModel;
     MealPlanWeekModel weekModel;
 
-    MealPlanInteractor() {client = new ApiClient();}
+    public MealPlanInteractor() {client = new ApiClient();}
 
 
    public void getmealDayPlan(String diet, int calories, String without) {
@@ -61,6 +62,16 @@ public class MealPlanInteractor implements IMealPlanInteractor {
                 t.printStackTrace();
             }
         });
+    }
+
+    @VisibleForTesting
+    public MealPlanDayModel getDayModel() {
+        return dayModel;
+    }
+
+    @VisibleForTesting
+    public MealPlanWeekModel getWeekModel() {
+        return weekModel;
     }
 
 }
