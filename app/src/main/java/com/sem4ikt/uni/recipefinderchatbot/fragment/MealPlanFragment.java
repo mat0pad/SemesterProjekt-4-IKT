@@ -32,6 +32,7 @@ import com.sem4ikt.uni.recipefinderchatbot.view.IMealPlanView;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -58,7 +59,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
     MealPlanPresenter presenter;
     private CompactCalendarView compactCalenderView;
     //private ActionBar toolbar;
-    private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
+    private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.GERMANY);
     private Date selectedDate;
     List<Date> daysWithMealplan;
     List<Date> weeksWithMealplan;
@@ -84,7 +85,8 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
 
 
         //toolbar.setTitle(dateFormatForMonth.format(compactCalenderView.getFirstDayOfCurrentMonth()));
-        selectedDate= new Date();
+        selectedDate=new Date();
+
 
         dinner = (ImageView) view.findViewById(R.id.dinner);
         compactCalenderView= (CompactCalendarView) view.findViewById(R.id.compactcalendar_view);
@@ -94,7 +96,16 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
         noplan= (TextView) view.findViewById(R.id.noplan);//visibility VISIBLE if no plan for date
         presenter.getMealPlanWeek();
         presenter.getMealPlanDay();
-        cal= Calendar.getInstance();
+        cal= Calendar.getInstance(Locale.GERMANY);
+        daysWithMealplan= new ArrayList<>();
+        weeksWithMealplan= new ArrayList<>();
+        weekPlans=new ArrayList<>();
+        dayPlans=new ArrayList<>();
+        cal.set(Calendar.HOUR_OF_DAY,12);
+        cal.set(Calendar.MINUTE,0);
+        cal.set(Calendar.SECOND,0);
+        selectedDate=cal.getTime();
+
 
 
                     final Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -109,10 +120,17 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                             boolean beenInDay = false;
                             boolean foundweekDay = false;
                             boolean containsPlan = false;
+                            cal.setTime(selectedDate);
+                            cal.set(Calendar.HOUR_OF_DAY,12);
+                            cal.set(Calendar.MINUTE,0);
+                            cal.set(Calendar.SECOND,0);
+                            selectedDate=cal.getTime();
                             Date mealPlanStart = selectedDate;
                             int dateIndex;
                             int meal = 0;
                             int days;
+
+                            Log.e("DatoTid", ""+selectedDate);
                             //breakfast
                             if(daysWithMealplan!=null) {
                                 if (daysWithMealplan.contains(selectedDate)) {
@@ -121,7 +139,9 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                                     noplan.setVisibility(View.GONE);
                                     day.setVisibility(View.VISIBLE);
                                     beenInDay = true;
+                                    Log.e("meal day breakfast",Integer.toString(meal));
                                     meal++;
+
                                 }
                             }
                             if (!beenInDay) {
@@ -134,6 +154,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                                             foundweekDay = true;
                                             break;
                                         }
+                                        cal.add(Calendar.DATE,dayInWeek);
                                     }
                                 }
                             }
@@ -145,7 +166,9 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                                     image = image + "-556x370.jpg";                             //create picture URL
                                     day.setVisibility(View.VISIBLE);
                                     noplan.setVisibility(View.GONE);
+                                    Log.e("meal week breakfast",Integer.toString(meal));
                                     meal++;
+                                    Log.e("dayInWeek breakfast",Integer.toString(dayInWeek));
                                 }
 
                             else {
@@ -164,6 +187,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                                     imageUrl = BASE_URL + image;//insert picture
 
                                 Picasso.with(getContext()).load(imageUrl).fit().into(breakfast);
+                                Log.e("url Breakfasr",imageUrl);
                             }
 
                             //lunch
@@ -173,6 +197,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                                 noplan.setVisibility(View.GONE);
                                 day.setVisibility(View.VISIBLE);
                                 meal++;
+                                Log.e("meal day lunch",Integer.toString(meal));
                             }
                             else if (containsPlan) {
                                 planIndex = weeksWithMealplan.indexOf(mealPlanStart);
@@ -182,7 +207,9 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                                 image = image + "-556x370.jpg";                             //create picture URL
                                 day.setVisibility(View.VISIBLE);
                                 noplan.setVisibility(View.GONE);
+                                Log.e("meal week lunch",Integer.toString(meal));
                                 meal++;
+                                Log.e("dayInWeek lunch",Integer.toString(dayInWeek));
                             }
 
                             else {
@@ -201,7 +228,8 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                                 else
                                     imageUrl = BASE_URL + image;//insert picture
 
-                                Picasso.with(getContext()).load(imageUrl).fit().into(breakfast);
+                                Picasso.with(getContext()).load(imageUrl).fit().into(lunch);
+                                Log.e("url lunch",imageUrl);
                             }
 
                             //dinner
@@ -210,6 +238,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                                 image = dayPlans.get(planIndex).getRecipeModels().get(meal).getImage();//if dayplan
                                 noplan.setVisibility(View.GONE);
                                 day.setVisibility(View.VISIBLE);
+                                Log.e("meal day dinner",Integer.toString(meal));
                             }
                             else if (containsPlan) {
                                 planIndex = weeksWithMealplan.indexOf(mealPlanStart);
@@ -217,8 +246,11 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                                 jon = new JsonParser().parse(value).getAsJsonObject();
                                 image = jon.get("id").getAsString();
                                 image = image + "-556x370.jpg";                             //create picture URL
+
                                 day.setVisibility(View.VISIBLE);
                                 noplan.setVisibility(View.GONE);
+                                Log.e("meal week dinner",Integer.toString(meal));
+                                Log.e("dayInWeek dinner",Integer.toString(dayInWeek));
                             }
 
                             else {
@@ -237,7 +269,8 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                                 else
                                     imageUrl = BASE_URL + image;//insert picture
 
-                                Picasso.with(getContext()).load(imageUrl).fit().into(breakfast);
+                                Picasso.with(getContext()).load(imageUrl).fit().into(dinner);
+                                Log.e("url dinner",imageUrl);
                             }
                             dayplanActive=beenInDay;
                         }
@@ -253,7 +286,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                     id= dayPlans.get(planIndex).getRecipeModels().get(0).getId();
                 }
                 else {
-                    String value = weekPlans.get(planIndex).getItems().get(0).getValue();
+                    String value = weekPlans.get(planIndex).getItems().get(dayInWeek+0).getValue();
                     JsonObject jon = new JsonParser().parse(value).getAsJsonObject();
                     id = jon.get("id").getAsInt();
                 }
@@ -273,7 +306,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                     id = dayPlans.get(planIndex).getRecipeModels().get(1).getId();
                 }
                 else {
-                    String value = weekPlans.get(planIndex).getItems().get(1).getValue();
+                    String value = weekPlans.get(planIndex).getItems().get(dayInWeek+1).getValue();
                     JsonObject jon = new JsonParser().parse(value).getAsJsonObject();
                     id = jon.get("id").getAsInt();
                 }
@@ -294,7 +327,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                     id= dayPlans.get(planIndex).getRecipeModels().get(2).getId();
                 }
                 else {
-                    String value = weekPlans.get(planIndex).getItems().get(2).getValue();
+                    String value = weekPlans.get(planIndex).getItems().get(dayInWeek+2).getValue();
                     JsonObject jon = new JsonParser().parse(value).getAsJsonObject();
                     id = jon.get("id").getAsInt();
                 }
@@ -354,6 +387,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
         if(mealplan!=null&&dates!=null) {
             daysWithMealplan.addAll(dates);
             dayPlans.addAll(mealplan);
+            Log.e("DatoTid", ""+daysWithMealplan.get(0));
         }
     }
 
@@ -362,6 +396,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
         if(mealplan!=null && dates!=null) {
             weeksWithMealplan.addAll(dates);
             weekPlans.addAll(mealplan);
+            Log.e("DatoTid", ""+weeksWithMealplan.get(0));
         }
     }
 
