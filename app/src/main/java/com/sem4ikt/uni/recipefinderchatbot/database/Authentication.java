@@ -77,7 +77,7 @@ public class Authentication implements IFirebaseAuth {
     }
 
     @Override
-    public void sendRestEmailVerification(String email, final ILoginCallback callback) {
+    public void sendResetEmailVerification(String email, final ILoginCallback callback) {
 
        auth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

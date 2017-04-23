@@ -42,7 +42,11 @@ public class Text2Speech {
         @Override
         protected String doInBackground(String... params) {
 
-            player.playStream(textToSpeech.synthesize(params[0], Voice.EN_MICHAEL).execute());
+            try {
+                player.playStream(textToSpeech.synthesize(params[0], Voice.EN_MICHAEL).execute());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             return "Did synthesize";
         }

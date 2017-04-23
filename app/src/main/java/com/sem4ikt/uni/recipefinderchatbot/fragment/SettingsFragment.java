@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,7 +24,6 @@ import com.sem4ikt.uni.recipefinderchatbot.view.ISettingsView;
 
 public class SettingsFragment extends Fragment implements ISettingsView, View.OnClickListener {
 
-    private Button changePass, deleteAcc, confirmPass, cancel;
 
     private RelativeLayout settingsView;
     private LinearLayout changePassView;
@@ -43,11 +41,6 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
         }
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.settings, container, false);
-
-        changePass = (Button) view.findViewById(R.id.change_password_button);
-        deleteAcc = (Button) view.findViewById(R.id.delete_account_button);
-        confirmPass = (Button) view.findViewById(R.id.confirm_password_button);
-        cancel = (Button) view.findViewById(R.id.cancel_button);
 
         settingsView = (RelativeLayout) view.findViewById(R.id.settings_view);
         changePassView = (LinearLayout) view.findViewById(R.id.change_password_view);
@@ -71,7 +64,7 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
                 break;
 
             case R.id.delete_account_button:
-                // Database, presenter, authorization, whatever
+                presenter.doDeleteAccount();
                 break;
 
             case R.id.confirm_password_button:
@@ -98,7 +91,6 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
         changePassView.setVisibility(View.VISIBLE);
         settingsView.setVisibility(View.GONE);
     }
-
 
     @Override
     public void onFinish() {
