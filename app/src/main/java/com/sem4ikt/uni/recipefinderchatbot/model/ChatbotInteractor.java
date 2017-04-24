@@ -39,14 +39,14 @@ public class ChatbotInteractor implements IChatbotInteractor
                 call.setChatbotListener(new Callback()
                 {
                     @Override
-                    public void onChatbotResponse(Call call, MessageResponse response)
+                    public void onChatbotResponse(MessageResponse response)
                     {
                         System.out.println(response.getContext().toString());
                         listener.onChatbotResponse(response);
                     }
 
                     @Override
-                    public void onChatbotFailed(Call call, String errorMsg)
+                    public void onChatbotFailed(String errorMsg)
                     {
                         listener.onChatbotFailed(errorMsg);
                     }
@@ -75,7 +75,7 @@ public class ChatbotInteractor implements IChatbotInteractor
     }
 
     public interface Callback {
-        void onChatbotResponse(Call call, MessageResponse response);
-        void onChatbotFailed(Call call, String errorMsg);
+        void onChatbotResponse(MessageResponse response);
+        void onChatbotFailed(String errorMsg);
     }
 }

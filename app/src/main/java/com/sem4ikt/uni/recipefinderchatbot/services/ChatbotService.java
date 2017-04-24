@@ -54,6 +54,7 @@ public class ChatbotService implements IChatbotService {
 
                 case "49630f5e-f2b9-453a-be68-927f17cf64bc": // Switching to Recipe
                     contextRecipe.put("username", contextGeneral.get("username"));
+                    contextRecipe.put("timezone", contextGeneral.get("timezone"));
                     contextRecipe.put("returning_user", contextGeneral.get("returning_user"));
                     break;
             }
@@ -78,6 +79,7 @@ public class ChatbotService implements IChatbotService {
         contextGeneral.put("course", "undefined");
         contextGeneral.put("intolerance", "undefined");
         contextGeneral.put("cuisine", "undefined");
+        contextGeneral.put("timezone", "Europe/Paris");
 
     }
 
@@ -131,12 +133,12 @@ public class ChatbotService implements IChatbotService {
                             contextRecipe = response.getContext();
 
                         // Answer is ready
-                        callback.onChatbotResponse(ChatbotService.this, response);
+                        callback.onChatbotResponse(response);
                     }
 
                     @Override
                     public void onFailure(Exception e) {
-                        callback.onChatbotFailed(ChatbotService.this, "Something went wrong, please try again");
+                        callback.onChatbotFailed("Something went wrong, please try again");
                         Log.e("botConversation", e.toString());
                     }
                 });
@@ -144,7 +146,7 @@ public class ChatbotService implements IChatbotService {
 
             @Override
             public void onFailure(Exception e) {
-                callback.onChatbotFailed(ChatbotService.this, "Something went wrong, please try again");
+                callback.onChatbotFailed("Something went wrong, please try again");
                 Log.e("botTone", e.toString());
             }
         });

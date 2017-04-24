@@ -45,7 +45,7 @@ public class Authentication implements IFirebaseAuth {
                             callback.onAuthenticationFinished(CREATE_SUCCESS, "Create user successfully! Now verify email");
                         }
                         else
-                            callback.onAuthenticationFinished(CREATE_FAILED, "Create user failed!");
+                            callback.onAuthenticationFinished(CREATE_FAILED, "An account is already created using this e-mail");
                     }
                 });
     }
@@ -77,7 +77,7 @@ public class Authentication implements IFirebaseAuth {
     }
 
     @Override
-    public void sendRestEmailVerification(String email, final ILoginCallback callback) {
+    public void sendResetEmailVerification(String email, final ILoginCallback callback) {
 
        auth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

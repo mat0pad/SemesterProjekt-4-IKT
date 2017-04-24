@@ -10,65 +10,85 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by anton on 07-04-2017.
+ * Created by anton on 23-04-2017.
  */
 
 public class SearchModelTest {
 
     private SearchModel sm;
-
+    List<RecipeModel> list;
 
     @Before
     public void setup()
     {
         sm = new SearchModel();
+        list = new ArrayList<>();
     }
 
     @Test
-    public void singleThreadSearchFoundRecipe()
+    public void searchSingleThreadFirstWordTest()
     {
-        //Setup
-        List<RecipeModel> list = new ArrayList<>();
+        String Title = "Cupcake";
         RecipeModel rp = new RecipeModel();
-        rp.setTitle("Hamburger");
+        rp.setTitle(Title);
         list.add(rp);
-
-
-        Assert.assertEquals(rp,sm.searchSingleThread(list,"Hamburger").get(0));
+        List<RecipeModel> searchlist = sm.searchSingleThread(list,Title);
+        Assert.assertEquals(searchlist,list);
     }
 
     @Test
-    public void singleThreadSearchFoundNone()
+    public void searchSingleThreadNotFoundTest()
     {
-        List<RecipeModel> list = new ArrayList<>();
+        String Title = "Cupcake";
         RecipeModel rp = new RecipeModel();
-        rp.setTitle("Hamburger");
+        rp.setTitle(Title);
         list.add(rp);
-
-        Assert.assertNotEquals(list.size(),sm.searchSingleThread(list,"Chicken").size());
+        List<RecipeModel> searchlist = sm.searchSingleThread(list,"test");
+        Assert.assertNotEquals(searchlist,list);
     }
 
     @Test
-    public void multiThreadSearchFoundRecipe() throws InterruptedException {
-        //Setup
-
-        List<RecipeModel> list = new ArrayList<>();
+    public void setSingleThreadInsideTest()
+    {
+        String Title = "xxcupcakexx";
         RecipeModel rp = new RecipeModel();
-        rp.setTitle("Hamburger");
+        rp.setTitle(Title);
         list.add(rp);
-
-        Assert.assertEquals(rp,sm.searchMultiThread(list,"Hamburger").get(0));
-
+        List<RecipeModel> searchlist = sm.searchSingleThread(list,"cupcake");
+        Assert.assertEquals(searchlist,list);
+    }
+/*
+    @Test
+    public void searchMultihreadFoundWord() throws InterruptedException {
+        String Title = "Cupcake";
+        RecipeModel rp = new RecipeModel();
+        rp.setTitle(Title);
+        list.add(rp);
+        List<RecipeModel> searchlist = sm.searchMultiThread(list,Title);
+        Assert.assertEquals(searchlist,list);
     }
 
-    /*@Test
-    public void multiThreadSearchFoundNone() throws InterruptedException {
-        List<RecipeModel> list = new ArrayList<>();
+    @Test
+    public void searchMultiThreadNotFoundTest() throws InterruptedException {
+        String Title = "Cupcake";
         RecipeModel rp = new RecipeModel();
-        rp.setTitle("Hamburger");
+        rp.setTitle(Title);
         list.add(rp);
+        List<RecipeModel> searchlist = sm.searchMultiThread(list,"test");
+        Assert.assertNotEquals(searchlist,list);
+    }
 
-        Assert.assertNotEquals(list.size(),sm.searchMultiThread(list,"Chicken").size());
+    @Test
+    public void setMultiThreadInsideTest() throws InterruptedException {
+        String Title = "xxcupcakexx";
+        RecipeModel rp = new RecipeModel();
+        rp.setTitle(Title);
+        list.add(rp);
+        List<RecipeModel> searchlist = sm.searchMultiThread(list,"cupcake");
+        Assert.assertEquals(searchlist,list);
+    }
 
-    }*/
+    */
+
+
 }

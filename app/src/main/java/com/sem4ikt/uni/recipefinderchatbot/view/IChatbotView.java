@@ -14,4 +14,6 @@ public interface IChatbotView {
 
     void play(String text2play);
 
+    void shouldSendButton(boolean shouldDisable);
+
 }

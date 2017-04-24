@@ -2,116 +2,154 @@
 
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/meal_planner"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:id="@+id/meal_planner"
-    android:background="@color/guillotine_background"
+    android:background="@color/White"
     android:visibility="visible">
-
 
 
     <com.github.sundeepk.compactcalendarview.CompactCalendarView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/compactcalendar_view"
         android:layout_width="match_parent"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
         android:layout_height="250dp"
-        app:compactCalendarTargetHeight="250dp"
-        app:compactCalendarTextSize="12sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         app:compactCalendarBackgroundColor="@color/guillotine_background"
-        app:compactCalendarTextColor="#fff"
+        app:compactCalendarCurrentDayBackgroundColor="@color/Primary_Light_Light"
         app:compactCalendarCurrentSelectedDayBackgroundColor="#E57373"
-        app:compactCalendarCurrentDayBackgroundColor="#B71C1C"
+        app:compactCalendarDisplayOtherMonthDays="true"
         app:compactCalendarMultiEventIndicatorColor="#fff"
         app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="true"
-        app:compactCalendarDisplayOtherMonthDays="true"/>
+        app:compactCalendarTargetHeight="250dp"
+        app:compactCalendarTextColor="@color/White"
+        app:compactCalendarTextSize="12sp"/>
 
-    <Button
-        android:layout_below="@+id/compactcalendar_view"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/prev_button"
-        android:text="Previous"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:layout_below="@+id/compactcalendar_view"
-        android:layout_alignParentRight="true"
-        android:id="@+id/next_button"
-        android:text="Next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="155dp"
-        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:id="@+id/month"
+        android:text="@string/month"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/compactcalendar_view"
+        android:textColor="@color/Black"
+        android:textSize="25dp" />
+
+    <Button
+        android:id="@+id/prev_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/compactcalendar_view"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/send_button_state"
+        android:text="@string/previous" />
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/compactcalendar_view"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/send_button_state"
+        android:text="@string/next" />
+
+    <TextView
         android:id="@+id/noplan"
-        android:textSize="33sp"
-        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
         android:layout_below="@+id/prev_button"
-        android:text="NO MEALPLAN TO SHOW">
-    </TextView>
+        android:gravity="center_vertical"
+        android:text="@string/no_mealplan"
+        android:textAlignment="center"
+        android:textColor="@color/Gray_Dark"
+        android:textSize="33sp"
+        android:visibility="gone" />
+
 
     <ScrollView
+        android:id="@+id/dayview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:id="@+id/dayview"
-        android:layout_below="@+id/prev_button">
+        android:layout_below="@+id/prev_button"
+        android:layout_marginTop="5dp"
+        android:overScrollMode="never"
+        android:visibility="visible">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/guillotine_background">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:gravity="center_horizontal"
-                android:text="Breakfast"
-                android:textColor="@color/White"
+                android:text="@string/breakfast"
+                android:textColor="@color/guillotine_background_dark"
                 android:textSize="30sp"
-                android:textStyle="bold"
-                />
-            <ImageView
+                android:textStyle="bold" />
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="155dp"
+                android:layout_height="1dp"
+                android:background="@color/Gray_Dark" />
+
+            <ImageView
                 android:id="@+id/breakfast"
-                />
+                android:layout_width="match_parent"
+                android:layout_height="155dp"
+                android:layout_margin="10dp"
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:gravity="center_horizontal"
-                android:text="Lunch"
-                android:textColor="@color/White"
+                android:text="@string/lunch"
+                android:textColor="@color/guillotine_background_dark"
                 android:textSize="30sp"
-                android:textStyle="bold"
-                />
-            <ImageView
+                android:textStyle="bold" />
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="155dp"
+                android:layout_height="1dp"
+                android:background="@color/Gray_Dark" />
+
+            <ImageView
                 android:id="@+id/lunch"
-                />
+                android:layout_width="match_parent"
+                android:layout_height="155dp"
+                android:layout_margin="10dp"
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:gravity="center_horizontal"
-                android:text="Dinner"
-                android:textColor="@color/White"
+                android:text="@string/dinner"
+                android:textColor="@color/guillotine_background_dark"
                 android:textSize="30sp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/Gray_Dark" />
+
             <ImageView
+                android:id="@+id/dinner"
                 android:layout_width="match_parent"
                 android:layout_height="155dp"
-                android:id="@+id/dinner"
-                />
+                android:layout_margin="10dp"
+                android:scaleType="centerCrop" />
 
-            />
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

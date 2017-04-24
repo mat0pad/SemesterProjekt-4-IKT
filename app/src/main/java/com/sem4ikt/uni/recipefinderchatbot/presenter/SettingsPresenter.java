@@ -6,7 +6,7 @@ import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseAuth;
 import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ILoginUserModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ISettingsModel;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginCallback;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ISettingsPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ISettingsView;
 
@@ -14,26 +14,28 @@ import com.sem4ikt.uni.recipefinderchatbot.view.ISettingsView;
  * Created by Christian on 07-04-2017.
  */
 
-public class SettingsPresenter extends BasePresenter<ISettingsView> implements ISettingsPresenter<ISettingsView>{
+public class SettingsPresenter extends BasePresenter<ISettingsView> implements ISettingsPresenter<ISettingsView>, ILoginCallback {
 
-    private ISettingsModel settings;
     private IFirebaseAuth auth;
+    private ILoginUserModel passChecker;
 
     public SettingsPresenter(ISettingsView view) {
         super(view);
 
         // Create model
         auth = new Authentication();
+        passChecker = new LoginUserModel();
     }
 
     @VisibleForTesting
-    public SettingsPresenter(ISettingsView view, IFirebaseAuth auth) {
+    public SettingsPresenter(ISettingsView view, IFirebaseAuth auth, ILoginUserModel loginUserModel) {
         super(view);
 
+        this.passChecker = loginUserModel;
         this.auth = auth;
     }
 
-
+    @Override
     public void doCheckPassSucess(String pass1, String pass2)
     {
         if(pass1 == null || pass2 ==null) {
@@ -41,22 +43,31 @@ public class SettingsPresenter extends BasePresenter<ISettingsView> implements I
             return;
         }
 
-        ILoginUserModel passChecker = new LoginUserModel();
         passChecker.setPassword(pass1);
         passChecker.setConfirmPassword(pass2);
-        boolean equal = passChecker.checkPasswordsMatches();
 
+        if (passChecker.checkPasswordsMatches())
+            auth.updatePassword(pass1, this);
+        else
+            view.onShowToast("Same password required in both fields");
 
     }
 
+    @Override
     public void doShowPasswordChangeView()
     {
         view.onSwitchToChangePassView();
     }
 
+    @Override
     public void doShowSettingsView()
     {
         view.onSwitchToSettingsView();
+    }
+
+    @Override
+    public void doDeleteAccount() {
+        auth.deleteAccount(this);
     }
 
     @Override

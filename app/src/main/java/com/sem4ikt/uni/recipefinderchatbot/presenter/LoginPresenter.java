@@ -54,10 +54,9 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
 
         setProgressBarVisiblity(true);
 
-        if (user.checkUserValidity() || true) {
+        if (user.checkUserValidity()) {
             auth.signIn(email, password, this);
         }
-
         else {
             view.onShowToast("Incorrect password or email");
             setProgressBarVisiblity(false);
@@ -78,13 +77,12 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
             if (user.checkPasswordsMatches()) {
                 auth.createUserWithEmailAndPassword(email, password, this);
             }
-
             else {
                 view.onShowToast("Password and Confirm Password must be identical.");
                 setProgressBarVisiblity(false);
             }
         else {
-            view.onShowToast("An account is already created using this e-mail");
+            view.onShowToast("Password and Confirm Password must be identical and email must be vaild.");
             setProgressBarVisiblity(false);
         }
     }
@@ -94,7 +92,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
 
         setProgressBarVisiblity(true);
 
-        auth.sendRestEmailVerification(email, this);
+        auth.sendResetEmailVerification(email, this);
 
     }
 
