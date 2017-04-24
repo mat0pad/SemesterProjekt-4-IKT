@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -79,9 +78,6 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         final ImageView dinnerImage = (ImageView) view.findViewById(R.id.dinner);
         final ImageView breakfastImage = (ImageView) view.findViewById(R.id.breakfast);
         final ImageView lunchImage = (ImageView) view.findViewById(R.id.lunch);
-
-        Button previousButton = (Button) view.findViewById(R.id.prev_button);
-        Button nextButton = (Button) view.findViewById(R.id.next_button);
 
         compactCalenderView = (CompactCalendarView) view.findViewById(R.id.compactcalendar_view);
 
@@ -300,7 +296,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
 
     @Override
     public void onPreviousPressed() {
-        compactCalenderView.showNextMonth();
+        compactCalenderView.showPreviousMonth();
     }
 
     @Override
