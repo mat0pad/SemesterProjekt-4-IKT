@@ -175,12 +175,13 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
                                 long b = datasnapshot.getValue(DateModel.class).startDate;
                                 dateweekList.add(new Date(b));
                                 if (dateweekList.size() == mealplanlist.size())
-                                    callback.onReceived(mealplanlist, dateweekList, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_WEEK);
+                                    callback.onReceivedWeek(mealplanlist, dateweekList, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_WEEK);
                             }
                         }
 
                         @Override
                         public void onCancelled(DatabaseError databaseError){
+                            callback.onReceivedWeek(null,null, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.MEALPLAN_FAILURE);
                             Log.e("onCancelled",databaseError.getMessage());
                         }
                     });
@@ -189,6 +190,7 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                callback.onReceivedWeek(null,null, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.MEALPLAN_FAILURE);
                 Log.e("onCancelled",databaseError.getMessage());
             }
         });
@@ -217,12 +219,13 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
                                 long b = datasnapshot.getValue(DateModel.class).startDate;
                                 datedaylist.add(new Date(b));
                                 if (datedaylist.size() == mealplandaylist.size())
-                                    callback.onReceived(mealplandaylist, datedaylist, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_DAY);
+                                    callback.onReceivedDay(mealplandaylist, datedaylist, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_DAY);
                             }
                         }
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
+                            callback.onReceivedDay(null,null, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.MEALPLAN_FAILURE);
                             Log.e("onCancelled", databaseError.getMessage());
                         }
                     });
@@ -231,6 +234,7 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
             }
                 @Override
                 public void onCancelled (DatabaseError databaseError){
+                    callback.onReceivedDay(null,null, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.MEALPLAN_FAILURE);
                     Log.e("onCancelled",databaseError.getMessage());
                 }
 

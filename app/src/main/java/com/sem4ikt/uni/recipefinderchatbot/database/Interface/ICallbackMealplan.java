@@ -1,5 +1,8 @@
 package com.sem4ikt.uni.recipefinderchatbot.database.Interface;
 
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -10,7 +13,9 @@ import java.util.Objects;
 
 public interface ICallbackMealplan {
 
-    void onReceived(Object mealplan, List<Date> dateList, MEALPLAN_CALLBACK_TYPE type);
+    void onReceivedDay(List<MealPlanDayModel> daymodel, List<Date> dateList, MEALPLAN_CALLBACK_TYPE type);
 
-    enum MEALPLAN_CALLBACK_TYPE{GET_MEALPLAN_DAY,GET_MEALPLAN_WEEK};
+    void onReceivedWeek(List<MealPlanWeekModel> weekmodel, List<Date> list, MEALPLAN_CALLBACK_TYPE type);
+
+    enum MEALPLAN_CALLBACK_TYPE{GET_MEALPLAN_DAY,GET_MEALPLAN_WEEK,MEALPLAN_FAILURE};
 }
