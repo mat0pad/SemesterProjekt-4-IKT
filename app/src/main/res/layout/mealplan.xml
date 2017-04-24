@@ -25,7 +25,17 @@
         app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="true"
         app:compactCalendarTargetHeight="250dp"
         app:compactCalendarTextColor="@color/White"
-        app:compactCalendarTextSize="12sp" />
+        app:compactCalendarTextSize="12sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/month"
+        android:text="@string/month"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/compactcalendar_view"
+        android:textColor="@color/Black"
+        android:textSize="25dp" />
 
     <Button
         android:id="@+id/prev_button"

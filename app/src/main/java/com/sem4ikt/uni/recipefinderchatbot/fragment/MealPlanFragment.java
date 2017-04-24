@@ -72,15 +72,14 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         // Setup presenter
         presenter = new MealPlanPresenter(this);
 
-        //setup show month
-       // toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-       // toolbar.setTitle(dateFormatForMonth.format(compactCalenderView.getFirstDayOfCurrentMonth()));
+
+
 
         // Find views by id
         final ImageView dinnerImage = (ImageView) view.findViewById(R.id.dinner);
         final ImageView breakfastImage = (ImageView) view.findViewById(R.id.breakfast);
         final ImageView lunchImage = (ImageView) view.findViewById(R.id.lunch);
-
+        final TextView month=(TextView) view.findViewById(R.id.month);
         final Button nextButton = (Button) view.findViewById(R.id.next_button);
         final Button preButton = (Button) view.findViewById(R.id.prev_button);
 
@@ -89,6 +88,8 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         breakfastImage.setOnClickListener(this);
         nextButton.setOnClickListener(this);
         preButton.setOnClickListener(this);
+
+
 
 
         compactCalenderView = (CompactCalendarView) view.findViewById(R.id.compactcalendar_view);
@@ -108,6 +109,10 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         selectedDate = new Date();
         dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
         prikker=new ArrayList<>();
+        //setup show month
+         //toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+         //toolbar.setTitle(dateFormatForMonth.format(compactCalenderView.getFirstDayOfCurrentMonth()));
+        month.setText(dateFormatForMonth.format(compactCalenderView.getFirstDayOfCurrentMonth()));
 
 
 
@@ -286,6 +291,8 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
             @Override
             public void onDayClick(Date dateClicked) {
                // toolbar.setTitle(dateFormatForMonth.format(dateClicked));
+                month.setText(dateFormatForMonth.format(dateClicked));
+
                 selectedDate=dateClicked;
                 myRunnable.run();
 
@@ -294,6 +301,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
                // toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
+                month.setText(dateFormatForMonth.format(firstDayOfNewMonth));
                 selectedDate=firstDayOfNewMonth;
                 myRunnable.run();
             }
@@ -318,13 +326,16 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
 
         if (dayplanActive) {
             id = dayPlans.get(planIndex).getRecipeModels().get(id).getId();
-        } else {
+        }
+        else {
+
             String value = weekPlans.get(planIndex).getItems().get(dayInWeek*3+id).getValue();
             id = new JsonParser().parse(value).getAsJsonObject().get("id").getAsInt();
         }
 
         Intent intent = new Intent(getActivity(), DetailRecipeActivity.class).putExtra("id", id);
         startActivity(intent);
+        Log.e("id after intent",Integer.toString(id));
     }
 
     @Override
@@ -357,6 +368,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                 for (int j=0;j<7;j++) {
                     prikker.add(new Event(Color.GREEN, kal.getTimeInMillis(), null));
                     kal.add(Calendar.DATE,1);
+
                 }
             }
             compactCalenderView.addEvents(prikker);

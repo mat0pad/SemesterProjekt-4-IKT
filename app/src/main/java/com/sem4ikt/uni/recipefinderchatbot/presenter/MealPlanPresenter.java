@@ -69,14 +69,16 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
     }
 
     @Override
+    public void doLunch() {
+        view.onShowDetailRecipe(1);
+    }
+
+    @Override
     public void doDinner() {
         view.onShowDetailRecipe(2);
     }
 
-    @Override
-    public void doLunch() {
-        view.onShowDetailRecipe(1);
-    }
+
 
 
     public void update() {
