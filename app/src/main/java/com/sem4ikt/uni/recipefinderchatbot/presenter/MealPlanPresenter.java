@@ -10,8 +10,10 @@ import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IMealPlanPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IMealPlanView;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /*
   Created by mathiaslykkepedersen on 27/03/2017.
@@ -37,6 +39,19 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
 
     @Override
     public void getMealPlanWeek(){ctrl.getMealPlanWeek(this);}
+
+
+    @Override
+    public Date setDateToTwelve(Date selectedDate) {
+
+        Calendar cal = Calendar.getInstance(Locale.GERMANY);
+        cal.setTime(selectedDate);
+        cal.set(Calendar.HOUR_OF_DAY,12);
+        cal.set(Calendar.MINUTE,0);
+        cal.set(Calendar.SECOND,0);
+        return cal.getTime();
+
+    }
 
     @Override
     public void doNext() {
@@ -66,6 +81,20 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
 
     public void update() {
         //ctrl.update(this);
+    }
+
+    @Override
+    public Date getTime() {
+        return Calendar.getInstance(Locale.GERMANY).getTime();
+    }
+
+    @Override
+    public Date decrementDay(Date date, int dayInWeek) {
+        Calendar cal = Calendar.getInstance(Locale.GERMANY);
+        cal.setTime(date);
+        cal.add(Calendar.DATE, -dayInWeek);
+        return cal.getTime();
+
     }
 
     @Override
@@ -102,5 +131,4 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
                 break;
         }
     }
-
 }
