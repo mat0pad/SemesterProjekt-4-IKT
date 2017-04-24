@@ -3,6 +3,7 @@ package com.sem4ikt.uni.recipefinderchatbot.fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,6 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sem4ikt.uni.recipefinderchatbot.R;
@@ -48,6 +50,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
     int dayInWeek = 0;
     boolean dayplanActive;
     int planIndex;
+    List<Event> prikker;
 
     private CompactCalendarView compactCalenderView;
     private SimpleDateFormat dateFormatForMonth;
@@ -91,7 +94,8 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         weekPlans = new ArrayList<>();
         dayPlans = new ArrayList<>();
         selectedDate = new Date();
-        dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.GERMANY);
+        dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
+        prikker=new ArrayList<>();
 
 
 
@@ -315,6 +319,14 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         if (mealplan != null && dates != null) {
             daysWithMealplan.addAll(dates);
             dayPlans.addAll(mealplan);
+            Calendar kal= Calendar.getInstance();
+            for (int i=0;i<dates.size();i++){
+                kal.setTime(dates.get(i));
+                for (int j=0;j<7;j++) {
+                    prikker.add(new Event(Color.GREEN, kal.getTimeInMillis(), null));
+                    kal.add(Calendar.DATE,1);
+                }
+            }
             Log.e("DatoTid", ""+daysWithMealplan.get(0));
         }
     }
@@ -325,6 +337,14 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         if (mealplan != null && dates != null) {
             weeksWithMealplan.addAll(dates);
             weekPlans.addAll(mealplan);
+            Calendar kal= Calendar.getInstance();
+            for (int i=0;i<dates.size();i++){
+                kal.setTime(dates.get(i));
+                for (int j=0;j<7;j++) {
+                    prikker.add(new Event(Color.GREEN, kal.getTimeInMillis(), null));
+                    kal.add(Calendar.DATE,1);
+                }
+            }
 
             Log.e("DatoTid", ""+weeksWithMealplan.get(0));
         }
