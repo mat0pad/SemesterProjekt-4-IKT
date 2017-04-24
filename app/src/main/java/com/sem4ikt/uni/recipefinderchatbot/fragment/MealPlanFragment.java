@@ -319,7 +319,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         if (dayplanActive) {
             id = dayPlans.get(planIndex).getRecipeModels().get(id).getId();
         } else {
-            String value = weekPlans.get(planIndex).getItems().get(dayInWeek + id).getValue();
+            String value = weekPlans.get(planIndex).getItems().get(dayInWeek*3+id).getValue();
             id = new JsonParser().parse(value).getAsJsonObject().get("id").getAsInt();
         }
 
