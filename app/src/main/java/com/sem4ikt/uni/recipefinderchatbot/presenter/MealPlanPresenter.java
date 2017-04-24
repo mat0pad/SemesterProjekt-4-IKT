@@ -38,6 +38,32 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
     @Override
     public void getMealPlanWeek(){ctrl.getMealPlanWeek(this);}
 
+    @Override
+    public void doNext() {
+        view.onNextPressed();
+    }
+
+    @Override
+    public void doPrevious() {
+        view.onPreviousPressed();
+    }
+
+    @Override
+    public void doBreakfast() {
+        view.onShowDetailRecipe(0);
+    }
+
+    @Override
+    public void doDinner() {
+        view.onShowDetailRecipe(1);
+    }
+
+    @Override
+    public void doLunch() {
+        view.onShowDetailRecipe(2);
+    }
+
+
     public void update() {
         //ctrl.update(this);
     }
@@ -76,4 +102,5 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
                 break;
         }
     }
+
 }

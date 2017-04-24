@@ -16,6 +16,7 @@ public interface IMealPlanView {
     void getWeekPlan(List<MealPlanWeekModel> mealplan,List<Date> dates);
 
     void onNextPressed();
-
     void onPreviousPressed();
+
+    void onShowDetailRecipe(int id);
 }

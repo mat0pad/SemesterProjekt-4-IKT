@@ -13,4 +13,10 @@ public interface IMealPlanPresenter<V> extends IBasePresenter<V> {
     void doNext();
 
     void doPrevious();
+
+    void doBreakfast();
+
+    void doDinner();
+
+    void doLunch();
 }
