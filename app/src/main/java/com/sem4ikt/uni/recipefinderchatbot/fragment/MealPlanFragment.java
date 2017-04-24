@@ -1,11 +1,11 @@
 package com.sem4ikt.uni.recipefinderchatbot.fragment;
 
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +20,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.activity.DetailRecipeActivity;
-import com.sem4ikt.uni.recipefinderchatbot.database.MealPlansInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.MealPlanPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.rest.ApiClient;
-import com.sem4ikt.uni.recipefinderchatbot.rest.ISpoonacularAPI;
 import com.sem4ikt.uni.recipefinderchatbot.view.IMealPlanView;
 import com.squareup.picasso.Picasso;
 
@@ -33,74 +30,71 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-
 public class MealPlanFragment extends Fragment implements IMealPlanView {
 
-    ImageView dinner;
-    ImageView breakfast;
-    ImageView lunch;
+    ImageView dinnerImage, breakfastImage, lunchImage;
     ScrollView day;
     TextView noplan;
+
+    MealPlanPresenter presenter;
+    List<Date> daysWithMealplan, weeksWithMealplan;
     List<MealPlanWeekModel> weekPlans;
     List<MealPlanDayModel> dayPlans;
-    MealPlanPresenter presenter;
+    Calendar cal;
+    int dayInWeek = 0;
+    boolean dayplanActive;
+    int planIndex;
     private CompactCalendarView compactCalenderView;
     //private ActionBar toolbar;
     private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.GERMANY);
     private Date selectedDate;
-    List<Date> daysWithMealplan;
-    List<Date> weeksWithMealplan;
-    Calendar cal;
-    int dayInWeek=0;
-    boolean dayplanActive;
-    int planIndex;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        if (container == null) {
+        if (container == null)
             return null;
-        }
 
-        presenter=new MealPlanPresenter(this);
-        final View view = inflater.inflate(R.layout.mealplan, container, false);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.mealplan, container, false);
 
-        final Button showPreviousMonthBut = (Button) view.findViewById(R.id.prev_button);
-        final Button showNextMonthBut = (Button) view.findViewById(R.id.next_button);
-
+        // Setup presenter
+        presenter = new MealPlanPresenter(this);
 
         //toolbar.setTitle(dateFormatForMonth.format(compactCalenderView.getFirstDayOfCurrentMonth()));
-        selectedDate=new Date();
+        selectedDate = new Date();
 
+        ImageView dinnerImage = (ImageView) view.findViewById(R.id.dinner);
+        ImageView breakfastImage = (ImageView) view.findViewById(R.id.breakfast);
+        ImageView lunchImage = (ImageView) view.findViewById(R.id.lunch);
 
-        dinner = (ImageView) view.findViewById(R.id.dinner);
-        compactCalenderView= (CompactCalendarView) view.findViewById(R.id.compactcalendar_view);
-        breakfast = (ImageView) view.findViewById(R.id.breakfast);
-        lunch = (ImageView) view.findViewById(R.id.lunch);
-        day= (ScrollView) view.findViewById(R.id.dayview);//visibility GONE if no plan for date
-        noplan= (TextView) view.findViewById(R.id.noplan);//visibility VISIBLE if no plan for date
+        Button previousButton = (Button) view.findViewById(R.id.prev_button);
+        Button nextButton = (Button) view.findViewById(R.id.next_button);
+
+        compactCalenderView = (CompactCalendarView) view.findViewById(R.id.compactcalendar_view);
+
+        day = (ScrollView) view.findViewById(R.id.dayview); //visibility GONE if no plan for date
+        noplan = (TextView) view.findViewById(R.id.noplan); //visibility VISIBLE if no plan for date
+
+        // Fecth data
         presenter.getMealPlanWeek();
         presenter.getMealPlanDay();
+
+        daysWithMealplan = new ArrayList<>();
+        weeksWithMealplan = new ArrayList<>();
+        weekPlans = new ArrayList<>();
+        dayPlans = new ArrayList<>();
+
         cal= Calendar.getInstance(Locale.GERMANY);
-        daysWithMealplan= new ArrayList<>();
-        weeksWithMealplan= new ArrayList<>();
-        weekPlans=new ArrayList<>();
-        dayPlans=new ArrayList<>();
+
         cal.set(Calendar.HOUR_OF_DAY,12);
         cal.set(Calendar.MINUTE,0);
         cal.set(Calendar.SECOND,0);
         selectedDate=cal.getTime();
-
 
 
                     final Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -273,7 +267,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
                     mainHandler.post(myRunnable);
 
 
-        breakfast.setOnClickListener(new View.OnClickListener() {
+        breakfastImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int id;
@@ -293,7 +287,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
             }
         });
 
-        lunch.setOnClickListener(new View.OnClickListener() {
+        lunchImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int id;
@@ -314,7 +308,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
             }
         });
 
-        dinner.setOnClickListener(new View.OnClickListener() {
+        dinnerImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int id;
@@ -353,28 +347,34 @@ public class MealPlanFragment extends Fragment implements IMealPlanView {
             }
         });
 
-        showNextMonthBut.setOnClickListener(new View.OnClickListener(){
+        nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                compactCalenderView.showNextMonth();
+                presenter.doNext();
             }
         });
 
-        showPreviousMonthBut.setOnClickListener(new View.OnClickListener(){
+        previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                compactCalenderView.showPreviousMonth();
+                presenter.doPrevious();
             }
         });
-
-
-
-        // Inflate the layout for this fragment
 
 
         return view;
     }
 
+
+    @Override
+    public void onNextPressed() {
+        compactCalenderView.showNextMonth();
+    }
+
+    @Override
+    public void onPreviousPressed() {
+        compactCalenderView.showNextMonth();
+    }
 
 
     @Override

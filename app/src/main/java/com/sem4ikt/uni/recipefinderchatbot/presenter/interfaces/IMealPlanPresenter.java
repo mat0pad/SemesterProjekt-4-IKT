@@ -5,4 +5,12 @@ package com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces;
  */
 
 public interface IMealPlanPresenter<V> extends IBasePresenter<V> {
+
+    void getMealPlanDay();
+
+    void getMealPlanWeek();
+
+    void doNext();
+
+    void doPrevious();
 }

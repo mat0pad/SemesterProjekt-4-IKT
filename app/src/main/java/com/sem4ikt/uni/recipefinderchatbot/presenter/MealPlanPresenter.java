@@ -32,8 +32,10 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
         this.ctrl = ctrl;
     }
 
+    @Override
     public void getMealPlanDay(){ctrl.getMealPlanDay(this);}
 
+    @Override
     public void getMealPlanWeek(){ctrl.getMealPlanWeek(this);}
 
     public void update() {

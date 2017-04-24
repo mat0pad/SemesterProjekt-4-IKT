@@ -11,6 +11,11 @@ import java.util.List;
  */
 
 public interface IMealPlanView {
+
     void getDayPlan(List<MealPlanDayModel> mealplan, List<Date>dates);
     void getWeekPlan(List<MealPlanWeekModel> mealplan,List<Date> dates);
+
+    void onNextPressed();
+
+    void onPreviousPressed();
 }
