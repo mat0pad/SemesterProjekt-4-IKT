@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +53,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
     boolean dayplanActive;
     int planIndex;
     List<Event> prikker;
-
+    ActionBar toolbar;
     private CompactCalendarView compactCalenderView;
     private SimpleDateFormat dateFormatForMonth;
     private Date selectedDate;
@@ -69,7 +71,9 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         // Setup presenter
         presenter = new MealPlanPresenter(this);
 
-        //toolbar.setTitle(dateFormatForMonth.format(compactCalenderView.getFirstDayOfCurrentMonth()));
+        //setup show month
+        toolbar = ((ActionBarActivity) getActivity()).getSupportActionBar();
+        toolbar.setTitle(dateFormatForMonth.format(compactCalenderView.getFirstDayOfCurrentMonth()));
 
         // Find views by id
         final ImageView dinnerImage = (ImageView) view.findViewById(R.id.dinner);
@@ -271,7 +275,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
 
             @Override
             public void onDayClick(Date dateClicked) {
-                //toolbar.setTitle(dateFormatForMonth.format(dateClicked));
+                toolbar.setTitle(dateFormatForMonth.format(dateClicked));
                 selectedDate=dateClicked;
                 myRunnable.run();
 
@@ -279,7 +283,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
 
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
-               // toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
+                toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
                 selectedDate=firstDayOfNewMonth;
                 myRunnable.run();
             }
