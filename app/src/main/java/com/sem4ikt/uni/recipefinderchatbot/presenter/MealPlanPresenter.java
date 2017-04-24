@@ -42,22 +42,38 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
         //ctrl.update(this);
     }
 
-
     @Override
-    public void onReceived(Object mealplan, List<Date> date, MEALPLAN_CALLBACK_TYPE type) {
-        switch (type) {
+    public void onReceivedDay(List<MealPlanDayModel> daymodel, List<Date> datelist, MEALPLAN_CALLBACK_TYPE type) {
+        switch (type)
+        {
             case GET_MEALPLAN_DAY:
-                if (mealplan != null && date != null) {
-                    view.getDayPlan((List<MealPlanDayModel>) mealplan, date);
-                }
-                    break;
-
-            case GET_MEALPLAN_WEEK:
-                if(mealplan!=null&&date!=null) {
-                    view.getWeekPlan((List<MealPlanWeekModel>) mealplan, date);
+                if (daymodel != null && datelist != null) {
+                    view.getDayPlan(daymodel, datelist);
                 }
                 break;
-        }
 
+            case MEALPLAN_FAILURE:
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onReceivedWeek(List<MealPlanWeekModel> weekmodel, List<Date> datelist, MEALPLAN_CALLBACK_TYPE type) {
+
+        switch (type)
+        {
+            case GET_MEALPLAN_WEEK:
+                if(weekmodel != null && datelist != null) {
+                    view.getWeekPlan(weekmodel, datelist);
+                }
+                break;
+            case MEALPLAN_FAILURE:
+
+                break;
+            default:
+                break;
+        }
     }
 }
