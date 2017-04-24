@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -79,6 +80,16 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         final ImageView dinnerImage = (ImageView) view.findViewById(R.id.dinner);
         final ImageView breakfastImage = (ImageView) view.findViewById(R.id.breakfast);
         final ImageView lunchImage = (ImageView) view.findViewById(R.id.lunch);
+
+        final Button nextButton = (Button) view.findViewById(R.id.next_button);
+        final Button preButton = (Button) view.findViewById(R.id.prev_button);
+
+        dinnerImage.setOnClickListener(this);
+        lunchImage.setOnClickListener(this);
+        breakfastImage.setOnClickListener(this);
+        nextButton.setOnClickListener(this);
+        preButton.setOnClickListener(this);
+
 
         compactCalenderView = (CompactCalendarView) view.findViewById(R.id.compactcalendar_view);
 
