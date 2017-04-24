@@ -61,25 +61,25 @@ public class MealPlanPresenterUnitTest {
 
     /*@Test
     public  void onReceivedValidMealPlanWeek(){
-        presenter.onReceived(new ArrayList<MealPlanWeekModel>(),new ArrayList<Date>(), ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_WEEK);
+        presenter.onReceivedWeek(new ArrayList<MealPlanWeekModel>(),new ArrayList<Date>(), ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_WEEK);
         verify(mealPlanView,times(1)).getWeekPlan(new ArrayList<MealPlanWeekModel>(),new ArrayList<Date>());
     }
 
     @Test
     public  void onReceivedValidMealPlanDay(){
-        presenter.onReceived(new ArrayList<MealPlanDayModel>(),new ArrayList<Date>(), ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_DAY);
+        presenter.onReceivedDay(new ArrayList<MealPlanDayModel>(),new ArrayList<Date>(), ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_DAY);
         verify(mealPlanView,times(1)).getDayPlan(new ArrayList<MealPlanDayModel>(),new ArrayList<Date>());
     }
 
     @Test
     public  void onReceivedNothingMealPlanWeek(){
-        presenter.onReceived(null,null, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_WEEK);
+        presenter.onReceivedWeek(null,null, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_WEEK);
         verify(mealPlanView,times(0)).getWeekPlan(null,null);
     }
 
     @Test
     public  void onReceivedNothingMealPlanDay(){
-        presenter.onReceived(null,null, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_DAY);
+        presenter.onReceivedDay(null,null, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_DAY);
         verify(mealPlanView,times(0)).getDayPlan(null,null);
     }*/
 

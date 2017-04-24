@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -72,9 +73,12 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         final ImageView breakfastImage = (ImageView) view.findViewById(R.id.breakfast);
         final ImageView lunchImage = (ImageView) view.findViewById(R.id.lunch);
 
+        Button previousButton = (Button) view.findViewById(R.id.prev_button);
+        Button nextButton = (Button) view.findViewById(R.id.next_button);
+
         compactCalenderView = (CompactCalendarView) view.findViewById(R.id.compactcalendar_view);
 
-        //day = (ScrollView) view.findViewById(R.id.dayview); //visibility GONE if no plan for date
+        day = (ScrollView) view.findViewById(R.id.dayview); //visibility GONE if no plan for date
         noplan = (TextView) view.findViewById(R.id.noplan); //visibility VISIBLE if no plan for date
 
         // Fecth data
@@ -90,12 +94,10 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.GERMANY);
 
 
-        cal = Calendar.getInstance(Locale.GERMANY);
-        cal.set(Calendar.HOUR_OF_DAY,12);
-        cal.set(Calendar.MINUTE,0);
-        cal.set(Calendar.SECOND,0);
 
-        selectedDate = cal.getTime();
+        selectedDate = presenter.getTime();
+
+
 
 
                     final Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -110,19 +112,16 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                             boolean beenInDay = false;
                             boolean foundweekDay = false;
                             boolean containsPlan = false;
-                            cal.setTime(selectedDate);
-                            cal.set(Calendar.HOUR_OF_DAY,12);
-                            cal.set(Calendar.MINUTE,0);
-                            cal.set(Calendar.SECOND,0);
-                            selectedDate=cal.getTime();
+                            selectedDate = presenter.setDateToTwelve(selectedDate);
+
                             Date mealPlanStart = selectedDate;
-                            int dateIndex;
                             int meal = 0;
-                            int days;
+
+
 
                             Log.e("DatoTid", ""+selectedDate);
                             //breakfast
-                            if(daysWithMealplan!=null) {
+                            if(daysWithMealplan!=null && weeksWithMealplan != null) {
                                 if (daysWithMealplan.contains(selectedDate)) {
                                     planIndex = daysWithMealplan.indexOf(selectedDate);
                                     image = dayPlans.get(planIndex).getRecipeModels().get(meal).getImage();//if dayplan
@@ -135,18 +134,14 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                                 }
                             }
                             if (!beenInDay) {
-                                if (weeksWithMealplan != null) {
                                     for (dayInWeek = 0; dayInWeek < 7; dayInWeek++) {
-                                        cal.add(Calendar.DATE, -dayInWeek);
-                                        mealPlanStart = cal.getTime();
+                                        mealPlanStart = presenter.decrementDay(selectedDate,dayInWeek);
                                         containsPlan = weeksWithMealplan.contains(mealPlanStart);//find out if contains plan and find day in week
                                         if (containsPlan) {
                                             foundweekDay = true;
                                             break;
                                         }
-                                        cal.add(Calendar.DATE,dayInWeek);
                                     }
-                                }
                             }
                                 if (containsPlan) {
                                     planIndex = weeksWithMealplan.indexOf(mealPlanStart);
