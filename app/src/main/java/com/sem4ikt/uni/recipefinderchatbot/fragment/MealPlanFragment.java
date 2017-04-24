@@ -1,28 +1,34 @@
 package com.sem4ikt.uni.recipefinderchatbot.fragment;
 
 
-import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.app.Fragment;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.activity.DetailRecipeActivity;
+import com.sem4ikt.uni.recipefinderchatbot.database.MealPlansInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.MealPlanPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IMealPlanPresenter;
+import com.sem4ikt.uni.recipefinderchatbot.rest.ApiClient;
+import com.sem4ikt.uni.recipefinderchatbot.rest.ISpoonacularAPI;
 import com.sem4ikt.uni.recipefinderchatbot.view.IMealPlanView;
 import com.squareup.picasso.Picasso;
 
@@ -30,72 +36,76 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
-public class MealPlanFragment extends Fragment implements IMealPlanView, View.OnClickListener {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+
+public class MealPlanFragment extends Fragment implements IMealPlanView {
+
+    ImageView dinner;
+    ImageView breakfast;
+    ImageView lunch;
     ScrollView day;
     TextView noplan;
-
-    IMealPlanPresenter presenter;
-
-    List<Date> daysWithMealplan, weeksWithMealplan;
     List<MealPlanWeekModel> weekPlans;
     List<MealPlanDayModel> dayPlans;
+    MealPlanPresenter presenter;
+    private CompactCalendarView compactCalenderView;
+    //private ActionBar toolbar;
+    private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.GERMANY);
+    private Date selectedDate;
+    List<Date> daysWithMealplan;
+    List<Date> weeksWithMealplan;
     Calendar cal;
-    int dayInWeek = 0;
+    int dayInWeek=0;
     boolean dayplanActive;
     int planIndex;
+    List<Event> prikker;
 
-    private CompactCalendarView compactCalenderView;
-    private SimpleDateFormat dateFormatForMonth;
-    private Date selectedDate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        if (container == null)
+        if (container == null) {
             return null;
+        }
 
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.mealplan, container, false);
+        prikker=new ArrayList<>();
+        presenter=new MealPlanPresenter(this);
+        final View view = inflater.inflate(R.layout.mealplan, container, false);
 
-        // Setup presenter
-        presenter = new MealPlanPresenter(this);
+        final Button showPreviousMonthBut = (Button) view.findViewById(R.id.prev_button);
+        final Button showNextMonthBut = (Button) view.findViewById(R.id.next_button);
+
 
         //toolbar.setTitle(dateFormatForMonth.format(compactCalenderView.getFirstDayOfCurrentMonth()));
+        selectedDate=new Date();
 
-        // Find views by id
-        final ImageView dinnerImage = (ImageView) view.findViewById(R.id.dinner);
-        final ImageView breakfastImage = (ImageView) view.findViewById(R.id.breakfast);
-        final ImageView lunchImage = (ImageView) view.findViewById(R.id.lunch);
 
-        compactCalenderView = (CompactCalendarView) view.findViewById(R.id.compactcalendar_view);
-
-        //day = (ScrollView) view.findViewById(R.id.dayview); //visibility GONE if no plan for date
-        noplan = (TextView) view.findViewById(R.id.noplan); //visibility VISIBLE if no plan for date
-
-        // Fecth data
+        dinner = (ImageView) view.findViewById(R.id.dinner);
+        compactCalenderView= (CompactCalendarView) view.findViewById(R.id.compactcalendar_view);
+        breakfast = (ImageView) view.findViewById(R.id.breakfast);
+        lunch = (ImageView) view.findViewById(R.id.lunch);
+        day= (ScrollView) view.findViewById(R.id.dayview);//visibility GONE if no plan for date
+        noplan= (TextView) view.findViewById(R.id.noplan);//visibility VISIBLE if no plan for date
         presenter.getMealPlanWeek();
         presenter.getMealPlanDay();
-
-        // Init members
-        daysWithMealplan = new ArrayList<>();
-        weeksWithMealplan = new ArrayList<>();
-        weekPlans = new ArrayList<>();
-        dayPlans = new ArrayList<>();
-        selectedDate = new Date();
-        dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.GERMANY);
-
-
-        cal = Calendar.getInstance(Locale.GERMANY);
+        cal= Calendar.getInstance(Locale.GERMANY);
+        daysWithMealplan= new ArrayList<>();
+        weeksWithMealplan= new ArrayList<>();
+        weekPlans=new ArrayList<>();
+        dayPlans=new ArrayList<>();
         cal.set(Calendar.HOUR_OF_DAY,12);
         cal.set(Calendar.MINUTE,0);
         cal.set(Calendar.SECOND,0);
+        selectedDate=cal.getTime();
 
-        selectedDate = cal.getTime();
 
 
                     final Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -176,7 +186,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                                 else
                                     imageUrl = BASE_URL + image;//insert picture
 
-                                Picasso.with(getActivity()).load(imageUrl).fit().into(breakfastImage);
+                                Picasso.with(getActivity()).load(imageUrl).fit().into(breakfast);
                                 Log.e("url Breakfasr",imageUrl);
                             }
 
@@ -218,7 +228,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                                 else
                                     imageUrl = BASE_URL + image;//insert picture
 
-                                Picasso.with(getActivity()).load(imageUrl).fit().into(lunchImage);
+                                Picasso.with(getActivity()).load(imageUrl).fit().into(lunch);
                                 Log.e("url lunch",imageUrl);
                             }
 
@@ -259,7 +269,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                                 else
                                     imageUrl = BASE_URL + image;//insert picture
 
-                                Picasso.with(getActivity()).load(imageUrl).fit().into(dinnerImage);
+                                Picasso.with(getActivity()).load(imageUrl).fit().into(dinner);
                                 Log.e("url dinner",imageUrl);
                             }
                             dayplanActive=beenInDay;
@@ -267,6 +277,68 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                     };
                     mainHandler.post(myRunnable);
 
+
+        breakfast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id;
+                if(dayplanActive){
+                    id= dayPlans.get(planIndex).getRecipeModels().get(0).getId();
+                }
+                else {
+                    String value = weekPlans.get(planIndex).getItems().get(dayInWeek+0).getValue();
+                    JsonObject jon = new JsonParser().parse(value).getAsJsonObject();
+                    id = jon.get("id").getAsInt();
+                }
+
+                final Intent intent = new Intent(MealPlanFragment.this.getActivity().getApplication(), DetailRecipeActivity.class);
+                intent.putExtra("id", id);
+
+                startActivity(intent);
+            }
+        });
+
+        lunch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id;
+                if(dayplanActive) {
+                    id = dayPlans.get(planIndex).getRecipeModels().get(1).getId();
+                }
+                else {
+                    String value = weekPlans.get(planIndex).getItems().get(dayInWeek+1).getValue();
+                    JsonObject jon = new JsonParser().parse(value).getAsJsonObject();
+                    id = jon.get("id").getAsInt();
+                }
+
+                final Intent intent=new Intent(MealPlanFragment.this.getActivity().getApplication(),DetailRecipeActivity.class);
+                intent.putExtra("id",id);
+
+                startActivity(intent);
+
+            }
+        });
+
+        dinner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id;
+                if(dayplanActive) {
+                    id= dayPlans.get(planIndex).getRecipeModels().get(2).getId();
+                }
+                else {
+                    String value = weekPlans.get(planIndex).getItems().get(dayInWeek+2).getValue();
+                    JsonObject jon = new JsonParser().parse(value).getAsJsonObject();
+                    id = jon.get("id").getAsInt();
+                }
+
+                final Intent intent=new Intent(MealPlanFragment.this.getActivity().getApplication(),DetailRecipeActivity.class);
+                intent.putExtra("id",id);
+
+                startActivity(intent);
+
+            }
+        });
 
         compactCalenderView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
 
@@ -286,83 +358,76 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
             }
         });
 
+        showNextMonthBut.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                compactCalenderView.showNextMonth();
+            }
+        });
+
+        showPreviousMonthBut.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                compactCalenderView.showPreviousMonth();
+            }
+        });
+
+
+
+        // Inflate the layout for this fragment
+
+
         return view;
     }
 
 
-    @Override
-    public void onNextPressed() {
-        compactCalenderView.showNextMonth();
-    }
-
-    @Override
-    public void onPreviousPressed() {
-        compactCalenderView.showNextMonth();
-    }
-
-    @Override
-    public void onShowDetailRecipe(int id) {
-
-        if (dayplanActive) {
-            id = dayPlans.get(planIndex).getRecipeModels().get(id).getId();
-        } else {
-            String value = weekPlans.get(planIndex).getItems().get(dayInWeek + id).getValue();
-            id = new JsonParser().parse(value).getAsJsonObject().get("id").getAsInt();
-        }
-
-        Intent intent = new Intent(getActivity(), DetailRecipeActivity.class).putExtra("id", id);
-        startActivity(intent);
-    }
 
     @Override
     public void getDayPlan(List<MealPlanDayModel> mealplan,List<Date> dates){
-
-        if (mealplan != null && dates != null) {
+        if(mealplan!=null&&dates!=null) {
             daysWithMealplan.addAll(dates);
             dayPlans.addAll(mealplan);
+            Calendar kal;
+            kal=Calendar.getInstance();
+
+            for (int i=0;i<dates.size();i++)
+            {
+                kal.setTime(dates.get(i));
+                prikker.add(new Event(Color.GREEN,kal.getTimeInMillis(),null));
+            }
+
+            compactCalenderView.addEvents(prikker);
             Log.e("DatoTid", ""+daysWithMealplan.get(0));
         }
     }
 
     @Override
     public void getWeekPlan(List<MealPlanWeekModel> mealplan,List<Date> dates){
-
-        if (mealplan != null && dates != null) {
+        if(mealplan!=null && dates!=null) {
             weeksWithMealplan.addAll(dates);
             weekPlans.addAll(mealplan);
+            Calendar kal;
+            kal=Calendar.getInstance();
 
+            for (int i=0;i<dates.size();i++)
+            {
+                kal.setTime(dates.get(i));
+                for (int j=0;j<7;j++){
+                    prikker.add(new Event(Color.GREEN,kal.getTimeInMillis(),null));
+
+                }
+
+            }
+
+            compactCalenderView.addEvents(prikker);
             Log.e("DatoTid", ""+weeksWithMealplan.get(0));
         }
     }
 
-    @Override
-    public void onClick(View view) {
-
-        switch (view.getId()) {
-
-            case R.id.dinner:
-                presenter.doDinner();
-
-            case R.id.lunch:
-                presenter.doLunch();
-                break;
-
-            case R.id.breakfast:
-                presenter.doBreakfast();
-                break;
-
-            case R.id.prev_button:
-                presenter.doPrevious();
-                break;
-
-            case R.id.next_button:
-                presenter.doNext();
-                break;
-
-            default:
-                break;
-
-        }
+    public void onResume()
+    {
+        super.onResume();
+        Log.e("return","you have returned");
+        presenter.update();
     }
-
 }
