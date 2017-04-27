@@ -167,6 +167,11 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                                 if (containsPlan) {
                                     planIndex = weeksWithMealplan.indexOf(mealPlanStart);
                                     meal=dayInWeek*3;
+                                    if(weekPlans.get(planIndex).getItems().size()<21){
+                                        while((weekPlans.get(planIndex).getItems().size()-3)<meal){
+                                            meal--;
+                                        }
+                                    }
                                     value = weekPlans.get(planIndex).getItems().get(meal).getValue();
                                     jon = new JsonParser().parse(value).getAsJsonObject();
                                     image = jon.get("id").getAsString();
@@ -368,7 +373,6 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                 for (int j=0;j<7;j++) {
                     prikker.add(new Event(Color.GREEN, kal.getTimeInMillis(), null));
                     kal.add(Calendar.DATE,1);
-
                 }
             }
             compactCalenderView.addEvents(prikker);
