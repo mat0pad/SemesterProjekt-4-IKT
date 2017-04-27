@@ -77,13 +77,12 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
             if (user.checkPasswordsMatches()) {
                 auth.createUserWithEmailAndPassword(email, password, this);
             }
-
             else {
                 view.onShowToast("Password and Confirm Password must be identical.");
                 setProgressBarVisiblity(false);
             }
         else {
-            view.onShowToast("An account is already created using this e-mail");
+            view.onShowToast("Password and Confirm Password must be identical and email must be vaild.");
             setProgressBarVisiblity(false);
         }
     }

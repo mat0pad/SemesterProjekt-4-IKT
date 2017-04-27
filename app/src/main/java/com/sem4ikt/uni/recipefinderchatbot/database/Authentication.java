@@ -45,7 +45,7 @@ public class Authentication implements IFirebaseAuth {
                             callback.onAuthenticationFinished(CREATE_SUCCESS, "Created user successfully! Now verify email");
                         }
                         else
-                            callback.onAuthenticationFinished(CREATE_FAILED, "Create user failed!");
+                            callback.onAuthenticationFinished(CREATE_FAILED, "An account is already created using this e-mail");
                     }
                 });
     }

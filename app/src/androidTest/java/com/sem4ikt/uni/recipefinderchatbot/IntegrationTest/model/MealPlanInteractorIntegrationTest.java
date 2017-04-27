@@ -68,9 +68,14 @@ public class MealPlanInteractorIntegrationTest {
 
         mpi.getMealPlanDay(new ICallbackMealplan() {
             @Override
-            public void onReceived(Object mealplan, List<Date> dateList, MEALPLAN_CALLBACK_TYPE type) {
-                mealPlanDayList = (List<MealPlanDayModel>) mealplan;
+            public void onReceivedDay(List<MealPlanDayModel> daymodel, List<Date> dateList, MEALPLAN_CALLBACK_TYPE type) {
+                mealPlanDayList = daymodel;
                 signal.countDown();
+            }
+
+            @Override
+            public void onReceivedWeek(List<MealPlanWeekModel> weekmodel, List<Date> list, MEALPLAN_CALLBACK_TYPE type) {
+
             }
         });
 
@@ -87,8 +92,13 @@ public class MealPlanInteractorIntegrationTest {
 
         mpi.getMealPlanDay(new ICallbackMealplan() {
             @Override
-            public void onReceived(Object mealplan, List<Date> dateList, MEALPLAN_CALLBACK_TYPE type) {
-                mealPlanWeekList = (List<MealPlanWeekModel>) mealplan;
+            public void onReceivedDay(List<MealPlanDayModel> daymodel, List<Date> dateList, MEALPLAN_CALLBACK_TYPE type) {
+
+            }
+
+            @Override
+            public void onReceivedWeek(List<MealPlanWeekModel> weekmodel, List<Date> list, MEALPLAN_CALLBACK_TYPE type) {
+                mealPlanWeekList = weekmodel;
                 signal.countDown();
             }
         });
