@@ -12,14 +12,14 @@ public class MealPlanDayModel {
 
     @SerializedName("meals")
     @Expose
-    private List<RecipeModel> RecipeModels = null;
+    private List<RecipesModel> RecipeModels = null;
     @SerializedName("nutrients")
     @Expose
     private NutrientModel nutrientModel;
 
-    public List<RecipeModel> getRecipeModels() {return  RecipeModels;}
+    public List<RecipesModel> getRecipeModels() {return  RecipeModels;}
 
-    public void setRecipeModels(List<RecipeModel> meals) {
+    public void setRecipeModels(List<RecipesModel> meals) {
         this.RecipeModels = meals;
     }
 

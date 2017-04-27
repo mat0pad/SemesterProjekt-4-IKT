@@ -22,9 +22,9 @@ public class MealPlanDayModelTest {
     @Test
     public void setRecipeModel()
     {
-        List<RecipeModel> list = new ArrayList<>();
-        list.add(new RecipeModel());
-        list.add(new RecipeModel());
+        List<RecipesModel> list = new ArrayList<>();
+        list.add(new RecipesModel());
+        list.add(new RecipesModel());
 
         mealPlanDayModel.setRecipeModels(list);
         Assert.assertEquals(mealPlanDayModel.getRecipeModels(), list);

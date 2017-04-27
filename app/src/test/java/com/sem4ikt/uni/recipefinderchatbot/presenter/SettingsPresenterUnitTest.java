@@ -80,7 +80,7 @@ public class SettingsPresenterUnitTest {
     public void interactorDeleteAccountPressed() {
         presenter.doDeleteAccount();
 
-        verify(interactor, times(1)).removeAllUserInfo("");
+        verify(interactor, times(1)).removeAllUserInfo();
     }
 
     @Test
