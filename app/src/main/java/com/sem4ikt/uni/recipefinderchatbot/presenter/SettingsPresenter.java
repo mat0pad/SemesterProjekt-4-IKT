@@ -30,13 +30,11 @@ public class SettingsPresenter extends BasePresenter<ISettingsView> implements I
     }
 
     @VisibleForTesting
-    public SettingsPresenter(ISettingsView view, IFirebaseAuth auth,IFirebaseDBInteractors.IDeleteInfoInteractor dB) {
     public SettingsPresenter(ISettingsView view, IFirebaseAuth auth, ILoginUserModel loginUserModel) {
         super(view);
 
         this.passChecker = loginUserModel;
         this.auth = auth;
-        this.dB = dB;
     }
 
     @Override
