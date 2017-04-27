@@ -16,5 +16,7 @@ public interface ISettingsPresenter<V> extends IBasePresenter<V>{
 
     void doDeleteAccount();
 
+    void doConfirmDeleteAccount();
+
     void doCheckPassSucess(String pass1, String pass2);
 }

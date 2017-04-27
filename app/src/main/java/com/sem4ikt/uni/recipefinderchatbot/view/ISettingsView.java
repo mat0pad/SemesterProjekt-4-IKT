@@ -14,4 +14,6 @@ public interface ISettingsView {
     void onSwitchToSettingsView();
 
     void onSwitchToChangePassView();
+
+    void onShowConfirmDeleteDialog();
 }

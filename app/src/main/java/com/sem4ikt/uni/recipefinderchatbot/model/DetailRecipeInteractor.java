@@ -33,8 +33,8 @@ public class DetailRecipeInteractor implements IDetailRecipeInteractor {
     @Override
     public void getRecipe(int id, final IDetailRecipeCallback callback) {
 
+        // Create the request
         ISpoonacularAPI.IData apiService = client.getClient().create(ISpoonacularAPI.IData.class);
-
         Call<RecipeModel> call = apiService.getRecipe(id, false);
 
         call.enqueue(new Callback<RecipeModel>() {

@@ -1,6 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseAuth;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.view.ISettingsView;
 
@@ -25,6 +26,9 @@ public class SettingsPresenterUnitTest {
     @Mock
     IFirebaseAuth auth;
 
+    @Mock
+    IFirebaseDBInteractors.IDeleteInfoInteractor interactor;
+
     private LoginUserModel model;
     private SettingsPresenter presenter;
 
@@ -33,7 +37,7 @@ public class SettingsPresenterUnitTest {
 
         model = new LoginUserModel();
 
-        presenter = new SettingsPresenter(view, auth, model);
+        presenter = new SettingsPresenter(view, auth, model, interactor);
     }
 
     @Test
@@ -66,10 +70,24 @@ public class SettingsPresenterUnitTest {
     }
 
     @Test
-    public void deleteAccountPressed() {
+    public void authDeleteAccountPressed() {
         presenter.doDeleteAccount();
 
         verify(auth, times(1)).deleteAccount(presenter);
+    }
+
+    @Test
+    public void interactorDeleteAccountPressed() {
+        presenter.doDeleteAccount();
+
+        verify(interactor, times(1)).removeAllUserInfo("");
+    }
+
+    @Test
+    public void confirmDeleteAccount() {
+        presenter.doConfirmDeleteAccount();
+
+        verify(view, times(1)).onShowConfirmDeleteDialog();
     }
 
     @Test
