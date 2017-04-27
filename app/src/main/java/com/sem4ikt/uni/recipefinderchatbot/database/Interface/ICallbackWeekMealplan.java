@@ -11,11 +11,9 @@ import java.util.Objects;
  * Created by anton on 11-04-2017.
  */
 
-public interface ICallbackMealplan {
+public interface ICallbackWeekMealplan {
 
-    void onReceivedDay(List<MealPlanDayModel> daymodel, List<Date> dateList, MEALPLAN_CALLBACK_TYPE type);
+    void onReceivedWeek(List<MealPlanWeekModel> weekmodel, List<Date> list, MEALPLAN_WEEK_CALLBACK_TYPE type);
 
-    void onReceivedWeek(List<MealPlanWeekModel> weekmodel, List<Date> list, MEALPLAN_CALLBACK_TYPE type);
-
-    enum MEALPLAN_CALLBACK_TYPE{GET_MEALPLAN_DAY,GET_MEALPLAN_WEEK,MEALPLAN_FAILURE};
+    enum MEALPLAN_WEEK_CALLBACK_TYPE{SUCCCES,FAILURE}
 }
