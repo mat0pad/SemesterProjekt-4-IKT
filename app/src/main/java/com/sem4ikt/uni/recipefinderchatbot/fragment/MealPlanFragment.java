@@ -3,9 +3,13 @@ package com.sem4ikt.uni.recipefinderchatbot.fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +20,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sem4ikt.uni.recipefinderchatbot.R;
@@ -48,7 +53,8 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
     int dayInWeek = 0;
     boolean dayplanActive;
     int planIndex;
-
+    List<Event> prikker;
+    ActionBar toolbar;
     private CompactCalendarView compactCalenderView;
     private SimpleDateFormat dateFormatForMonth;
     private Date selectedDate;
@@ -66,13 +72,14 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         // Setup presenter
         presenter = new MealPlanPresenter(this);
 
-        //toolbar.setTitle(dateFormatForMonth.format(compactCalenderView.getFirstDayOfCurrentMonth()));
+
+
 
         // Find views by id
         final ImageView dinnerImage = (ImageView) view.findViewById(R.id.dinner);
         final ImageView breakfastImage = (ImageView) view.findViewById(R.id.breakfast);
         final ImageView lunchImage = (ImageView) view.findViewById(R.id.lunch);
-
+        final TextView month=(TextView) view.findViewById(R.id.month);
         final Button nextButton = (Button) view.findViewById(R.id.next_button);
         final Button preButton = (Button) view.findViewById(R.id.prev_button);
 
@@ -81,6 +88,8 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         breakfastImage.setOnClickListener(this);
         nextButton.setOnClickListener(this);
         preButton.setOnClickListener(this);
+
+
 
 
         compactCalenderView = (CompactCalendarView) view.findViewById(R.id.compactcalendar_view);
@@ -98,7 +107,12 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         weekPlans = new ArrayList<>();
         dayPlans = new ArrayList<>();
         selectedDate = new Date();
-        dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.GERMANY);
+        dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
+        prikker=new ArrayList<>();
+        //setup show month
+         //toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+         //toolbar.setTitle(dateFormatForMonth.format(compactCalenderView.getFirstDayOfCurrentMonth()));
+        month.setText(dateFormatForMonth.format(compactCalenderView.getFirstDayOfCurrentMonth()));
 
 
 
@@ -152,7 +166,13 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                             }
                                 if (containsPlan) {
                                     planIndex = weeksWithMealplan.indexOf(mealPlanStart);
-                                    value = weekPlans.get(planIndex).getItems().get(dayInWeek + meal).getValue();
+                                    meal=dayInWeek*3;
+                                    if(weekPlans.get(planIndex).getItems().size()<21){
+                                        while((weekPlans.get(planIndex).getItems().size()-3)<meal){
+                                            meal--;
+                                        }
+                                    }
+                                    value = weekPlans.get(planIndex).getItems().get(meal).getValue();
                                     jon = new JsonParser().parse(value).getAsJsonObject();
                                     image = jon.get("id").getAsString();
                                     image = image + "-556x370.jpg";                             //create picture URL
@@ -193,7 +213,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                             }
                             else if (containsPlan) {
                                 planIndex = weeksWithMealplan.indexOf(mealPlanStart);
-                                value = weekPlans.get(planIndex).getItems().get(dayInWeek + meal).getValue();
+                                value = weekPlans.get(planIndex).getItems().get(meal).getValue();
                                 jon = new JsonParser().parse(value).getAsJsonObject();
                                 image = jon.get("id").getAsString();
                                 image = image + "-556x370.jpg";                             //create picture URL
@@ -234,7 +254,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                             }
                             else if (containsPlan) {
                                 planIndex = weeksWithMealplan.indexOf(mealPlanStart);
-                                value = weekPlans.get(planIndex).getItems().get(dayInWeek + meal).getValue();
+                                value = weekPlans.get(planIndex).getItems().get(meal).getValue();
                                 jon = new JsonParser().parse(value).getAsJsonObject();
                                 image = jon.get("id").getAsString();
                                 image = image + "-556x370.jpg";                             //create picture URL
@@ -243,6 +263,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                                 noplan.setVisibility(View.GONE);
                                 Log.e("meal week dinner",Integer.toString(meal));
                                 Log.e("dayInWeek dinner",Integer.toString(dayInWeek));
+                                Log.e("size of weekplan items",Integer.toString(weekPlans.get(planIndex).getItems().size()));
                             }
 
                             else {
@@ -274,7 +295,9 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
 
             @Override
             public void onDayClick(Date dateClicked) {
-                //toolbar.setTitle(dateFormatForMonth.format(dateClicked));
+               // toolbar.setTitle(dateFormatForMonth.format(dateClicked));
+                month.setText(dateFormatForMonth.format(dateClicked));
+
                 selectedDate=dateClicked;
                 myRunnable.run();
 
@@ -283,6 +306,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
                // toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
+                month.setText(dateFormatForMonth.format(firstDayOfNewMonth));
                 selectedDate=firstDayOfNewMonth;
                 myRunnable.run();
             }
@@ -307,13 +331,16 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
 
         if (dayplanActive) {
             id = dayPlans.get(planIndex).getRecipeModels().get(id).getId();
-        } else {
-            String value = weekPlans.get(planIndex).getItems().get(dayInWeek + id).getValue();
+        }
+        else {
+
+            String value = weekPlans.get(planIndex).getItems().get(dayInWeek*3+id).getValue();
             id = new JsonParser().parse(value).getAsJsonObject().get("id").getAsInt();
         }
 
         Intent intent = new Intent(getActivity(), DetailRecipeActivity.class).putExtra("id", id);
         startActivity(intent);
+        Log.e("id after intent",Integer.toString(id));
     }
 
     @Override
@@ -322,6 +349,14 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         if (mealplan != null && dates != null) {
             daysWithMealplan.addAll(dates);
             dayPlans.addAll(mealplan);
+            Calendar kal= Calendar.getInstance();
+            for (int i=0;i<dates.size();i++){
+                kal.setTime(dates.get(i));
+                for (int j=0;j<7;j++) {
+                    prikker.add(new Event(Color.GREEN, kal.getTimeInMillis(), null));
+                    kal.add(Calendar.DATE,1);
+                }
+            }
             Log.e("DatoTid", ""+daysWithMealplan.get(0));
         }
     }
@@ -332,6 +367,15 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         if (mealplan != null && dates != null) {
             weeksWithMealplan.addAll(dates);
             weekPlans.addAll(mealplan);
+            Calendar kal= Calendar.getInstance();
+            for (int i=0;i<dates.size();i++){
+                kal.setTime(dates.get(i));
+                for (int j=0;j<7;j++) {
+                    prikker.add(new Event(Color.GREEN, kal.getTimeInMillis(), null));
+                    kal.add(Calendar.DATE,1);
+                }
+            }
+            compactCalenderView.addEvents(prikker);
 
             Log.e("DatoTid", ""+weeksWithMealplan.get(0));
         }
