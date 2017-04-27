@@ -43,19 +43,12 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
 
     ScrollView day;
     TextView noplan;
-
+    private CompactCalendarView compactCalenderView;
     IMealPlanPresenter presenter;
 
-    List<Date> daysWithMealplan, weeksWithMealplan;
-    List<MealPlanWeekModel> weekPlans;
-    List<MealPlanDayModel> dayPlans;
-    Calendar cal;
-    int dayInWeek = 0;
-    boolean dayplanActive;
-    int planIndex;
     List<Event> prikker;
     ActionBar toolbar;
-    private CompactCalendarView compactCalenderView;
+
     private SimpleDateFormat dateFormatForMonth;
     private Date selectedDate;
 
@@ -102,10 +95,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         presenter.getMealPlanDay();
 
         // Init members
-        daysWithMealplan = new ArrayList<>();
-        weeksWithMealplan = new ArrayList<>();
-        weekPlans = new ArrayList<>();
-        dayPlans = new ArrayList<>();
+
         selectedDate = new Date();
         dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
         prikker=new ArrayList<>();
@@ -118,177 +108,18 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
 
         selectedDate = presenter.getTime();
 
-
-
-
-                    final Handler mainHandler = new Handler(Looper.getMainLooper());
-
-                    final Runnable myRunnable = new Runnable() {
-                        @Override
-                        public void run() {
-                            // Pass the data
-                            String image = null;
-                            String value;
-                            JsonObject jon;
-                            boolean beenInDay = false;
-                            boolean foundweekDay = false;
-                            boolean containsPlan = false;
-                            selectedDate = presenter.setDateToTwelve(selectedDate);
-
-                            Date mealPlanStart = selectedDate;
-                            int meal = 0;
-
-
-
-                            Log.e("DatoTid", ""+selectedDate);
-                            //breakfast
-                            if(daysWithMealplan!=null && weeksWithMealplan != null) {
-                                if (daysWithMealplan.contains(selectedDate)) {
-                                    planIndex = daysWithMealplan.indexOf(selectedDate);
-                                    image = dayPlans.get(planIndex).getRecipeModels().get(meal).getImage();//if dayplan
-                                    noplan.setVisibility(View.GONE);
-                                    day.setVisibility(View.VISIBLE);
-                                    beenInDay = true;
-                                    Log.e("meal day breakfast",Integer.toString(meal));
-                                    meal++;
-
-                                }
-                            }
-                            if (!beenInDay) {
-                                    for (dayInWeek = 0; dayInWeek < 7; dayInWeek++) {
-                                        mealPlanStart = presenter.decrementDay(selectedDate,dayInWeek);
-                                        containsPlan = weeksWithMealplan.contains(mealPlanStart);//find out if contains plan and find day in week
-                                        if (containsPlan) {
-                                            foundweekDay = true;
-                                            break;
-                                        }
-                                    }
-                            }
-                                if (containsPlan) {
-                                    planIndex = weeksWithMealplan.indexOf(mealPlanStart);
-                                    meal=dayInWeek*3;
-                                    if(weekPlans.get(planIndex).getItems().size()<21){
-                                        while((weekPlans.get(planIndex).getItems().size()-3)<meal){
-                                            meal--;
-                                        }
-                                    }
-                                    value = weekPlans.get(planIndex).getItems().get(meal).getValue();
-                                    jon = new JsonParser().parse(value).getAsJsonObject();
-                                    image = jon.get("id").getAsString();
-                                    image = image + "-556x370.jpg";                             //create picture URL
-                                    day.setVisibility(View.VISIBLE);
-                                    noplan.setVisibility(View.GONE);
-                                    Log.e("meal week breakfast",Integer.toString(meal));
-                                    meal++;
-                                    Log.e("dayInWeek breakfast",Integer.toString(dayInWeek));
-                                }
-
-                            else {
-                                noplan.setVisibility(View.VISIBLE);
-                                day.setVisibility(View.GONE);                   //if no plan exists for day
-                            }
-
-                            if(image!=null)
-                            {
-                                String BASE_URL = "https://spoonacular.com/recipeImages/";
-                                String imageUrl;
-
-                                if (image.contains("https"))
-                                    imageUrl = image;
-                                else
-                                    imageUrl = BASE_URL + image;//insert picture
-
-                                Picasso.with(getActivity()).load(imageUrl).fit().into(breakfastImage);
-                                Log.e("url Breakfasr",imageUrl);
-                            }
-
-                            //lunch
-                            if (beenInDay) {
-                                planIndex = daysWithMealplan.indexOf(selectedDate);
-                                image = dayPlans.get(planIndex).getRecipeModels().get(meal).getImage();//if dayplan
-                                noplan.setVisibility(View.GONE);
-                                day.setVisibility(View.VISIBLE);
-                                meal++;
-                                Log.e("meal day lunch",Integer.toString(meal));
-                            }
-                            else if (containsPlan) {
-                                planIndex = weeksWithMealplan.indexOf(mealPlanStart);
-                                value = weekPlans.get(planIndex).getItems().get(meal).getValue();
-                                jon = new JsonParser().parse(value).getAsJsonObject();
-                                image = jon.get("id").getAsString();
-                                image = image + "-556x370.jpg";                             //create picture URL
-                                day.setVisibility(View.VISIBLE);
-                                noplan.setVisibility(View.GONE);
-                                Log.e("meal week lunch",Integer.toString(meal));
-                                meal++;
-                                Log.e("dayInWeek lunch",Integer.toString(dayInWeek));
-                            }
-
-                            else {
-                                image=null;
-                                noplan.setVisibility(View.VISIBLE);
-                                day.setVisibility(View.GONE);                   //if no plan exists for day
-                            }
-
-                            if(image!=null)
-                            {
-                                String BASE_URL = "https://spoonacular.com/recipeImages/";
-                                String imageUrl;
-
-                                if (image.contains("https"))
-                                    imageUrl = image;
-                                else
-                                    imageUrl = BASE_URL + image;//insert picture
-
-                                Picasso.with(getActivity()).load(imageUrl).fit().into(lunchImage);
-                                Log.e("url lunch",imageUrl);
-                            }
-
-                            //dinner
-                            if (beenInDay) {
-                                planIndex = daysWithMealplan.indexOf(selectedDate);
-                                image = dayPlans.get(planIndex).getRecipeModels().get(meal).getImage();//if dayplan
-                                noplan.setVisibility(View.GONE);
-                                day.setVisibility(View.VISIBLE);
-                                Log.e("meal day dinner",Integer.toString(meal));
-                            }
-                            else if (containsPlan) {
-                                planIndex = weeksWithMealplan.indexOf(mealPlanStart);
-                                value = weekPlans.get(planIndex).getItems().get(meal).getValue();
-                                jon = new JsonParser().parse(value).getAsJsonObject();
-                                image = jon.get("id").getAsString();
-                                image = image + "-556x370.jpg";                             //create picture URL
-
-                                day.setVisibility(View.VISIBLE);
-                                noplan.setVisibility(View.GONE);
-                                Log.e("meal week dinner",Integer.toString(meal));
-                                Log.e("dayInWeek dinner",Integer.toString(dayInWeek));
-                                Log.e("size of weekplan items",Integer.toString(weekPlans.get(planIndex).getItems().size()));
-                            }
-
-                            else {
-                                image=null;
-                                noplan.setVisibility(View.VISIBLE);
-                                day.setVisibility(View.GONE);                   //if no plan exists for day
-                            }
-
-                            if(image!=null)
-                            {
-                                String BASE_URL = "https://spoonacular.com/recipeImages/";
-                                String imageUrl;
-
-                                if (image.contains("https"))
-                                    imageUrl = image;
-                                else
-                                    imageUrl = BASE_URL + image;//insert picture
-
-                                Picasso.with(getActivity()).load(imageUrl).fit().into(dinnerImage);
-                                Log.e("url dinner",imageUrl);
-                            }
-                            dayplanActive=beenInDay;
-                        }
-                    };
-                    mainHandler.post(myRunnable);
+        String[] imageURLs=presenter.loadMealplans(selectedDate);
+        if(imageURLs==null){
+            noplan.setVisibility(View.VISIBLE);
+            day.setVisibility(View.GONE);
+        }
+        else {
+            noplan.setVisibility(View.GONE);
+            day.setVisibility(View.VISIBLE);
+            Picasso.with(getActivity()).load(imageURLs[0]).fit().into(breakfastImage);
+            Picasso.with(getActivity()).load(imageURLs[1]).fit().into(lunchImage);
+            Picasso.with(getActivity()).load(imageURLs[2]).fit().into(dinnerImage);
+        }
 
 
         compactCalenderView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
@@ -299,7 +130,18 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                 month.setText(dateFormatForMonth.format(dateClicked));
 
                 selectedDate=dateClicked;
-                myRunnable.run();
+                String[] imageURLs=presenter.loadMealplans(selectedDate);
+                if(imageURLs==null){
+                    noplan.setVisibility(View.VISIBLE);
+                    day.setVisibility(View.GONE);
+                }
+                else {
+                    noplan.setVisibility(View.GONE);
+                    day.setVisibility(View.VISIBLE);
+                    Picasso.with(getActivity()).load(imageURLs[0]).fit().into(breakfastImage);
+                    Picasso.with(getActivity()).load(imageURLs[1]).fit().into(lunchImage);
+                    Picasso.with(getActivity()).load(imageURLs[2]).fit().into(dinnerImage);
+                }
 
             }
 
@@ -308,7 +150,18 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                // toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
                 month.setText(dateFormatForMonth.format(firstDayOfNewMonth));
                 selectedDate=firstDayOfNewMonth;
-                myRunnable.run();
+                String[] imageURLs=presenter.loadMealplans(selectedDate);
+                if(imageURLs==null){
+                    noplan.setVisibility(View.VISIBLE);
+                    day.setVisibility(View.GONE);
+                }
+                else {
+                    noplan.setVisibility(View.GONE);
+                    day.setVisibility(View.VISIBLE);
+                    Picasso.with(getActivity()).load(imageURLs[0]).fit().into(breakfastImage);
+                    Picasso.with(getActivity()).load(imageURLs[1]).fit().into(lunchImage);
+                    Picasso.with(getActivity()).load(imageURLs[2]).fit().into(dinnerImage);
+                }
             }
         });
 
@@ -329,14 +182,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
     @Override
     public void onShowDetailRecipe(int id) {
 
-        if (dayplanActive) {
-            id = dayPlans.get(planIndex).getRecipeModels().get(id).getId();
-        }
-        else {
-
-            String value = weekPlans.get(planIndex).getItems().get(dayInWeek*3+id).getValue();
-            id = new JsonParser().parse(value).getAsJsonObject().get("id").getAsInt();
-        }
+       id= presenter.getID(id);
 
         Intent intent = new Intent(getActivity(), DetailRecipeActivity.class).putExtra("id", id);
         startActivity(intent);
@@ -347,8 +193,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
     public void getDayPlan(List<MealPlanDayModel> mealplan,List<Date> dates){
 
         if (mealplan != null && dates != null) {
-            daysWithMealplan.addAll(dates);
-            dayPlans.addAll(mealplan);
+            presenter.InitDayPlans(mealplan,dates);
             Calendar kal= Calendar.getInstance();
             for (int i=0;i<dates.size();i++){
                 kal.setTime(dates.get(i));
@@ -357,7 +202,6 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                     kal.add(Calendar.DATE,1);
                 }
             }
-            Log.e("DatoTid", ""+daysWithMealplan.get(0));
         }
     }
 
@@ -365,8 +209,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
     public void getWeekPlan(List<MealPlanWeekModel> mealplan,List<Date> dates){
 
         if (mealplan != null && dates != null) {
-            weeksWithMealplan.addAll(dates);
-            weekPlans.addAll(mealplan);
+           presenter.InitWeekPlans(mealplan,dates);
             Calendar kal= Calendar.getInstance();
             for (int i=0;i<dates.size();i++){
                 kal.setTime(dates.get(i));
@@ -376,8 +219,6 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                 }
             }
             compactCalenderView.addEvents(prikker);
-
-            Log.e("DatoTid", ""+weeksWithMealplan.get(0));
         }
     }
 

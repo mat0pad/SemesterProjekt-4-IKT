@@ -19,4 +19,5 @@ public interface IMealPlanView {
     void onPreviousPressed();
 
     void onShowDetailRecipe(int id);
+
 }

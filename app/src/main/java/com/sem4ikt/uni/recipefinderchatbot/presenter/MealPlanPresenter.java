@@ -1,7 +1,11 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
 import android.support.annotation.VisibleForTesting;
+import android.util.Log;
+import android.view.View;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackMealplan;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.database.MealPlansInteractor;
@@ -9,7 +13,9 @@ import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IMealPlanPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IMealPlanView;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -20,18 +26,34 @@ import java.util.Locale;
  */
 
 public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements IMealPlanPresenter<IMealPlanView>,ICallbackMealplan {
+    List<Date> daysWithMealplan, weeksWithMealplan;
+    List<MealPlanWeekModel> weekPlans;
+    List<MealPlanDayModel> dayPlans;
+    Calendar cal;
+    int dayInWeek = 0;
+    boolean dayplanActive;
+    int planIndex;
 
     private IFirebaseDBInteractors.IMealplanInteractor ctrl;
 
     public MealPlanPresenter(IMealPlanView view) {
         super(view);
         ctrl = new MealPlansInteractor();
+
+        daysWithMealplan = new ArrayList<>();
+        weeksWithMealplan = new ArrayList<>();
+        weekPlans = new ArrayList<>();
+        dayPlans = new ArrayList<>();
     }
 
     @VisibleForTesting
     public MealPlanPresenter(IMealPlanView view, IFirebaseDBInteractors.IMealplanInteractor ctrl) {
         super(view);
         this.ctrl = ctrl;
+        daysWithMealplan = new ArrayList<>();
+        weeksWithMealplan = new ArrayList<>();
+        weekPlans = new ArrayList<>();
+        dayPlans = new ArrayList<>();
     }
 
     @Override
@@ -67,6 +89,28 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
     public void doBreakfast() {
         view.onShowDetailRecipe(0);
     }
+    @Override
+    public int getID(int id){
+        if (dayplanActive) {
+            id = dayPlans.get(planIndex).getRecipeModels().get(id).getId();
+        }
+        else {
+
+            String value = weekPlans.get(planIndex).getItems().get(dayInWeek*3+id).getValue();
+            id = new JsonParser().parse(value).getAsJsonObject().get("id").getAsInt();
+        }
+        return id;
+    }
+    @Override
+    public void InitDayPlans(List<MealPlanDayModel> mealplan,List<Date> dates){
+        daysWithMealplan.addAll(dates);
+        dayPlans.addAll(mealplan);
+    }
+    @Override
+    public void InitWeekPlans(List<MealPlanWeekModel> mealplan,List<Date> dates){
+        weeksWithMealplan.addAll(dates);
+        weekPlans.addAll(mealplan);
+    }
 
     @Override
     public void doLunch() {
@@ -78,7 +122,157 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
         view.onShowDetailRecipe(2);
     }
 
+    @Override
+    public String[] loadMealplans(Date selectedDate){
+        // Pass the data
+        String image="0";
+        String[] URLs= new String[3];
+        String value;
+        JsonObject jon;
+        boolean beenInDay = false;
+        boolean containsPlan = false;
+        selectedDate = setDateToTwelve(selectedDate);
 
+        Date mealPlanStart = selectedDate;
+        int meal = 0;
+
+
+
+        Log.e("DatoTid", ""+selectedDate);
+        //breakfast
+        if(daysWithMealplan!=null ) {
+            if (daysWithMealplan.contains(selectedDate)) {
+                planIndex = daysWithMealplan.indexOf(selectedDate);
+                image = dayPlans.get(planIndex).getRecipeModels().get(meal).getImage();//if dayplan
+
+                beenInDay = true;
+                Log.e("meal day breakfast", Integer.toString(meal));
+                meal++;
+
+            }
+        }
+        if (!beenInDay&& weeksWithMealplan != null) {
+            for (dayInWeek = 0; dayInWeek < 7; dayInWeek++) {
+                mealPlanStart = decrementDay(selectedDate,dayInWeek);
+                containsPlan = weeksWithMealplan.contains(mealPlanStart);//find out if contains plan and find day in week
+                if (containsPlan) {
+                    break;
+                }
+            }
+        }
+        if (containsPlan) {
+            planIndex = weeksWithMealplan.indexOf(mealPlanStart);
+            meal=dayInWeek*3;
+            if(weekPlans.get(planIndex).getItems().size()<21){
+                while((weekPlans.get(planIndex).getItems().size()-3)<meal){
+                    meal--;
+                }
+            }
+            value = weekPlans.get(planIndex).getItems().get(meal).getValue();
+            jon = new JsonParser().parse(value).getAsJsonObject();
+            image = jon.get("id").getAsString();
+            image = image + "-556x370.jpg";                             //create picture URL
+            Log.e("meal week breakfast",Integer.toString(meal));
+            meal++;
+            Log.e("dayInWeek breakfast",Integer.toString(dayInWeek));
+        }
+
+        else {
+                return URLs=null;               //if no plan exists for day
+        }
+
+        if(image!=null)
+        {
+            String BASE_URL = "https://spoonacular.com/recipeImages/";
+            String imageUrl;
+
+            if (image.contains("https"))
+                imageUrl = image;
+            else
+                imageUrl = BASE_URL + image;//insert picture
+
+            URLs[0]=imageUrl;
+
+            Log.e("url Breakfasr",imageUrl);
+        }
+
+        //lunch
+        if (beenInDay) {
+            planIndex = daysWithMealplan.indexOf(selectedDate);
+            image = dayPlans.get(planIndex).getRecipeModels().get(meal).getImage();//if dayplan
+            meal++;
+            Log.e("meal day lunch",Integer.toString(meal));
+        }
+        else if (containsPlan) {
+            planIndex = weeksWithMealplan.indexOf(mealPlanStart);
+            value = weekPlans.get(planIndex).getItems().get(meal).getValue();
+            jon = new JsonParser().parse(value).getAsJsonObject();
+            image = jon.get("id").getAsString();
+            image = image + "-556x370.jpg";                             //create picture URL
+            Log.e("meal week lunch",Integer.toString(meal));
+            meal++;
+            Log.e("dayInWeek lunch",Integer.toString(dayInWeek));
+        }
+
+        else {
+            image=null;
+            //if no plan exists for day
+        }
+
+        if(image!=null)
+        {
+            String BASE_URL = "https://spoonacular.com/recipeImages/";
+            String imageUrl;
+
+            if (image.contains("https"))
+                imageUrl = image;
+            else
+                imageUrl = BASE_URL + image;//insert picture
+
+            URLs[1]=imageUrl;
+            Log.e("url lunch",imageUrl);
+        }
+
+        //dinner
+        if (beenInDay) {
+            planIndex = daysWithMealplan.indexOf(selectedDate);
+            image = dayPlans.get(planIndex).getRecipeModels().get(meal).getImage();//if daypla
+            Log.e("meal day dinner",Integer.toString(meal));
+        }
+        else if (containsPlan) {
+            planIndex = weeksWithMealplan.indexOf(mealPlanStart);
+            value = weekPlans.get(planIndex).getItems().get(meal).getValue();
+            jon = new JsonParser().parse(value).getAsJsonObject();
+            image = jon.get("id").getAsString();
+            image = image + "-556x370.jpg";                             //create picture URL
+
+
+            Log.e("meal week dinner",Integer.toString(meal));
+            Log.e("dayInWeek dinner",Integer.toString(dayInWeek));
+            Log.e("size of weekplan items",Integer.toString(weekPlans.get(planIndex).getItems().size()));
+        }
+
+        else {
+            image=null;
+            //if no plan exists for day
+        }
+
+        if(image!=null)
+        {
+            String BASE_URL = "https://spoonacular.com/recipeImages/";
+            String imageUrl;
+
+            if (image.contains("https"))
+                imageUrl = image;
+            else
+                imageUrl = BASE_URL + image;//insert picture
+
+            URLs[2]=imageUrl;
+            Log.e("url dinner",imageUrl);
+        }
+        dayplanActive=beenInDay;
+        return URLs;
+    }
 
 
     public void update() {
