@@ -17,11 +17,11 @@ import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInterac
 
 public class DeleteInfoInteractor implements IFirebaseDBInteractors.IDeleteInfoInteractor {
 
+
+
     @Override
-    public void removeAllUserInfo(String uid) {
+    public void removeAllUserInfo() {
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-
-
         String Uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         database.child("User/"+Uid).removeValue();
         database.child("MealplanDate/"+Uid).removeValue();

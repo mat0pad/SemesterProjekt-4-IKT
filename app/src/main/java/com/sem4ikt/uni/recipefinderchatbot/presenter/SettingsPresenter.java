@@ -74,7 +74,7 @@ public class SettingsPresenter extends BasePresenter<ISettingsView> implements I
 
     @Override
     public void doDeleteAccount() {
-        dbDelete.removeAllUserInfo("");
+        dbDelete.removeAllUserInfo();
         auth.deleteAccount(this);
     }
 

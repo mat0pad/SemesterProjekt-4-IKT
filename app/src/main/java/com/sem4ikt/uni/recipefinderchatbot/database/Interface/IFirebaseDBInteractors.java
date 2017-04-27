@@ -50,7 +50,7 @@ public interface IFirebaseDBInteractors {
     }
 
     interface IDeleteInfoInteractor {
-        void removeAllUserInfo(String uid);
+        void removeAllUserInfo();
     }
 
 }
