@@ -90,10 +90,10 @@ public class MealPlanInteractorIntegrationTest {
 
         signal = new CountDownLatch(1);
 
-        mpi.getMealPlanDay(new ICallbackMealplan() {
+        mpi.getMealPlanWeek((new ICallbackMealplan() {
             @Override
             public void onReceivedDay(List<MealPlanDayModel> daymodel, List<Date> dateList, MEALPLAN_CALLBACK_TYPE type) {
-
+                System.out.println("DWNQJDNQNJKDNQWJNDQWNIQWONWQNGOOOODMOOODE GODMODE GODMODE GODMODE");
             }
 
             @Override
@@ -101,7 +101,7 @@ public class MealPlanInteractorIntegrationTest {
                 mealPlanWeekList = weekmodel;
                 signal.countDown();
             }
-        });
+        }));
 
         signal.await();
 
