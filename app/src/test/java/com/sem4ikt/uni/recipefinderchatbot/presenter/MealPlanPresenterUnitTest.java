@@ -1,6 +1,9 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackMealplan;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
+import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
 import com.sem4ikt.uni.recipefinderchatbot.view.IMealPlanView;
 
 import org.junit.Assert;
@@ -9,6 +12,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -59,7 +66,23 @@ public class MealPlanPresenterUnitTest {
         verify(interactor,times(1)).getMealPlanWeek(presenter);
     }
 
-    /*@Test
+    @Test
+    public void setDateToTwelveTest(){
+        Date dato= new Date();
+        Calendar cal=Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY,12);
+        cal.set(Calendar.SECOND,0);
+        cal.set(Calendar.MINUTE,0);
+        cal.set(Calendar.MILLISECOND,0);
+        Assert.assertEquals(presenter.setDateToTwelve(dato).getTime(),cal.getTime().getTime());
+    }
+
+
+    public void loadMealplansTestWithNonValidInfo(){
+        Assert.assertNull(presenter.loadMealplans(new Date()));
+    }
+
+    @Test
     public  void onReceivedValidMealPlanWeek(){
         presenter.onReceivedWeek(new ArrayList<MealPlanWeekModel>(),new ArrayList<Date>(), ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_WEEK);
         verify(mealPlanView,times(1)).getWeekPlan(new ArrayList<MealPlanWeekModel>(),new ArrayList<Date>());
@@ -81,6 +104,6 @@ public class MealPlanPresenterUnitTest {
     public  void onReceivedNothingMealPlanDay(){
         presenter.onReceivedDay(null,null, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_DAY);
         verify(mealPlanView,times(0)).getDayPlan(null,null);
-    }*/
+    }
 
 }
