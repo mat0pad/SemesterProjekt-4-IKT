@@ -42,7 +42,7 @@ public class Authentication implements IFirebaseAuth {
 
                         if(task.isSuccessful()) {
                             task.getResult().getUser().sendEmailVerification();
-                            callback.onAuthenticationFinished(CREATE_SUCCESS, "Create user successfully! Now verify email");
+                            callback.onAuthenticationFinished(CREATE_SUCCESS, "Created user successfully! Now verify email");
                         }
                         else
                             callback.onAuthenticationFinished(CREATE_FAILED, "An account is already created using this e-mail");

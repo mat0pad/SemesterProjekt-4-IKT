@@ -1,5 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackDayMealplan;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackWeekMealplan;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -86,26 +88,26 @@ public class MealPlanPresenterUnitTest {
     }
 
     @Test
-    public void onReceivedValidMealPlanWeek() {
-        presenter.onReceivedWeek(new ArrayList<MealPlanWeekModel>(), new ArrayList<Date>(), ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_WEEK);
-        verify(mealPlanView, times(1)).getWeekPlan(new ArrayList<MealPlanWeekModel>(), new ArrayList<Date>());
+    public  void onReceivedValidMealPlanWeek(){
+        presenter.onReceivedWeek(new ArrayList<MealPlanWeekModel>(),new ArrayList<Date>(), ICallbackWeekMealplan.MEALPLAN_WEEK_CALLBACK_TYPE.SUCCCES);
+        verify(mealPlanView,times(1)).getWeekPlan(new ArrayList<MealPlanWeekModel>(),new ArrayList<Date>());
     }
 
     @Test
-    public void onReceivedValidMealPlanDay() {
-        presenter.onReceivedDay(new ArrayList<MealPlanDayModel>(), new ArrayList<Date>(), ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_DAY);
-        verify(mealPlanView, times(1)).getDayPlan(new ArrayList<MealPlanDayModel>(), new ArrayList<Date>());
+    public  void onReceivedValidMealPlanDay(){
+        presenter.onReceivedDay(new ArrayList<MealPlanDayModel>(),new ArrayList<Date>(), ICallbackDayMealplan.MEALPLAN_DAY_CALLBACK_TYPE.SUCCCES);
+        verify(mealPlanView,times(1)).getDayPlan(new ArrayList<MealPlanDayModel>(),new ArrayList<Date>());
     }
 
     @Test
-    public void onReceivedNothingMealPlanWeek() {
-        presenter.onReceivedWeek(null, null, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_WEEK);
-        verify(mealPlanView, times(0)).getWeekPlan(null, null);
+    public  void onReceivedNothingMealPlanWeek(){
+        presenter.onReceivedWeek(null,null, ICallbackWeekMealplan.MEALPLAN_WEEK_CALLBACK_TYPE.FAILURE);
+        verify(mealPlanView,times(0)).getWeekPlan(null,null);
     }
 
     @Test
-    public void onReceivedNothingMealPlanDay() {
-        presenter.onReceivedDay(null, null, ICallbackMealplan.MEALPLAN_CALLBACK_TYPE.GET_MEALPLAN_DAY);
-        verify(mealPlanView, times(0)).getDayPlan(null, null);
+    public  void onReceivedNothingMealPlanDay(){
+        presenter.onReceivedDay(null,null, ICallbackDayMealplan.MEALPLAN_DAY_CALLBACK_TYPE.FAILURE);
+        verify(mealPlanView,times(0)).getDayPlan(null,null);
     }
 }

@@ -9,14 +9,14 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackMealplan;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackDayMealplan;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackWeekMealplan;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.database.MealPlansInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IMealPlanPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IMealPlanView;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,7 +28,7 @@ import java.util.Locale;
   Created by mathiaslykkepedersen on 27/03/2017.
  */
 
-public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements IMealPlanPresenter<IMealPlanView>,ICallbackMealplan {
+public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements IMealPlanPresenter<IMealPlanView>,ICallbackDayMealplan,ICallbackWeekMealplan {
     List<Date> daysWithMealplan, weeksWithMealplan;
     List<MealPlanWeekModel> weekPlans;
     List<MealPlanDayModel> dayPlans;
@@ -309,16 +309,15 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
     }
 
     @Override
-    public void onReceivedDay(List<MealPlanDayModel> daymodel, List<Date> datelist, MEALPLAN_CALLBACK_TYPE type) {
+    public void onReceivedDay(List<MealPlanDayModel> daymodel, List<Date> datelist, MEALPLAN_DAY_CALLBACK_TYPE type){
         switch (type)
         {
-            case GET_MEALPLAN_DAY:
+            case SUCCCES:
                 if (daymodel != null && datelist != null) {
                     view.getDayPlan(daymodel, datelist);
                 }
                 break;
-
-            case MEALPLAN_FAILURE:
+            case FAILURE:
                 break;
             default:
                 break;
@@ -326,17 +325,15 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
     }
 
     @Override
-    public void onReceivedWeek(List<MealPlanWeekModel> weekmodel, List<Date> datelist, MEALPLAN_CALLBACK_TYPE type) {
-
+    public void onReceivedWeek(List<MealPlanWeekModel> weekmodel, List<Date> datelist, MEALPLAN_WEEK_CALLBACK_TYPE type) {
         switch (type)
         {
-            case GET_MEALPLAN_WEEK:
+            case SUCCCES:
                 if(weekmodel != null && datelist != null) {
                     view.getWeekPlan(weekmodel, datelist);
                 }
                 break;
-            case MEALPLAN_FAILURE:
-
+            case FAILURE:
                 break;
             default:
                 break;

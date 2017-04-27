@@ -34,9 +34,9 @@ public interface IFirebaseDBInteractors {
 
         void removeMealPlanWeek(Date startsdate);
 
-        void getMealPlanWeek(ICallbackMealplan callback);
+        void getMealPlanWeek(ICallbackWeekMealplan callback);
 
-        void getMealPlanDay(ICallbackMealplan callback);
+        void getMealPlanDay(ICallbackDayMealplan callback);
     }
 
     interface  IRecipeInteractor {
