@@ -3,7 +3,9 @@ package com.sem4ikt.uni.recipefinderchatbot.presenter;
 import android.support.annotation.VisibleForTesting;
 
 import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
+import com.sem4ikt.uni.recipefinderchatbot.database.DeleteInfoInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseAuth;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ILoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginCallback;
@@ -17,6 +19,7 @@ import com.sem4ikt.uni.recipefinderchatbot.view.ISettingsView;
 public class SettingsPresenter extends BasePresenter<ISettingsView> implements ISettingsPresenter<ISettingsView>, ILoginCallback {
 
     private IFirebaseAuth auth;
+    private IFirebaseDBInteractors.IDeleteInfoInteractor dbDelete;
     private ILoginUserModel passChecker;
 
     public SettingsPresenter(ISettingsView view) {
@@ -25,12 +28,14 @@ public class SettingsPresenter extends BasePresenter<ISettingsView> implements I
         // Create model
         auth = new Authentication();
         passChecker = new LoginUserModel();
+        dbDelete = new DeleteInfoInteractor();
     }
 
     @VisibleForTesting
-    public SettingsPresenter(ISettingsView view, IFirebaseAuth auth, ILoginUserModel loginUserModel) {
+    public SettingsPresenter(ISettingsView view, IFirebaseAuth auth, ILoginUserModel loginUserModel, IFirebaseDBInteractors.IDeleteInfoInteractor dbDelete) {
         super(view);
 
+        this.dbDelete = dbDelete;
         this.passChecker = loginUserModel;
         this.auth = auth;
     }
@@ -46,8 +51,10 @@ public class SettingsPresenter extends BasePresenter<ISettingsView> implements I
         passChecker.setPassword(pass1);
         passChecker.setConfirmPassword(pass2);
 
-        if (passChecker.checkPasswordsMatches())
+        if (passChecker.checkPasswordsMatches()) {
             auth.updatePassword(pass1, this);
+            view.onSwitchToSettingsView();
+        }
         else
             view.onShowToast("Same password required in both fields");
 
@@ -67,7 +74,13 @@ public class SettingsPresenter extends BasePresenter<ISettingsView> implements I
 
     @Override
     public void doDeleteAccount() {
+        dbDelete.removeAllUserInfo("");
         auth.deleteAccount(this);
+    }
+
+    @Override
+    public void doConfirmDeleteAccount() {
+        view.onShowConfirmDeleteDialog();
     }
 
     @Override

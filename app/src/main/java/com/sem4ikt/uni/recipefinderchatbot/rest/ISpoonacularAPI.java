@@ -84,10 +84,8 @@ public interface ISpoonacularAPI {
 
 
         /**
-         *
          * @param id                :the id of recipe
-         * @param includeNutrition  :include nutrition data to the
-         *                           recipe information
+         * @param includeNutrition  :include nutrition data to the recipe information
          */
         @GET("recipes/{id}/information")
         Call<RecipeModel> getRecipe(@Path("id") int id, @Query("includeNutrition") boolean includeNutrition);

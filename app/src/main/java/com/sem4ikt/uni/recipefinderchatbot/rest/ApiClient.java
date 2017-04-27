@@ -15,11 +15,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient implements IApiClient {
 
+    // Base URL for Spoonacular endpoint
+    private static final String BASE_URL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/";
+    // Singleton httpclient
     private static Retrofit retrofit = null;
 
-    private static final String BASE_URL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/";
-
+    // Used for get instance
     public Retrofit getClient(){
+
         if(retrofit == null) {
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
             httpClient.addInterceptor(new Interceptor() {
@@ -45,5 +48,4 @@ public class ApiClient implements IApiClient {
         }
         return retrofit;
     }
-
 }

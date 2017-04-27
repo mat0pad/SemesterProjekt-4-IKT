@@ -52,7 +52,6 @@ public class LoginUserModel implements ILoginUserModel {
                 (			    # Start of group
                 (?=.*\d)	    #   must contains one digit from 0-9
                 (?=.*[a-z])		#   must contains one lowercase characters
-                (?=.*[A-Z])		#   must contains one uppercase characters
                 .		        #   match anything with previous condition checking
                 {6,20}	        #   length at least 6 characters and maximum of 20
                 )			    # End of group

@@ -29,11 +29,11 @@
             android:id="@+id/change_password_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/send_button_state"
-            android:text="@string/action_change_password"
-            android:layout_marginTop="217dp"
             android:layout_marginEnd="50dp"
-            android:layout_marginStart="50dp" />
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="217dp"
+            android:background="@drawable/send_button_state"
+            android:text="@string/action_change_password" />
 
 
         <Button
@@ -41,11 +41,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/send_button_state"
-            android:text="@string/action_delete_account"
             android:layout_marginBottom="217dp"
             android:layout_marginEnd="50dp"
-            android:layout_marginStart="50dp" />
+            android:layout_marginStart="50dp"
+            android:background="@drawable/send_button_state"
+            android:text="@string/action_delete_account" />
         
     </RelativeLayout>
 
@@ -53,15 +53,15 @@
         android:id="@+id/change_password_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:visibility="gone"
-        android:layout_centerInParent="true">
+        android:visibility="gone">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:paddingEnd="30dp"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
@@ -85,8 +85,8 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:paddingEnd="30dp"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
@@ -111,21 +111,21 @@
             android:id="@+id/confirm_password_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/send_button_state"
-            android:text="@string/prompt_confirm_pass"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="50dp"
-            android:layout_marginStart="50dp" />
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/send_button_state"
+            android:text="@string/action_change_password" />
 
         <Button
             android:id="@+id/cancel_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/send_button_state"
-            android:text="@string/action_cancel"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="80dp"
-            android:layout_marginStart="80dp" />
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/send_button_state"
+            android:text="@string/action_cancel" />
 
     </LinearLayout>
     
