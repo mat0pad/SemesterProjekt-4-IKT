@@ -45,7 +45,7 @@ public class RecipeInteractorIntegrationTest {
         });
 
         DeleteInfoInteractor info = new DeleteInfoInteractor();
-        info.removeAllUserInfo(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        info.removeAllUserInfo();
 
         signal.await();
     }

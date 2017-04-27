@@ -1,8 +1,9 @@
 package com.sem4ikt.uni.recipefinderchatbot.IntegrationTest.model;
 
 import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackDayMealplan;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackMealPlanAdd;
-import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackMealplan;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackWeekMealplan;
 import com.sem4ikt.uni.recipefinderchatbot.database.MealPlansInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
@@ -66,16 +67,10 @@ public class MealPlanInteractorIntegrationTest {
             }
         });
 
-        mpi.getMealPlanDay(new ICallbackMealplan() {
+        mpi.getMealPlanDay(new ICallbackDayMealplan() {
             @Override
-            public void onReceivedDay(List<MealPlanDayModel> daymodel, List<Date> dateList, MEALPLAN_CALLBACK_TYPE type) {
-                mealPlanDayList = daymodel;
+            public void onReceivedDay(List<MealPlanDayModel> daymodel, List<Date> dateList, MEALPLAN_DAY_CALLBACK_TYPE type) {
                 signal.countDown();
-            }
-
-            @Override
-            public void onReceivedWeek(List<MealPlanWeekModel> weekmodel, List<Date> list, MEALPLAN_CALLBACK_TYPE type) {
-
             }
         });
 
@@ -90,15 +85,9 @@ public class MealPlanInteractorIntegrationTest {
 
         signal = new CountDownLatch(1);
 
-        mpi.getMealPlanWeek((new ICallbackMealplan() {
+        mpi.getMealPlanWeek((new ICallbackWeekMealplan() {
             @Override
-            public void onReceivedDay(List<MealPlanDayModel> daymodel, List<Date> dateList, MEALPLAN_CALLBACK_TYPE type) {
-                System.out.println("DWNQJDNQNJKDNQWJNDQWNIQWONWQNGOOOODMOOODE GODMODE GODMODE GODMODE");
-            }
-
-            @Override
-            public void onReceivedWeek(List<MealPlanWeekModel> weekmodel, List<Date> list, MEALPLAN_CALLBACK_TYPE type) {
-                mealPlanWeekList = weekmodel;
+            public void onReceivedWeek(List<MealPlanWeekModel> weekmodel, List<Date> list, MEALPLAN_WEEK_CALLBACK_TYPE type) {
                 signal.countDown();
             }
         }));
