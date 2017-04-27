@@ -110,15 +110,10 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
 
         String[] imageURLs=presenter.loadMealplans(selectedDate);
         if(imageURLs==null){
-            noplan.setVisibility(View.VISIBLE);
-            day.setVisibility(View.GONE);
+            presenter.showNoPlan(noplan,day);
         }
         else {
-            noplan.setVisibility(View.GONE);
-            day.setVisibility(View.VISIBLE);
-            Picasso.with(getActivity()).load(imageURLs[0]).fit().into(breakfastImage);
-            Picasso.with(getActivity()).load(imageURLs[1]).fit().into(lunchImage);
-            Picasso.with(getActivity()).load(imageURLs[2]).fit().into(dinnerImage);
+            presenter.showMealplanForDay(noplan,day,imageURLs,breakfastImage,lunchImage,dinnerImage);
         }
 
 
@@ -132,15 +127,10 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                 selectedDate=dateClicked;
                 String[] imageURLs=presenter.loadMealplans(selectedDate);
                 if(imageURLs==null){
-                    noplan.setVisibility(View.VISIBLE);
-                    day.setVisibility(View.GONE);
+                    presenter.showNoPlan(noplan,day);
                 }
                 else {
-                    noplan.setVisibility(View.GONE);
-                    day.setVisibility(View.VISIBLE);
-                    Picasso.with(getActivity()).load(imageURLs[0]).fit().into(breakfastImage);
-                    Picasso.with(getActivity()).load(imageURLs[1]).fit().into(lunchImage);
-                    Picasso.with(getActivity()).load(imageURLs[2]).fit().into(dinnerImage);
+                    presenter.showMealplanForDay(noplan,day,imageURLs,breakfastImage,lunchImage,dinnerImage);
                 }
 
             }
@@ -152,15 +142,10 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                 selectedDate=firstDayOfNewMonth;
                 String[] imageURLs=presenter.loadMealplans(selectedDate);
                 if(imageURLs==null){
-                    noplan.setVisibility(View.VISIBLE);
-                    day.setVisibility(View.GONE);
+                   presenter.showNoPlan(noplan,day);
                 }
                 else {
-                    noplan.setVisibility(View.GONE);
-                    day.setVisibility(View.VISIBLE);
-                    Picasso.with(getActivity()).load(imageURLs[0]).fit().into(breakfastImage);
-                    Picasso.with(getActivity()).load(imageURLs[1]).fit().into(lunchImage);
-                    Picasso.with(getActivity()).load(imageURLs[2]).fit().into(dinnerImage);
+                    presenter.showMealplanForDay(noplan,day,imageURLs,breakfastImage,lunchImage,dinnerImage);
                 }
             }
         });
@@ -220,6 +205,13 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
             }
             compactCalenderView.addEvents(prikker);
         }
+    }
+
+    @Override
+   public void insertPictures(String[] imageURLs,ImageView breakfastImage,ImageView lunchImage,ImageView dinnerImage){
+        Picasso.with(getActivity()).load(imageURLs[0]).fit().into(breakfastImage);
+        Picasso.with(getActivity()).load(imageURLs[1]).fit().into(lunchImage);
+        Picasso.with(getActivity()).load(imageURLs[2]).fit().into(dinnerImage);
     }
 
     @Override

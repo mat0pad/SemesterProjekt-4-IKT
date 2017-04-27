@@ -1,5 +1,9 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces;
 
+import android.widget.ImageView;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
 
@@ -41,4 +45,8 @@ public interface IMealPlanPresenter<V> extends IBasePresenter<V> {
     void InitWeekPlans(List<MealPlanWeekModel> mealplan, List<Date> dates);
 
     String[] loadMealplans(Date selectedDate);
+
+    void showNoPlan(TextView noplan, ScrollView day);
+
+    void showMealplanForDay(TextView noplan, ScrollView day, String[] imageURLs, ImageView breakfastImage, ImageView lunchImage, ImageView dinnerImage);
 }

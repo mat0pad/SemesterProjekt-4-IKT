@@ -1,5 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.view;
 
+import android.widget.ImageView;
+
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
 
@@ -20,4 +22,5 @@ public interface IMealPlanView {
 
     void onShowDetailRecipe(int id);
 
+    void insertPictures(String[] imageURLs, ImageView breakfastImage,ImageView lunchImage,ImageView dinnerImage);
 }

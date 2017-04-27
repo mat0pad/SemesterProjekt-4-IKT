@@ -3,6 +3,9 @@ package com.sem4ikt.uni.recipefinderchatbot.presenter;
 import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -110,6 +113,18 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
     public void InitWeekPlans(List<MealPlanWeekModel> mealplan,List<Date> dates){
         weeksWithMealplan.addAll(dates);
         weekPlans.addAll(mealplan);
+    }
+
+    @Override
+    public void showNoPlan(TextView noplan, ScrollView day){
+        noplan.setVisibility(View.VISIBLE);
+        day.setVisibility(View.GONE);
+    }
+
+    public void showMealplanForDay(TextView noplan, ScrollView day, String[] imageURLs,ImageView breakfastImage,ImageView lunchImage, ImageView dinnerImage){
+        noplan.setVisibility(View.GONE);
+        day.setVisibility(View.VISIBLE);
+        view.insertPictures(imageURLs,breakfastImage,lunchImage,dinnerImage);
     }
 
     @Override
