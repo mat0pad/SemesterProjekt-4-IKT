@@ -2,6 +2,8 @@ package com.sem4ikt.uni.recipefinderchatbot.model.firebasedb;
 
 import android.support.annotation.VisibleForTesting;
 
+import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.interfaces.IDateSetup;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -9,7 +11,7 @@ import java.util.Date;
  * Created by anton on 15-04-2017.
  */
 
-public class DateSetup {
+public class DateSetup implements IDateSetup {
 
     public DateModel setDateModelWeek(Date startdate)
     {

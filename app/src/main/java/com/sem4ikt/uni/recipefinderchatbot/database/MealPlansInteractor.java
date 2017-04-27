@@ -16,6 +16,7 @@ import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackWeekMealp
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.DateModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.DateSetup;
+import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.interfaces.IDateSetup;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
 
@@ -58,7 +59,7 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
     @Override
     public void addMealPlanWeek(final MealPlanWeekModel mealplan, final Date startdate, ICallbackMealPlanAdd callback) {
 
-        DateSetup ds = new DateSetup();
+        IDateSetup ds = new DateSetup();
 
         final DateModel dateModel = ds.setDateModelWeek(startdate);
 
@@ -70,7 +71,7 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
     @Override
     public void addMealPlanDay(MealPlanDayModel mealplan, Date startdate,ICallbackMealPlanAdd callback) {
 
-        DateSetup ds = new DateSetup();
+        IDateSetup ds = new DateSetup();
 
         DateModel dateModel = ds.setDateModelDay(startdate);
 
@@ -99,7 +100,7 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
 
     @Override
     public void removeMealPlanDay(Date startdate){
-        DateSetup ds = new DateSetup();
+        IDateSetup ds = new DateSetup();
         DateModel dm = ds.setDateModelWeek(startdate);
 
 
@@ -125,7 +126,7 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
     @Override
     public void removeMealPlanWeek(Date startdate) {
 
-        DateSetup ds = new DateSetup();
+        IDateSetup ds = new DateSetup();
         DateModel dm = ds.setDateModelWeek(startdate);
 
 
@@ -264,6 +265,8 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
                                 insertMealPlanWeek(mealplan, dateModel);
                                 callback.onReceived(ICallbackMealPlanAdd.ADD_CALLBACK_TYPE.SUCCESS);
                                 }
+                            else
+                                callback.onReceived(ICallbackMealPlanAdd.ADD_CALLBACK_TYPE.FAILURE);
                             }
 
 
