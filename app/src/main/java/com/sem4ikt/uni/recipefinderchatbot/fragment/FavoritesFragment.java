@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.FavoritesGridAdapter;
@@ -34,7 +35,7 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
     GridView gridView;
     IFavoritesPresenter<IFavoritesView> presenter;
     IFavoritesGridAdapterPresenter<IFavoritesGridAdapterView> gridPresenter;
-    boolean isdeleting = false;
+    boolean isDeleting = false;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
 
-                if(!isdeleting)
+                if(!isDeleting)
                     gridPresenter.onClick(position);
                 else {
                     presenter.deleteRecipe(gridPresenter.getItem(position));
@@ -96,24 +97,19 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isdeleting = !isdeleting;
-                if(isdeleting)
+                isDeleting = !isDeleting;
+                if(isDeleting)
                     fab.setImageResource(R.drawable.no_edit);
                 else
                     fab.setImageResource(R.drawable.edit);
 
-                gridPresenter.isDeleting(isdeleting);
+                gridPresenter.isDeleting(isDeleting);
             }
         });
         return view;
     }
 
 
-
-    @Override
-    public void update(List<RecipeModel> list) {
-        gridPresenter.update(list);
-    }
 
     @Override
     public void setList(List<RecipeModel> list) {
@@ -128,6 +124,11 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
     @Override
     public void addRecipe(RecipeModel recipe) {
         gridPresenter.addRecipe(recipe);
+    }
+
+    @Override
+    public void showRecipeListFailure() {
+        Toast.makeText(getView().getContext(), "Failure on getting favorites, try again later", Toast.LENGTH_SHORT).show();
     }
 
     @Override

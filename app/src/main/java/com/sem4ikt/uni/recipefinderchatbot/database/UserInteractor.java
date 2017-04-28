@@ -49,14 +49,14 @@ public class UserInteractor implements IFirebaseDBInteractors.IUserInteractor {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
-                    callback.onReceived(dataSnapshot.getValue(User.class), ICallbackUser.USER_CALLBACK_TYPE.USER_FOUND);
+                    callback.onReceived(dataSnapshot.getValue(User.class), ICallbackUser.UserCallbackType.USER_FOUND);
                 else
-                    callback.onReceived(null, ICallbackUser.USER_CALLBACK_TYPE.USER_NOT_FOUND);
+                    callback.onReceived(null, ICallbackUser.UserCallbackType.USER_NOT_FOUND);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                callback.onReceived(null, ICallbackUser.USER_CALLBACK_TYPE.USER_NOT_FOUND);
+                callback.onFailure();
             }
         });
     }

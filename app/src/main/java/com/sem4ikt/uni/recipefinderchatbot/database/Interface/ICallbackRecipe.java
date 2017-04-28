@@ -10,6 +10,6 @@ import java.util.List;
  */
 
 public interface ICallbackRecipe {
-    enum  RECIPE_CALLBACK_TYPE{DELETE_RECIPE,ADD_RECIPE,GET_RECIPELIST};
-    void onReceived(Object recipe, FavoritesPresenter.RECIPE_CALLBACK_TYPE type);
+    void onReceived(List<RecipeModel> recipe);
+    void onFailure();
 }

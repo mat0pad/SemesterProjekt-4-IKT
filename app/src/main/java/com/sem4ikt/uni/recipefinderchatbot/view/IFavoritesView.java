@@ -12,11 +12,11 @@ import java.util.Objects;
 
 public interface IFavoritesView {
 
-    void update(List<RecipeModel> list);
-
     void setList(List<RecipeModel> list);
 
     void deleteRecipe(RecipeModel recipe);
 
     void addRecipe(RecipeModel recipe);
+
+    void showRecipeListFailure();
 }

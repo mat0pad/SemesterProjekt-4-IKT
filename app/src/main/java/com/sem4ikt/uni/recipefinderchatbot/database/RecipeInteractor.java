@@ -12,6 +12,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackRecipe;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
+import com.sem4ikt.uni.recipefinderchatbot.model.SearchThread;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 
 import java.util.ArrayList;
@@ -25,8 +26,6 @@ import java.util.List;
 public class RecipeInteractor implements IFirebaseDBInteractors.IRecipeInteractor {
 
     private DatabaseReference Database;
-
-    private ChildEventListener childEventListener;
 
     public RecipeInteractor()
     {
@@ -49,6 +48,7 @@ public class RecipeInteractor implements IFirebaseDBInteractors.IRecipeInteracto
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot recipeSnapshot : dataSnapshot.getChildren()){
+                    System.out.println("RECIPEFOUND  "+recipeSnapshot.getValue(RecipeModel.class).getId());
                     recipeSnapshot.getRef().removeValue();
                 }
             }
@@ -66,17 +66,16 @@ public class RecipeInteractor implements IFirebaseDBInteractors.IRecipeInteracto
         Database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e("GetRecipe","call");
                 List<RecipeModel> recipeList = new ArrayList<>();
                 for(DataSnapshot recipesSnapshot: dataSnapshot.getChildren()) {
                     recipeList.add(recipesSnapshot.getValue(RecipeModel.class));
                 }
-                callback.onReceived(recipeList, ICallbackRecipe.RECIPE_CALLBACK_TYPE.GET_RECIPELIST);
+                callback.onReceived(recipeList);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.e("onCancelled",databaseError.getMessage());
+                callback.onFailure();
             }
         });
     }

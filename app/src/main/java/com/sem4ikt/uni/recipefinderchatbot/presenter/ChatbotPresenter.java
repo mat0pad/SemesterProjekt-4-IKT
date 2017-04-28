@@ -208,7 +208,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
     }
 
     @Override
-    public void onReceived(User user, USER_CALLBACK_TYPE type) {
+    public void onReceived(User user, UserCallbackType type) {
 
         switch (type) {
             case USER_FOUND:
@@ -226,18 +226,19 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
     }
 
     @Override
-    public void onReceived(ADD_CALLBACK_TYPE type) {
-        switch (type) {
-            case SUCCESS:
-                showText("The meal plan has been successfully saved, you can now inspect it in the meal plan tab");
-                break;
-            case FAILURE:
-                showText("Error! There seems to already be a meal plan saved in this time interval");
-                break;
-            default:
-                showErrorText();
-                break;
-        }
+    public void onFailure() {
+        ci.setContext(null);
+        switchWorkspace(0," ");
+    }
+
+    @Override
+    public void onReceivedMealPlanAdd() {
+        showText("The meal plan has been successfully saved, you can now inspect it in the meal plan tab");
+    }
+
+    @Override
+    public void onFailureMealPlanAdd() {
+        showText("Error! There seems to already be a meal plan saved in this time interval");
     }
 
     // Below functions are to prevent loop in workspaces

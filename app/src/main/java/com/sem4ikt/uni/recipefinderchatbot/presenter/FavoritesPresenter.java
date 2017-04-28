@@ -46,23 +46,16 @@ public class FavoritesPresenter extends BasePresenter<IFavoritesView> implements
 
 
     @Override
-    public void onReceived(Object recipe,RECIPE_CALLBACK_TYPE type) {
-        switch (type)
-        {
-            case DELETE_RECIPE:
-                view.deleteRecipe((RecipeModel)recipe);
-
-                break;
-            case ADD_RECIPE:
-                view.addRecipe((RecipeModel)recipe);
-                break;
-            case GET_RECIPELIST:
-                if(recipe != null)
-                    view.setList((List<RecipeModel>)  recipe);
-                break;
-            default:
-                break;
+    public void onReceived(List<RecipeModel> recipe) {
+        if(recipe != null) {
+            view.setList(recipe);
         }
     }
+
+    @Override
+    public void onFailure() {
+        view.showRecipeListFailure();
+    }
+
 
 }

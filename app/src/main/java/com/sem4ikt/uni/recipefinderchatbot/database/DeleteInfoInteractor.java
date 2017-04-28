@@ -26,6 +26,7 @@ public class DeleteInfoInteractor implements IFirebaseDBInteractors.IDeleteInfoI
         database.child("User/"+Uid).removeValue();
         database.child("MealplanDate/"+Uid).removeValue();
         database.child("MealplanWeek/"+Uid).removeValue();
+        database.child("MealplanDay/"+Uid).removeValue();
         database.child("Recipe/"+Uid).removeValue();
     }
 }

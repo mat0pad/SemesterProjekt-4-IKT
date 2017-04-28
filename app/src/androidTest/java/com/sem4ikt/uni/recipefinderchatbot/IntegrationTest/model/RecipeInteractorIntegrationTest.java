@@ -37,17 +37,16 @@ public class RecipeInteractorIntegrationTest {
         signal = new CountDownLatch(1);
         Authentication auth = new Authentication();
 
-        auth.signIn("201507091@post.au.dk", "test123", new ILoginCallback() {
+        auth.signIn("201507091@p ost.au.dk", "test123", new ILoginCallback() {
             @Override
             public void onAuthenticationFinished(LoginPresenter.AUTH auth, String reason) {
                 signal.countDown();
             }
         });
 
+        signal.await();
         DeleteInfoInteractor info = new DeleteInfoInteractor();
         info.removeAllUserInfo();
-
-        signal.await();
     }
 
     @Test
@@ -63,11 +62,16 @@ public class RecipeInteractorIntegrationTest {
 
         ri.addRecipe(rm);
 
-        ri.getRecipe(new ICallbackRecipe() {
+        ri.getRecipe(new ICallbackRecipe(){
             @Override
-            public void onReceived(Object recipe, RECIPE_CALLBACK_TYPE type) {
-                tmpTestList = (List<RecipeModel>) recipe;
+            public void onReceived(List<RecipeModel> recipe) {
+                tmpTestList = recipe;
                 signal.countDown();
+            }
+
+            @Override
+            public void onFailure() {
+
             }
         });
 
@@ -98,15 +102,23 @@ public class RecipeInteractorIntegrationTest {
         String testTile = "integrationTest";
 
         rm.setTitle(testTile);
-        rm.setId(123);
+        rm.setId(222);
 
         ri.addRecipe(rm);
+
         ri.removeRecipe(rm);
+
+        Thread.sleep(2000);
 
         ri.getRecipe(new ICallbackRecipe() {
             @Override
-            public void onReceived(Object recipe, RECIPE_CALLBACK_TYPE type) {
-                tmpTestList = (List<RecipeModel>) recipe;
+            public void onReceived(List<RecipeModel> recipe) {
+                tmpTestList =  recipe;
+                signal.countDown();
+            }
+
+            @Override
+            public void onFailure() {
                 signal.countDown();
             }
         });

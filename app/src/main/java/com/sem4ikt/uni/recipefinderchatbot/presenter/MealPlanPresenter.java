@@ -309,7 +309,7 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
     }
 
     @Override
-    public void onReceivedDay(List<MealPlanDayModel> daymodel, List<Date> datelist, MEALPLAN_DAY_CALLBACK_TYPE type){
+    public void onReceivedDay(List<MealPlanDayModel> daymodel, List<Date> datelist, MealPlanDayCallbackType type){
         switch (type)
         {
             case SUCCCES:
@@ -317,15 +317,18 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
                     view.getDayPlan(daymodel, datelist);
                 }
                 break;
-            case FAILURE:
-                break;
             default:
                 break;
         }
     }
 
     @Override
-    public void onReceivedWeek(List<MealPlanWeekModel> weekmodel, List<Date> datelist, MEALPLAN_WEEK_CALLBACK_TYPE type) {
+    public void onFailureDay() {
+        //call error toast
+    }
+
+    @Override
+    public void onReceivedWeek(List<MealPlanWeekModel> weekmodel, List<Date> datelist, MealPlanWeekCallbackType type) {
         switch (type)
         {
             case SUCCCES:
@@ -333,10 +336,13 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
                     view.getWeekPlan(weekmodel, datelist);
                 }
                 break;
-            case FAILURE:
-                break;
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onFailureWeek() {
+        //call error toast
     }
 }

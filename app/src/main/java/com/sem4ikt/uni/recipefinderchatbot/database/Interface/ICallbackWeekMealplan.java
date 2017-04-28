@@ -13,7 +13,9 @@ import java.util.Objects;
 
 public interface ICallbackWeekMealplan {
 
-    void onReceivedWeek(List<MealPlanWeekModel> weekmodel, List<Date> list, MEALPLAN_WEEK_CALLBACK_TYPE type);
+    void onReceivedWeek(List<MealPlanWeekModel> weekmodel, List<Date> list, MealPlanWeekCallbackType type);
 
-    enum MEALPLAN_WEEK_CALLBACK_TYPE{SUCCCES,FAILURE}
+    void onFailureWeek();
+
+    enum MealPlanWeekCallbackType{SUCCCES,NODATA}
 }

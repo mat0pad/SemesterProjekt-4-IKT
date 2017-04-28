@@ -7,7 +7,9 @@ import com.sem4ikt.uni.recipefinderchatbot.model.firebasedb.User;
  */
 
 public interface ICallbackUser {
-    void onReceived(User user,USER_CALLBACK_TYPE type);
+    void onReceived(User user,UserCallbackType type);
 
-    enum  USER_CALLBACK_TYPE{USER_FOUND,USER_NOT_FOUND};
+    void onFailure();
+
+    enum  UserCallbackType{USER_FOUND,USER_NOT_FOUND};
 }

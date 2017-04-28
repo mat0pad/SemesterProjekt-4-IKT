@@ -1,6 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.IntegrationTest.model;
 
 import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
+import com.sem4ikt.uni.recipefinderchatbot.database.DeleteInfoInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackDayMealplan;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackMealPlanAdd;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackWeekMealplan;
@@ -11,6 +12,7 @@ import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginCallback;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,12 +49,15 @@ public class MealPlanInteractorIntegrationTest {
         });
 
         signal.await();
+        DeleteInfoInteractor info = new DeleteInfoInteractor();
+        info.removeAllUserInfo();
     }
 
     @Test
     public void mealPlanDayModel() throws InterruptedException {
 
-        signal = new CountDownLatch(2);
+        signal = new CountDownLatch(1);
+        final CountDownLatch signaladd = new CountDownLatch(1);
 
         MealPlanDayModel planmodel = new MealPlanDayModel();
         NutrientModel nmodel = new NutrientModel();
@@ -62,15 +67,28 @@ public class MealPlanInteractorIntegrationTest {
 
         mpi.addMealPlanDay(planmodel, new Date(), new ICallbackMealPlanAdd() {
             @Override
-            public void onReceived(ADD_CALLBACK_TYPE type) {
-                signal.countDown();
+            public void onReceivedMealPlanAdd() {
+                signaladd.countDown();
+            }
+
+            @Override
+            public void onFailureMealPlanAdd() {
+
             }
         });
 
+        signaladd.await();
+
+
         mpi.getMealPlanDay(new ICallbackDayMealplan() {
             @Override
-            public void onReceivedDay(List<MealPlanDayModel> daymodel, List<Date> dateList, MEALPLAN_DAY_CALLBACK_TYPE type) {
+            public void onReceivedDay(List<MealPlanDayModel> daymodel, List<Date> dateList, MealPlanDayCallbackType type) {
                 mealPlanDayList = daymodel;
+                signal.countDown();
+            }
+
+            @Override
+            public void onFailureDay() {
                 signal.countDown();
             }
         });
@@ -82,19 +100,66 @@ public class MealPlanInteractorIntegrationTest {
 
 
     @Test
-    public void mealPlanWeekModel() throws InterruptedException {
+    public void mealPlanWeekModelNoItems() throws InterruptedException {
 
         signal = new CountDownLatch(1);
 
-        mpi.getMealPlanWeek((new ICallbackWeekMealplan() {
+        mpi.getMealPlanWeek(new ICallbackWeekMealplan() {
             @Override
-            public void onReceivedWeek(List<MealPlanWeekModel> weekmodel, List<Date> list, MEALPLAN_WEEK_CALLBACK_TYPE type) {
+            public void onReceivedWeek(List<MealPlanWeekModel> weekmodel, List<Date> list, MealPlanWeekCallbackType type) {
                 mealPlanWeekList = weekmodel;
                 signal.countDown();
             }
-        }));
+
+            @Override
+            public void onFailureWeek() {
+
+            }
+        });
 
         signal.await();
+
+        Assert.assertEquals(mealPlanWeekList,null);
+    }
+
+    @Test
+    public void mealPlanWeekModelItem() throws InterruptedException {
+
+        signal = new CountDownLatch(1);
+        final CountDownLatch signalget = new CountDownLatch(1);
+
+        MealPlanWeekModel mealplan = new MealPlanWeekModel();
+
+        mealplan.setName("test");
+
+        mpi.addMealPlanWeek(mealplan, new Date(), new ICallbackMealPlanAdd() {
+            @Override
+            public void onReceivedMealPlanAdd() {
+                signal.countDown();
+            }
+
+            @Override
+            public void onFailureMealPlanAdd() {
+
+            }
+        });
+
+        signal.await();
+
+        mpi.getMealPlanWeek(new ICallbackWeekMealplan() {
+            @Override
+            public void onReceivedWeek(List<MealPlanWeekModel> weekmodel, List<Date> list, MealPlanWeekCallbackType type) {
+                mealPlanWeekList = weekmodel;
+                signalget.countDown();
+            }
+
+            @Override
+            public void onFailureWeek() {
+
+            }
+        });
+
+        signalget.await();
 
         assertTrue(mealPlanWeekList.size() > 0);
     }

@@ -56,11 +56,17 @@ public class UserInteractorIntegrationTest {
 
         ui.getUser(new ICallbackUser() {
             @Override
-            public void onReceived(User user, USER_CALLBACK_TYPE type) {
+            public void onReceived(User user, UserCallbackType type) {
                 testUser = user;
                 signal.countDown();
             }
+
+            @Override
+            public void onFailure() {
+
+            }
         });
+
 
         signal.await();
 
@@ -84,9 +90,14 @@ public class UserInteractorIntegrationTest {
 
         ui.getUser(new ICallbackUser() {
             @Override
-            public void onReceived(User user, USER_CALLBACK_TYPE type) {
+            public void onReceived(User user, UserCallbackType type) {
                 testUser = user;
                 signal.countDown();
+            }
+
+            @Override
+            public void onFailure() {
+
             }
         });
 
@@ -113,9 +124,14 @@ public class UserInteractorIntegrationTest {
 
         ui.getUser(new ICallbackUser() {
             @Override
-            public void onReceived(User user, USER_CALLBACK_TYPE type) {
+            public void onReceived(User user, UserCallbackType type) {
                 testUser = user;
                 signal.countDown();
+            }
+
+            @Override
+            public void onFailure() {
+
             }
         });
 

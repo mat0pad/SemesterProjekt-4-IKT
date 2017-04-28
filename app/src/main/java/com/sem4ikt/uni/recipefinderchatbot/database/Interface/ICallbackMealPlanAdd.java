@@ -6,7 +6,7 @@ package com.sem4ikt.uni.recipefinderchatbot.database.Interface;
 
 public interface ICallbackMealPlanAdd {
 
-    void onReceived(ADD_CALLBACK_TYPE type);
+    void onReceivedMealPlanAdd();
 
-    enum ADD_CALLBACK_TYPE{SUCCESS,FAILURE};
+    void onFailureMealPlanAdd();
 }

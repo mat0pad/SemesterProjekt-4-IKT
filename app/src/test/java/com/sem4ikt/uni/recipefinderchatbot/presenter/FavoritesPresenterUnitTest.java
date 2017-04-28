@@ -25,7 +25,6 @@ import static org.mockito.Mockito.verify;
 public class FavoritesPresenterUnitTest {
 
     @Mock
-
     IFavoritesView view;
 
     @Mock
@@ -67,29 +66,23 @@ public class FavoritesPresenterUnitTest {
         verify(interactor,times(1)).removeRecipe(null);
     }
 
-    @Test
-    public void onReceivedDeleteRecipeBehavior(){
-        RecipeModel recipe = new RecipeModel();
-        presenter.onReceived(recipe, ICallbackRecipe.RECIPE_CALLBACK_TYPE.DELETE_RECIPE);
-        verify(view,times(1)).deleteRecipe(recipe);
-    }
+
 
     @Test
-    public void onReceivedAddRecipeBehavior(){
-        RecipeModel recipe = new RecipeModel();
-        presenter.onReceived(recipe, ICallbackRecipe.RECIPE_CALLBACK_TYPE.ADD_RECIPE);
-        verify(view,times(1)).addRecipe(recipe);
+    public void onFailureGetRecipeList(){
+        presenter.onFailure();
+        verify(view,times(1)).showRecipeListFailure();
     }
 
     @Test
     public void onReceivedGetRecipeListNoBehavior(){
-        presenter.onReceived(null, ICallbackRecipe.RECIPE_CALLBACK_TYPE.GET_RECIPELIST);
+        presenter.onReceived(null);
         verify(view,times(0)).setList(null);
     }
 
     @Test
     public void onReceivedGetRecipeListBehavior(){
-        presenter.onReceived(new ArrayList<RecipeModel>(), ICallbackRecipe.RECIPE_CALLBACK_TYPE.GET_RECIPELIST);
+        presenter.onReceived(new ArrayList<RecipeModel>());
         verify(view,times(1)).setList(new ArrayList<RecipeModel>());
     }
 
