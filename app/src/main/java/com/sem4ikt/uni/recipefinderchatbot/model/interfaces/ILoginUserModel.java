@@ -14,6 +14,8 @@ public interface ILoginUserModel {
 
     void setPassword(String password);
 
+    String getConfirmPassword();
+
     void setConfirmPassword(String confirmPassword);
 
     boolean checkPasswordsMatches();

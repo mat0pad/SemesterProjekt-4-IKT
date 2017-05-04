@@ -1,9 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
-import android.support.annotation.VisibleForTesting;
-
 import com.sem4ikt.uni.recipefinderchatbot.activity.LoginActivity;
-import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseAuth;
 import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ILoginUserModel;
@@ -20,7 +17,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
     private ILoginUserModel user;
     private IFirebaseAuth auth;
 
-    public LoginPresenter(ILoginView view){
+    /*public LoginPresenter(ILoginView view){
         super(view);
 
         // Create login user model
@@ -29,10 +26,10 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
         // Create model
         auth = new Authentication();
 
-    }
+    }*/
 
-    @VisibleForTesting
-    LoginPresenter(ILoginView view, IFirebaseAuth auth, ILoginUserModel userModel ){
+
+    public LoginPresenter(ILoginView view, IFirebaseAuth auth, ILoginUserModel userModel) {
         super(view);
 
         user = new LoginUserModel();
@@ -146,14 +143,6 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
                 break;
             case FORGOT_PASSWORD_FAILED:
                 view.onPassForgot(false);
-                break;
-            case UPDATE_PASSWORD_SUCCESS:
-                break;
-            case UPDATE_PASSWORD_FAILED:
-                break;
-            case DELETE_ACCOUNT_SUCCESS:
-                break;
-            case DELETE_ACCOUNT_FAILED:
                 break;
 
             default:

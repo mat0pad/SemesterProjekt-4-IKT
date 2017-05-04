@@ -1,12 +1,7 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
-import android.support.annotation.VisibleForTesting;
-
-import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
-import com.sem4ikt.uni.recipefinderchatbot.database.DeleteInfoInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseAuth;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
-import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ILoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginCallback;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ISettingsPresenter;
@@ -22,16 +17,6 @@ public class SettingsPresenter extends BasePresenter<ISettingsView> implements I
     private IFirebaseDBInteractors.IDeleteInfoInteractor dbDelete;
     private ILoginUserModel passChecker;
 
-    public SettingsPresenter(ISettingsView view) {
-        super(view);
-
-        // Create model
-        auth = new Authentication();
-        passChecker = new LoginUserModel();
-        dbDelete = new DeleteInfoInteractor();
-    }
-
-    @VisibleForTesting
     public SettingsPresenter(ISettingsView view, IFirebaseAuth auth, ILoginUserModel loginUserModel, IFirebaseDBInteractors.IDeleteInfoInteractor dbDelete) {
         super(view);
 

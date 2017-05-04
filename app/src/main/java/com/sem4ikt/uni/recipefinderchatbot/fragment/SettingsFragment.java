@@ -17,6 +17,9 @@ import android.widget.Toast;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.activity.LoginActivity;
+import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
+import com.sem4ikt.uni.recipefinderchatbot.database.DeleteInfoInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.SettingsPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ISettingsPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ISettingsView;
@@ -51,7 +54,7 @@ public class SettingsFragment extends Fragment implements ISettingsView, View.On
         passwordField = (EditText) view.findViewById(R.id.change_password_input);
         confirmPasswordField = (EditText) view.findViewById(R.id.change_password_input_confirm);
 
-        presenter = new SettingsPresenter(this);
+        presenter = new SettingsPresenter(this, new Authentication(), new LoginUserModel(), new DeleteInfoInteractor());
 
         Button changePassButton = (Button) view.findViewById(R.id.change_password_button);
         Button delete_account_button = (Button) view.findViewById(R.id.delete_account_button);

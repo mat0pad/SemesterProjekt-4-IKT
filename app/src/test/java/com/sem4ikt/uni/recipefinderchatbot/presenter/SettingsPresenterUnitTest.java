@@ -70,6 +70,13 @@ public class SettingsPresenterUnitTest {
     }
 
     @Test
+    public void showToastOnAuthenticationUpdateDefault() {
+        presenter.onAuthenticationFinished(LoginPresenter.AUTH.CREATE_SUCCESS, "test");
+
+        verify(view, times(0)).onFinish();
+    }
+
+    @Test
     public void authDeleteAccountPressed() {
         presenter.doDeleteAccount();
 
@@ -112,12 +119,24 @@ public class SettingsPresenterUnitTest {
         verify(auth, times(1)).updatePassword("test123", presenter);
     }
 
+
+    @Test
+    public void checkPassword() {
+
+        presenter.doCheckPassSucess("test123", "test123");
+
+        Assert.assertEquals(model.getPassword(), "test123");
+        Assert.assertEquals(model.getConfirmPassword(), "test123");
+    }
+
     @Test
     public void updatePasswordModelCheckSuccess() {
 
         presenter.doCheckPassSucess("test123", "test123");
 
         Assert.assertEquals(model.checkPasswordsMatches(), true);
+
+        verify(view, times(1)).onSwitchToSettingsView();
     }
 
     @Test
@@ -126,7 +145,9 @@ public class SettingsPresenterUnitTest {
         presenter.doCheckPassSucess("test123", "test12");
 
         Assert.assertEquals(model.checkPasswordsMatches(), false);
+        verify(view, times(1)).onShowToast("Same password required in both fields");
     }
+
 
     @Test
     public void updatePasswordNullNull() {

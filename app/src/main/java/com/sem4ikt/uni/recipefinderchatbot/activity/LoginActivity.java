@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
+import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
+import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.LoginPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.ILoginPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.ILoginView;
@@ -55,7 +57,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
         signUpButton.setOnClickListener(this);
 
 
-        loginPresenter = new LoginPresenter(this);
+        loginPresenter = new LoginPresenter(this, new Authentication(), new LoginUserModel());
     }
 
     @Override

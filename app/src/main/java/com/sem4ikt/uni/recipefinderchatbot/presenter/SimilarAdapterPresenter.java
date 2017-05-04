@@ -32,7 +32,7 @@ public class SimilarAdapterPresenter extends BasePresenter<ISimilarGridAdapterVi
 
     @Override
     public int getItemId(int position) {
-        return view.getItem(position).getId();
+        return (view.getItem(position) != null ? view.getItem(position).getId() : 0);
     }
 
 

@@ -16,6 +16,8 @@ import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.EquipmentsGridAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.IngredientsGridAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.SimilarGridAdapter;
+import com.sem4ikt.uni.recipefinderchatbot.database.RecipeInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.model.DetailRecipeInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.EquipmentModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
@@ -67,7 +69,7 @@ public class DetailRecipeActivity extends AppCompatActivity implements IDetailRe
         setContentView(R.layout.recipe_detail);
 
         // Set presenter
-        presenter = new DetailRecipePresenter(this);
+        presenter = new DetailRecipePresenter(this, new RecipeInteractor(), new DetailRecipeInteractor());
 
         // Find views
         title = (TextView) findViewById(R.id.recipe_title);

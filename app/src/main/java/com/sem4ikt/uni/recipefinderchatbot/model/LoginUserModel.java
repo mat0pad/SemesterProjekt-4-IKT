@@ -37,6 +37,11 @@ public class LoginUserModel implements ILoginUserModel {
     }
 
     @Override
+    public String getConfirmPassword() {
+        return this.confirmPassword;
+    }
+
+    @Override
     public void setConfirmPassword(String confirmPassword) {this.confirmPassword = confirmPassword;}
 
     @Override
