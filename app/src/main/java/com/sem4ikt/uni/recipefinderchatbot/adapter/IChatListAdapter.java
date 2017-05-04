@@ -20,7 +20,7 @@ import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
-import com.sem4ikt.uni.recipefinderchatbot.view.ChatListAdapterView;
+import com.sem4ikt.uni.recipefinderchatbot.view.IChatListAdapterView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import java.util.List;
  * Created by mathiaslykkepedersen on 27/02/2017.
  */
 
-public class ChatListAdapter extends BaseAdapter implements ChatListAdapterView {
+public class IChatListAdapter extends BaseAdapter implements IChatListAdapterView {
 
     public static final int DIRECTION_INCOMING = 0;
     public static final int DIRECTION_OUTGOING = 1;
@@ -38,7 +38,7 @@ public class ChatListAdapter extends BaseAdapter implements ChatListAdapterView 
     private List<MessageModel> dialog;
     private Context mContext;
 
-    public ChatListAdapter(Context context) {
+    public IChatListAdapter(Context context) {
 
         dialog = new ArrayList<>();
         this.mContext = context;

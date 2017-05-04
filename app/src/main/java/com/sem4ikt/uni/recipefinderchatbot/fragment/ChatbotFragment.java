@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
-import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
+import com.sem4ikt.uni.recipefinderchatbot.adapter.IChatListAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatListAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatbotPresenter;
@@ -33,7 +33,7 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
     IChatbotPresenter<IChatbotView> chatbotPresenter;
 
     // Adapter stuff
-    ChatListAdapter adapter;
+    IChatListAdapter adapter;
     IChatListAdapterPresenter adapterPresenter;
 
     // Text 2 speech
@@ -62,7 +62,7 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
 
         inputField = (EditText) view.findViewById(R.id.message_edittext);
 
-        adapter = new ChatListAdapter(getActivity());
+        adapter = new IChatListAdapter(getActivity());
 
         adapterPresenter = new ChatListAdapterPresenter(adapter);
 

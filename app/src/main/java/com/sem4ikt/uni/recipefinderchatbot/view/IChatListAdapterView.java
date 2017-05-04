@@ -6,7 +6,7 @@ import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
  * Created by mathiaslykkepedersen on 16/03/2017.
  */
 
-public interface ChatListAdapterView {
+public interface IChatListAdapterView {
 
     void onAddMessage(MessageModel m);
 

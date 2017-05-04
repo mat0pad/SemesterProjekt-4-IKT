@@ -54,7 +54,6 @@ public class DetailRecipeInteractor implements IDetailRecipeInteractor {
                 t.printStackTrace();
             }
         });
-
     }
 
     @Override

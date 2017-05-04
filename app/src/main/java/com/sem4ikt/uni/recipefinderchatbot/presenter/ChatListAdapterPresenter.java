@@ -2,15 +2,15 @@ package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
 import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IChatListAdapterPresenter;
-import com.sem4ikt.uni.recipefinderchatbot.view.ChatListAdapterView;
+import com.sem4ikt.uni.recipefinderchatbot.view.IChatListAdapterView;
 
 /**
  * Created by mathiaslykkepedersen on 16/03/2017.
  */
 
-public class ChatListAdapterPresenter extends BasePresenter<ChatListAdapterView> implements IChatListAdapterPresenter<ChatListAdapterView> {
+public class ChatListAdapterPresenter extends BasePresenter<IChatListAdapterView> implements IChatListAdapterPresenter<IChatListAdapterView> {
 
-    public ChatListAdapterPresenter(ChatListAdapterView view) {
+    public ChatListAdapterPresenter(IChatListAdapterView view) {
         super(view);
     }
 
