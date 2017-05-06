@@ -22,5 +22,11 @@ public interface IMealPlanView {
 
     void onShowDetailRecipe(int id);
 
-    void insertPictures(String[] imageURLs, ImageView breakfastImage,ImageView lunchImage,ImageView dinnerImage);
+    void insertPictures(String[] imageURLs);
+
+    void showNoPlan();
+
+    void showPlan();
+
+    void showErrorToast();
 }

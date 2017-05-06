@@ -26,8 +26,6 @@ public interface IMealPlanPresenter<V> extends IBasePresenter<V> {
 
     Date setDateToTwelve(Date selectedDate);
 
-    void update();
-
     Date getTime();
 
     Date decrementDay(Date date, int dayInWeek);
@@ -46,7 +44,7 @@ public interface IMealPlanPresenter<V> extends IBasePresenter<V> {
 
     String[] loadMealplans(Date selectedDate);
 
-    void showNoPlan(TextView noplan, ScrollView day);
+    void showNoPlan();
 
-    void showMealplanForDay(TextView noplan, ScrollView day, String[] imageURLs, ImageView breakfastImage, ImageView lunchImage, ImageView dinnerImage);
+    void showMealplanForDay( String[] imageURLs);
 }

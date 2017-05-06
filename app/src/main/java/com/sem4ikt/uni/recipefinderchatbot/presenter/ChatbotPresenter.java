@@ -41,6 +41,8 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
     private IChatbotInteractor ci;
     private IFirebaseDBInteractors.IUserInteractor ui;
     private IFirebaseDBInteractors.IMealplanInteractor mi;
+    private Handler mainHandler;
+    private ChatbotInteractor.ChatbotListener listener;
 
     public ChatbotPresenter(IChatbotView view) {
         super(view);
@@ -48,6 +50,18 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
         ui = new UserInteractor();
         ci = new ChatbotInteractor();
         mi = new MealPlansInteractor();
+        mainHandler = new Handler(Looper.getMainLooper());
+    }
+
+    public ChatbotPresenter(IChatbotView view, IConversationInteractor conv, IFirebaseDBInteractors.IUserInteractor user,
+                            IChatbotInteractor chatbot, IFirebaseDBInteractors.IMealplanInteractor mpi,Handler handler)
+    {
+        super(view);
+        api = conv;
+        ui = user;
+        ci = chatbot;
+        mi = mpi;
+        mainHandler = handler;
 
     }
 
@@ -87,12 +101,9 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
         ci.message(workspaceId, input).setChatbotListener(new ChatbotInteractor.ChatbotListener() {
             @Override
             public void onChatbotResponse(final MessageResponse response) {
-                Handler mainHandler = new Handler(Looper.getMainLooper());
-
                 Runnable myRunnable = new Runnable() {
                     @Override
                     public void run() {
-
                         if (response.getOutput().containsKey("action")) {
                             resetNodesVisited();
                             System.out.println("Action found!");

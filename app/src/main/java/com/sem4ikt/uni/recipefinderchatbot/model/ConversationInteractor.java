@@ -37,7 +37,7 @@ import retrofit2.Response;
 public class ConversationInteractor implements IConversationInteractor {
 
     private IApiClient client;
-    private IChatbotPresenter presenter;
+    IChatbotPresenter presenter;
 
     public ConversationInteractor(IChatbotPresenter presenter){
         client = new ApiClient();
