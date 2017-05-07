@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.FavoritesGridAdapter;
+import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
+import com.sem4ikt.uni.recipefinderchatbot.database.RecipeInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.FavoritesGridAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.FavoritesPresenter;
@@ -45,7 +47,7 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
             return null;
         }
 
-        presenter = new FavoritesPresenter(this);
+        presenter = new FavoritesPresenter(this, new RecipeInteractor());
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.favorite, container, false);

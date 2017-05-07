@@ -5,11 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +14,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.activity.DetailRecipeActivity;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
@@ -52,6 +47,10 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
     private SimpleDateFormat dateFormatForMonth;
     private Date selectedDate;
 
+    private ImageView dinnerImage;
+    private ImageView breakfastImage;
+    private ImageView lunchImage;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -69,9 +68,9 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
 
 
         // Find views by id
-        final ImageView dinnerImage = (ImageView) view.findViewById(R.id.dinner);
-        final ImageView breakfastImage = (ImageView) view.findViewById(R.id.breakfast);
-        final ImageView lunchImage = (ImageView) view.findViewById(R.id.lunch);
+        dinnerImage = (ImageView) view.findViewById(R.id.dinner);
+        breakfastImage = (ImageView) view.findViewById(R.id.breakfast);
+        lunchImage = (ImageView) view.findViewById(R.id.lunch);
         final TextView month=(TextView) view.findViewById(R.id.month);
         final Button nextButton = (Button) view.findViewById(R.id.next_button);
         final Button preButton = (Button) view.findViewById(R.id.prev_button);
@@ -110,10 +109,10 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
 
         String[] imageURLs=presenter.loadMealplans(selectedDate);
         if(imageURLs==null){
-            presenter.showNoPlan(noplan,day);
+            presenter.showNoPlan();
         }
         else {
-            presenter.showMealplanForDay(noplan,day,imageURLs,breakfastImage,lunchImage,dinnerImage);
+            presenter.showMealplanForDay(imageURLs);
         }
 
 
@@ -127,10 +126,10 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                 selectedDate=dateClicked;
                 String[] imageURLs=presenter.loadMealplans(selectedDate);
                 if(imageURLs==null){
-                    presenter.showNoPlan(noplan,day);
+                    presenter.showNoPlan();
                 }
                 else {
-                    presenter.showMealplanForDay(noplan,day,imageURLs,breakfastImage,lunchImage,dinnerImage);
+                    presenter.showMealplanForDay(imageURLs);
                 }
 
             }
@@ -142,10 +141,10 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                 selectedDate=firstDayOfNewMonth;
                 String[] imageURLs=presenter.loadMealplans(selectedDate);
                 if(imageURLs==null){
-                   presenter.showNoPlan(noplan,day);
+                   presenter.showNoPlan();
                 }
                 else {
-                    presenter.showMealplanForDay(noplan,day,imageURLs,breakfastImage,lunchImage,dinnerImage);
+                    presenter.showMealplanForDay(imageURLs);
                 }
             }
         });
@@ -208,10 +207,27 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
     }
 
     @Override
-   public void insertPictures(String[] imageURLs,ImageView breakfastImage,ImageView lunchImage,ImageView dinnerImage){
+   public void insertPictures(String[] imageURLs){
         Picasso.with(getActivity()).load(imageURLs[0]).fit().into(breakfastImage);
         Picasso.with(getActivity()).load(imageURLs[1]).fit().into(lunchImage);
         Picasso.with(getActivity()).load(imageURLs[2]).fit().into(dinnerImage);
+    }
+
+    @Override
+    public void showNoPlan() {
+        noplan.setVisibility(View.VISIBLE);
+        day.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showPlan() {
+        noplan.setVisibility(View.GONE);
+        day.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showErrorToast() {
+        Toast.makeText(getView().getContext(),"Error in retriving meal plans, please try againe later",Toast.LENGTH_SHORT).show();
     }
 
     @Override

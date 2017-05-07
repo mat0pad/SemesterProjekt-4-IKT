@@ -32,7 +32,6 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
     List<Date> daysWithMealplan, weeksWithMealplan;
     List<MealPlanWeekModel> weekPlans;
     List<MealPlanDayModel> dayPlans;
-    Calendar cal;
     int dayInWeek = 0;
     boolean dayplanActive;
     int planIndex;
@@ -116,15 +115,14 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
     }
 
     @Override
-    public void showNoPlan(TextView noplan, ScrollView day){
-        noplan.setVisibility(View.VISIBLE);
-        day.setVisibility(View.GONE);
+    public void showNoPlan(){
+        view.showNoPlan();
     }
 
-    public void showMealplanForDay(TextView noplan, ScrollView day, String[] imageURLs,ImageView breakfastImage,ImageView lunchImage, ImageView dinnerImage){
-        noplan.setVisibility(View.GONE);
-        day.setVisibility(View.VISIBLE);
-        view.insertPictures(imageURLs,breakfastImage,lunchImage,dinnerImage);
+    @Override
+    public void showMealplanForDay(String[] imageURLs){
+        view.showPlan();
+        view.insertPictures(imageURLs);
     }
 
     @Override
@@ -152,8 +150,6 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
         int meal = 0;
 
 
-
-        Log.e("DatoTid", ""+selectedDate);
         //breakfast
         if(daysWithMealplan!=null ) {
             if (daysWithMealplan.contains(selectedDate)) {
@@ -161,7 +157,6 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
                 image = dayPlans.get(planIndex).getRecipeModels().get(meal).getImage();//if dayplan
 
                 beenInDay = true;
-                Log.e("meal day breakfast", Integer.toString(meal));
                 meal++;
 
             }
@@ -175,7 +170,7 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
                 }
             }
         }
-        if (containsPlan) {
+        if (containsPlan ) {
             planIndex = weeksWithMealplan.indexOf(mealPlanStart);
             meal=dayInWeek*3;
             if(weekPlans.get(planIndex).getItems().size()<21){
@@ -186,13 +181,11 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
             value = weekPlans.get(planIndex).getItems().get(meal).getValue();
             jon = new JsonParser().parse(value).getAsJsonObject();
             image = jon.get("id").getAsString();
-            image = image + "-556x370.jpg";                             //create picture URL
-            Log.e("meal week breakfast",Integer.toString(meal));
+            image = image + "-556x370.jpg";                             //create picture UR
             meal++;
-            Log.e("dayInWeek breakfast",Integer.toString(dayInWeek));
         }
 
-        else {
+        else if(!beenInDay){
                 return URLs=null;               //if no plan exists for day
         }
 
@@ -207,8 +200,6 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
                 imageUrl = BASE_URL + image;//insert picture
 
             URLs[0]=imageUrl;
-
-            Log.e("url Breakfasr",imageUrl);
         }
 
         //lunch
@@ -216,7 +207,6 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
             planIndex = daysWithMealplan.indexOf(selectedDate);
             image = dayPlans.get(planIndex).getRecipeModels().get(meal).getImage();//if dayplan
             meal++;
-            Log.e("meal day lunch",Integer.toString(meal));
         }
         else if (containsPlan) {
             planIndex = weeksWithMealplan.indexOf(mealPlanStart);
@@ -224,18 +214,10 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
             jon = new JsonParser().parse(value).getAsJsonObject();
             image = jon.get("id").getAsString();
             image = image + "-556x370.jpg";                             //create picture URL
-            Log.e("meal week lunch",Integer.toString(meal));
             meal++;
-            Log.e("dayInWeek lunch",Integer.toString(dayInWeek));
         }
 
-        else {
-            image=null;
-            //if no plan exists for day
-        }
-
-        if(image!=null)
-        {
+        if(image!=null) {
             String BASE_URL = "https://spoonacular.com/recipeImages/";
             String imageUrl;
 
@@ -245,14 +227,12 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
                 imageUrl = BASE_URL + image;//insert picture
 
             URLs[1]=imageUrl;
-            Log.e("url lunch",imageUrl);
         }
 
         //dinner
         if (beenInDay) {
             planIndex = daysWithMealplan.indexOf(selectedDate);
             image = dayPlans.get(planIndex).getRecipeModels().get(meal).getImage();//if daypla
-            Log.e("meal day dinner",Integer.toString(meal));
         }
         else if (containsPlan) {
             planIndex = weeksWithMealplan.indexOf(mealPlanStart);
@@ -261,15 +241,6 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
             image = jon.get("id").getAsString();
             image = image + "-556x370.jpg";                             //create picture URL
 
-
-            Log.e("meal week dinner",Integer.toString(meal));
-            Log.e("dayInWeek dinner",Integer.toString(dayInWeek));
-            Log.e("size of weekplan items",Integer.toString(weekPlans.get(planIndex).getItems().size()));
-        }
-
-        else {
-            image=null;
-            //if no plan exists for day
         }
 
         if(image!=null)
@@ -283,16 +254,13 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
                 imageUrl = BASE_URL + image;//insert picture
 
             URLs[2]=imageUrl;
-            Log.e("url dinner",imageUrl);
         }
         dayplanActive=beenInDay;
         return URLs;
     }
 
 
-    public void update() {
-        //ctrl.update(this);
-    }
+
 
     @Override
     public Date getTime() {
@@ -324,7 +292,7 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
 
     @Override
     public void onFailureDay() {
-        //call error toast
+        view.showErrorToast();
     }
 
     @Override
@@ -343,6 +311,6 @@ public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements I
 
     @Override
     public void onFailureWeek() {
-        //call error toast
+        view.showErrorToast();
     }
 }

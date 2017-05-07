@@ -13,8 +13,6 @@ public interface IFavoritesGridAdapterPresenter<V>  extends IBasePresenter<V>{
 
     void addRecipe(RecipeModel recipe);
 
-    void update(List<RecipeModel> list);
-
     void doSearch(String query);
 
     void setList(List<RecipeModel> list);

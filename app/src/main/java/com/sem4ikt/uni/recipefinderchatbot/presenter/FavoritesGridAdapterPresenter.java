@@ -6,6 +6,7 @@ import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ISearchModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IFavoritesGridAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.view.IFavoritesGridAdapterView;
+import com.sem4ikt.uni.recipefinderchatbot.view.IFavoritesView;
 
 import java.util.List;
 
@@ -22,6 +23,12 @@ public class FavoritesGridAdapterPresenter extends BasePresenter<IFavoritesGridA
         search = new SearchModel();
     }
 
+    public FavoritesGridAdapterPresenter(IFavoritesGridAdapterView view,ISearchModel searchModel)
+    {
+        super(view);
+        search = searchModel;
+    }
+
     @Override
     public List<RecipeModel> getList() {
         return view.getList();
@@ -31,11 +38,6 @@ public class FavoritesGridAdapterPresenter extends BasePresenter<IFavoritesGridA
     public void addRecipe(RecipeModel recipe) {
 
         view.addRecipe(recipe);
-        view.notifyUpdate();
-    }
-
-    @Override
-    public void update(List<RecipeModel> list) {
         view.notifyUpdate();
     }
 

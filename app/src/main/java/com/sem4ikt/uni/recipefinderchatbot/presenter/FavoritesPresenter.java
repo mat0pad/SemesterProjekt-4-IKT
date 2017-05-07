@@ -19,12 +19,6 @@ public class FavoritesPresenter extends BasePresenter<IFavoritesView> implements
 
     private IFirebaseDBInteractors.IRecipeInteractor interactor;
 
-    public FavoritesPresenter(IFavoritesView view) {
-        super(view);
-        interactor = new RecipeInteractor();
-    }
-
-    @VisibleForTesting
     public FavoritesPresenter(IFavoritesView view, IFirebaseDBInteractors.IRecipeInteractor interactor) {
         super(view);
 

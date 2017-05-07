@@ -66,8 +66,6 @@ public class FavoritesPresenterUnitTest {
         verify(interactor,times(1)).removeRecipe(null);
     }
 
-
-
     @Test
     public void onFailureGetRecipeList(){
         presenter.onFailure();
@@ -85,6 +83,8 @@ public class FavoritesPresenterUnitTest {
         presenter.onReceived(new ArrayList<RecipeModel>());
         verify(view,times(1)).setList(new ArrayList<RecipeModel>());
     }
+
+
 
 
 }
