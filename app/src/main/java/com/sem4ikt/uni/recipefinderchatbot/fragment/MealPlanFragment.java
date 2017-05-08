@@ -186,6 +186,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
                     kal.add(Calendar.DATE,1);
                 }
             }
+            compactCalenderView.addEvents(prikker);
         }
     }
 
