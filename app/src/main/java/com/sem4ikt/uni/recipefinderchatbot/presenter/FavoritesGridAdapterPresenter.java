@@ -18,11 +18,6 @@ public class FavoritesGridAdapterPresenter extends BasePresenter<IFavoritesGridA
 
     private ISearchModel search;
 
-    public FavoritesGridAdapterPresenter(IFavoritesGridAdapterView view) {
-        super(view);
-        search = new SearchModel();
-    }
-
     public FavoritesGridAdapterPresenter(IFavoritesGridAdapterView view,ISearchModel searchModel)
     {
         super(view);

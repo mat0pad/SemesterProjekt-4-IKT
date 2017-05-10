@@ -38,8 +38,6 @@ public class FavoritesGridAdapterPresenterTest {
 
     @Before
     public void setup() throws Exception {
-
-        presenter = new FavoritesGridAdapterPresenter(view);
         presenter = new FavoritesGridAdapterPresenter(view,searchModel);
     }
 

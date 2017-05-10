@@ -31,29 +31,6 @@ public class SearchModel implements ISearchModel {
         return search(list,searchwords);
     }
 
-    @Override
-    public List<RecipeModel> searchMultiThread(List<RecipeModel> list, String search) throws InterruptedException {
-        List<RecipeModel> searchList = new ArrayList<>();
-        String[] searchwords = search.split("\\s+");
-
-        SearchThread first = new SearchThread(list.subList(0,(int) (list.size()/2)),searchwords);
-        SearchThread second =  new SearchThread(list.subList((int) (list.size()/2),list.size()),searchwords);
-
-        Thread firstT = new Thread(first);
-        Thread secondT = new Thread(second);
-        first.run();
-        second.run();
-
-        firstT.join();
-        secondT.join();
-        searchList.addAll(first.getList());
-        searchList.addAll(second.getList());
-
-
-
-
-        return searchList;
-    }
 
     @Override
     public List<RecipeModel> search(List<RecipeModel> list, String[] searchwords) {

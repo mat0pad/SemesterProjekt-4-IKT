@@ -57,38 +57,6 @@ public class SearchModelTest {
         List<RecipeModel> searchlist = sm.searchSingleThread(list,"cupcake");
         Assert.assertEquals(searchlist,list);
     }
-/*
-    @Test
-    public void searchMultihreadFoundWord() throws InterruptedException {
-        String Title = "Cupcake";
-        RecipeModel rp = new RecipeModel();
-        rp.setTitle(Title);
-        list.add(rp);
-        List<RecipeModel> searchlist = sm.searchMultiThread(list,Title);
-        Assert.assertEquals(searchlist,list);
-    }
-
-    @Test
-    public void searchMultiThreadNotFoundTest() throws InterruptedException {
-        String Title = "Cupcake";
-        RecipeModel rp = new RecipeModel();
-        rp.setTitle(Title);
-        list.add(rp);
-        List<RecipeModel> searchlist = sm.searchMultiThread(list,"test");
-        Assert.assertNotEquals(searchlist,list);
-    }
-
-    @Test
-    public void setMultiThreadInsideTest() throws InterruptedException {
-        String Title = "xxcupcakexx";
-        RecipeModel rp = new RecipeModel();
-        rp.setTitle(Title);
-        list.add(rp);
-        List<RecipeModel> searchlist = sm.searchMultiThread(list,"cupcake");
-        Assert.assertEquals(searchlist,list);
-    }
-
-    */
 
 
 }

@@ -30,26 +30,18 @@ public class FavoritesPresenter extends BasePresenter<IFavoritesView> implements
         interactor.getRecipe(this);
     }
 
-
-
     @Override
     public void deleteRecipe(RecipeModel recipe) {
         interactor.removeRecipe(recipe);
     }
 
-
-
     @Override
     public void onReceived(List<RecipeModel> recipe) {
-        if(recipe != null) {
             view.setList(recipe);
-        }
     }
 
     @Override
     public void onFailure() {
         view.showRecipeListFailure();
     }
-
-
 }

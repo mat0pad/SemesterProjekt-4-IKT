@@ -12,8 +12,5 @@ import java.util.Map;
 public interface ISearchModel {
     List<RecipeModel> searchSingleThread(List<RecipeModel> list, String search);
 
-    List<RecipeModel> searchMultiThread(List<RecipeModel> list , String search) throws InterruptedException;
-
-
     List<RecipeModel> search(List<RecipeModel> partoflist, String[] searchwords);
 }

@@ -18,6 +18,7 @@ import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.FavoritesGridAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 import com.sem4ikt.uni.recipefinderchatbot.database.RecipeInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.model.SearchModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.FavoritesGridAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.FavoritesPresenter;
@@ -29,7 +30,7 @@ import com.sem4ikt.uni.recipefinderchatbot.view.IFavoritesView;
 import java.util.List;
 
 /**
- * Created by Christian on 12-03-2017.
+ * Created by Anton on 12-03-2017.
  */
 
 public class FavoritesFragment extends Fragment implements IFavoritesView {
@@ -66,7 +67,7 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
         FavoritesGridAdapter adapter = new FavoritesGridAdapter(getActivity());
         gridView.setAdapter(adapter);
 
-        gridPresenter = new FavoritesGridAdapterPresenter(adapter);
+        gridPresenter = new FavoritesGridAdapterPresenter(adapter,new SearchModel());
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 

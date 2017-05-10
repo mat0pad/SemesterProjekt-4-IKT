@@ -48,27 +48,4 @@ public class SearchModelUnitTest {
         Assert.assertNotEquals(list.size(),sm.searchSingleThread(list,"Chicken").size());
     }
 
-    @Test
-    public void multiThreadSearchFoundRecipe() throws InterruptedException {
-        //Setup
-
-        List<RecipeModel> list = new ArrayList<>();
-        RecipeModel rp = new RecipeModel();
-        rp.setTitle("Hamburger");
-        list.add(rp);
-
-        Assert.assertEquals(rp,sm.searchMultiThread(list,"Hamburger").get(0));
-
-    }
-
-    /*@Test
-    public void multiThreadSearchFoundNone() throws InterruptedException {
-        List<RecipeModel> list = new ArrayList<>();
-        RecipeModel rp = new RecipeModel();
-        rp.setTitle("Hamburger");
-        list.add(rp);
-
-        Assert.assertNotEquals(list.size(),sm.searchMultiThread(list,"Chicken").size());
-
-    }*/
 }

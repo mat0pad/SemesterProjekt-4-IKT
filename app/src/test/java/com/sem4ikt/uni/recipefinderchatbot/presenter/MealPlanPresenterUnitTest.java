@@ -1,9 +1,5 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
-import android.content.Context;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackDayMealplan;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackWeekMealplan;
 
@@ -11,7 +7,6 @@ import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInterac
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.Item;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
-import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipeModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 import com.sem4ikt.uni.recipefinderchatbot.view.IMealPlanView;
 
