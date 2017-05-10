@@ -73,12 +73,6 @@ public class FavoritesPresenterUnitTest {
     }
 
     @Test
-    public void onReceivedGetRecipeListNoBehavior(){
-        presenter.onReceived(null);
-        verify(view,times(0)).setList(null);
-    }
-
-    @Test
     public void onReceivedGetRecipeListBehavior(){
         presenter.onReceived(new ArrayList<RecipeModel>());
         verify(view,times(1)).setList(new ArrayList<RecipeModel>());
