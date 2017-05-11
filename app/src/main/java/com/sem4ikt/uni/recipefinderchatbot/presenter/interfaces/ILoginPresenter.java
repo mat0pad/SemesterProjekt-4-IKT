@@ -13,7 +13,7 @@ public interface ILoginPresenter<V> extends IBasePresenter<V> {
     void doCreateUser(String email, String password, String confirm_password);
     void doForgotPassword(String email);
 
-    void showLayout(LoginActivity.LoginView v);
+    void showLayout(LoginActivity.LoginView state);
 
     void doBack(LoginActivity.LoginView state);
     void setProgressBarVisiblity(boolean visibile);

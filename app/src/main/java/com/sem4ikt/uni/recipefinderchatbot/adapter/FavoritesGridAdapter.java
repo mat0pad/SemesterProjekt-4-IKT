@@ -30,8 +30,9 @@ public class FavoritesGridAdapter extends BaseAdapter implements IFavoritesGridA
 
     private List<RecipeModel> fullList;
     private List<RecipeModel> list;
-    private Context mContext;
     private boolean isdeleting;
+
+    private Context mContext;
 
     public FavoritesGridAdapter(Context context){
         fullList = new ArrayList<>();

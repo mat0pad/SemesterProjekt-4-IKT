@@ -27,12 +27,14 @@ import com.yalantis.guillotine.animation.GuillotineAnimation;
  */
 public class MainActivity extends AppCompatActivity implements IMainView , View.OnClickListener {
 
+    //GUI
     FrameLayout frameContainer;
     CanaroTextView mealPlan, chatbot, settings, favorites, menuTitle;
     private Toolbar toolbar;
     private FrameLayout root;
     private View contentHamburger;
     private GuillotineAnimation builder;
+    //Presenter
     private IMainPresenter mainPresenter;
 
     @Override
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
 
     }
 
+    @Override
     public void showFragment(int frag){
 
         // Add the fragment to the frameLayout
@@ -117,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
 
     }
 
+    @Override
     public void setup(){
 
         if (toolbar != null) {
@@ -147,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
                 .build();
     }
 
+    @Override
     public void onDestroy(){
         super.onDestroy();
 
