@@ -41,7 +41,8 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
     private CompactCalendarView compactCalenderView;
     IMealPlanPresenter presenter;
 
-    List<Event> prikker;
+    List<Event> prikkerDay;
+    List<Event> prikkerWeek;
     ActionBar toolbar;
 
     private SimpleDateFormat dateFormatForMonth;
@@ -97,7 +98,8 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
 
         selectedDate = new Date();
         dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
-        prikker=new ArrayList<>();
+        prikkerDay=new ArrayList<>();
+        prikkerWeek= new ArrayList<>();
         //setup show month
          //toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
          //toolbar.setTitle(dateFormatForMonth.format(compactCalenderView.getFirstDayOfCurrentMonth()));
@@ -182,11 +184,11 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
             for (int i=0;i<dates.size();i++){
                 kal.setTime(dates.get(i));
                 for (int j=0;j<7;j++) {
-                    prikker.add(new Event(Color.GREEN, kal.getTimeInMillis(), null));
+                    prikkerDay.add(new Event(Color.GREEN, kal.getTimeInMillis(), null));
                     kal.add(Calendar.DATE,1);
                 }
             }
-            compactCalenderView.addEvents(prikker);
+            compactCalenderView.addEvents(prikkerDay);
         }
     }
 
@@ -199,11 +201,11 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
             for (int i=0;i<dates.size();i++){
                 kal.setTime(dates.get(i));
                 for (int j=0;j<7;j++) {
-                    prikker.add(new Event(Color.GREEN, kal.getTimeInMillis(), null));
+                    prikkerWeek.add(new Event(Color.GREEN, kal.getTimeInMillis(), null));
                     kal.add(Calendar.DATE,1);
                 }
             }
-            compactCalenderView.addEvents(prikker);
+            compactCalenderView.addEvents(prikkerWeek);
         }
     }
 
