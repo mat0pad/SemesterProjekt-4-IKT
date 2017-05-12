@@ -28,7 +28,7 @@ public class ChatbotService implements IChatbotService {
     private Map<String, Object> contextGeneral, contextRecipe;
     private String workspaceIdentifier, message;
 
-
+    @Override
     public void message(String workspaceId, String msg) {
         if (!Objects.equals(workspaceIdentifier, workspaceId)) {
             workspaceIdentifier = workspaceId;
@@ -63,6 +63,7 @@ public class ChatbotService implements IChatbotService {
         message = msg;
     }
 
+    @Override
     public void setUserContextGeneral(User user)
     {
         if (user != null) {
@@ -83,6 +84,7 @@ public class ChatbotService implements IChatbotService {
 
     }
 
+    @Override
     public ChatbotService setConversationServiceCredentials(String username, String password){
         convService.setUsernameAndPassword(username, password);
 
@@ -92,11 +94,13 @@ public class ChatbotService implements IChatbotService {
         return this;
     }
 
+    @Override
     public ChatbotService setToneAnalyzerCredentials(String username, String password) {
         toneService.setUsernameAndPassword(username, password);
         return this;
     }
 
+    @Override
     public void setChatbotListener(final ChatbotInteractor.Callback callback) {
         final String message = this.message;
         final String workspaceIdentifier = this.workspaceIdentifier;

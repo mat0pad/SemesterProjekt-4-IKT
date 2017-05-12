@@ -62,6 +62,7 @@ public class ChatListAdapter extends BaseAdapter implements IChatListAdapterView
         return image;
     }
 
+    @Override
     public void onAddMessage(MessageModel m) {
 
         dialog.add(m);
