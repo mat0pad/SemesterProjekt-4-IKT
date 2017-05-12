@@ -1,14 +1,8 @@
 package com.sem4ikt.uni.recipefinderchatbot.database;
 
-import android.util.Log;
-
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
 
 /**
@@ -17,16 +11,21 @@ import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInterac
 
 public class DeleteInfoInteractor implements IFirebaseDBInteractors.IDeleteInfoInteractor {
 
+    private DatabaseReference database =  FirebaseDatabase.getInstance().getReference();
+    private String uId;
 
+    public DeleteInfoInteractor()
+    {
+        database =  FirebaseDatabase.getInstance().getReference();
+        uId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    }
 
     @Override
     public void removeAllUserInfo() {
-        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        String Uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        database.child("User/"+Uid).removeValue();
-        database.child("MealplanDate/"+Uid).removeValue();
-        database.child("MealplanWeek/"+Uid).removeValue();
-        database.child("MealplanDay/"+Uid).removeValue();
-        database.child("Recipe/"+Uid).removeValue();
+        database.child("User/"+ uId).removeValue();
+        database.child("MealplanDate/"+ uId).removeValue();
+        database.child("MealplanWeek/"+ uId).removeValue();
+        database.child("MealplanDay/"+ uId).removeValue();
+        database.child("Recipe/"+ uId).removeValue();
     }
 }
