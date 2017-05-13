@@ -20,6 +20,7 @@ import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.activity.DetailRecipeActivity;
+import com.sem4ikt.uni.recipefinderchatbot.database.MealPlansInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.MealPlanPresenter;
@@ -43,7 +44,6 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
 
     List<Event> prikkerDay;
     List<Event> prikkerWeek;
-    ActionBar toolbar;
 
     private SimpleDateFormat dateFormatForMonth;
     private Date selectedDate;
@@ -63,7 +63,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
         View view = inflater.inflate(R.layout.mealplan, container, false);
 
         // Setup presenter
-        presenter = new MealPlanPresenter(this);
+        presenter = new MealPlanPresenter(this,new MealPlansInteractor());
 
 
 

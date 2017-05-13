@@ -19,10 +19,8 @@ import java.util.Map;
 
 public class SearchModel implements ISearchModel {
 
-    @VisibleForTesting
-
     @Override
-    public List<RecipeModel> searchSingleThread(List<RecipeModel> list, String search) {
+    public List<RecipeModel> searchRecipe(List<RecipeModel> list, String search) {
 
         List<RecipeModel> searchList = new ArrayList<>();
         String[] searchwords = search.split("\\s+");
@@ -32,8 +30,8 @@ public class SearchModel implements ISearchModel {
     }
 
 
-    @Override
-    public List<RecipeModel> search(List<RecipeModel> list, String[] searchwords) {
+
+    private List<RecipeModel> search(List<RecipeModel> list, String[] searchwords) {
         List<RecipeModel> searchlist = new ArrayList<>();
         boolean containsword;
 

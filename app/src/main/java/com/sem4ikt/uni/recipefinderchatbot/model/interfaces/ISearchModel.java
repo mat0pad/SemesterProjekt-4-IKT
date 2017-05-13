@@ -10,7 +10,5 @@ import java.util.Map;
  */
 
 public interface ISearchModel {
-    List<RecipeModel> searchSingleThread(List<RecipeModel> list, String search);
-
-    List<RecipeModel> search(List<RecipeModel> partoflist, String[] searchwords);
+    List<RecipeModel> searchRecipe(List<RecipeModel> list, String search);
 }
