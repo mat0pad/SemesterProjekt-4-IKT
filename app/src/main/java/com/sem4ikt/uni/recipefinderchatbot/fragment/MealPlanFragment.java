@@ -183,10 +183,7 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
             Calendar kal= Calendar.getInstance();
             for (int i=0;i<dates.size();i++){
                 kal.setTime(dates.get(i));
-                for (int j=0;j<7;j++) {
                     prikkerDay.add(new Event(Color.GREEN, kal.getTimeInMillis(), null));
-                    kal.add(Calendar.DATE,1);
-                }
             }
             compactCalenderView.addEvents(prikkerDay);
         }
@@ -238,12 +235,14 @@ public class MealPlanFragment extends Fragment implements IMealPlanView, View.On
 
         switch (view.getId()) {
 
-            case R.id.dinner:
-                presenter.doDinner();
-
             case R.id.lunch:
                 presenter.doLunch();
                 break;
+
+            case R.id.dinner:
+                presenter.doDinner();
+                break;
+
 
             case R.id.breakfast:
                 presenter.doBreakfast();
