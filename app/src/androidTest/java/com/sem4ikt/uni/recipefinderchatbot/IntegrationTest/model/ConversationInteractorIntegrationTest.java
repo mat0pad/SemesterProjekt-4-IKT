@@ -115,8 +115,8 @@ public class ConversationInteractorIntegrationTest {
                         if(((List<IngredientsModel>) obj).size() == numRecipes)
                             didReceiv = true;
                         break;
-                }
 
+                }
                 signal.countDown();
             }
 
@@ -309,7 +309,7 @@ public class ConversationInteractorIntegrationTest {
         MessageResponse messageResponse = new MessageResponse();
         Map<String,Object> context = new HashMap<>();
 
-        context.put("with_query","apple banana");
+        context.put("with_query","apple, banana");
         context.put("num_of_recipes", numRecipes);
         context.put("rank",1);
 

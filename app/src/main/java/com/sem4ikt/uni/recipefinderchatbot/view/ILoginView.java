@@ -14,7 +14,7 @@ public interface ILoginView {
     void onClearText();
     void onSetProgressVisibility(boolean visible );
 
-    void onPresentView(LoginActivity.LoginView v);
+    void onPresentView(LoginActivity.LoginView state);
 
     void onFinish();
 

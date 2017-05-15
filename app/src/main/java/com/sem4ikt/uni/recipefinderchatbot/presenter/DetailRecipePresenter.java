@@ -176,6 +176,4 @@ public class DetailRecipePresenter extends BasePresenter<IDetailRecipeView> impl
     }
 
 
-
-    public enum CALL_TYPE {GET_RECIPE, SUMMARIZE, SIMILAR, INSTRUCTION}
 }

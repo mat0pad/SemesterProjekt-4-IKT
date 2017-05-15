@@ -26,35 +26,35 @@ public class SearchModelTest {
     }
 
     @Test
-    public void searchSingleThreadFirstWordTest()
+    public void searchRecipeThreadFirstWordTest()
     {
         String Title = "Cupcake";
         RecipeModel rp = new RecipeModel();
         rp.setTitle(Title);
         list.add(rp);
-        List<RecipeModel> searchlist = sm.searchSingleThread(list,Title);
+        List<RecipeModel> searchlist = sm.searchRecipe(list,Title);
         Assert.assertEquals(searchlist,list);
     }
 
     @Test
-    public void searchSingleThreadNotFoundTest()
+    public void searchRecipeThreadNotFoundTest()
     {
         String Title = "Cupcake";
         RecipeModel rp = new RecipeModel();
         rp.setTitle(Title);
         list.add(rp);
-        List<RecipeModel> searchlist = sm.searchSingleThread(list,"test");
+        List<RecipeModel> searchlist = sm.searchRecipe(list,"test");
         Assert.assertNotEquals(searchlist,list);
     }
 
     @Test
-    public void setSingleThreadInsideTest()
+    public void setRecipeThreadInsideTest()
     {
         String Title = "xxcupcakexx";
         RecipeModel rp = new RecipeModel();
         rp.setTitle(Title);
         list.add(rp);
-        List<RecipeModel> searchlist = sm.searchSingleThread(list,"cupcake");
+        List<RecipeModel> searchlist = sm.searchRecipe(list,"cupcake");
         Assert.assertEquals(searchlist,list);
     }
 

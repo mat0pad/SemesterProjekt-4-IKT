@@ -82,7 +82,6 @@ public interface ISpoonacularAPI {
 
     interface IData{
 
-
         /**
          * @param id                :the id of recipe
          * @param includeNutrition  :include nutrition data to the recipe information

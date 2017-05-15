@@ -30,7 +30,7 @@ import java.util.List;
  * Created by mathiaslykkepedersen on 27/02/2017.
  */
 
-public class IChatListAdapter extends BaseAdapter implements IChatListAdapterView {
+public class ChatListAdapter extends BaseAdapter implements IChatListAdapterView {
 
     public static final int DIRECTION_INCOMING = 0;
     public static final int DIRECTION_OUTGOING = 1;
@@ -38,7 +38,7 @@ public class IChatListAdapter extends BaseAdapter implements IChatListAdapterVie
     private List<MessageModel> dialog;
     private Context mContext;
 
-    public IChatListAdapter(Context context) {
+    public ChatListAdapter(Context context) {
 
         dialog = new ArrayList<>();
         this.mContext = context;
@@ -62,6 +62,7 @@ public class IChatListAdapter extends BaseAdapter implements IChatListAdapterVie
         return image;
     }
 
+    @Override
     public void onAddMessage(MessageModel m) {
 
         dialog.add(m);

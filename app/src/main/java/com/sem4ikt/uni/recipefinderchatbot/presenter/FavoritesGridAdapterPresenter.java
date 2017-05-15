@@ -39,7 +39,7 @@ public class FavoritesGridAdapterPresenter extends BasePresenter<IFavoritesGridA
     @Override
     public void doSearch(String query) {
         List<RecipeModel> list = getList();
-        view.setList(search.searchSingleThread(list,query));
+        view.setList(search.searchRecipe(list,query));
         view.notifyUpdate();
     }
 

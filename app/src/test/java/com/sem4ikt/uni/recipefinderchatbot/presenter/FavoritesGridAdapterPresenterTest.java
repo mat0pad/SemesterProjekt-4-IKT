@@ -85,7 +85,7 @@ public class FavoritesGridAdapterPresenterTest {
         presenter.doSearch("test");
 
         List<RecipeModel> list = new ArrayList<>();
-        when(searchModel.searchSingleThread(any(List.class),anyString())).thenReturn(list);
+        when(searchModel.searchRecipe(any(List.class),anyString())).thenReturn(list);
 
         verify(view,times(1)).setList(list);
     }
@@ -95,7 +95,7 @@ public class FavoritesGridAdapterPresenterTest {
     {
         presenter.doSearch("test");
 
-        verify(searchModel,times(1)).searchSingleThread(any(List.class),anyString());
+        verify(searchModel,times(1)).searchRecipe(any(List.class),anyString());
     }
 
     @Test

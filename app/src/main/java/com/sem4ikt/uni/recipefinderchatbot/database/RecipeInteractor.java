@@ -22,24 +22,24 @@ import java.util.List;
 
 public class RecipeInteractor implements IFirebaseDBInteractors.IRecipeInteractor {
 
-    private DatabaseReference Database;
+    private DatabaseReference database;
 
     public RecipeInteractor()
     {
         if(FirebaseAuth.getInstance().getCurrentUser() != null)
-            Database = FirebaseDatabase.getInstance().getReference("Recipe/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
+            database = FirebaseDatabase.getInstance().getReference("Recipe/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
         else
-            Database = FirebaseDatabase.getInstance().getReference("Test"); //Cant save data if not logged in
+            database = FirebaseDatabase.getInstance().getReference("Test"); //Cant save data if not logged in
 
     }
     @Override
     public void addRecipe(RecipeModel recipe) {
-        Database.push().setValue(recipe);
+        database.push().setValue(recipe);
     }
 
     @Override
     public void removeRecipe(RecipeModel recipe) {
-        Query recipeQuery = Database.orderByChild("id").equalTo(recipe.getId());
+        Query recipeQuery = database.orderByChild("id").equalTo(recipe.getId());
 
         recipeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -60,7 +60,7 @@ public class RecipeInteractor implements IFirebaseDBInteractors.IRecipeInteracto
 
     @Override
     public void getRecipe(final ICallbackRecipe callback) {
-        Database.addListenerForSingleValueEvent(new ValueEventListener() {
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<RecipeModel> recipeList = new ArrayList<>();

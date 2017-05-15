@@ -39,11 +39,15 @@ public class ConversationInteractor implements IConversationInteractor {
     private IApiClient client;
     IChatbotPresenter presenter;
 
-    public ConversationInteractor(IChatbotPresenter presenter){
+    public ConversationInteractor(){
         client = new ApiClient();
-        this.presenter = presenter;
     }
 
+
+    @Override
+    public void setPresenter(IChatbotPresenter presenter) {
+        this.presenter = presenter;
+    }
 
     @Override
     public void performAction(String action, MessageResponse response) {

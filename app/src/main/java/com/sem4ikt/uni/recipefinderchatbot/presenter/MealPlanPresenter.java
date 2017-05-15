@@ -29,26 +29,15 @@ import java.util.Locale;
  */
 
 public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements IMealPlanPresenter<IMealPlanView>,ICallbackDayMealplan,ICallbackWeekMealplan {
-    List<Date> daysWithMealplan, weeksWithMealplan;
-    List<MealPlanWeekModel> weekPlans;
-    List<MealPlanDayModel> dayPlans;
-    int dayInWeek = 0;
-    boolean dayplanActive;
-    int planIndex;
+    public List<Date> daysWithMealplan, weeksWithMealplan;
+    public List<MealPlanWeekModel> weekPlans;
+    public List<MealPlanDayModel> dayPlans;
+    public int dayInWeek = 0;
+    public boolean dayplanActive;
+    public int planIndex;
 
     private IFirebaseDBInteractors.IMealplanInteractor ctrl;
 
-    public MealPlanPresenter(IMealPlanView view) {
-        super(view);
-        ctrl = new MealPlansInteractor();
-
-        daysWithMealplan = new ArrayList<>();
-        weeksWithMealplan = new ArrayList<>();
-        weekPlans = new ArrayList<>();
-        dayPlans = new ArrayList<>();
-    }
-
-    @VisibleForTesting
     public MealPlanPresenter(IMealPlanView view, IFirebaseDBInteractors.IMealplanInteractor ctrl) {
         super(view);
         this.ctrl = ctrl;
