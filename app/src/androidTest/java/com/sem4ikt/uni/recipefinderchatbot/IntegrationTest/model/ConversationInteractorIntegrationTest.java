@@ -307,7 +307,7 @@ public class ConversationInteractorIntegrationTest {
 
     @Test
     public void performFindByIngredientReceiveMore() throws InterruptedException {
-        signal = new CountDownLatch(1);
+        signal = new CountDownLatch(2);
 
         MessageResponse messageResponse = new MessageResponse();
         Map<String,Object> context = new HashMap<>();
