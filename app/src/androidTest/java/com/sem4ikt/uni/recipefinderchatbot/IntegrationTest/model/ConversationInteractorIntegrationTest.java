@@ -61,7 +61,10 @@ public class ConversationInteractorIntegrationTest {
         _text = null;
         didReceiv = false;
 
-        interactor = new ConversationInteractor(new IChatbotPresenter() {
+        interactor = new ConversationInteractor();
+
+        interactor.setPresenter(new IChatbotPresenter()
+        {
             @Override
             public void send(String input) {
 

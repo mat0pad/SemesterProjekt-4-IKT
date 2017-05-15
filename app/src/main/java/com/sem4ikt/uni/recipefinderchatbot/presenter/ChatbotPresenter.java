@@ -55,7 +55,6 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
         ci = chatbot;
         mi = mpi;
         mainHandler = handler;
-
     }
 
     @Override
