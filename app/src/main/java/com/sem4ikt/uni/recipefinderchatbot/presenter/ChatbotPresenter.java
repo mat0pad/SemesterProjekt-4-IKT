@@ -43,36 +43,19 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
     private IFirebaseDBInteractors.IMealplanInteractor mi;
     private Handler mainHandler;
 
-    public ChatbotPresenter(IChatbotView view) {
-        super(view);
-        api = new ConversationInteractor(this);
-        ui = new UserInteractor();
-        ci = new ChatbotInteractor();
-        mi = new MealPlansInteractor();
-        mainHandler = new Handler(Looper.getMainLooper());
-    }
+
 
     public ChatbotPresenter(IChatbotView view, IConversationInteractor conv, IFirebaseDBInteractors.IUserInteractor user,
                             IChatbotInteractor chatbot, IFirebaseDBInteractors.IMealplanInteractor mpi,Handler handler)
     {
         super(view);
         api = conv;
+        api.setPresenter(this);
         ui = user;
         ci = chatbot;
         mi = mpi;
         mainHandler = handler;
 
-    }
-
-    @VisibleForTesting
-    public ChatbotPresenter(IChatbotView view, IConversationInteractor api, IChatbotInteractor ci,
-                            IFirebaseDBInteractors.IUserInteractor ui, IFirebaseDBInteractors.IMealplanInteractor mi) {
-        super(view);
-
-        this.api = api;
-        this.ui = ui;
-        this.ci = ci;
-        this.mi = mi;
     }
 
     @Override

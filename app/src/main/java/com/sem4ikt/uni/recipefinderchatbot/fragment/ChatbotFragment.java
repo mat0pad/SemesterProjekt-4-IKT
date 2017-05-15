@@ -2,6 +2,7 @@ package com.sem4ikt.uni.recipefinderchatbot.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,10 @@ import android.widget.ListView;
 
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
+import com.sem4ikt.uni.recipefinderchatbot.database.MealPlansInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.database.UserInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
+import com.sem4ikt.uni.recipefinderchatbot.model.ConversationInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatListAdapterPresenter;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ChatbotPresenter;
@@ -52,7 +57,7 @@ public class ChatbotFragment extends Fragment implements IChatbotView, View.OnCl
         View view = inflater.inflate(R.layout.chatbot, container, false);
 
         // Set presenter
-        chatbotPresenter = new ChatbotPresenter(this);
+        chatbotPresenter = new ChatbotPresenter(this,new ConversationInteractor(),new UserInteractor(),new ChatbotInteractor(),new MealPlansInteractor(),new Handler());
 
         // Text text 2 speech
         chatbotPresenter.doInitText2Speech();

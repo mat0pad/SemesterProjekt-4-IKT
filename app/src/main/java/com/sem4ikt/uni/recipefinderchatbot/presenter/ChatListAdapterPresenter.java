@@ -8,7 +8,7 @@ import com.sem4ikt.uni.recipefinderchatbot.view.IChatListAdapterView;
  * Created by mathiaslykkepedersen on 16/03/2017.
  */
 
-public class ChatListAdapterPresenter extends BasePresenter<IChatListAdapterView> implements IChatListAdapterPresenter<IChatListAdapterView> {
+public class  ChatListAdapterPresenter extends BasePresenter<IChatListAdapterView> implements IChatListAdapterPresenter<IChatListAdapterView> {
 
     public ChatListAdapterPresenter(IChatListAdapterView view) {
         super(view);
