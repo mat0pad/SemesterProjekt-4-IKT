@@ -100,30 +100,33 @@ public class ChatbotPresenterUnitTest {
         verify(view,times(1)).shouldSendButton(false);
     }
 
+    /*
     @Test //TT
     public void SendTestViewHandleAction() throws InterruptedException {
-        /*
+
         signal = new CountDownLatch(1);
 
         String input = "test";
-       final MessageResponse response = new MessageResponse();
-        Map<String,Object> output = new HashMap<>();
-        output.put("action",input);
+        final MessageResponse response = new MessageResponse();
+        Map<String, Object> output = new HashMap<>();
+        output.put("action", input);
         response.setOutput(output);
 
-        when(chatbotInteractor.message("e665abad-a305-4cf4-a21c-045354782015",input)).thenReturn(call);
+        when(call.setChatbotListener(any())).thenReturn()
+       // when(chatbotInteractor.message("e665abad-a305-4cf4-a21c-045354782015", input)).thenReturn()
 
-        //when(call.setChatbotListener(ChatbotInteractor.ChatbotListener);
+         //when(call.setChatbotListener(ChatbotInteractor.ChatbotListener);
         //when(call.setChatbotListener(any())).thenReturn(response);
+
 
         presenter.send(input);
 
         Thread.sleep(3);
        //signal.await();
 
-        verify(convInteractor,times(1)).performAction(anyString(),any(MessageResponse.class));
-*/
-    }
+        //verify(convInteractor,times(1)).performAction(anyString(),any(MessageResponse.class));
+
+    } */
 
     @Test
     public void SendTestViewDisplayNormalMessage() {
@@ -380,6 +383,7 @@ public class ChatbotPresenterUnitTest {
 
         Assert.assertEquals(presenter.getView(), view);
     }
+
 
 
 }
