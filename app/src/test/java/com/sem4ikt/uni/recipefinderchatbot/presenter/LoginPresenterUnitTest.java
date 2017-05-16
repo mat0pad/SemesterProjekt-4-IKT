@@ -1,5 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
+import com.sem4ikt.uni.recipefinderchatbot.activity.LoginActivity;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseAuth;
 import com.sem4ikt.uni.recipefinderchatbot.model.interfaces.ILoginUserModel;
 import com.sem4ikt.uni.recipefinderchatbot.view.ILoginView;
@@ -11,8 +12,13 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.endsWith;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -57,8 +63,19 @@ public class LoginPresenterUnitTest {
     @Test
     public void signInFailedSignIn()
     {
+        when(userModel.checkUserValidity()).thenReturn(false);
         presenter.doLogin("test", "test");
-        verify(model, times(0)).signIn("test", "test", presenter);
+        verify(view,times(1)).onShowToast(anyString());
+    }
+
+    @Test
+    public void dologinCallAuthSignIn()
+    {
+        when(userModel.checkUserValidity()).thenReturn(true);
+        String email = "test";
+        presenter.doLogin(email,email);
+
+        verify(model,times(1)).signIn(email,email,presenter);
     }
 
     @Test
@@ -156,6 +173,61 @@ public class LoginPresenterUnitTest {
         Assert.assertEquals(presenter.getView(), view);
     }
 
+    @Test
+    public void doCreateUserAuthCallCreateUserWithEmailAndPassWord()
+    {
+        when(userModel.checkUserValidity()).thenReturn(true);
+        when(userModel.checkPasswordsMatches()).thenReturn(true);
+        String email = "email";
+        String password = "test";
+        presenter.doCreateUser(email,password,password);
 
+        verify(model,times(1)).createUserWithEmailAndPassword(email,password,presenter);
+    }
+
+    @Test
+    public void doCreateUserAuthCallSetProgressBarVisibility()
+    {
+        when(userModel.checkUserValidity()).thenReturn(true);
+        when(userModel.checkPasswordsMatches()).thenReturn(false);
+        String email = "email";
+        String password = "test";
+        presenter.doCreateUser(email,password,password);
+
+        verify(view,times(1)).onShowToast(anyString());
+    }
+
+    @Test
+    public void showLayoutTest()
+    {
+        presenter.showLayout(LoginActivity.LoginView.LOGIN);
+
+        verify(view,times(1)).onPresentView(LoginActivity.LoginView.LOGIN);
+    }
+
+    @Test
+    public void doBackTestLogin()
+    {
+        presenter.doBack(LoginActivity.LoginView.LOGIN);
+
+        verify(view,times(1)).onFinish();
+    }
+
+    @Test
+    public void doBackTestSIGNUP()
+    {
+        presenter.doBack(LoginActivity.LoginView.SIGN_UP);
+
+        verify(view,times(1)).onPresentView(LoginActivity.LoginView.LOGIN);
+    }
+
+    @Test
+    public void doToastTest()
+    {
+        String text = "text";
+        presenter.doToast(text);
+
+        verify(view,times(1)).onShowToast(text);
+    }
 
 }

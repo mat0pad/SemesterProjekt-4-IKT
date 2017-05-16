@@ -323,7 +323,6 @@ public class ConversationInteractorIntegrationTest {
         signal.await();
 
         Assert.assertTrue(didReceiv);
-
     }
 
     @Test

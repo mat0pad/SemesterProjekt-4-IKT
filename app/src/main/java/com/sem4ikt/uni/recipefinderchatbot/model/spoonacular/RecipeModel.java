@@ -216,7 +216,7 @@ public class RecipeModel implements Serializable {
     }
 
     public void setPricePerServing(double price) {
-        this.pricePerServing = pricePerServing;
+        this.pricePerServing = price;
     }
 
     public Integer getServings() {

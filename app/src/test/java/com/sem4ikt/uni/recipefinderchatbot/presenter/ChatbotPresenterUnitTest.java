@@ -366,5 +366,20 @@ public class ChatbotPresenterUnitTest {
 
     }
 
+    @Test
+    public void clearViewOnDestroy() {
+        presenter.clearView();
+
+        Assert.assertEquals(presenter.getView(), null);
+    }
+
+    @Test
+    public void setView() {
+        presenter.clearView();
+        presenter.setView(view);
+
+        Assert.assertEquals(presenter.getView(), view);
+    }
+
 
 }

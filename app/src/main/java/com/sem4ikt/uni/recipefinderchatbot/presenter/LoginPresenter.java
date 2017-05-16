@@ -17,16 +17,6 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
     private ILoginUserModel user;
     private IFirebaseAuth auth;
 
-    /*public LoginPresenter(ILoginView view){
-        super(view);
-
-        // Create login user model
-        user = new LoginUserModel();
-
-        // Create model
-        auth = new Authentication();
-
-    }*/
 
 
     public LoginPresenter(ILoginView view, IFirebaseAuth auth, ILoginUserModel userModel) {
