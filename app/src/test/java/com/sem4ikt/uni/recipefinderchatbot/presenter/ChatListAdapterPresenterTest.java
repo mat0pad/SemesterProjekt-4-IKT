@@ -16,26 +16,37 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by mathiaslykkepedersen on 04/05/2017.
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.class) //Includes mockito in unittestClass
 public class ChatListAdapterPresenterTest {
-    @Mock
-    IChatListAdapterView view;
 
-    private ChatListAdapterPresenter presenter;
 
+    @Mock  //<-- Mocking with mockito
+    IChatListAdapterView view; //Class that gets mocked
+
+    private ChatListAdapterPresenter presenter; //class we want to unittest
 
     @Before
     public void setup() throws Exception {
-
-        presenter = new ChatListAdapterPresenter(view);
+        presenter = new ChatListAdapterPresenter(view); //Injecting the mocke class
     }
 
-    @Test
+    @Test //Junit unittest annotation
     public void clearViewOnDestroy() {
-        presenter.clearView();
+        presenter.clearView(); //Call method
 
-        Assert.assertEquals(presenter.getView(), null);
+        Assert.assertEquals(presenter.getView(), null); //Assert with Junit
     }
+    @Test
+    public void addMessageTest()
+    {
+        MessageModel m = new MessageModel("",0, MessageModel.TYPE.NORMAL);
+
+        presenter.addMessage(m); //Call Method
+        //Static method verify from Mockijito, check if the mocked view
+        //Received 1 call on the method onAddMessage with parameter m
+        verify(view,times(1)).onAddMessage(m);
+    }
+
 
     @Test
     public void setView() {
@@ -45,14 +56,7 @@ public class ChatListAdapterPresenterTest {
         Assert.assertEquals(presenter.getView(), view);
     }
 
-    @Test
-    public void addMessageTest()
-    {
-        MessageModel m = new MessageModel("",0, MessageModel.TYPE.NORMAL);
 
-        presenter.addMessage(m);
-        verify(view,times(1)).onAddMessage(m);
-    }
 
     @Test
     public void doClickTest()

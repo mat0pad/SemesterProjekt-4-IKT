@@ -21,13 +21,18 @@ public class UserInteractor implements IFirebaseDBInteractors.IUserInteractor {
 
     private DatabaseReference database;
 
+    private static boolean isPersistent = false;
+
     public UserInteractor()
     {
+        if(!isPersistent)
+            FirebaseDatabase.getInstance().setPersistenceEnabled(isPersistent = true); //Enable persitent data
         if(FirebaseAuth.getInstance().getCurrentUser() != null)
             database = FirebaseDatabase.getInstance().getReference("User/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
         else
             database = FirebaseDatabase.getInstance().getReference("Test"); //Cant save data if not logged in
 
+        database.keepSynced(true);
     }
 
     @Override

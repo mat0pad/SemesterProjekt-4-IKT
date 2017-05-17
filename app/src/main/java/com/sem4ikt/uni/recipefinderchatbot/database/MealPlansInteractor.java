@@ -38,7 +38,6 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
     private List<Date> datedaylist;
 
     public MealPlansInteractor() {
-
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             mealplanweekdb = FirebaseDatabase.getInstance().getReference("MealplanWeek/" + uid);
@@ -53,6 +52,9 @@ public class MealPlansInteractor implements IFirebaseDBInteractors.IMealplanInte
         dateweekList = new ArrayList<>();
         datedaylist = new ArrayList<>();
 
+        mealplandaydb.keepSynced(true);
+        datedb.keepSynced(true);
+        mealplanweekdb.keepSynced(true);
 
     }
 

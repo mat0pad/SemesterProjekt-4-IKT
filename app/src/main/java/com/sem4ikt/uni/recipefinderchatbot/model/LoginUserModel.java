@@ -13,7 +13,6 @@ public class LoginUserModel implements ILoginUserModel {
     private String confirmPassword;
 
     public LoginUserModel(){
-
     }
 
     @Override

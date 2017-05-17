@@ -31,6 +31,7 @@ public class RecipeInteractor implements IFirebaseDBInteractors.IRecipeInteracto
         else
             database = FirebaseDatabase.getInstance().getReference("Test"); //Cant save data if not logged in
 
+        database.keepSynced(true);
     }
     @Override
     public void addRecipe(RecipeModel recipe) {

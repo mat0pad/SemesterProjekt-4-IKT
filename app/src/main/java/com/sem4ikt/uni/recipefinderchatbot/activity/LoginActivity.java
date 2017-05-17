@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.FirebaseDatabase;
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
 import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
@@ -96,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
         if (isSuccessful) {
             // Show menu
             Intent intent = new Intent(this, MainActivity.class);
-            //Intent intent = new Intent(this, DetailRecipeActivity.class);
+
             startActivity(intent);
 
             // Kill this activity

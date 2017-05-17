@@ -70,7 +70,6 @@ public class FavoritesFragment extends Fragment implements IFavoritesView {
         gridPresenter = new FavoritesGridAdapterPresenter(adapter,new SearchModel());
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
             @Override
             public boolean onQueryTextSubmit(String query) {
 
