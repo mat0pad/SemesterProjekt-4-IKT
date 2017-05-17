@@ -338,9 +338,6 @@ public class DetailRecipePresenterUnitTest {
     @Test
     public void doSetRecipeIconTypeCallView()
     {
-        int value = 10;
-        String PricInDollar = ",10";
-
         RecipeModel recipe = new RecipeModel();
         recipe.setVeryPopular(false);
         recipe.setPricePerServing(10);
@@ -349,7 +346,7 @@ public class DetailRecipePresenterUnitTest {
 
         presenter.doSetRecipeIconType(recipe);
 
-        verify(view,times(1)).showRecipePriceOrPopular("$"+PricInDollar+ " per serving",true,true);
+        verify(view,times(1)).showRecipePriceOrPopular(anyString(),anyBoolean(),anyBoolean());
     }
 
     @Test
