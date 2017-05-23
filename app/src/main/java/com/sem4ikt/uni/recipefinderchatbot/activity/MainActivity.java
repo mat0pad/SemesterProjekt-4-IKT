@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
             default:
                 break;
         }
-
     }
 
     @Override
@@ -99,25 +98,23 @@ public class MainActivity extends AppCompatActivity implements IMainView , View.
         {
             case CHATBOT:
                 transaction.replace(R.id.frame_container, new ChatbotFragment());
-
                 break;
+
             case SETTINGS:
                 transaction.replace(R.id.frame_container, new SettingsFragment());
-
                 break;
+
             case MEAL_PLAN:
                 transaction.replace(R.id.frame_container, new MealPlanFragment());
-
                 break;
+
             case FAVORITES:
                 transaction.replace(R.id.frame_container, new FavoritesFragment());
-
                 break;
         }
 
         // Commit transaction & not add to back stack
         transaction.addToBackStack(null).commit();
-
     }
 
     @Override

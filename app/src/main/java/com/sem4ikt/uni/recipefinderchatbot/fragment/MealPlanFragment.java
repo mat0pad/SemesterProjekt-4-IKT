@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,16 +34,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/* Created by kasper */
+
 public class MealPlanFragment extends Fragment implements IMealPlanView, View.OnClickListener {
 
     ScrollView day;
     TextView noplan;
-    private CompactCalendarView compactCalenderView;
     IMealPlanPresenter presenter;
-
     List<Event> prikkerDay;
     List<Event> prikkerWeek;
-
+    private CompactCalendarView compactCalenderView;
     private SimpleDateFormat dateFormatForMonth;
     private Date selectedDate;
 

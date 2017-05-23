@@ -1,7 +1,6 @@
 package com.sem4ikt.uni.recipefinderchatbot.database;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -60,7 +59,6 @@ public class Authentication implements IFirebaseAuth {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
-                            Log.e("Test",task.getResult().toString());
                             if (task.getResult().getUser().isEmailVerified())
                                 callback.onAuthenticationFinished(SIGN_IN_SUCCESS, "Sign in successful!");
 
@@ -68,7 +66,6 @@ public class Authentication implements IFirebaseAuth {
                                 callback.onAuthenticationFinished(SIGN_IN_FAILED, "Email not verified!");
                         }
                         else{
-                            Log.e("Failure","failed");
                             callback.onAuthenticationFinished(SIGN_IN_FAILED, "User does not exist yet!");
                         }
 

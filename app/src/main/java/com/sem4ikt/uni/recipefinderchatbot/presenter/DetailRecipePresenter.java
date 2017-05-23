@@ -120,7 +120,6 @@ public class DetailRecipePresenter extends BasePresenter<IDetailRecipeView> impl
                 break;
 
         }
-
     }
 
     private void parseInstructions(List<InstructionsModel> instructions) {

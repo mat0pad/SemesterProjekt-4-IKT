@@ -11,7 +11,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.FirebaseDatabase;
 import com.sem4ikt.uni.recipefinderchatbot.R;
 import com.sem4ikt.uni.recipefinderchatbot.database.Authentication;
 import com.sem4ikt.uni.recipefinderchatbot.model.LoginUserModel;
@@ -137,8 +136,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
                 state = LoginView.LOGIN;
                 passwordField = (EditText) findViewById(R.id.login_password);
                 emailField = (EditText) findViewById(R.id.login_email);
-
                 break;
+
             case SIGN_UP:
                 state = LoginView.SIGN_UP;
                 passwordField = (EditText) findViewById(R.id.password_signup);
@@ -159,7 +158,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView, View
                 confirmPassField = null;
                 break;
         }
-
 
         LinearLayout linearLayout1 = (LinearLayout) findViewById(R.id.email_login_form);
         LinearLayout linearLayout2 = (LinearLayout) findViewById(R.id.email_signup_form);

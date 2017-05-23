@@ -2,7 +2,6 @@ package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.VisibleForTesting;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
@@ -11,10 +10,7 @@ import com.sem4ikt.uni.recipefinderchatbot.adapter.ChatListAdapter;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackMealPlanAdd;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackUser;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
-import com.sem4ikt.uni.recipefinderchatbot.database.MealPlansInteractor;
-import com.sem4ikt.uni.recipefinderchatbot.database.UserInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.ChatbotInteractor;
-import com.sem4ikt.uni.recipefinderchatbot.model.ConversationInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.MessageModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.MoreRecipeMessageModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.SingleRecipeMessageModel;
@@ -71,7 +67,7 @@ public class ChatbotPresenter extends BasePresenter<IChatbotView> implements ICh
     @Override
     public void switchWorkspace(int spaceId, String lastInput) {
 
-        // 0 = Generel, 1 = rR
+        // 0 = Generel, 1 = Recipe
         doMessage((spaceId == 0 ? "e665abad-a305-4cf4-a21c-045354782015" : "49630f5e-f2b9-453a-be68-927f17cf64bc"), lastInput);
 
     }

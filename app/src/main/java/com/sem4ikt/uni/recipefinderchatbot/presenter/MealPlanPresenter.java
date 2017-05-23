@@ -1,18 +1,10 @@
 package com.sem4ikt.uni.recipefinderchatbot.presenter;
 
-import android.support.annotation.VisibleForTesting;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.ScrollView;
-import android.widget.TextView;
-
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackDayMealplan;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.ICallbackWeekMealplan;
 import com.sem4ikt.uni.recipefinderchatbot.database.Interface.IFirebaseDBInteractors;
-import com.sem4ikt.uni.recipefinderchatbot.database.MealPlansInteractor;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanDayModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.MealPlanWeekModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IMealPlanPresenter;
@@ -25,7 +17,7 @@ import java.util.List;
 import java.util.Locale;
 
 /*
-  Created by mathiaslykkepedersen on 27/03/2017.
+  Created by kasper on 27/04/2017.
  */
 
 public class MealPlanPresenter extends BasePresenter<IMealPlanView> implements IMealPlanPresenter<IMealPlanView>,ICallbackDayMealplan,ICallbackWeekMealplan {

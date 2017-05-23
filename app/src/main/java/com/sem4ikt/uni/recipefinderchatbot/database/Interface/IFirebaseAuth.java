@@ -10,11 +10,8 @@ public interface IFirebaseAuth {
 
     void createUserWithEmailAndPassword(String email, String password, ILoginCallback callable);
     void signIn(String email, String password, ILoginCallback callable);
-
     void sendResetEmailVerification(String email, ILoginCallback callable);
-
     void updatePassword(String newPassword, final ILoginCallback callback);
-
     void deleteAccount(final ILoginCallback callback);
 
 }

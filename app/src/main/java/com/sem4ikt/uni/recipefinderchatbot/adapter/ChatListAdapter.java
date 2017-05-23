@@ -82,6 +82,7 @@ public class ChatListAdapter extends BaseAdapter implements IChatListAdapterView
                 bundle.putInt("id", ((SingleRecipeMessageModel) model).id); // pass id to detail
 
                 mContext.startActivity(new Intent(mContext, DetailRecipeActivity.class).putExtras(bundle));
+
             } else {
 
                 Intent intent = new Intent(mContext, ListDataModelActivity.class);
