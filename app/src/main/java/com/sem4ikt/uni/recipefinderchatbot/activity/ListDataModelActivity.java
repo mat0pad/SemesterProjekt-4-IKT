@@ -17,6 +17,7 @@ import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.IngredientsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.NutrientsModel;
 import com.sem4ikt.uni.recipefinderchatbot.model.spoonacular.RecipesModel;
 import com.sem4ikt.uni.recipefinderchatbot.presenter.ListAdapterPresenter;
+import com.sem4ikt.uni.recipefinderchatbot.presenter.interfaces.IListRecipePresenter;
 
 import java.util.Objects;
 
@@ -27,7 +28,7 @@ import java.util.Objects;
 public class ListDataModelActivity extends AppCompatActivity /*implements ILIstRecipeView opdater override af metode hvis bruges*/ {
     ListView listView;
 
-    private ListAdapterPresenter presenter;
+    private IListRecipePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
